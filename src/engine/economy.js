@@ -195,11 +195,11 @@ export function dailyEconomy(game) {
   for (const n of def.npcs) {
     if (!n.shop || !game.char(n.id)?.alive) continue;
     const home = homeSettlement(game, n.id);
-    const wants = new Set([...(n.shop.sells || []).filter((t) => game.itemType(t)?.commodity), ...((n.shop.buys || []).filter((t) => t !== '*' && game.itemType(t)?.commodity && (n.id === 'npc_isa')))]);
+    const wants = new Set([...(n.shop.sells || []).filter((t) => game.itemType(t)?.commodity), ...((n.shop.buys || []).filter((t) => t !== '*' && game.itemType(t)?.commodity && n.shop.restock_buys))]);
     for (const typeId of wants) {
       if ((n.production || []).some((p) => p.type === typeId)) continue;
       const level = inv.countHeld(db, 'character', n.id, typeId);
-      const want = n.id === 'npc_isa' ? 16 : 6;
+      const want = n.shop.restock_buys ? 16 : 6;
       if (level >= want / 2) continue;
       // find a supplier elsewhere with surplus
       const suppliers = def.npcs.filter((o) => o.id !== n.id && o.shop && homeSettlement(game, o.id) !== home && (o.shop.sells || []).includes(typeId) && inv.countHeld(db, 'character', o.id, typeId) > 8 && game.char(o.id)?.alive);
@@ -224,9 +224,10 @@ export function dailyEconomy(game) {
     // savings beyond a month of income leave the local market (crown taxes, distant trade)
     const excess = game.balance(acct) - income * 30;
     if (excess > 0) ledger.burn(ctx, { from: acct, amount: excess, memo: `${s.name}'s surplus savings leave the local economy` });
-    if (s.id === 'brindlemarch') {
-      const tax = Math.round(income * 0.05);
-      if (tax > 0) game.pay(acct, 'fac_council', tax, 'Market tax', 'tax');
+    const gov = game.government(s.id);
+    if (gov) {
+      const tax = Math.round(income * (s.tax_rate ?? 0.05));
+      if (tax > 0) game.pay(acct, gov, tax, 'Market tax', 'tax');
     }
     const shortages = [];
     for (const m of db.prepare('SELECT * FROM markets WHERE settlement=?').all(s.id)) {

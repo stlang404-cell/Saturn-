@@ -37,7 +37,7 @@ export function populateWorld(game, playerSpec) {
   ledger.ensureSystemAccounts(db);
 
   for (const l of def.locations) {
-    const data = { ...(l.data || {}) };
+    const data = { ...(l.data || {}), ...(l.aliases ? { aliases: l.aliases } : {}) };
     if (l.hidden) data.hidden = true;
     db.prepare('INSERT INTO locations(id,name,settlement,region,kind,description,tags,art,x,y,data) VALUES (?,?,?,?,?,?,?,?,?,?,?)')
       .run(l.id, l.name, l.settlement, l.region || l.settlement, l.kind, l.description, J.str(l.tags || []), l.art || null, l.x, l.y, J.str(data));
@@ -49,14 +49,13 @@ export function populateWorld(game, playerSpec) {
   }
   for (const t of def.item_types) {
     db.prepare('INSERT INTO item_types(id,name,category,base_value,weight,stackable,commodity,slot,tags,description,data) VALUES (?,?,?,?,?,?,?,?,?,?,?)')
-      .run(t.id, t.name, t.category, t.base_value, t.weight ?? 1, t.stackable === false ? 0 : 1, t.commodity ? 1 : 0, t.slot || null, J.str(t.tags || []), t.description || '', J.str(t.data || {}));
+      .run(t.id, t.name, t.category, t.base_value, t.weight ?? 1, t.stackable === false ? 0 : 1, t.commodity ? 1 : 0, t.slot || null, J.str(t.tags || []), t.description || '', J.str({ ...(t.data || {}), ...(t.aliases ? { aliases: t.aliases } : {}) }));
   }
   for (const f of def.factions) {
     db.prepare('INSERT INTO factions(id,name,description) VALUES (?,?,?)').run(f.id, f.name, f.description);
     ledger.ensureAccount(db, f.id, { owner: f.id, kind: 'faction', name: `${f.name} treasury` });
   }
-  ledger.mint(ctx, { to: 'fac_council', amount: 150, memo: 'Town treasury at world creation' });
-  ledger.mint(ctx, { to: 'fac_guild', amount: 300, memo: 'Guild reserves at world creation' });
+  for (const f of def.factions) if (f.treasury > 0) ledger.mint(ctx, { to: f.id, amount: Math.round(f.treasury), memo: `${f.name} treasury at world creation` });
 
   for (const s of def.settlements) {
     const acct = `pop_${s.id}`;
@@ -98,7 +97,7 @@ export function populateWorld(game, playerSpec) {
   // common knowledge spreads to everyone in a settlement
   const common = def.facts.filter((f) => f.secrecy === 0 && f.truth === 1);
   for (const n of def.npcs) {
-    if (!n.location.startsWith('bm_')) continue; // only Brindlemarch folk share Brindlemarch common knowledge
+    if (!def.locations.find((l) => l.id === n.location)?.settlement) continue; // common knowledge lives in settlements
     for (const f of common) {
       if (!db.prepare('SELECT 1 FROM knowledge WHERE holder_id=? AND fact_id=?').get(n.id, f.id)) {
         learn(db, n.id, f.id, { belief: 'known', confidence: 0.9, source: 'common knowledge', time: game.time });
@@ -122,7 +121,7 @@ export function createPlayer(game, spec) {
   const { db, def } = game;
   const ctx = game.ctx;
   const { name, bg, attrs } = validatePlayerSpec(def, spec);
-  const start = 'bm_inn';
+  const start = def.start?.location || def.locations.find((l) => (l.tags || []).includes('lodging'))?.id || def.locations[0].id;
   db.prepare(`INSERT INTO characters(id,kind,name,role,tier,location_id,attributes,traits,goals,schedule,persona,data,last_meal,fatigue)
     VALUES ('player','player',?,?,0,?,?,'[]','[]','{}','',?,?,10)`).run(name, bg.name, start, J.str(attrs), J.str({ background: bg.id, visited: [start], pronouns: spec.pronouns || 'they' }), game.time);
   ledger.ensureAccount(db, 'player', { owner: 'player', kind: 'character', name });
@@ -130,15 +129,19 @@ export function createPlayer(game, spec) {
   for (const [typeId, qty] of Object.entries(bg.items || {})) inv.createItems(ctx, { typeId, qty, holderKind: 'character', holderId: 'player', ownerId: 'player', reason: 'init', memo: 'starting possessions' });
   for (const it of inv.listHeld(db, 'character', 'player')) if (it.slot && it.slot === 'clothes') db.prepare('UPDATE items SET equipped=? WHERE id=?').run(it.slot, it.id);
   for (const [skill, rank] of Object.entries(bg.skills || {})) db.prepare('INSERT INTO skills(character_id,skill,xp,rank) VALUES (?,?,?,?)').run('player', skill, xpForRank(rank), rank);
-  for (const f of ['f_mayor', 'f_bread_prices']) if (db.prepare('SELECT 1 FROM facts WHERE id=?').get(f)) learn(db, 'player', f, { belief: 'known', confidence: 0.9, source: 'common knowledge', time: game.time });
+  for (const f of def.start?.known_facts || []) if (db.prepare('SELECT 1 FROM facts WHERE id=?').get(f)) learn(db, 'player', f, { belief: 'known', confidence: 0.9, source: 'common knowledge', time: game.time });
   if (bg.debt) {
     const d = bg.debt;
     db.prepare(`INSERT INTO contracts(kind,party_a,party_b,title,terms,status,created_at,due_at,data) VALUES ('loan',?,?,?,?,'active',?,?,?)`)
       .run(d.lender, 'player', 'Family debt to the Guild of Weights', J.str({ principal: d.amount, rate: 0, owed: d.amount }), game.time, game.time + d.days * MINUTES_PER_DAY, J.str({ repaid: 0 }));
     game.journal('note', 'An old debt', `Your family owes the Guild of Weights ${d.amount} marks, due within ${d.days} days. Aurel Vance at the Guildhall holds the note.`, 'bg_debt');
   }
-  addMemory(db, { ownerId: 'player', time: game.time, summary: `Arrived in Brindlemarch with ${bg.money} marks, a ${bg.name.toLowerCase()} looking for a new start.`, importance: 6, topic: 'arrival brindlemarch', source: 'experienced', pinned: true });
+  addMemory(db, { ownerId: 'player', time: game.time, summary: `Arrived in ${def.locations.find((l) => l.id === start).name} with ${game.money(bg.money)}, a ${bg.name.toLowerCase()} looking for a new start.`, importance: 6, topic: 'arrival brindlemarch', source: 'experienced', pinned: true });
   game.journal('note', 'A new start', def.intro.split('\n')[0], 'intro');
-  game.journal('opportunity', 'Find work', 'Odile Varne (Guildhall), Piet Lunder (docks), Brannoc Hale (forge), Mirela Tosk (the Lantern) and Wenna Cobb (the fields) all hire help. Ask them for work.', 'find_work');
-  game.journal('opportunity', 'Why is bread so dear?', 'Bread and flour prices have climbed for weeks. Someone in Brindlemarch must know why.', 'bread_mystery');
+  if (def.start?.journal?.length) {
+    for (const j of def.start.journal) game.journal(j.kind || 'opportunity', j.title, j.body, j.ref || null);
+  } else {
+    const employers = def.npcs.filter((n) => n.job).slice(0, 6);
+    if (employers.length) game.journal('opportunity', 'Find work', `${employers.map((n) => `${n.name} (${def.locations.find((l) => l.id === n.job.location)?.name || n.location})`).join(', ')} hire help. Ask them for work.`, 'find_work');
+  }
 }

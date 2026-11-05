@@ -3,7 +3,7 @@ import Database from 'better-sqlite3';
 import fs from 'node:fs';
 import path from 'node:path';
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 const MIGRATIONS = {
   1: `
@@ -178,6 +178,22 @@ const MIGRATIONS = {
   CREATE TABLE journal (
     id INTEGER PRIMARY KEY, time INTEGER NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('note','opportunity','consequence','plan','discovery')),
     title TEXT NOT NULL, body TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'open', ref TEXT, UNIQUE(kind, ref)
+  );
+  `,
+  // v2 — World Forge: world-defined and emergent rules with full revision history, and who can use them.
+  2: `
+  CREATE TABLE world_rules (
+    id TEXT PRIMARY KEY, name TEXT NOT NULL, kind TEXT NOT NULL, version INTEGER NOT NULL DEFAULT 1,
+    status TEXT NOT NULL CHECK(status IN ('active','retired')), origin TEXT NOT NULL CHECK(origin IN ('world','player','npc')),
+    created_by TEXT, created_at INTEGER NOT NULL, cause_event_id INTEGER, spec TEXT NOT NULL
+  );
+  CREATE TABLE world_rule_revisions (
+    id INTEGER PRIMARY KEY, rule_id TEXT NOT NULL REFERENCES world_rules(id), version INTEGER NOT NULL, time INTEGER NOT NULL,
+    cause_event_id INTEGER, reason TEXT NOT NULL, spec TEXT NOT NULL
+  );
+  CREATE TABLE capabilities (
+    holder_id TEXT NOT NULL, rule_id TEXT NOT NULL REFERENCES world_rules(id), acquired_at INTEGER NOT NULL, source TEXT NOT NULL,
+    PRIMARY KEY(holder_id, rule_id)
   );
   `,
 };

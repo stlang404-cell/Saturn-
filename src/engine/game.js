@@ -58,6 +58,21 @@ export class Game {
   money(n) {
     return this.rules.money(n);
   }
+  /** The governing faction of a settlement (fines and taxes go there), if the world defines one. */
+  government(settlementId) {
+    const g = (this.def.settlements || []).find((s) => s.id === settlementId)?.government;
+    return g && this.db.prepare('SELECT 1 FROM accounts WHERE id=?').get(g) ? g : null;
+  }
+  /** Characters who keep order in a settlement (npc spec flag "guard"). */
+  guardsOf(settlementId) {
+    return (this.def.npcs || []).filter((n) => n.guard && this.char(n.id)?.alive && !this.char(n.id).data.jailed && this.settlementOf(n.location) === settlementId).map((n) => n.id);
+  }
+  /** Pay a fine to the local authority, or to the void when there is none. */
+  fine(payer, amount, memo) {
+    if (amount <= 0) return;
+    const gov = this.government(this.settlementOf(this.char(payer).location_id));
+    if (gov) this.pay(payer, gov, amount, memo, 'fine'); else this.burn(payer, amount, memo);
+  }
 
   // ---------- lifecycle ----------
   static create(file, { worldId = 'saltwind', seed = null, player = {} } = {}) {

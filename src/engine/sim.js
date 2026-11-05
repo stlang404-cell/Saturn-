@@ -8,6 +8,7 @@ import { addMemory, consolidateMemories } from './memory.js';
 import { belief } from './knowledge.js';
 import { disposition } from './relationships.js';
 import { businessDaily } from './business.js';
+import { runAgendas, runReaction, getFlags, decision } from './agendas.js';
 
 export const sim = {
   hourly(game) {
@@ -33,10 +34,6 @@ export function attach(game) {
   game.attachSim(sim);
   game._npcLearned = (holderId, factId, record) => factReaction(game, holderId, factId, record);
   return game;
-}
-
-function decision(game, npcId, text, reasons, outcome = null) {
-  game.db.prepare('INSERT INTO npc_decisions(time,npc_id,decision,reasons,outcome) VALUES (?,?,?,?,?)').run(game.time, npcId, text, J.str(reasons), outcome);
 }
 
 // ---------------------------------------------------------------- schedules
@@ -72,9 +69,9 @@ export function approachPlayer(game) {
     data.approached = true;
     game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), req.id);
     const terms = J.parse(req.terms, {});
-    game.journal('opportunity', req.title, `${terms.text} Reward: ${terms.reward} marks. (Say you accept it while ${npc.name} is present.)`, `req:${req.id}`);
+    game.journal('opportunity', req.title, `${terms.text} Reward: ${game.money(terms.reward)}. (Say you accept it while ${npc.name} is present.)`, `req:${req.id}`);
     game.recordEvent({ kind: 'approach', actor: npc.id, target: p.id, summary: `${npc.name} approached ${p.name} with a request: ${terms.text}`, visibility: 'private', importance: 4, data: { request: req.id } });
-    game.digest.push({ time: game.time, kind: 'approach', summary: `${npc.name} approaches you: "${terms.text.replace(/^.*?\b(needs|wants|will pay well for)\b/, 'I need')}" (reward ${terms.reward} marks)`, importance: 5 });
+    game.digest.push({ time: game.time, kind: 'approach', summary: `${npc.name} approaches you: "${terms.text.replace(/^.*?\b(needs|wants|will pay well for)\b/, 'I need')}" (reward ${game.money(terms.reward)})`, importance: 5 });
     decision(game, npc.id, 'approach the newcomer with a request', [`needs: ${req.title}`, 'the newcomer is here'], 'offer made');
     return;
   }
@@ -134,158 +131,14 @@ export function gossip(game) {
   }
 }
 
-// ---------------------------------------------------------------- fact reactions
+// ---------------------------------------------------------------- fact reactions & agendas (generic, data-driven)
 export function factReaction(game, holderId, factId, record) {
-  const f = game.db.prepare('SELECT * FROM facts WHERE id=?').get(factId);
-  if (!f) return;
-  const reaction = J.parse(f.data, {}).reactions?.[holderId];
-  if (!reaction || record.confidence < 0.7) return;
-  const flags = game.db.prepare("SELECT value FROM meta WHERE key='world_flags'").get();
-  const wf = flags ? JSON.parse(flags.value) : {};
-  if (wf[reaction]) return;
-  if (reaction === 'expose_hoard') exposeHoard(game, holderId, record);
-  if (reaction === 'arrest_jory') arrestJory(game, holderId, record);
+  runReaction(game, holderId, factId, record);
 }
+export { getFlags };
 
-function setFlag(game, key, value = true) {
-  const r = game.db.prepare("SELECT value FROM meta WHERE key='world_flags'").get();
-  const wf = r ? JSON.parse(r.value) : {};
-  wf[key] = value;
-  game.db.prepare("INSERT INTO meta(key,value) VALUES('world_flags',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(JSON.stringify(wf));
-}
-export function getFlags(game) {
-  const r = game.db.prepare("SELECT value FROM meta WHERE key='world_flags'").get();
-  return r ? JSON.parse(r.value) : {};
-}
-
-function exposeHoard(game, heddaId, record) {
-  setFlag(game, 'expose_hoard', game.day);
-  const store = 'bm_mill_granary';
-  const moved = [];
-  for (const it of game.db.prepare("SELECT type_id, SUM(quantity) q FROM items WHERE holder_kind='hidden' AND holder_id=? GROUP BY type_id").all(store)) {
-    inv.moveItems(game.ctx, { typeId: it.type_id, qty: it.q, from: { kind: 'hidden', id: store }, to: { kind: 'character', id: 'npc_tamsin' }, newOwner: 'npc_tamsin', memo: 'seized hoard released to the market' });
-    moved.push(`${it.q} ${it.type_id}`);
-  }
-  const informant = record.source_id;
-  const ev = game.recordEvent({
-    kind: 'scandal', actor: heddaId, target: 'npc_corvin', location: 'bm_mill',
-    summary: `Captain Hedda Strom broke the chains on the mill's lower granary and found the mayor's hoard (${moved.join(', ')}). The grain is ordered back to market.`,
-    visibility: 'public', importance: 9, data: { informant, moved },
-  });
-  // the truth becomes common knowledge in Brindlemarch
-  for (const n of game.db.prepare("SELECT id FROM characters WHERE alive=1").all()) {
-    if (homeSettlement(game, n.id) === 'brindlemarch' || n.id === 'player') game.learnFact(n.id, 'f_grain_hoard', { belief: 'known', confidence: 1, source: 'public scandal' });
-  }
-  for (const n of game.def.npcs) {
-    if (n.id === 'npc_corvin' || homeSettlement(game, n.id) !== 'brindlemarch') continue;
-    game.adjustRel(n.id, 'npc_corvin', { trust: -40, respect: -30 }, 'the granary scandal', ev.eventId);
-  }
-  if (informant === 'player') {
-    game.adjustRel('npc_corvin', 'player', { trust: -60, affection: -50, rivalry: 60 }, 'exposed his hoard', ev.eventId);
-    game.adjustRel('npc_hedda', 'player', { trust: 25, respect: 25 }, 'brought her proof of the hoard', ev.eventId);
-    for (const n of ['npc_wenna', 'npc_mirela', 'npc_aldous', 'npc_piet']) game.adjustRel(n, 'player', { respect: 15, affection: 10 }, 'helped expose the mayor', ev.eventId);
-    game.db.prepare("UPDATE events SET data=? WHERE id=?").run(J.str({ informant, moved, hearsay: { respect: 15, trust: 10 } }), ev.eventId);
-  }
-  game.adjustRel('npc_tamsin', 'npc_corvin', { fear: -30, trust: -20 }, 'the scandal', ev.eventId);
-  decision(game, heddaId, 'raid the mill granary', ['learned of the hoard', `confidence ${record.confidence.toFixed(2)}`, 'distrusts the mayor'], `released ${moved.join(', ')}`);
-  game.closeJournal('opportunity', 'bread_mystery', 'done');
-  game.journal('consequence', 'The granary scandal', `Captain Strom has seized the mayor's hidden grain. Bread prices should ease as it returns to market.`, 'scandal');
-}
-
-function arrestJory(game, heddaId, record) {
-  setFlag(game, 'arrest_jory', game.day);
-  game.setCharData('npc_jory', { jailed: true });
-  game.updateChar('npc_jory', { location_id: 'bm_hall' });
-  const informant = record.source_id;
-  const ev = game.recordEvent({ kind: 'arrest', actor: heddaId, target: 'npc_jory', location: 'bm_narrows', summary: 'The watch arrested Jory Pell in the Narrows for receiving stolen goods.', visibility: 'public', importance: 8, data: { informant } });
-  decision(game, heddaId, 'arrest Jory Pell', ['learned he fences stolen goods', `confidence ${record.confidence.toFixed(2)}`], 'Jory jailed');
-  if (informant === 'player') {
-    game.adjustRel('npc_jory', 'player', { trust: -60, affection: -40, rivalry: 50 }, 'informed on him', ev.eventId);
-    game.adjustRel('npc_hedda', 'player', { trust: 20, respect: 15 }, 'gave her the fence', ev.eventId);
-    game.db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MAX(-100, value-40)').run('fac_narrows', 'player', -40);
-  }
-}
-
-// ---------------------------------------------------------------- NPC agendas
 function npcAgendas(game) {
-  const flags = getFlags(game);
-  const cal = game.calendar();
-  // Mayor's hoard: quietly buys grain and flour from the mill into the chained granary
-  const corvin = game.char('npc_corvin');
-  if (corvin?.alive && !flags.expose_hoard) {
-    const def = game.npcDef('npc_corvin').hoard;
-    const hoarded = game.db.prepare("SELECT COALESCE(SUM(quantity),0) q FROM items WHERE holder_kind='hidden' AND holder_id=?").get(def.store).q;
-    if (hoarded < 160 && cal.month < 7) {
-      for (const t of def.types) {
-        const have = inv.countHeld(game.db, 'character', def.partner, t);
-        const q = Math.min(def.per_day, Math.max(0, have - 2));
-        const price = marketPrice(game, 'brindlemarch', t);
-        if (q > 0 && game.balance('npc_corvin') >= q * price) {
-          game.pay('npc_corvin', def.partner, q * price, `Mayor buys ${t} for the granary`, 'trade');
-          inv.moveItems(game.ctx, { typeId: t, qty: q, from: { kind: 'character', id: def.partner }, to: { kind: 'hidden', id: def.store }, newOwner: 'npc_corvin', memo: 'into the chained granary' });
-          decision(game, 'npc_corvin', `hoard ${q} ${t}`, [`granary holds ${hoarded}`, `${t} price ${price}`, 'winter is coming; scarcity will pay'], 'stored secretly');
-        }
-      }
-    } else if (cal.month >= 7 && hoarded > 0 && !flags.hoard_sold) {
-      // after harvest the mayor sells the hoard at the high prices he engineered
-      setFlag(game, 'hoard_sold', game.day);
-      for (const it of game.db.prepare("SELECT type_id, SUM(quantity) q FROM items WHERE holder_kind='hidden' AND holder_id=? GROUP BY type_id").all(def.store)) {
-        inv.moveItems(game.ctx, { typeId: it.type_id, qty: it.q, from: { kind: 'hidden', id: def.store }, to: { kind: 'character', id: def.partner }, memo: 'hoard released for sale' });
-      }
-      decision(game, 'npc_corvin', 'sell the hoard', ['harvest season', 'prices at their peak'], 'grain released through the mill');
-    }
-  }
-  // Sabine undercuts Odile
-  const sabineDef = game.npcDef('npc_sabine');
-  const sab = game.char('npc_sabine');
-  if (sab?.alive && !sab.data.gave_up) {
-    const markup = sab.data.markup ?? sabineDef.shop.markup;
-    const odileBal = game.balance('npc_odile');
-    if (odileBal > 40 && markup > 0.03) {
-      const nm = Math.round((markup - 0.01) * 100) / 100;
-      game.setCharData('npc_sabine', { markup: nm });
-      if (game.day % 5 === 0) decision(game, 'npc_sabine', 'cut prices', [`Odile still has ${odileBal} marks`, 'ruin_odile goal'], `markup now ${nm}`);
-    }
-  }
-  // Odile's debt: she must repay the Guild by Harvestide (month 7)
-  const od = game.char('npc_odile');
-  if (od?.alive && !od.data.debt_resolved) {
-    const owed = od.data.debt ?? game.npcDef('npc_odile').debt ?? 150;
-    const bal = game.balance('npc_odile');
-    // small instalments from trade; a windfall (investment, a profitable venture) lets her pay a lump sum
-    const instalment = bal > 300 ? bal - 150 : bal > 60 ? 3 : 0;
-    if (owed > 0 && instalment > 0) {
-      const pay = Math.min(owed, instalment);
-      if (pay > 0) {
-        game.pay('npc_odile', 'fac_guild', pay, 'Odile repays her guild debt', 'loan_repayment');
-        game.setCharData('npc_odile', { debt: owed - pay, debt_resolved: owed - pay <= 0 });
-        decision(game, 'npc_odile', `repay ${pay} of her debt`, [`owed ${owed}`, 'surplus funds'], `owes ${owed - pay}`);
-      }
-    } else if (owed > 0 && cal.month >= 7 && !od.data.bankrupt) {
-      game.setCharData('npc_odile', { bankrupt: true });
-      const seized = [];
-      for (const it of game.held('npc_odile')) {
-        if (!it.type_data || it.equipped) continue;
-        inv.moveItems(game.ctx, { typeId: it.type_id, qty: it.quantity, from: { kind: 'character', id: 'npc_odile' }, to: { kind: 'character', id: 'npc_aurel' }, newOwner: 'npc_aurel', itemId: it.id, memo: 'seized by the Guild for debt' });
-        seized.push(it.type_id);
-      }
-      game.recordEvent({ kind: 'bankruptcy', actor: 'npc_aurel', target: 'npc_odile', location: 'bm_guild', summary: 'The Guild of Weights seized Odile Varne\'s stock for her unpaid debt.', visibility: 'public', importance: 8 });
-      decision(game, 'npc_aurel', "seize Odile's stock", [`she owes ${owed}`, 'deadline passed'], seized.join(', '));
-      game.setCharData('npc_sabine', { gave_up: true });
-    }
-  }
-  // Jory's crew picks pockets; the watch grows suspicious
-  const jory = game.char('npc_jory');
-  if (jory?.alive && !jory.data.jailed && game.rng.chance(game.npcDef('npc_jory').thief.chance)) {
-    const take = game.rng.int(3, 9);
-    if (game.balance('pop_brindlemarch') > take) {
-      game.pay('pop_brindlemarch', 'npc_jory', take, 'Purses lifted in the market', 'theft');
-      decision(game, 'npc_jory', 'work the market crowds', ['profit goal', 'watch not watching'], `took ${take}`);
-      const hb = belief(game.db, 'npc_hedda', 'f_jory_fence');
-      if (game.rng.chance(0.15)) game.learnFact('npc_hedda', 'f_jory_fence', { belief: 'suspected', confidence: 0.12, source: 'investigation', sourceId: 'npc_hedda' });
-      void hb;
-    }
-  }
+  runAgendas(game);
 }
 
 // ---------------------------------------------------------------- contracts
@@ -296,10 +149,11 @@ function contractsDaily(game) {
     if (c.kind === 'loan' && c.status === 'active') {
       db.prepare("UPDATE contracts SET status='defaulted' WHERE id=?").run(c.id);
       const lender = game.char(c.party_a);
-      const ev = game.recordEvent({ kind: 'default', actor: c.party_b, target: c.party_a, location: lender?.location_id, summary: `${game.char(c.party_b).name} defaulted on a loan of ${terms.owed} marks owed to ${lender?.name}.`, visibility: 'private', importance: 7, data: { hearsay: { trust: -20 } } });
+      const ev = game.recordEvent({ kind: 'default', actor: c.party_b, target: c.party_a, location: lender?.location_id, summary: `${game.char(c.party_b).name} defaulted on a loan of ${game.money(terms.owed)} owed to ${lender?.name}.`, visibility: 'private', importance: 7, data: { hearsay: { trust: -20 } } });
       game.adjustRel(c.party_a, c.party_b, { trust: -45, respect: -25 }, 'defaulted on a loan', ev.eventId);
-      db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MAX(-100, value-30)').run('fac_guild', c.party_b, -30);
-      game.journal('consequence', 'Loan in default', `You failed to repay ${lender?.name}. The Guild of Weights will remember.`, `default:${c.id}`);
+      const fac = db.prepare('SELECT faction_id FROM faction_members WHERE character_id=?').get(c.party_a)?.faction_id;
+      if (fac) db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MAX(-100, value-30)').run(fac, c.party_b, -30);
+      game.journal('consequence', 'Loan in default', `You failed to repay ${lender?.name}.${fac ? ` ${db.prepare('SELECT name FROM factions WHERE id=?').get(fac).name} will remember.` : ''}`, `default:${c.id}`);
     }
     if (c.kind === 'request' && c.status === 'active') {
       db.prepare("UPDATE contracts SET status='breached' WHERE id=?").run(c.id);
@@ -313,7 +167,7 @@ function contractsDaily(game) {
   // warn about loans due soon
   for (const c of db.prepare("SELECT * FROM contracts WHERE kind='loan' AND status='active' AND party_b='player' AND due_at BETWEEN ? AND ?").all(game.time, game.time + 3 * MINUTES_PER_DAY)) {
     const terms = J.parse(c.terms, {});
-    game.journal('consequence', 'Loan due soon', `${terms.owed} marks are due to ${game.char(c.party_a).name} by ${game.calendar(c.due_at).short}.`, `due:${c.id}`);
+    game.journal('consequence', 'Loan due soon', `${game.money(terms.owed)} are due to ${game.char(c.party_a).name} by ${game.calendar(c.due_at).short}.`, `due:${c.id}`);
   }
 }
 
@@ -322,17 +176,21 @@ function playerNeedsDaily(game) {
   if (game.time - p.last_meal > 3 * MINUTES_PER_DAY) {
     game.hurt(p.id, 6, 'starvation');
     game.digest.push({ time: game.time, kind: 'hunger', summary: 'You are starving. Hunger is wearing you down.', importance: 6 });
-    if (game.balance(p.id) < 3) game.journal('opportunity', 'Alms at the temple', 'You are starving and penniless. The Temple of the Still Ring feeds the destitute once a day.', 'alms');
+    const charity = game.db.prepare("SELECT name, tags FROM locations").all().find((l) => J.parse(l.tags, []).includes('charity') || J.parse(l.tags, []).includes('healing'));
+    if (game.balance(p.id) < 3 && charity) game.journal('opportunity', 'Charity', `You are starving and penniless. ${charity.name} feeds the destitute once a day.`, 'alms');
   }
   if (p.health < 100 && p.health > 0 && game.time - p.last_meal < MINUTES_PER_DAY) game.heal(p.id, 3);
 }
 
 // ---------------------------------------------------------------- opportunities
 function refreshOpportunities(game) {
-  const db = game.db;
-  const knows = (f) => !!belief(db, 'player', f);
-  if (knows('f_kestrel_salt')) game.journal('opportunity', 'Salt to Kestrel Point', `Salt costs about ${marketPrice(game, 'brindlemarch', 'salt')}m here and fetches about ${marketPrice(game, 'kestrel', 'salt')}m at Kestrel Point. The riverboat from the docks costs 6m.`, 'salt_trade');
-  if (knows('f_kestrel_spices')) game.journal('opportunity', 'Spices from Kestrel', `Spices sell for about ${marketPrice(game, 'brindlemarch', 'spices')}m in Brindlemarch but about ${marketPrice(game, 'kestrel', 'spices')}m at Kestrel Point.`, 'spice_trade');
-  if (knows('f_observatory') && !getFlags(game).astrolabe_found) game.journal('opportunity', 'The Sunken Observatory', 'A Ring-age observatory is said to lie deep in the Whisperwood beyond Cobb\'s Fields.', 'observatory');
-  if (knows('f_grain_hoard') && !getFlags(game).expose_hoard) game.journal('opportunity', 'The mayor\'s hoard', 'You know the mayor is hoarding grain. Who in Brindlemarch would act on that — and would they believe you without proof?', 'hoard_known');
+  // Facts may carry an opportunity that appears in the journal once the player knows them.
+  // Text may reference live prices: {price:<settlement>:<item>}.
+  for (const f of game.db.prepare("SELECT f.id, f.data FROM knowledge k JOIN facts f ON f.id=k.fact_id WHERE k.holder_id=?").all(game.playerId)) {
+    const opp = J.parse(f.data, {}).opportunity;
+    if (!opp) continue;
+    if (opp.unless_flag && getFlags(game)[opp.unless_flag]) continue;
+    const text = String(opp.text).replace(/\{price:([a-z0-9_]+):([a-z0-9_]+)\}/g, (_, s, t) => game.money(marketPrice(game, s, t)));
+    game.journal('opportunity', opp.title, text, `fact:${f.id}`);
+  }
 }

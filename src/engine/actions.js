@@ -13,7 +13,7 @@ import { LEARNING_METHODS, studyXpPerHour, MINUTES_PER_DAY, clamp, xpForRank, ro
 import { DIFFICULTY, isSuccess, isAtLeastPartial, DEGREE_LABEL } from './dice.js';
 import { resolveCharacter, resolveItemType, resolveLocation, norm } from './resolve.js';
 import { foundBusiness, businessesOf, businessOp, addInvestor, premisesList, getBusiness } from './business.js';
-import { getFlags } from './sim.js';
+import { getFlags, setFlag } from './agendas.js';
 
 export const ACTION_TYPES = [
   'look', 'move', 'talk', 'tell', 'ask_job', 'accept_request', 'buy', 'sell', 'give', 'take', 'drop', 'steal', 'work',
@@ -26,10 +26,16 @@ export const CONSEQUENTIAL = new Set(['steal', 'attack', 'found_business', 'loan
 
 const fail = (code, message, details) => { throw new RuleError(code, message, details); };
 
+function isMoneyWord(game, w) {
+  const t = norm(w);
+  const c = game.rules.currency;
+  return ['money', 'coin', 'coins', 'cash', 'funds', norm(c.name), norm(c.plural)].includes(t);
+}
+
 function here(game) { return game.player().location_id; }
 
 function npcsHere(game) {
-  return game.charactersAt(here(game), { excludeId: game.playerId }).filter((c) => c.kind === 'npc');
+  return game.charactersAt(here(game), { excludeId: game.playerId }).filter((c) => c.kind === 'npc').map((c) => ({ ...c, aliases: game.npcDef(c.id)?.aliases || [] }));
 }
 
 function needNpc(game, name, { purpose = 'do that', allowAbsentKnown = false } = {}) {
@@ -43,7 +49,7 @@ function needNpc(game, name, { purpose = 'do that', allowAbsentKnown = false } =
   const all = game.db.prepare("SELECT id FROM characters WHERE kind='npc'").all().map((x) => game.char(x.id));
   const elsewhere = resolveCharacter(name, all).match;
   if (elsewhere) {
-    const met = game.rel(elsewhere.id, game.playerId).familiarity > 0 || belief(game.db, game.playerId, 'f_mayor');
+    const met = game.rel(elsewhere.id, game.playerId).familiarity > 0;
     if (allowAbsentKnown) return elsewhere;
     fail('not_here', `${met ? elsewhere.name : 'That person'} is not here.${present.length ? ` Here: ${present.map((c) => c.name).join(', ')}.` : ''}`, { npc: elsewhere.id });
   }
@@ -52,7 +58,7 @@ function needNpc(game, name, { purpose = 'do that', allowAbsentKnown = false } =
 
 function itemCandidatesHeld(game, charId) {
   const rows = game.held(charId);
-  return [...new Map(rows.map((r) => [r.type_id, { id: r.type_id, name: r.name }])).values()];
+  return [...new Map(rows.map((r) => [r.type_id, { id: r.type_id, name: r.name, aliases: r.type_data?.aliases || [] }])).values()];
 }
 
 function needHeldItem(game, name, charId = game.playerId) {
@@ -105,7 +111,7 @@ function look(game, p) {
     const itemId = resolveItemType(p.target, itemCandidatesHeld(game, game.playerId));
     if (itemId) {
       const t = game.itemType(itemId);
-      return { ok: true, minutes: 1, summary: `You examine the ${t.name}.`, facts: [`${t.name}: ${t.description || t.category}. Worth about ${t.base_value} marks.`] };
+      return { ok: true, minutes: 1, summary: `You examine the ${t.name}.`, facts: [`${t.name}: ${t.description || t.category}. Worth about ${game.money(t.base_value)}.`] };
     }
   }
   const people = npcsHere(game);
@@ -114,7 +120,7 @@ function look(game, p) {
   return {
     ok: true, minutes: 1, summary: `You take in ${loc.name}.`,
     facts: [loc.description, people.length ? `Present: ${people.map((c) => `${c.name} (${c.role})`).join(', ')}.` : 'Nobody of note is here.',
-      `Ways on: ${exits.map((e) => `${e.name} (${fmtMinutes(e.minutes)}${e.cost ? `, ${e.cost}m` : ''})`).join(', ')}.`,
+      `Ways on: ${exits.map((e) => `${e.name} (${fmtMinutes(e.minutes)}${e.cost ? `, ${game.money(e.cost)}` : ''})`).join(', ')}.`,
       ...(ground.length ? [`On the ground: ${ground.map((g) => `${g.quantity} ${g.name}`).join(', ')}.`] : [])],
   };
 }
@@ -152,7 +158,7 @@ export function findPath(game, from, to) {
 }
 
 function move(game, p) {
-  const all = game.db.prepare('SELECT id, name FROM locations').all();
+  const all = game.db.prepare('SELECT id, name, data FROM locations').all().map((l) => ({ ...l, aliases: J.parse(l.data, {}).aliases || [] }));
   let dest = resolveLocation(p.destination || p.target, all);
   if (!dest && p.destination) {
     const npc = resolveCharacter(p.destination, game.db.prepare("SELECT id FROM characters WHERE kind='npc'").all().map((x) => game.char(x.id))).match;
@@ -163,7 +169,7 @@ function move(game, p) {
   if (!game.knowsLocation(game.playerId, dest)) fail('unknown_place', `You don't know of any such place.`);
   const path = findPath(game, here(game), dest);
   if (!path) fail('no_route', `You know of no route to ${game.location(dest).name}.`);
-  if (path.cost > game.balance(game.playerId)) fail('insufficient_funds', `The journey costs ${path.cost} marks in fares; you have ${game.balance(game.playerId)}.`);
+  if (path.cost > game.balance(game.playerId)) fail('insufficient_funds', `The journey costs ${game.money(path.cost)} in fares; you have ${game.balance(game.playerId)}.`);
   const facts = [];
   const rolls = [];
   const firstBoat = path.legs.findIndex((l) => l.mode === 'riverboat');
@@ -174,10 +180,11 @@ function move(game, p) {
   }
   for (const leg of path.legs) {
     if (leg.cost) {
-      const ferryman = game.char('npc_piet')?.alive ? 'npc_piet' : 'system:sink';
+      const op = (game.def.routes || []).find((r) => ((r[0] === leg.from || r[1] === leg.from) && (r[0] === leg.to || r[1] === leg.to)))?.[3]?.operator;
+      const ferryman = op && game.char(op)?.alive ? op : 'system:sink';
       if (ferryman === 'system:sink') game.burn(game.playerId, leg.cost, `Fare to ${leg.name}`);
       else game.pay(game.playerId, ferryman, leg.cost, `Riverboat fare to ${leg.name}`, 'fare');
-      facts.push(`Paid ${leg.cost} marks fare for the ${leg.mode}.`);
+      facts.push(`Paid ${game.money(leg.cost)} fare for the ${leg.mode}.`);
     }
     game.advance(leg.minutes, 'travel');
     game.addFatigue(game.playerId, leg.mode === 'riverboat' ? leg.minutes / 120 : leg.minutes / 25);
@@ -266,7 +273,8 @@ function talk(game, p) {
     }
     const disp = disposition(game.rel(npc.id, game.playerId)) + (checkDegree && isSuccess(checkDegree) ? 25 : 0) + (checkDegree === 'critical' ? 20 : 0);
     for (const f of known.slice(0, 3)) {
-      const isKeeper = f.tags.some((t) => npc.name.toLowerCase().split(' ').includes(t)) || (f.fact_id === 'f_grain_hoard' && ['npc_corvin', 'npc_tamsin'].includes(npc.id)) || (f.fact_id === 'f_jory_fence' && npc.id === 'npc_jory') || (f.fact_id === 'f_sabine_plan' && npc.id === 'npc_sabine') || (f.fact_id === 'f_odile_debt' && npc.id === 'npc_odile');
+      const keepers = getFact(game.db, f.fact_id)?.data?.keepers || [];
+      const isKeeper = keepers.includes(npc.id) || f.tags.some((t) => npc.name.toLowerCase().split(' ').includes(t));
       let share = false;
       if (f.secrecy === 0) share = true;
       else if (f.secrecy === 1) share = disp >= 5 || (checkDegree && isAtLeastPartial(checkDegree));
@@ -301,14 +309,14 @@ function talk(game, p) {
       data.known = true;
       game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), r.id);
       const terms = J.parse(r.terms, {});
-      game.journal('opportunity', r.title, `${terms.text} Reward: ${terms.reward} marks.`, `req:${r.id}`);
+      game.journal('opportunity', r.title, `${terms.text} Reward: ${game.money(terms.reward)}.`, `req:${r.id}`);
       dialogue.request = { id: r.id, title: r.title, text: terms.text, reward: terms.reward };
-      facts.push(`${npc.name} mentions a task: ${terms.text} (reward ${terms.reward} marks; say you accept to take it on).`);
+      facts.push(`${npc.name} mentions a task: ${terms.text} (reward ${game.money(terms.reward)}; say you accept to take it on).`);
     }
   }
   if (workish && def.job) {
     const hasJob = game.db.prepare("SELECT 1 FROM contracts WHERE kind='employment' AND party_a=? AND party_b=? AND status='active'").get(npc.id, game.playerId);
-    if (!hasJob) facts.push(`${npc.name} could use a ${def.job.title} (${def.job.wage}m a shift). Ask for the job to apply.`);
+    if (!hasJob) facts.push(`${npc.name} could use a ${def.job.title} (${game.money(def.job.wage)} a shift). Ask for the job to apply.`);
   }
   // pending rewards are paid when you report back in person
   for (const c of game.db.prepare("SELECT * FROM contracts WHERE kind='request' AND party_a=? AND party_b=? AND status='completed'").all(npc.id, game.playerId)) {
@@ -319,7 +327,7 @@ function talk(game, p) {
       if (amount > 0) game.pay(npc.id, game.playerId, amount, `Reward: ${c.title}`, 'reward');
       data.reward_pending = false;
       game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), c.id);
-      facts.push(`${npc.name} pays you ${amount} marks for "${c.title}".`);
+      facts.push(`${npc.name} pays you ${game.money(amount)} for "${c.title}".`);
       dialogue.paidReward = amount;
     }
   }
@@ -365,7 +373,7 @@ function tell(game, p) {
     confidence = 1;
     presented = true;
     facts.push(`You show ${npc.name} the ${evidenceItem.name}.`);
-    if (npc.id === 'npc_hedda' && evidenceItem.id === 'grain_ledger') {
+    if (fact.data?.reactions?.[npc.id]) {
       inv.moveItems(game.ctx, { typeId: evidenceItem.id, qty: 1, from: { kind: 'character', id: game.playerId }, to: { kind: 'character', id: npc.id }, memo: 'evidence handed to the watch' });
       facts.push(`${npc.name} keeps the ledger as evidence.`);
     }
@@ -389,8 +397,7 @@ function tell(game, p) {
   game.recordEvent({ kind: 'inform', actor: game.playerId, target: npc.id, summary: `${game.player().name} told ${npc.name}: ${fact.content}`, visibility: 'private', importance: fact.secrecy === 2 ? 7 : 4, topic: p.topic, data: { fact: f.fact_id, presented } });
   game.advance(15, 'talk');
   const flags = getFlags(game);
-  if (f.fact_id === 'f_grain_hoard' && flags.expose_hoard === game.day) facts.push('Captain Strom gathers her watchmen and marches on the mill.');
-  if (f.fact_id === 'f_jory_fence' && flags.arrest_jory === game.day) facts.push('Captain Strom sends her watchmen into the Narrows.');
+  if (flags[`reaction:${f.fact_id}:${npc.id}`] === game.day && after.confidence >= 0.7) facts.push(`${npc.name} acts on what you told them at once.`);
   return { ok: true, minutes: 15, summary: `You tell ${npc.name} what you know.`, facts, rolls, dialogue: { npc: npc.id, npcName: npc.name, persona: npc.persona, approach: 'tell', topic: p.topic, told: fact.content, believed, attitude: attitudeLabel(game.rel(npc.id, game.playerId)), disclosed: [] } };
 }
 
@@ -402,7 +409,7 @@ function askJob(game, p) {
   const def = game.npcDef(npc.id);
   if (!def?.job) fail('no_job', `${npc.name} has no work to offer you.`);
   const existing = game.db.prepare("SELECT * FROM contracts WHERE kind='employment' AND party_a=? AND party_b=? AND status='active'").get(npc.id, game.playerId);
-  if (existing) return { ok: true, minutes: 5, summary: `You already work for ${npc.name} as a ${def.job.title}.`, facts: [`Your shift is ${def.job.minutes / 60} hours at ${game.location(def.job.location).name} for ${def.job.wage} marks.`] };
+  if (existing) return { ok: true, minutes: 5, summary: `You already work for ${npc.name} as a ${def.job.title}.`, facts: [`Your shift is ${def.job.minutes / 60} hours at ${game.location(def.job.location).name} for ${game.money(def.job.wage)}.`] };
   const rolls = [], facts = [];
   let hired = true;
   for (const [k, v] of Object.entries(def.job.requires || {})) {
@@ -422,8 +429,8 @@ function askJob(game, p) {
     game.adjustRel(npc.id, game.playerId, { familiarity: 5, trust: 3 }, 'hired');
     game.recordEvent({ kind: 'hired', actor: npc.id, target: game.playerId, summary: `${npc.name} hired ${game.player().name} as a ${def.job.title}.`, visibility: 'witnessed', importance: 5, data: { hearsay: { respect: 2 } } });
     game.closeJournal('opportunity', 'find_work');
-    game.journal('plan', `Job: ${def.job.title}`, `${npc.name} pays ${def.job.wage} marks per ${def.job.minutes / 60}-hour shift at ${game.location(def.job.location).name}. Say "work" there to put in a shift.`, `job:${npc.id}`);
-    facts.push(`Hired as ${def.job.title}: ${def.job.wage} marks per ${def.job.minutes / 60}-hour shift at ${game.location(def.job.location).name}.`);
+    game.journal('plan', `Job: ${def.job.title}`, `${npc.name} pays ${game.money(def.job.wage)} per ${def.job.minutes / 60}-hour shift at ${game.location(def.job.location).name}. Say "work" there to put in a shift.`, `job:${npc.id}`);
+    facts.push(`Hired as ${def.job.title}: ${game.money(def.job.wage)} per ${def.job.minutes / 60}-hour shift at ${game.location(def.job.location).name}.`);
   }
   game.advance(10, 'talk');
   return { ok: hired, minutes: 10, summary: hired ? `${npc.name} hires you.` : `${npc.name} turns you down for now.`, facts, rolls, dialogue: { npc: npc.id, npcName: npc.name, persona: npc.persona, approach: 'ask_job', hired, attitude: attitudeLabel(game.rel(npc.id, game.playerId)), disclosed: [] } };
@@ -452,7 +459,7 @@ function acceptRequest(game, p) {
     facts.push(`${npc.name} entrusts you with ${obj.qty} ${game.itemType(obj.item).name} — still ${npc.name}'s property — to deliver to ${game.char(obj.to).name}.`);
   }
   game.db.prepare("UPDATE contracts SET status='active', due_at=? WHERE id=?").run(game.time + terms.days * MINUTES_PER_DAY, c.id);
-  game.journal('plan', c.title, `${terms.text} Due by ${game.calendar(game.time + terms.days * MINUTES_PER_DAY).short}. Reward ${terms.reward} marks.`, `req:${c.id}`);
+  game.journal('plan', c.title, `${terms.text} Due by ${game.calendar(game.time + terms.days * MINUTES_PER_DAY).short}. Reward ${game.money(terms.reward)}.`, `req:${c.id}`);
   game.closeJournal('opportunity', `req:${c.id}`);
   game.recordEvent({ kind: 'promise', actor: game.playerId, target: npc.id, summary: `${game.player().name} promised ${npc.name} to see to "${c.title}".`, visibility: 'private', importance: 6, valence: 0.3, topic: c.title });
   game.adjustRel(npc.id, game.playerId, { trust: 3, familiarity: 3 }, 'accepted a task');
@@ -482,11 +489,11 @@ function completeRequests(game, evt, valid = true) {
     if (requester.location_id === here(game)) {
       const amount = Math.min(terms.reward, game.balance(c.party_a));
       if (amount > 0) game.pay(c.party_a, game.playerId, amount, `Reward: ${c.title}`, 'reward');
-      out.push(`${requester.name} pays you ${amount} marks for "${c.title}".`);
+      out.push(`${requester.name} pays you ${game.money(amount)} for "${c.title}".`);
     } else {
       data.reward_pending = true;
       game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), c.id);
-      out.push(`"${c.title}" is complete. ${requester.name} will pay your ${terms.reward} marks when you next see them.`);
+      out.push(`"${c.title}" is complete. ${requester.name} will pay your ${game.money(terms.reward)} when you next see them.`);
     }
     game.closeJournal('plan', `req:${c.id}`, 'done');
   }
@@ -534,11 +541,11 @@ function work(game, p) {
     const data = J.parse(c.data, {}); data.shifts = (data.shifts || 0) + 1;
     game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), c.id);
     if (data.shifts % 3 === 0) game.adjustRel(employer.id, game.playerId, { trust: 2, familiarity: 2 }, 'steady work');
-    facts.push(`Shift ${i + 1}: ${DEGREE_LABEL[r.degree].toLowerCase()} — paid ${wage} marks.`);
+    facts.push(`Shift ${i + 1}: ${DEGREE_LABEL[r.degree].toLowerCase()} — paid ${game.money(wage)}.`);
     if (game.player().fatigue >= 85 && i < shifts - 1) { facts.push('You are too worn out to continue.'); break; }
   }
-  game.recordEvent({ kind: 'work', actor: game.playerId, target: employer.id, summary: `${game.player().name} worked as ${job.title} for ${employer.name}, earning ${earned} marks.`, visibility: 'witnessed', importance: 2 });
-  return { ok: true, minutes: job.minutes * shifts, summary: `You work as ${job.title} and earn ${earned} marks.`, facts, rolls };
+  game.recordEvent({ kind: 'work', actor: game.playerId, target: employer.id, summary: `${game.player().name} worked as ${job.title} for ${employer.name}, earning ${game.money(earned)}.`, visibility: 'witnessed', importance: 2 });
+  return { ok: true, minutes: job.minutes * shifts, summary: `You work as ${job.title} and earn ${game.money(earned)}.`, facts, rolls };
 }
 
 // ============================================================================
@@ -590,14 +597,14 @@ function buy(game, p) {
   const rolls = roll ? [roll] : [];
   if (offerUnit != null && price > offerUnit) {
     game.advance(5, 'trade');
-    return { ok: false, minutes: 5, summary: `${m.name} won't go below ${price} marks each.`, facts: [`Asked ${quoted}m each; you offered ${offerUnit}m; best price ${price}m.`], rolls, dialogue: { npc: m.id, npcName: m.name, persona: m.persona, approach: 'haggle', attitude: attitudeLabel(game.rel(m.id, game.playerId)), disclosed: [] } };
+    return { ok: false, minutes: 5, summary: `${m.name} won't go below ${game.money(price)} each.`, facts: [`Asked ${game.money(quoted)} each; you offered ${game.money(offerUnit)}; best price ${game.money(price)}.`], rolls, dialogue: { npc: m.id, npcName: m.name, persona: m.persona, approach: 'haggle', attitude: attitudeLabel(game.rel(m.id, game.playerId)), disclosed: [] } };
   }
   const total = price * qty;
   executeTrade(game, { buyer: game.playerId, seller: m.id, typeId, qty, unitPrice: price, memo: `Bought ${qty} ${game.itemType(typeId).name} from ${m.name}` });
   game.adjustRel(m.id, game.playerId, { familiarity: 2, ...(daily(game, `custom:${m.id}`) ? { affection: 1 } : {}) }, 'custom');
-  game.recordEvent({ kind: 'trade', actor: game.playerId, target: m.id, summary: `${game.player().name} bought ${qty} ${game.itemType(typeId).name} from ${m.name} for ${total} marks.`, visibility: 'witnessed', importance: 1 });
+  game.recordEvent({ kind: 'trade', actor: game.playerId, target: m.id, summary: `${game.player().name} bought ${qty} ${game.itemType(typeId).name} from ${m.name} for ${game.money(total)}.`, visibility: 'witnessed', importance: 1 });
   game.advance(5 + qty, 'trade');
-  return { ok: true, minutes: 5, summary: `You buy ${qty} ${game.itemType(typeId).name} for ${total} marks.`, facts: [`Price: ${price}m each (asked ${quoted}m).`], rolls };
+  return { ok: true, minutes: 5, summary: `You buy ${qty} ${game.itemType(typeId).name} for ${game.money(total)}.`, facts: [`Price: ${game.money(price)} each (asked ${game.money(quoted)}).`], rolls };
 }
 
 function sell(game, p) {
@@ -639,10 +646,10 @@ function sell(game, p) {
   if (roll) rolls.push(roll);
   if (offerUnit != null && price < offerUnit) {
     game.advance(5, 'trade');
-    return { ok: false, minutes: 5, summary: `${m.name} will pay no more than ${price} marks each.`, facts: [`Offered ${quoted}m; you asked ${offerUnit}m.`], rolls };
+    return { ok: false, minutes: 5, summary: `${m.name} will pay no more than ${game.money(price)} each.`, facts: [`Offered ${game.money(quoted)}; you asked ${game.money(offerUnit)}.`], rolls };
   }
   const total = price * qty;
-  if (game.balance(m.id) < total) fail('merchant_poor', `${m.name} can only afford ${game.balance(m.id)} marks right now.`);
+  if (game.balance(m.id) < total) fail('merchant_poor', `${m.name} can only afford ${game.money(game.balance(m.id))} right now.`);
   // move ownership: owned first, then stolen
   game.pay(m.id, game.playerId, total, `Sold ${qty} ${t.name} to ${m.name}`, 'trade');
   let remaining = qty;
@@ -650,26 +657,26 @@ function sell(game, p) {
   if (mine > 0) inv.moveItems(game.ctx, { typeId, qty: mine, from: { kind: 'character', id: game.playerId }, to: { kind: 'character', id: m.id }, ownerFilter: game.playerId, newOwner: m.id, memo: 'sale' });
   remaining -= mine;
   if (remaining > 0) inv.moveItems(game.ctx, { typeId, qty: remaining, from: { kind: 'character', id: game.playerId }, to: { kind: 'character', id: m.id }, newOwner: m.id, markStolen: !shop.fence ? false : true, memo: 'fenced' });
-  game.recordEvent({ kind: 'trade', actor: game.playerId, target: m.id, summary: `${game.player().name} sold ${qty} ${t.name} to ${m.name} for ${total} marks.`, visibility: 'witnessed', importance: 1 });
+  game.recordEvent({ kind: 'trade', actor: game.playerId, target: m.id, summary: `${game.player().name} sold ${qty} ${t.name} to ${m.name} for ${game.money(total)}.`, visibility: 'witnessed', importance: 1 });
   game.advance(5, 'trade');
-  facts.push(`Price: ${price}m each (offered ${quoted}m).`);
-  return { ok: true, minutes: 5, summary: `You sell ${qty} ${t.name} for ${total} marks.`, facts, rolls };
+  facts.push(`Price: ${game.money(price)} each (offered ${game.money(quoted)}).`);
+  return { ok: true, minutes: 5, summary: `You sell ${qty} ${t.name} for ${game.money(total)}.`, facts, rolls };
 }
 
 function give(game, p) {
   const npc = needNpc(game, p.target, { purpose: 'give something to' });
   const facts = [];
-  if (!p.item || /^(money|coin|coins|marks?|silver|gold)$/i.test(String(p.item).trim())) {
+  if (!p.item || isMoneyWord(game, p.item)) {
     const amount = Math.floor(Number(p.price ?? p.quantity));
     if (!Number.isInteger(amount) || amount <= 0) fail('bad_amount', 'How much money?');
     game.pay(game.playerId, npc.id, amount, `Gift to ${npc.name}`, 'gift');
     const bump = clamp(Math.round(amount / 3), 1, 15);
     const isBribe = npc.traits.includes('incorruptible');
     if (isBribe) { game.adjustRel(npc.id, game.playerId, { trust: -10, respect: -5 }, 'attempted bribe'); facts.push(`${npc.name} takes it for the watch's poor-box, and looks at you coldly.`); }
-    else game.adjustRel(npc.id, game.playerId, { affection: bump, trust: Math.round(bump / 2) }, `gift of ${amount} marks`);
-    game.recordEvent({ kind: 'gift', actor: game.playerId, target: npc.id, summary: `${game.player().name} gave ${npc.name} ${amount} marks.`, visibility: 'private', importance: amount >= 20 ? 5 : 3, valence: 0.5 });
+    else game.adjustRel(npc.id, game.playerId, { affection: bump, trust: Math.round(bump / 2) }, `gift of ${game.money(amount)}`);
+    game.recordEvent({ kind: 'gift', actor: game.playerId, target: npc.id, summary: `${game.player().name} gave ${npc.name} ${game.money(amount)}.`, visibility: 'private', importance: amount >= 20 ? 5 : 3, valence: 0.5 });
     game.advance(2, 'talk');
-    return { ok: true, minutes: 2, summary: `You give ${npc.name} ${amount} marks.`, facts };
+    return { ok: true, minutes: 2, summary: `You give ${npc.name} ${game.money(amount)}.`, facts };
   }
   const typeId = needHeldItem(game, p.item);
   const t = game.itemType(typeId);
@@ -682,10 +689,10 @@ function give(game, p) {
     const q = Math.min(qty, game.count(game.playerId, typeId, { ownerId: consignReq.party_a }));
     if (q < o.qty) fail('insufficient_items', `You only carry ${q} of ${game.char(consignReq.party_a).name}'s ${t.name}; the delivery is ${o.qty}.`);
     const due = o.price_each * o.qty;
-    if (game.balance(npc.id) < due) fail('recipient_poor', `${npc.name} can't pay ${due} marks for the shipment right now.`);
+    if (game.balance(npc.id) < due) fail('recipient_poor', `${npc.name} can't pay ${game.money(due)} for the shipment right now.`);
     inv.moveItems(game.ctx, { typeId, qty: o.qty, from: { kind: 'character', id: game.playerId }, to: { kind: 'character', id: npc.id }, ownerFilter: consignReq.party_a, newOwner: npc.id, memo: `delivery for ${consignReq.title}` });
     game.pay(npc.id, o.pay_to, due, `Payment for ${o.qty} ${t.name} delivered by ${game.player().name}`, 'trade');
-    facts.push(`${npc.name} takes delivery and sends ${due} marks to ${game.char(o.pay_to).name}.`);
+    facts.push(`${npc.name} takes delivery and sends ${game.money(due)} to ${game.char(o.pay_to).name}.`);
     facts.push(...completeRequests(game, { type: 'deliver', item: typeId, qty: o.qty, to: npc.id }));
     game.advance(10, 'trade');
     return { ok: true, minutes: 10, summary: `You deliver ${o.qty} ${t.name} to ${npc.name}.`, facts };
@@ -705,7 +712,6 @@ function give(game, p) {
   game.adjustRel(npc.id, game.playerId, { affection: clamp(Math.round(value / 4), 1, 12), trust: clamp(Math.round(value / 8), 0, 6) }, `gift of ${qty} ${t.name}`);
   facts.push(...completeRequests(game, { type: 'deliver', item: typeId, qty, to: npc.id }));
   game.recordEvent({ kind: 'gift', actor: game.playerId, target: npc.id, summary: `${game.player().name} gave ${npc.name} ${qty} ${t.name}.`, visibility: 'private', importance: value >= 20 ? 5 : 3, valence: 0.5 });
-  if (typeId === 'ring_astrolabe') { const f = getFlags(game); if (!f.astrolabe_delivered) game.db.prepare("UPDATE meta SET value=json_set(value,'$.astrolabe_delivered',?) WHERE key='world_flags'").run(game.day); }
   game.advance(2, 'talk');
   return { ok: true, minutes: 2, summary: `You give ${npc.name} ${qty} ${t.name}.`, facts };
 }
@@ -741,7 +747,7 @@ function drop(game, p) {
 // ============================================================================
 function steal(game, p) {
   const victim = needNpc(game, p.target, { purpose: 'steal from' });
-  const wantsMoney = !p.item || /^(money|coin|coins|purse|marks?|silver|wallet)$/i.test(String(p.item).trim());
+  const wantsMoney = !p.item || isMoneyWord(game, p.item) || /^(purse|wallet)$/i.test(String(p.item).trim());
   let typeId = null, qty = 0, amount = 0;
   if (wantsMoney) {
     if (game.balance(victim.id) <= 0) fail('nothing_to_steal', `${victim.name} has no coin to lift.`);
@@ -771,7 +777,7 @@ function steal(game, p) {
     if (wantsMoney) {
       amount = Math.min(game.balance(victim.id), game.rng.int(2, 6) + (r.degree === 'critical' ? 10 : r.degree === 'strong' ? 4 : 0));
       game.pay(victim.id, game.playerId, amount, `Purse lifted from ${victim.name}`, 'theft');
-      facts.push(`You lift ${amount} marks from ${victim.name}.`);
+      facts.push(`You lift ${game.money(amount)} from ${victim.name}.`);
     } else {
       inv.moveItems(game.ctx, { typeId, qty, from: { kind: 'character', id: victim.id }, to: { kind: 'character', id: game.playerId }, markStolen: true, memo: `stolen from ${victim.name}` });
       facts.push(`You take ${qty} ${game.itemType(typeId).name} from ${victim.name} unnoticed${r.degree === 'partial' ? ', though they frown and pat their belongings a moment later' : ''}.`);
@@ -782,7 +788,7 @@ function steal(game, p) {
   const pname = game.player().name;
   const ev = game.recordEvent({
     kind: caught ? 'theft_caught' : 'theft', actor: game.playerId, target: victim.id,
-    summary: caught ? `${pname} was caught trying to steal from ${victim.name}.` : `${pname} stole ${wantsMoney ? `${amount} marks` : `${qty} ${game.itemType(typeId).name}`} from ${victim.name}.`,
+    summary: caught ? `${pname} was caught trying to steal from ${victim.name}.` : `${pname} stole ${wantsMoney ? `${game.money(amount)}` : `${qty} ${game.itemType(typeId).name}`} from ${victim.name}.`,
     witnesses: [game.playerId, ...new Set(seenBy)], importance: caught || seenBy.length ? 8 : 4, valence: -0.9,
     memory: (pid) => pid === game.playerId ? null : `I saw ${pname} ${caught ? 'try to steal from' : 'steal from'} ${victim.name}.`,
     data: { hearsay: { trust: -25, respect: -10 } },
@@ -797,12 +803,11 @@ function steal(game, p) {
     if (guardHere || caught) {
       const fine = 10;
       const paid = Math.min(fine, game.balance(game.playerId));
-      if (paid > 0) game.pay(game.playerId, 'fac_council', paid, 'Fine for theft', 'fine');
+      game.fine(game.playerId, paid, 'Fine for theft');
       if (!wantsMoney && !caught) inv.moveItems(game.ctx, { typeId, qty, from: { kind: 'character', id: game.playerId }, to: { kind: 'character', id: victim.id }, ownerFilter: victim.id, clearStolen: true, memo: 'returned after theft was seen' });
       if (!caught && wantsMoney && amount > 0 && game.balance(game.playerId) >= amount) game.pay(game.playerId, victim.id, amount, 'Stolen coin returned', 'restitution');
-      game.learnFact('npc_hedda', 'f_jory_fence', { belief: 'suspected', confidence: 0.02, source: 'theft report', sourceId: victim.id });
-      game.adjustRel('npc_hedda', game.playerId, { trust: -20, respect: -10 }, 'theft reported', ev.eventId);
-      facts.push(guardHere ? `${guardHere.name} seizes you; the goods are returned and you are fined ${paid} marks.` : `The watch is called. You are fined ${paid} marks${!wantsMoney && !caught ? ' and must return what you took' : ''}.`);
+      for (const gid of game.guardsOf(game.settlementOf(here(game)))) game.adjustRel(gid, game.playerId, { trust: -20, respect: -10 }, 'theft reported', ev.eventId);
+      facts.push(guardHere ? `${guardHere.name} seizes you; the goods are returned and you are fined ${game.money(paid)}.` : `The watch is called. You are fined ${game.money(paid)}${!wantsMoney && !caught ? ' and must return what you took' : ''}.`);
       game.advance(60, 'detained');
     }
   }
@@ -826,9 +831,9 @@ function rest(game, p) {
       if (game.balance(game.playerId) >= price) {
         game.pay(game.playerId, keeper.id, price, `A night's lodging at ${loc.name}`, 'lodging');
         game.setCharData(game.playerId, { room_until: game.time + 20 * 60 });
-        facts.push(`Paid ${price} marks for a room.`);
+        facts.push(`Paid ${game.money(price)} for a room.`);
         quality = 1;
-      } else facts.push(`You can't afford a room (${price}m); you doze on a bench in the common room.`);
+      } else facts.push(`You can't afford a room (${game.money(price)}); you doze on a bench in the common room.`);
     } else quality = 1;
   } else if (loc.tags.includes('wild')) { quality = 0.5; facts.push('You sleep rough beneath the trees.'); }
   else facts.push('You find a corner to rest in.');
@@ -872,7 +877,7 @@ function eatIfPossible(game, facts) {
     game.pay(game.playerId, best.npc.id, best.price, `${best.name} from ${best.npc.name}`, 'trade');
     inv.destroyItems(game.ctx, { typeId: best.type, qty: 1, holderKind: 'character', holderId: best.npc.id, reason: 'consume', memo: 'eaten by the player' });
     game.updateChar(game.playerId, { last_meal: game.time });
-    facts.push(`You buy ${best.type === 'meal' ? 'a hot meal' : `a ${best.name}`} from ${best.npc.name} for ${best.price} mark${best.price === 1 ? '' : 's'} and eat.`);
+    facts.push(`You buy ${best.type === 'meal' ? 'a hot meal' : `a ${best.name}`} from ${best.npc.name} for ${game.money(best.price)}${best.price === 1 ? '' : 's'} and eat.`);
     return true;
   }
   // Recovery path: the Temple of the Still Ring feeds the destitute, once a day
@@ -958,15 +963,15 @@ function learnSession(game, skill, src, hours, mode) {
   if (src.fee) {
     const sessions = Math.max(1, Math.round(hours / 4));
     const fee = src.fee * sessions;
-    if (game.balance(game.playerId) < fee) fail('insufficient_funds', `${src.mentor.name} charges ${fee} marks for this; you have ${game.balance(game.playerId)}.`);
+    if (game.balance(game.playerId) < fee) fail('insufficient_funds', `${src.mentor.name} charges ${game.money(fee)} for this; you have ${game.balance(game.playerId)}.`);
     game.pay(game.playerId, src.mentor.id, fee, `${game.rules.skills[skill].label} lessons`, 'tuition');
-    notes.push(`Paid ${src.mentor.name} ${fee} marks.`);
+    notes.push(`Paid ${src.mentor.name} ${game.money(fee)}.`);
     game.adjustRel(src.mentor.id, game.playerId, { familiarity: 2, ...(daily(game, `lesson:${src.mentor.id}`) ? { respect: 1 } : {}) }, 'lessons');
   }
   if (src.readingFee && daily(game, 'reading_fee')) {
-    if (game.balance(game.playerId) < src.readingFee) fail('insufficient_funds', `The reading room costs ${src.readingFee} mark.`);
+    if (game.balance(game.playerId) < src.readingFee) fail('insufficient_funds', `The reading room costs ${game.money(src.readingFee)}.`);
     game.pay(game.playerId, src.keeper.id, src.readingFee, 'Archive reading room', 'fee');
-    notes.push(`Paid ${src.readingFee} mark for the reading room.`);
+    notes.push(`Paid ${game.money(src.readingFee)} for the reading room.`);
   }
   const res = game.gainXp(game.playerId, skill, round2(xp), mode === 'train' ? methodKey : src.method, hours * 60, src.label, { cap: capRank });
   return { xp: res.xp, rankAfter: res.rankAfter, rankBefore: res.rankBefore, capped: res.capped, notes };
@@ -1154,7 +1159,8 @@ function investigate(game, p) {
   for (const h of game.def.hidden_stores || []) {
     if (h.location_id !== loc.id) continue;
     const flags = getFlags(game);
-    const observers = npcsHere(game).filter((n) => n.id === 'npc_tamsin' || n.id === 'npc_corvin');
+    const watchers = h.watchers || [h.owner];
+    const observers = npcsHere(game).filter((n) => watchers.includes(n.id));
     let unseen = true;
     if (observers.length) {
       const sr = game.check(game.playerId, { skill: 'stealth', label: `Snoop unobserved`, opposedBy: observers[0].id, opposedSkill: 'perception' });
@@ -1163,7 +1169,7 @@ function investigate(game, p) {
       if (!unseen) {
         const ev = game.recordEvent({ kind: 'snooping', actor: game.playerId, target: observers[0].id, summary: `${observers[0].name} caught ${game.player().name} poking around the chained granary.`, importance: 6, valence: -0.5, data: { hearsay: { trust: -6 } } });
         game.adjustRel(observers[0].id, game.playerId, { trust: -15 }, 'caught snooping', ev.eventId);
-        if (observers[0].id === 'npc_tamsin') game.adjustRel('npc_corvin', game.playerId, { trust: -10 }, 'Tamsin reported snooping');
+        if (h.owner && observers[0].id !== h.owner) game.adjustRel(h.owner, game.playerId, { trust: -10 }, `${observers[0].name} reported snooping`);
         facts.push(`${observers[0].name} spots you and hurries you away from the granary doors.`);
       }
     }
@@ -1171,18 +1177,18 @@ function investigate(game, p) {
     const r = game.check(game.playerId, { skill: h.evidence.skill, tn: h.evidence.tn, label: `Search ${h.name}`, mods: lightMods });
     rolls.push(r);
     const hidden = game.db.prepare("SELECT COALESCE(SUM(quantity),0) q FROM items WHERE holder_kind='hidden' AND holder_id=?").get(h.id).q;
-    if (flags.expose_hoard) { facts.push('The granary chains hang broken; the watch has already been here.'); continue; }
+    if (flags[`seized:${h.id}`]) { facts.push(h.seized_text || 'Someone has already broken in and emptied this place.'); continue; }
     if (isSuccess(r.degree)) {
       const ev = inv.countHeld(game.db, 'hidden', `${h.id}:evidence`, h.evidence.item);
       if (ev) {
         inv.moveItems(game.ctx, { typeId: h.evidence.item, qty: 1, from: { kind: 'hidden', id: `${h.id}:evidence` }, to: { kind: 'character', id: game.playerId }, markStolen: true, memo: 'taken as evidence' });
-        facts.push(`Through a gap in the boards you see ${hidden} sacks of grain and flour stacked to the rafters. Nailed inside the door is a tally — the ${game.itemType(h.evidence.item).name} — signed with the mayor's mark. You take it.`);
-      } else facts.push(`Through a gap in the boards you count ${hidden} sacks of grain and flour.`);
+        facts.push(`${h.found_text || `Hidden inside ${h.name} you find ${hidden} stored goods.`} You take the ${game.itemType(h.evidence.item).name} as evidence.`);
+      } else facts.push(h.found_text || `Hidden inside ${h.name} you count ${hidden} stored goods.`);
       game.learnFact(game.playerId, h.evidence.fact, { belief: 'known', confidence: 0.95, source: 'saw it myself' });
       game.recordEvent({ kind: 'discovery', actor: game.playerId, summary: `${game.player().name} discovered the mayor's hidden grain hoard.`, visibility: 'secret', importance: 8 });
     } else if (r.degree === 'partial') {
       facts.push('The lower doors are chained, but fresh flour dust lies on the threshold and the hinges are oiled. Someone uses this store often.');
-      game.learnFact(game.playerId, 'f_grain_rumor', { belief: 'suspected', confidence: 0.6, source: 'own observation' });
+      if (h.evidence.partial_fact) game.learnFact(game.playerId, h.evidence.partial_fact, { belief: 'suspected', confidence: 0.6, source: 'own observation' });
     } else facts.push('You find nothing but chains, cobwebs and a nervous cat.');
   }
   // lost secrets in ruins
@@ -1196,36 +1202,40 @@ function investigate(game, p) {
       inv.moveItems(game.ctx, { typeId: s.item, qty: 1, from: { kind: 'hidden', id: `secret:${loc.id}` }, to: { kind: 'character', id: game.playerId }, newOwner: game.playerId, memo: 'found in the ruins' });
       facts.push(s.text);
       game.learnFact(game.playerId, s.fact, { belief: 'known', confidence: 1, source: 'saw it myself' });
-      game.db.prepare("INSERT INTO meta(key,value) VALUES('world_flags','{}') ON CONFLICT(key) DO NOTHING").run();
-      game.db.prepare("UPDATE meta SET value=json_set(value,'$.astrolabe_found',?) WHERE key='world_flags'").run(game.day);
-      game.recordEvent({ kind: 'discovery', actor: game.playerId, summary: `${game.player().name} recovered a Ring-age astrolabe from the Sunken Observatory.`, visibility: 'private', importance: 8 });
-      game.journal('discovery', 'The Ring-age astrolabe', 'You found a brass astrolabe in the Sunken Observatory. Ysolde Ferrin would give a great deal to see it.', 'astrolabe');
+      setFlag(game, s.flag || `found:${loc.id}`, game.day);
+      const itemName = game.itemType(s.item).name;
+      game.recordEvent({ kind: 'discovery', actor: game.playerId, summary: `${game.player().name} recovered ${itemName} from ${loc.name}.`, visibility: 'private', importance: 8 });
+      game.journal('discovery', s.title || `Found: ${itemName}`, s.journal || s.text, `found:${loc.id}`);
     } else if (r.degree === 'partial') facts.push('Star-charts, broken lenses, a collapsed stair. Something glints under the rubble, but the light fails you. Try again.');
     else facts.push('Dust, rot and fallen masonry. Nothing you can find today.');
     minutes = 120;
   }
-  // finding the hidden path to the observatory
-  if (loc.id === 'ww_edge' && /observ|ruin|dome|ancient|path|deeper|explore/.test(topic)) {
-    if (game.knowsLocation(game.playerId, 'ww_observatory')) facts.push('You know the way to the Sunken Observatory from here.');
-    else {
-      const r = game.check(game.playerId, { skill: 'survival', tn: DIFFICULTY.hard, label: 'Search the deep Whisperwood', mods: belief(game.db, game.playerId, 'f_observatory') ? [{ label: 'You know roughly where to look', value: 2 }] : [] });
-      rolls.push(r);
-      if (isSuccess(r.degree)) {
-        game.learnFact(game.playerId, 'f_observatory', { belief: 'known', confidence: 1, source: 'found the path' });
-        facts.push('Deep among the beeches you find old cut stones marking a path westward — toward a green-black dome half sunk in the earth.');
-      } else facts.push('The paths fade into bracken and you circle back without finding anything.');
-      minutes = 180;
-    }
+  // hidden paths to secret places
+  for (const hp of loc.data.hidden_paths || []) {
+    if (hp.keywords && topic && !hp.keywords.some((k) => topic.includes(k))) continue;
+    const dest = game.location(hp.to);
+    if (game.knowsLocation(game.playerId, hp.to)) { facts.push(`You know the way to ${dest.name} from here.`); continue; }
+    const r = game.check(game.playerId, { skill: hp.skill || 'survival', tn: hp.tn || DIFFICULTY.hard, label: `Search for a hidden way`, mods: hp.fact && belief(game.db, game.playerId, hp.fact) ? [{ label: 'You know roughly where to look', value: 2 }] : [] });
+    rolls.push(r);
+    if (isSuccess(r.degree)) {
+      if (hp.fact) game.learnFact(game.playerId, hp.fact, { belief: 'known', confidence: 1, source: 'found the path' });
+      else game.setCharData(game.playerId, { visited: [...new Set([...(game.player().data.visited || []), hp.to])] });
+      facts.push(hp.text || `You find a hidden way to ${dest.name}.`);
+    } else facts.push('The trail fades and you circle back without finding anything.');
+    minutes = 180;
   }
   // market inspection: prices are public and deterministic
-  if (loc.tags.includes('market') || /price|market|grain|bread|flour|cost/.test(topic)) {
+  if (loc.tags.includes('market') || /price|market|cost|trade|economy/.test(topic)) {
     const s = game.settlementOf(loc.id);
     if (s) {
-      const hist = game.db.prepare("SELECT day, price FROM price_history WHERE settlement=? AND type_id='bread' ORDER BY day").all(s);
-      const nowP = marketPrice(game, s, 'bread'), flour = marketPrice(game, s, 'flour'), grain = marketPrice(game, s, 'grain');
-      facts.push(`Market prices in ${game.def.settlements.find((x) => x.id === s).name}: bread ${nowP}m, flour ${flour}m, grain ${grain}m, salt ${marketPrice(game, s, 'salt')}m, spices ${marketPrice(game, s, 'spices')}m.`);
-      if (hist.length > 1) facts.push(`Bread has gone from ${hist[0].price}m to ${nowP}m over ${hist.length} days of records.`);
-      if (s === 'brindlemarch' && /grain|bread|flour|price|mayor|mill/.test(topic)) facts.push('Grain carts still arrive from Cobb\'s Fields each day, and the mill wheel turns — yet the stalls are short of flour.');
+      const rows = game.db.prepare('SELECT type_id FROM markets WHERE settlement=?').all(s);
+      const named = rows.filter((r) => topic.includes(norm(game.itemType(r.type_id).name).split(' ').pop()));
+      const shown = (named.length ? named : rows).slice(0, 8);
+      facts.push(`Market prices in ${game.def.settlements.find((x) => x.id === s).name}: ${shown.map((r) => `${game.itemType(r.type_id).name} ${game.money(marketPrice(game, s, r.type_id))}`).join(', ')}.`);
+      for (const r of shown.slice(0, 3)) {
+        const hist = game.db.prepare('SELECT day, price FROM price_history WHERE settlement=? AND type_id=? ORDER BY day').all(s, r.type_id);
+        if (hist.length > 1 && hist[0].price !== hist.at(-1).price) facts.push(`${game.itemType(r.type_id).name} has gone from ${game.money(hist[0].price)} to ${game.money(hist.at(-1).price)} over ${hist.length} days of records.`);
+      }
       minutes = Math.min(minutes, 45);
     }
   }
@@ -1274,9 +1284,9 @@ function attack(game, p) {
   for (const w of npcsHere(game)) if (w.id !== foe.id) game.adjustRel(w.id, game.playerId, { trust: -25, fear: 15 }, 'saw an assault', ev.eventId);
   if (game.settlementOf(here(game))) {
     const fine = Math.min(game.balance(game.playerId), !f.alive ? 100 : 20);
-    if (fine > 0) game.pay(game.playerId, 'fac_council', fine, 'Fine for assault', 'fine');
-    facts.push(`The watch arrives. You are fined ${fine} marks${!f.alive ? ' and marked as a killer' : ''}.`);
-    game.adjustRel('npc_hedda', game.playerId, { trust: -30, respect: -10 }, 'assault in town', ev.eventId);
+    game.fine(game.playerId, fine, 'Fine for assault');
+    facts.push(`The authorities arrive. You are fined ${game.money(fine)}${!f.alive ? ' and marked as a killer' : ''}.`);
+    for (const gid of game.guardsOf(game.settlementOf(here(game)))) game.adjustRel(gid, game.playerId, { trust: -30, respect: -10 }, 'assault in town', ev.eventId);
   }
   return { ok: true, minutes: rounds, summary: `You fight ${foe.name}.`, facts, rolls };
 }
@@ -1290,7 +1300,7 @@ function heal(game, p) {
     game.pay(game.playerId, healer.id, price, `Treatment from ${healer.name}`, 'service');
     game.heal(game.playerId, 30);
     game.advance(60, 'heal');
-    return { ok: true, minutes: 60, summary: `${healer.name} treats your wounds.`, facts: [`Paid ${price} marks. Health now ${game.player().health}.`] };
+    return { ok: true, minutes: 60, summary: `${healer.name} treats your wounds.`, facts: [`Paid ${game.money(price)}. Health now ${game.player().health}.`] };
   }
   const r = game.check(game.playerId, { skill: 'medicine', tn: DIFFICULTY.moderate, label: 'Treat wounds' });
   rolls.push(r);
@@ -1310,34 +1320,35 @@ function loan(game, p) {
   const terms = game.npcDef(lender.id)?.lends;
   if (!terms) fail('not_lender', `${lender.name} doesn't lend money.`);
   const amount = Math.floor(Number(p.price ?? p.quantity));
-  if (!Number.isInteger(amount) || amount <= 0) fail('bad_amount', `How much do you want to borrow? (${lender.name} lends up to ${terms.max} marks.)`);
-  if (amount > terms.max) fail('too_much', `${lender.name} won't lend more than ${terms.max} marks.`);
+  if (!Number.isInteger(amount) || amount <= 0) fail('bad_amount', `How much do you want to borrow? (${lender.name} lends up to ${game.money(terms.max)}.)`);
+  if (amount > terms.max) fail('too_much', `${lender.name} won't lend more than ${game.money(terms.max)}.`);
   const outstanding = game.db.prepare("SELECT * FROM contracts WHERE kind='loan' AND party_a=? AND party_b=? AND status='active'").all(lender.id, game.playerId);
   const owed = outstanding.reduce((s, c) => s + J.parse(c.terms, {}).owed, 0);
-  if (owed + amount > terms.max) fail('too_much_debt', `You already owe ${lender.name} ${owed} marks; ${terms.max} is the most they'll carry.`);
+  if (owed + amount > terms.max) fail('too_much_debt', `You already owe ${lender.name} ${game.money(owed)}; ${terms.max} is the most they'll carry.`);
   const defaults = game.db.prepare("SELECT COUNT(*) n FROM contracts WHERE kind='loan' AND party_b=? AND status='defaulted'").get(game.playerId).n;
   if (defaults) fail('bad_credit', `${lender.name} knows you have defaulted before. No.`);
-  const rep = game.db.prepare("SELECT value FROM reputation WHERE faction_id='fac_guild' AND character_id=?").get(game.playerId)?.value ?? 0;
+  const lenderFaction = game.db.prepare('SELECT faction_id FROM faction_members WHERE character_id=?').get(lender.id)?.faction_id;
+  const rep = lenderFaction ? game.db.prepare('SELECT value FROM reputation WHERE faction_id=? AND character_id=?').get(lenderFaction, game.playerId)?.value ?? 0 : 0;
   const collateral = game.balance(game.playerId) + businessesOf(game, game.playerId).reduce((s, b) => s + game.balance(b.id), 0);
   const tn = DIFFICULTY.moderate + Math.round(amount / 50) - Math.min(3, Math.floor(collateral / 40)) - Math.round(rep / 25);
   const r = game.check(game.playerId, { skill: 'negotiation', tn, label: `Secure a loan of ${amount} from ${lender.name}`, mods: [{ label: 'Relationship', value: socialMod(game.rel(lender.id, game.playerId)) }] });
   const facts = [];
   if (!isAtLeastPartial(r.degree)) {
     game.advance(30, 'talk');
-    return { ok: false, minutes: 30, summary: `${lender.name} declines to lend you ${amount} marks.`, facts: [`They judged the risk too high (TN ${tn}).`], rolls: [r] };
+    return { ok: false, minutes: 30, summary: `${lender.name} declines to lend you ${game.money(amount)}.`, facts: [`They judged the risk too high (TN ${tn}).`], rolls: [r] };
   }
   const rate = r.degree === 'partial' ? terms.rate * 1.5 : r.degree === 'critical' ? terms.rate * 0.6 : terms.rate;
-  if (game.balance(lender.id) < amount) fail('lender_poor', `${lender.name} doesn't have ${amount} marks to lend right now.`);
+  if (game.balance(lender.id) < amount) fail('lender_poor', `${lender.name} doesn't have ${game.money(amount)} to lend right now.`);
   const due = game.time + terms.days * MINUTES_PER_DAY;
   const totalOwed = Math.ceil(amount * (1 + rate));
   game.pay(lender.id, game.playerId, amount, `Loan from ${lender.name}`, 'loan');
   game.db.prepare(`INSERT INTO contracts(kind,party_a,party_b,title,terms,status,created_at,due_at,data) VALUES ('loan',?,?,?,?,'active',?,?,?)`)
-    .run(lender.id, game.playerId, `Loan of ${amount}m from ${lender.name}`, J.str({ principal: amount, rate: round2(rate), owed: totalOwed }), game.time, due, J.str({ repaid: 0 }));
-  game.recordEvent({ kind: 'loan', actor: lender.id, target: game.playerId, summary: `${lender.name} lent ${game.player().name} ${amount} marks, ${totalOwed} to be repaid by ${game.calendar(due).short}.`, visibility: 'private', importance: 6 });
-  game.journal('plan', `Debt: ${totalOwed}m to ${lender.name}`, `Repay ${totalOwed} marks to ${lender.name} by ${game.calendar(due).short}. Defaulting will ruin your standing with the Guild.`, `loan:${lender.id}:${game.time}`);
-  facts.push(`Borrowed ${amount} marks at ${Math.round(rate * 100)}%: repay ${totalOwed} by ${game.calendar(due).short}.`);
+    .run(lender.id, game.playerId, `Loan of ${game.money(amount)} from ${lender.name}`, J.str({ principal: amount, rate: round2(rate), owed: totalOwed }), game.time, due, J.str({ repaid: 0 }));
+  game.recordEvent({ kind: 'loan', actor: lender.id, target: game.playerId, summary: `${lender.name} lent ${game.player().name} ${game.money(amount)}, ${totalOwed} to be repaid by ${game.calendar(due).short}.`, visibility: 'private', importance: 6 });
+  game.journal('plan', `Debt: ${game.money(totalOwed)} to ${lender.name}`, `Repay ${game.money(totalOwed)} to ${lender.name} by ${game.calendar(due).short}. Defaulting will ruin your standing with the Guild.`, `loan:${lender.id}:${game.time}`);
+  facts.push(`Borrowed ${game.money(amount)} at ${Math.round(rate * 100)}%: repay ${totalOwed} by ${game.calendar(due).short}.`);
   game.advance(30, 'talk');
-  return { ok: true, minutes: 30, summary: `${lender.name} lends you ${amount} marks.`, facts, rolls: [r] };
+  return { ok: true, minutes: 30, summary: `${lender.name} lends you ${game.money(amount)}.`, facts, rolls: [r] };
 }
 
 function repay(game, p) {
@@ -1355,13 +1366,14 @@ function repay(game, p) {
   game.db.prepare('UPDATE contracts SET terms=?, status=? WHERE id=?').run(J.str(terms), done ? 'completed' : 'active', c.id);
   if (done) {
     game.adjustRel(lender.id, game.playerId, { trust: 10, respect: 5 }, 'repaid a loan in full');
-    game.db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MIN(100, value+5)').run('fac_guild', game.playerId, 5);
+    const lf = game.db.prepare('SELECT faction_id FROM faction_members WHERE character_id=?').get(lender.id)?.faction_id;
+    if (lf) game.db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MIN(100, value+5)').run(lf, game.playerId, 5);
     game.db.prepare("UPDATE journal SET status='done' WHERE ref LIKE ?").run(`loan:${lender.id}:%`);
     if (c.title.startsWith('Family debt')) game.closeJournal('note', 'bg_debt');
   }
-  game.recordEvent({ kind: 'repayment', actor: game.playerId, target: lender.id, summary: `${game.player().name} repaid ${amount} marks to ${lender.name}${done ? ', clearing the debt' : ''}.`, visibility: 'private', importance: done ? 5 : 3, valence: 0.4 });
+  game.recordEvent({ kind: 'repayment', actor: game.playerId, target: lender.id, summary: `${game.player().name} repaid ${game.money(amount)} to ${lender.name}${done ? ', clearing the debt' : ''}.`, visibility: 'private', importance: done ? 5 : 3, valence: 0.4 });
   game.advance(10, 'talk');
-  return { ok: true, minutes: 10, summary: `You repay ${amount} marks to ${lender.name}.`, facts: [done ? 'The debt is cleared.' : `${terms.owed} marks still owed.`] };
+  return { ok: true, minutes: 10, summary: `You repay ${game.money(amount)} to ${lender.name}.`, facts: [done ? 'The debt is cleared.' : `${game.money(terms.owed)} still owed.`] };
 }
 
 function invest(game, p) {
@@ -1384,9 +1396,9 @@ function invest(game, p) {
   if (avail < 10) fail('investor_poor', `${npc.name} likes the idea but can't spare the money.`);
   addInvestor(game, b.id, npc.id, avail, cfg.share);
   game.adjustRel(npc.id, game.playerId, { trust: 6, respect: 6 }, 'became partners');
-  game.recordEvent({ kind: 'investment', actor: npc.id, target: game.playerId, summary: `${npc.name} invested ${avail} marks in ${b.name} for a ${Math.round(cfg.share * 100)}% share of profits.`, visibility: 'private', importance: 6 });
+  game.recordEvent({ kind: 'investment', actor: npc.id, target: game.playerId, summary: `${npc.name} invested ${game.money(avail)} in ${b.name} for a ${Math.round(cfg.share * 100)}% share of profits.`, visibility: 'private', importance: 6 });
   game.advance(30, 'talk');
-  return { ok: true, minutes: 30, summary: `${npc.name} invests ${avail} marks in ${b.name}.`, facts: [`${npc.name} takes ${Math.round(cfg.share * 100)}% of weekly profits.`], rolls: [r] };
+  return { ok: true, minutes: 30, summary: `${npc.name} invests ${game.money(avail)} in ${b.name}.`, facts: [`${npc.name} takes ${Math.round(cfg.share * 100)}% of weekly profits.`], rolls: [r] };
 }
 
 function foundBiz(game, p) {
@@ -1415,7 +1427,7 @@ function foundBiz(game, p) {
   game.advance(60, 'business');
   return {
     ok: true, minutes: 60, summary: `You found ${res.name}.`,
-    facts: [`Paid ${res.upfront} marks (equipment, six days' rent${licensed ? ', guild licence' : ''}) and put ${res.capital} marks of working capital into the business.`, `${res.name} will buy inputs, produce and sell each day; reports come weekly.`, ...(licensed ? [] : ['Operating without a guild licence will cost you some goodwill with the Guild of Weights.'])],
+    facts: [`Paid ${game.money(res.upfront)} (equipment, six days' rent${licensed ? ', guild licence' : ''}) and put ${game.money(res.capital)} of working capital into the business.`, `${res.name} will buy inputs, produce and sell each day; reports come weekly.`, ...(licensed ? [] : ['Operating without a guild licence will cost you some goodwill with the Guild of Weights.'])],
   };
 }
 
@@ -1427,7 +1439,7 @@ function manageBiz(game, p) {
   const op = ['deposit', 'withdraw', 'hire', 'pause', 'resume', 'close'].find((o) => q.includes(o)) || (q.includes('take') ? 'withdraw' : q.includes('put') || q.includes('add') ? 'deposit' : null);
   if (!op) {
     const d = b.data;
-    return { ok: true, minutes: 5, summary: `${b.name}: status report.`, facts: [`Cash ${game.balance(b.id)}m; revenue to date ${d.stats.revenue}m; costs ${d.stats.costs}m; efficiency ${Math.round(d.efficiency * 100)}%; staff ${d.staff}.`, d.last_log?.length ? `Yesterday: ${d.last_log.join(', ')}.` : 'No activity yet.', `You can deposit, withdraw, hire, pause, resume or close.`] };
+    return { ok: true, minutes: 5, summary: `${b.name}: status report.`, facts: [`Cash ${game.money(game.balance(b.id))}; revenue to date ${game.money(d.stats.revenue)}; costs ${game.money(d.stats.costs)}; efficiency ${Math.round(d.efficiency * 100)}%; staff ${d.staff}.`, d.last_log?.length ? `Yesterday: ${d.last_log.join(', ')}.` : 'No activity yet.', `You can deposit, withdraw, hire, pause, resume or close.`] };
   }
   const amount = Math.floor(Number(p.price ?? p.quantity) || 0);
   if ((op === 'deposit' || op === 'withdraw') && amount <= 0) fail('bad_amount', 'How much?');
@@ -1555,7 +1567,7 @@ function use(game, p) {
 
 function status(game) {
   const pl = game.player();
-  return { ok: true, minutes: 0, summary: 'You take stock.', facts: [`Health ${pl.health}, fatigue ${pl.fatigue}, ${game.balance(pl.id)} marks.`] };
+  return { ok: true, minutes: 0, summary: 'You take stock.', facts: [`Health ${pl.health}, fatigue ${pl.fatigue}, ${game.money(game.balance(pl.id))}.`] };
 }
 
 export const HANDLERS = {

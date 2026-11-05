@@ -70,7 +70,7 @@ test('NPCs follow schedules and are never in two places', () => {
 test('the mayor hoards autonomously, which (vs. an identical world without the hoard) makes grain and flour dearer', () => {
   const g = newGame({ seed: 77 });
   const control = newGame({ seed: 77 });
-  control.db.prepare("INSERT OR REPLACE INTO meta(key,value) VALUES('world_flags', ?)").run(JSON.stringify({ expose_hoard: -1 }));
+  control.db.prepare("INSERT OR REPLACE INTO meta(key,value) VALUES('world_flags', ?)").run(JSON.stringify({ 'seized:bm_mill_granary': -1 }));
   for (let i = 0; i < 21; i++) { run(g, { type: 'wait', hours: 24 }); run(control, { type: 'wait', hours: 24 }); }
   const hoard = g.db.prepare("SELECT SUM(quantity) q FROM items WHERE holder_kind='hidden' AND holder_id='bm_mill_granary'").get().q;
   assert.ok(hoard > 42, `hoard grew to ${hoard}`);

@@ -17,6 +17,7 @@ const isDesktop = !!window.saturn?.call;
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const $ = (sel, root = document) => root.querySelector(sel);
 const fmtMin = (m) => (m >= 1440 ? `${(m / 1440).toFixed(m % 1440 ? 1 : 0)} days` : m >= 60 ? `${(m / 60).toFixed(m % 60 ? 1 : 0)} h` : `${m} min`);
+const cur = (n) => { const c = S.st?.currency || { name: 'mark', plural: 'marks' }; return `${n} ${Math.abs(n) === 1 ? c.name : c.plural}`; };
 const pct = (x) => `${Math.round((x || 0) * 100)}%`;
 function toast(msg) {
   const t = document.createElement('div');
@@ -84,7 +85,7 @@ function renderCreation() {
     <div class="row" style="margin-bottom:12px"><label for="cname">Name</label><input id="cname" type="text" maxlength="40" placeholder="Wren" value="${esc(c.name)}" style="width:240px"></div>
     <h3>Background</h3><div class="bg-grid">${c.opts.backgrounds.map((b) => `<button class="bg-card" data-bg="${b.id}" aria-pressed="${b.id === c.bg}">
       <div class="n">${esc(b.name)}</div><div class="d">${esc(b.description)}</div>
-      <div class="faint" style="font-size:.78em">${Object.entries(b.skills).map(([k, v]) => `${k.replace(/_/g, ' ')} ${v}`).join(', ')} · ${b.money} marks${b.debt ? ` · owes ${b.debt.amount}` : ''}</div></button>`).join('')}</div>
+      <div class="faint" style="font-size:.78em">${Object.entries(b.skills).map(([k, v]) => `${k.replace(/_/g, ' ')} ${v}`).join(', ')} · ${b.money} ${esc(c.opts.currency?.plural || 'coins')}${b.debt ? ` · owes ${b.debt.amount}` : ''}</div></button>`).join('')}</div>
     <h3>Attributes <span class="chip gold">${left} point${left === 1 ? '' : 's'} to spend</span></h3>${attrRows}
     <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" data-act="title">Back</button><button class="btn primary" data-act="begin">Begin</button></div>
   </div></div>`;
@@ -203,7 +204,7 @@ function renderTop() {
     <div class="brand">${LOGO}<span>SATURN</span></div>
     <div class="stat"><span class="label">${esc(st.time.season)} · ${esc(st.time.block)}</span><span class="value">${esc(st.time.label)}</span></div>
     <div class="stat"><span class="label">Location</span><span class="value">${esc(st.location.name)}</span></div>
-    <div class="stat"><span class="label">Purse</span><span class="value" style="color:var(--gold2)">${p.money} marks</span></div>
+    <div class="stat"><span class="label">Purse</span><span class="value" style="color:var(--gold2)">${cur(p.money)}</span></div>
     <div class="stat" title="Health"><span class="label">Health ${p.health}</span><div class="bar"><i style="width:${p.health}%;background:${p.health < 40 ? 'var(--bad)' : 'var(--good)'}"></i></div></div>
     <div class="stat" title="Fatigue"><span class="label">Fatigue ${p.fatigue}</span><div class="bar fat"><i style="width:${p.fatigue}%"></i></div></div>
     <span class="chip ${p.hunger === 'fed' ? '' : 'bad'}">${esc(p.hunger)}</span>
@@ -227,7 +228,7 @@ function renderScene() {
 function changeChips(c) {
   if (!c) return '';
   const chips = [];
-  if (c.money) chips.push(`<span class="chip ${c.money > 0 ? 'good' : 'bad'}">${c.money > 0 ? '+' : ''}${c.money} marks</span>`);
+  if (c.money) chips.push(`<span class="chip ${c.money > 0 ? 'good' : 'bad'}">${c.money > 0 ? '+' : ''}${cur(c.money)}</span>`);
   for (const it of c.items || []) chips.push(`<span class="chip ${it.delta > 0 ? 'good' : 'bad'}">${it.delta > 0 ? '+' : ''}${it.delta} ${esc(it.name)}</span>`);
   for (const s of c.skills || []) chips.push(`<span class="chip gold">${esc(s.skill.replace(/_/g, ' '))} +${s.xp} xp${s.rankAfter > s.rankBefore ? ` → rank ${s.rankAfter}` : ''}</span>`);
   if (c.health) chips.push(`<span class="chip ${c.health > 0 ? 'good' : 'bad'}">health ${c.health > 0 ? '+' : ''}${c.health}</span>`);
@@ -255,7 +256,7 @@ function renderEntry(e, i) {
     return `<div class="entry"><div class="you">${esc(e.input)}</div><div class="plan-card"><div class="t serif" style="font-size:1.1em;color:var(--gold2)">Plan: ${esc(p.title)}</div>
       <ol>${p.steps.map((s) => `<li>${esc(describeAction(s.action))}${s.preview.minutes ? ` <span class="faint">(~${fmtMin(s.preview.minutes)}${s.preview.cost ? `, ${s.preview.cost}m` : ''})</span>` : ''}${!s.preview.feasible ? ` <span class="chip bad">${esc(s.preview.notes.join('; '))}</span>` : ''}</li>`).join('')}</ol>
       ${p.risks?.length ? `<div class="muted" style="font-size:.88em">Risks: ${esc(p.risks.join(' '))}</div>` : ''}
-      ${p.estimate ? `<div class="muted" style="font-size:.88em">About ${p.estimate.days} days. Living costs roughly ${p.estimate.livingCost} marks; you have ${p.estimate.money}.</div>` : ''}
+      ${p.estimate ? `<div class="muted" style="font-size:.88em">About ${p.estimate.days} days. Living costs roughly ${cur(p.estimate.livingCost)}; you have ${p.estimate.money}.</div>` : ''}
       ${e.resolved ? `<div class="faint" style="margin-top:6px">${esc(e.resolved)}</div>` : `<div class="row" style="margin-top:10px"><button class="btn primary small" data-confirm="${e.planId}">Confirm plan</button><button class="btn small ghost" data-cancelplan="${e.planId}">Cancel</button></div>`}
     </div></div>`;
   }
@@ -318,7 +319,7 @@ const TAB_RENDER = {
     const p = st.player;
     return `<div class="row">${portraitSVG(p.name, 56)}<div><div class="serif" style="font-size:1.3em">${esc(p.name)}</div><div class="muted">${esc(p.background)}</div></div></div>
       <h3>Attributes</h3><table class="grid">${Object.entries(p.attributes).map(([k, v]) => `<tr><td style="text-transform:capitalize">${esc(k)}</td><td class="num rank">${v}</td></tr>`).join('')}</table>
-      <h3>Condition</h3><table class="grid"><tr><td>Health</td><td class="num">${p.health}/100</td></tr><tr><td>Fatigue</td><td class="num">${p.fatigue}/100</td></tr><tr><td>Hunger</td><td class="num">${esc(p.hunger)}</td></tr><tr><td>Load</td><td class="num">${p.carry.weight} / ${p.carry.capacity}</td></tr><tr><td>Purse</td><td class="num">${p.money} marks</td></tr></table>
+      <h3>Condition</h3><table class="grid"><tr><td>Health</td><td class="num">${p.health}/100</td></tr><tr><td>Fatigue</td><td class="num">${p.fatigue}/100</td></tr><tr><td>Hunger</td><td class="num">${esc(p.hunger)}</td></tr><tr><td>Load</td><td class="num">${p.carry.weight} / ${p.carry.capacity}</td></tr><tr><td>Purse</td><td class="num">${cur(p.money)}</td></tr></table>
       <h3>What you know</h3>${st.knowledge.length ? st.knowledge.map((k) => `<div class="card"><div class="b">${esc(k.content)}</div><div class="faint" style="font-size:.78em;margin-top:3px">${esc(k.belief)} · ${k.confidence}% sure · ${esc(k.source)}</div></div>`).join('') : '<p class="faint">Nothing yet.</p>'}`;
   },
   skills(st) {
@@ -332,7 +333,7 @@ const TAB_RENDER = {
   },
   inventory(st) {
     const inv = st.inventory.filter((i) => !i.equipped);
-    return `<div class="muted" style="font-size:.85em">Carrying ${st.player.carry.weight} of ${st.player.carry.capacity} weight · ${st.player.money} marks</div>
+    return `<div class="muted" style="font-size:.85em">Carrying ${st.player.carry.weight} of ${st.player.carry.capacity} weight · ${cur(st.player.money)}</div>
       <table class="grid" style="margin-top:6px"><tr><th>Item</th><th class="num">Qty</th><th class="num">Value</th><th></th></tr>${inv.map((i) => `<tr><td>${esc(i.name)}${i.owner ? ` <span class="chip ${i.stolen ? 'bad' : 'info'}" title="Legal owner">${i.stolen ? 'stolen from ' : 'belongs to '}${esc(i.owner)}</span>` : ''}</td><td class="num">${i.qty}</td><td class="num">${i.value}</td><td>${i.slot ? `<button class="btn small" data-say="equip ${esc(i.name)}">equip</button>` : ''}${i.category === 'food' ? `<button class="btn small" data-say="eat ${esc(i.name)}">eat</button>` : ''}${i.category === 'book' ? `<button class="btn small" data-say="read ${esc(i.name)}">read</button>` : ''}</td></tr>`).join('') || '<tr><td colspan="4" class="faint">Nothing.</td></tr>'}</table>`;
   },
   equipment(st) {
@@ -343,12 +344,12 @@ const TAB_RENDER = {
   },
   economy(st) {
     const loans = st.contracts.filter((c) => c.kind === 'loan');
-    return `<h3>Purse: ${st.player.money} marks</h3>
+    return `<h3>Purse: ${cur(st.player.money)}</h3>
       <h3>Businesses</h3>${st.businesses.length ? st.businesses.map((b) => `<div class="card"><div class="t">${esc(b.name)} <span class="chip ${b.status === 'active' ? 'good' : 'bad'}">${esc(b.status)}</span></div><div class="b">${esc(b.kind.replace('_', ' '))} at ${esc(b.location)} · cash ${b.cash}m · efficiency ${pct(b.efficiency)} · staff ${b.staff}${b.commodity ? ` · trades ${esc(b.commodity)}` : ''}${b.trip ? ` · ${esc(b.trip.state)}` : ''}${b.investor ? ` · ${esc(b.investor.name)} holds ${pct(b.investor.share)}` : ''}</div>
         <div class="b">Revenue ${b.stats.revenue}m · costs ${b.stats.costs}m · produced ${b.stats.produced} · sold ${b.stats.sold}${b.lastLog?.length ? ` · last day: ${esc(b.lastLog.join(', '))}` : ''}</div>${b.history?.length ? `<div class="b">Weekly profit: ${b.history.map((h) => `<span class="${h.profit >= 0 ? 'pos' : 'neg'}">${h.profit}</span>`).join(' · ')}</div>` : ''}</div>`).join('') : '<p class="faint">You own no business. Premises available: ' + esc(st.premises.filter((p) => !p.taken).map((p) => `${p.name} (${p.rent}m/day)`).join('; ')) + '.</p>'}
       <h3>Contracts & debts</h3>${st.contracts.length ? `<table class="grid"><tr><th>Contract</th><th>Status</th><th>Due</th></tr>${st.contracts.map((c) => `<tr><td>${esc(c.title)}${c.kind === 'loan' && c.terms.owed != null ? ` <span class="faint">(${c.terms.owed}m owed)</span>` : ''}</td><td>${esc(c.status)}</td><td>${esc(c.due || '—')}</td></tr>`).join('')}</table>` : '<p class="faint">None.</p>'}
       ${loans.length ? '' : ''}
-      <h3>Market prices</h3><table class="grid"><tr><th>Goods</th><th class="num">Brindlemarch</th><th class="num">Kestrel Pt</th><th>21-day trend</th></tr>${st.commodities.map((c) => `<tr><td>${esc(c.name)}</td><td class="num">${c.brindlemarch}</td><td class="num">${c.kestrel}</td><td>${spark(c.trend)}</td></tr>`).join('')}</table>
+      <h3>Market prices</h3><table class="grid"><tr><th>Goods</th>${st.marketSettlements.map((m) => `<th class="num">${esc(m.name)}</th>`).join('')}<th>21-day trend</th></tr>${st.commodities.map((c) => `<tr><td>${esc(c.name)}</td>${st.marketSettlements.map((m) => `<td class="num">${c.prices[m.id] ?? '—'}</td>`).join('')}<td>${spark(c.trend)}</td></tr>`).join('')}</table>
       <p class="faint" style="font-size:.78em">Prices emerge from merchants' real stock; merchants add a markup and buy below market.</p>
       <h3>Ledger</h3><table class="grid"><tr><th>When</th><th>Memo</th><th class="num">Amount</th></tr>${st.ledger.map((t) => `<tr><td class="faint">${esc(t.when)}</td><td>${esc(t.memo)}</td><td class="num ${t.amount >= 0 ? 'pos' : 'neg'}">${t.amount > 0 ? '+' : ''}${t.amount}</td></tr>`).join('')}</table>`;
   },

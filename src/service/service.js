@@ -328,7 +328,8 @@ export class GameService {
     const contracts = g.db.prepare("SELECT * FROM contracts WHERE party_b=? OR party_a=? ORDER BY id DESC").all(p.id, p.id).filter((c) => c.status !== 'offered' || J.parse(c.data, {}).known)
       .map((c) => ({ id: c.id, kind: c.kind, title: c.title, status: c.status, with: g.char(c.party_a)?.name || c.party_a, due: c.due_at ? g.calendar(c.due_at).short : null, terms: J.parse(c.terms, {}) }));
     const businesses = businessesOf(g, p.id).map((b) => ({ id: b.id, name: b.name, kind: b.kind, status: b.status, location: g.location(b.location_id).name, cash: g.balance(b.id), efficiency: b.data.efficiency, staff: b.data.staff, stats: b.data.stats, history: b.data.history, lastLog: b.data.last_log, commodity: b.data.commodity, trip: b.data.trip, investor: b.data.investor ? { name: g.char(b.data.investor.npc).name, share: b.data.investor.share } : null }));
-    const commodities = g.def.item_types.filter((t) => t.commodity).map((t) => ({ id: t.id, name: t.name, brindlemarch: marketPrice(g, 'brindlemarch', t.id), kestrel: marketPrice(g, 'kestrel', t.id), trend: priceTrend(g, settlement || 'brindlemarch', t.id, 21).map((r) => r.price) }));
+    const marketSettlements = (g.def.settlements || []).filter((s) => g.db.prepare('SELECT 1 FROM markets WHERE settlement=?').get(s.id)).map((s) => ({ id: s.id, name: s.name }));
+    const commodities = g.def.item_types.filter((t) => t.commodity).map((t) => ({ id: t.id, name: t.name, prices: Object.fromEntries(marketSettlements.map((s) => [s.id, marketPrice(g, s.id, t.id)])), trend: priceTrend(g, settlement || marketSettlements[0]?.id, t.id, 21).map((r) => r.price) }));
     const relationships = g.db.prepare("SELECT * FROM relationships WHERE to_id=? AND familiarity>0").all(p.id).map((r) => {
       const c = g.char(r.from_id);
       return { id: r.from_id, name: c.name, role: c.role, attitude: attitudeLabel(r), disposition: disposition(r), trust: r.trust, affection: r.affection, respect: r.respect, fear: r.fear, rivalry: r.rivalry, familiarity: r.familiarity, location: g.location(c.location_id)?.name, alive: !!c.alive,
@@ -351,7 +352,7 @@ export class GameService {
       time: { ...cal, label: cal.label },
       player: { name: p.name, background: p.role, health: p.health, fatigue: p.fatigue, money: g.balance(p.id), alive: !!p.alive, attributes: p.attributes, hunger: hungry > 3 * MINUTES_PER_DAY ? 'starving' : hungry > MINUTES_PER_DAY ? 'hungry' : hungry > 12 * 60 ? 'peckish' : 'fed', carry: { weight: Math.round(items.reduce((s, i) => s + i.weight * i.qty, 0) * 10) / 10, capacity: g.carryCapacity(p.id) } },
       location: { id: loc.id, name: loc.name, description: loc.description, art: loc.art, settlement: settlement ? g.def.settlements.find((s) => s.id === settlement)?.name : 'The wilds', tags: loc.tags, exits: g.exits(loc.id), people },
-      inventory: items, skills, contracts, businesses, premises: premisesList(g), commodities, relationships, journal, knowledge,
+      inventory: items, skills, contracts, businesses, premises: premisesList(g), commodities, marketSettlements, currency: g.rules.currency, relationships, journal, knowledge,
       map: { locations: mapLocs, routes }, factions, history, log, pendingPlans, flags: getFlags(g),
       ledger: recentTransactions(g.db, p.id, 25).map((t) => ({ ...t, when: g.calendar(t.time).short })),
       ai: this.aiStatus, settings: this.settings,

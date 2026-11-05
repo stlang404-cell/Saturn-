@@ -44,19 +44,24 @@ export function foundBusiness(game, { ownerId, templateId, premisesId, name, cap
   if (templateId === 'trading_company') {
     if (!commodity || !game.itemType(commodity)?.commodity) throw new RuleError('need_commodity', 'A trading company needs a commodity to trade (e.g. salt).');
   }
-  const fee = licensed ? game.npcDef('npc_aurel').licenses.fee : 0;
+  const licensor = (game.def.npcs || []).find((n) => n.licenses && game.settlementOf(n.location) === game.settlementOf(prem.location_id));
+  const fee = licensed && licensor ? licensor.licenses.fee : 0;
+  const licenceFaction = licensor ? game.db.prepare('SELECT faction_id FROM faction_members WHERE character_id=?').get(licensor.id)?.faction_id : null;
   const upfront = tpl.startup_cost + prem.rent * 6 + fee;
-  if (!Number.isInteger(capital) || capital < 0) throw new RuleError('bad_amount', 'Working capital must be a whole number of marks.');
+  if (!Number.isInteger(capital) || capital < 0) throw new RuleError('bad_amount', 'Working capital must be a whole number.');
   const total = upfront + capital;
   if (game.balance(ownerId) < total) {
-    throw new RuleError('insufficient_funds', `Founding this needs ${upfront} marks (equipment ${tpl.startup_cost}, six days' rent ${prem.rent * 6}${fee ? `, licence ${fee}` : ''}) plus working capital — ${total} in all. You have ${game.balance(ownerId)}.`, { need: total, have: game.balance(ownerId) });
+    throw new RuleError('insufficient_funds', `Founding this needs ${game.money(upfront)} (equipment ${tpl.startup_cost}, six days' rent ${prem.rent * 6}${fee ? `, licence ${fee}` : ''}) plus working capital — ${total} in all. You have ${game.balance(ownerId)}.`, { need: total, have: game.balance(ownerId) });
   }
   const id = `biz_${game.db.prepare('SELECT COUNT(*) n FROM businesses').get().n + 1}`;
   const bname = (name || `${game.char(ownerId).name}'s ${tpl.name}`).slice(0, 60);
   ledger.ensureAccount(game.db, id, { owner: ownerId, kind: 'business', name: bname });
-  game.pay(ownerId, prem.landlord === 'npc_isa' ? 'npc_isa' : 'npc_brannoc', tpl.startup_cost, `Equipment for ${bname}`, 'investment');
+  // equipment comes from a named outfitter if the world has one, otherwise from suppliers outside the simulation
+  const outfitter = tpl.outfitter && game.char(tpl.outfitter)?.alive ? tpl.outfitter : null;
+  if (outfitter) game.pay(ownerId, outfitter, tpl.startup_cost, `Equipment for ${bname}`, 'investment');
+  else game.burn(ownerId, tpl.startup_cost, `Equipment for ${bname}`);
   game.pay(ownerId, prem.landlord, prem.rent * 6, `Six days' rent for ${prem.name}`, 'rent');
-  if (fee) game.pay(ownerId, 'fac_guild', fee, 'Guild trading licence', 'fee');
+  if (fee) game.pay(ownerId, licenceFaction || licensor.id, fee, 'Trading licence', 'fee');
   if (capital > 0) game.pay(ownerId, id, capital, `Working capital for ${bname}`, 'investment');
   const data = {
     template: templateId, premises: premisesId, rent: prem.rent, prepaid_days: 6, licensed, staff: tpl.staff, wage: tpl.wage,
@@ -64,7 +69,7 @@ export function foundBusiness(game, { ownerId, templateId, premisesId, name, cap
     stats: { days: 0, revenue: 0, costs: tpl.startup_cost + prem.rent * 6 + fee, produced: 0, sold: 0, week_revenue: 0, week_costs: 0 }, history: [], investor: null,
   };
   game.db.prepare('INSERT INTO businesses(id,name,owner_id,kind,location_id,founded_at,status,data) VALUES (?,?,?,?,?,?,?,?)').run(id, bname, ownerId, templateId, prem.location_id, game.time, 'active', J.str(data));
-  if (!licensed) game.db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MAX(-100, value-10)').run('fac_guild', ownerId, -10);
+  if (!licensed && licenceFaction) game.db.prepare('INSERT INTO reputation(faction_id, character_id, value) VALUES (?,?,?) ON CONFLICT(faction_id, character_id) DO UPDATE SET value=MAX(-100, value-10)').run(licenceFaction, ownerId, -10);
   const ev = game.recordEvent({ kind: 'business_founded', actor: ownerId, location: prem.location_id, summary: `${game.char(ownerId).name} founded ${bname}, a ${tpl.name.toLowerCase()} at ${prem.name}.`, visibility: 'public', importance: 6, data: { business: id, hearsay: { respect: 6 } } });
   game.journal('plan', bname, `Your ${tpl.name.toLowerCase()} at ${prem.name}. Rent ${prem.rent}m/day, ${tpl.staff} staff at ${tpl.wage}m/day.${commodity ? ` Trading ${commodity}.` : ''}`, `biz:${id}`);
   return { id, name: bname, upfront, capital, eventId: ev.eventId };
@@ -214,8 +219,8 @@ export function businessDaily(game) {
       }
       d.history.push({ day: game.day, revenue: d.stats.week_revenue, costs: d.stats.week_costs, profit, efficiency: d.efficiency, cash: game.balance(b.id) });
       if (d.history.length > 30) d.history.shift();
-      game.journal('consequence', `${b.name}: weekly report`, `Revenue ${d.stats.week_revenue}m, costs ${d.stats.week_costs}m, profit ${profit}m. Cash on hand ${game.balance(b.id)}m. Efficiency ${Math.round(d.efficiency * 100)}%.`, `bizweek:${b.id}`);
-      if (profit !== 0) game.digest.push({ time: game.time, kind: 'business', summary: `${b.name} made ${profit >= 0 ? 'a profit' : 'a loss'} of ${Math.abs(profit)} marks this week.`, importance: 5 });
+      game.journal('consequence', `${b.name}: weekly report`, `Revenue ${game.money(d.stats.week_revenue)}, costs ${game.money(d.stats.week_costs)}, profit ${game.money(profit)}. Cash on hand ${game.money(game.balance(b.id))}. Efficiency ${Math.round(d.efficiency * 100)}%.`, `bizweek:${b.id}`);
+      if (profit !== 0) game.digest.push({ time: game.time, kind: 'business', summary: `${b.name} made ${profit >= 0 ? 'a profit' : 'a loss'} of ${game.money(Math.abs(profit))} this week.`, importance: 5 });
       d.stats.week_revenue = 0; d.stats.week_costs = 0;
     }
     d.last_log = log;
@@ -226,12 +231,13 @@ export function businessDaily(game) {
 function tradingDay(game, b, tpl, home, log) {
   const d = b.data;
   const t = d.trip;
-  const other = home === 'brindlemarch' ? 'kestrel' : 'brindlemarch';
+  const other = d.destination || (game.def.settlements || []).map((s) => s.id).find((s) => s !== home && game.db.prepare('SELECT 1 FROM markets WHERE settlement=?').get(s));
+  if (!other) { log.push('no other market to trade with'); return; }
   if (t.state === 'loading') {
     const got = buyInput(game, b, d.commodity, Math.floor(tpl.capacity * Math.min(1.2, d.efficiency)), home);
     if (got > 0) {
       if (game.balance(b.id) < tpl.freight) { log.push('cannot pay freight'); return; }
-      game.pay(b.id, 'npc_piet', tpl.freight, `Freight for ${b.name}`, 'freight');
+      game.burn(b.id, tpl.freight, `Freight for ${b.name}`);
       d.stats.costs += tpl.freight; d.stats.week_costs += tpl.freight;
       inv.moveItems(game.ctx, { typeId: d.commodity, qty: got, from: { kind: 'business', id: b.id }, to: { kind: 'business', id: `${b.id}:cargo` }, memo: 'loaded onto riverboat' });
       t.state = 'outbound'; t.days_left = tpl.trip_days; t.cargo = got;
@@ -249,7 +255,7 @@ function tradingDay(game, b, tpl, home, log) {
       const cargo = inv.countHeld(game.db, 'business', `${b.id}:cargo`, d.commodity);
       if (cargo > 0) inv.moveItems(game.ctx, { typeId: d.commodity, qty: cargo, from: { kind: 'business', id: `${b.id}:cargo` }, to: { kind: 'business', id: b.id }, memo: 'unloaded' });
       const { revenue, sold } = sellOutput(game, b, d.commodity, other);
-      log.push(`sold ${sold} ${d.commodity} at ${other} for ${revenue}m`);
+      log.push(`sold ${sold} ${d.commodity} at ${other} for ${game.money(revenue)}`);
       t.state = 'returning'; t.days_left = tpl.trip_days; t.cargo = 0;
     }
   } else if (t.state === 'returning') {
@@ -265,8 +271,8 @@ function tradingDay(game, b, tpl, home, log) {
 export function businessOp(game, ownerId, businessId, op, amount) {
   const b = getBusiness(game, businessId);
   if (!b || b.owner_id !== ownerId) throw new RuleError('not_owner', 'You do not own that business.');
-  if (op === 'deposit') { game.pay(ownerId, b.id, amount, `Deposit into ${b.name}`, 'investment'); return { msg: `Deposited ${amount} marks into ${b.name}.` }; }
-  if (op === 'withdraw') { game.pay(b.id, ownerId, amount, `Withdrawal from ${b.name}`, 'withdrawal'); return { msg: `Withdrew ${amount} marks from ${b.name}.` }; }
+  if (op === 'deposit') { game.pay(ownerId, b.id, amount, `Deposit into ${b.name}`, 'investment'); return { msg: `Deposited ${game.money(amount)} into ${b.name}.` }; }
+  if (op === 'withdraw') { game.pay(b.id, ownerId, amount, `Withdrawal from ${b.name}`, 'withdrawal'); return { msg: `Withdrew ${game.money(amount)} from ${b.name}.` }; }
   if (op === 'hire') { const tpl = game.def.business_templates.find((t) => t.id === b.data.template); b.data.staff = Math.max(b.data.staff, tpl.staff); save(game, b); return { msg: `Staffed ${b.name}.` }; }
   if (op === 'pause') { b.status = 'paused'; save(game, b); return { msg: `${b.name} is paused.` }; }
   if (op === 'resume') { b.status = 'active'; save(game, b); return { msg: `${b.name} is open again.` }; }
@@ -274,7 +280,7 @@ export function businessOp(game, ownerId, businessId, op, amount) {
     b.status = 'closed'; save(game, b);
     const cash = game.balance(b.id);
     if (cash > 0) game.pay(b.id, ownerId, cash, `Closing ${b.name}`, 'withdrawal');
-    return { msg: `${b.name} is closed. ${cash} marks returned to you.` };
+    return { msg: `${b.name} is closed. ${game.money(cash)} returned to you.` };
   }
   throw new RuleError('bad_op', `Unknown business operation ${op}`);
 }

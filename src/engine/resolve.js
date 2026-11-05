@@ -47,6 +47,7 @@ function scoreName(query, c) {
   if (parts.includes(q)) return 80;
   if (name.includes(q) || q.includes(name)) return 70;
   if (parts.some((p) => p.length > 2 && q.split(' ').includes(p))) return 60;
+  if ((c.aliases || []).map(norm).includes(q)) return 85;
   const roles = ROLE_WORDS[c.id] || [];
   if (roles.includes(q)) return 50;
   if (c.role && norm(c.role).includes(q)) return 40;
@@ -104,7 +105,7 @@ export function resolveItemType(query, candidates) {
     const name = norm(c.name);
     let s = 0;
     if (q === c.id || qFull === c.id || q === name || qFull === name) s = 100;
-    else if ((ITEM_SYNONYMS[c.id] || []).some((syn) => syn === q || syn === qFull)) s = 90;
+    else if ([...(ITEM_SYNONYMS[c.id] || []), ...(c.aliases || []).map(norm)].some((syn) => syn === q || syn === qFull)) s = 90;
     else if (name.includes(q) || name.includes(qFull)) s = 70;
     else if ((ITEM_SYNONYMS[c.id] || []).some((syn) => qFull.includes(syn) || q.includes(syn))) s = 60;
     else if (q.split(' ').some((w) => w.length > 3 && name.split(' ').includes(w))) s = 40;
@@ -139,7 +140,7 @@ export function resolveLocation(query, locations) {
     const name = norm(l.name);
     let s = 0;
     if (q === name || q === l.id) s = 100;
-    else if ((aliases[l.id] || []).includes(q)) s = 90;
+    else if ([...(aliases[l.id] || []), ...(l.aliases || []).map(norm)].includes(q)) s = 90;
     else if (name.includes(q)) s = 70;
     else if ((aliases[l.id] || []).some((a) => q.includes(a))) s = 50 + Math.min(20, (aliases[l.id].find((a) => q.includes(a)) || '').length);
     if (s > bestScore) { best = l; bestScore = s; }

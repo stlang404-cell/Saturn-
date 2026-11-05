@@ -46,14 +46,16 @@
       "name": "Brindlemarch",
       "population": 1800,
       "wage": 3,
-      "description": "A river-market town of timber and grey stone at the head of the Saltwind."
+      "description": "A river-market town of timber and grey stone at the head of the Saltwind.",
+      "government": "fac_council"
     },
     {
       "id": "kestrel",
       "name": "Kestrel Point",
       "population": 900,
       "wage": 3,
-      "description": "A wind-scoured fishing harbour where the Saltwind meets the sea."
+      "description": "A wind-scoured fishing harbour where the Saltwind meets the sea.",
+      "government": "fac_kestrel"
     }
   ],
   "locations": [
@@ -251,6 +253,24 @@
             "capacity": 20,
             "regen": 2
           }
+        ],
+        "hidden_paths": [
+          {
+            "to": "ww_observatory",
+            "skill": "survival",
+            "tn": 17,
+            "fact": "f_observatory",
+            "keywords": [
+              "observ",
+              "ruin",
+              "dome",
+              "ancient",
+              "path",
+              "deeper",
+              "explore"
+            ],
+            "text": "Deep among the beeches you find old cut stones marking a path westward \u2014 toward a green-black dome half sunk in the earth."
+          }
         ]
       }
     },
@@ -402,7 +422,8 @@
       480,
       {
         "mode": "riverboat",
-        "cost": 6
+        "cost": 6,
+        "operator": "npc_piet"
       }
     ],
     [
@@ -1229,12 +1250,14 @@
     {
       "id": "fac_guild",
       "name": "Guild of Weights",
-      "description": "Brindlemarch's merchants' guild. It writes loans, licenses trade and settles disputes over measure."
+      "description": "Brindlemarch's merchants' guild. It writes loans, licenses trade and settles disputes over measure.",
+      "treasury": 300
     },
     {
       "id": "fac_council",
       "name": "Town Council",
-      "description": "The mayor and aldermen who govern Brindlemarch, tax its market and command the watch."
+      "description": "The mayor and aldermen who govern Brindlemarch, tax its market and command the watch.",
+      "treasury": 150
     },
     {
       "id": "fac_temple",
@@ -1264,7 +1287,8 @@
         "mill",
         "corvin",
         "council"
-      ]
+      ],
+      "data": {}
     },
     {
       "id": "f_bread_prices",
@@ -1278,7 +1302,8 @@
         "flour",
         "prices",
         "market"
-      ]
+      ],
+      "data": {}
     },
     {
       "id": "f_grain_hoard",
@@ -1301,7 +1326,26 @@
       ],
       "data": {
         "reactions": {
-          "npc_hedda": "expose_hoard"
+          "npc_hedda": {
+            "type": "seize_store",
+            "store": "bm_mill_granary",
+            "release_to": "npc_tamsin",
+            "culprit": "npc_corvin",
+            "location": "bm_mill",
+            "summary": "Captain Hedda Strom broke the chains on the mill's lower granary and found the mayor's hoard. The grain is ordered back to market.",
+            "close_journal": "bread_mystery",
+            "journal_title": "The granary scandal",
+            "journal_body": "Captain Strom has seized the mayor's hidden grain. Bread prices should ease as it returns to market."
+          }
+        },
+        "keepers": [
+          "npc_corvin",
+          "npc_tamsin"
+        ],
+        "opportunity": {
+          "title": "The mayor's hoard",
+          "text": "You know the mayor is hoarding grain. Who in Brindlemarch would act on that \u2014 and would they believe you without proof?",
+          "unless_flag": "seized:bm_mill_granary"
         }
       }
     },
@@ -1318,7 +1362,8 @@
         "rumor",
         "prices",
         "bread"
-      ]
+      ],
+      "data": {}
     },
     {
       "id": "f_odile_debt",
@@ -1330,7 +1375,12 @@
         "odile",
         "debt",
         "guild"
-      ]
+      ],
+      "data": {
+        "keepers": [
+          "npc_odile"
+        ]
+      }
     },
     {
       "id": "f_kestrel_salt",
@@ -1344,7 +1394,13 @@
         "trade",
         "prices",
         "profit"
-      ]
+      ],
+      "data": {
+        "opportunity": {
+          "title": "Salt to Kestrel Point",
+          "text": "Salt costs about {price:brindlemarch:salt} here and fetches about {price:kestrel:salt} at Kestrel Point. The riverboat from the docks costs 6 marks."
+        }
+      }
     },
     {
       "id": "f_kestrel_spices",
@@ -1358,7 +1414,13 @@
         "trade",
         "prices",
         "profit"
-      ]
+      ],
+      "data": {
+        "opportunity": {
+          "title": "Spices from Kestrel",
+          "text": "Spices sell for about {price:brindlemarch:spices} in Brindlemarch but about {price:kestrel:spices} at Kestrel Point."
+        }
+      }
     },
     {
       "id": "f_jory_fence",
@@ -1376,8 +1438,17 @@
       ],
       "data": {
         "reactions": {
-          "npc_hedda": "arrest_jory"
-        }
+          "npc_hedda": {
+            "type": "arrest",
+            "target": "npc_jory",
+            "jail_location": "bm_hall",
+            "summary": "The watch arrested Jory Pell in the Narrows for receiving stolen goods.",
+            "faction_penalty": "fac_narrows"
+          }
+        },
+        "keepers": [
+          "npc_jory"
+        ]
       }
     },
     {
@@ -1393,7 +1464,12 @@
         "prices",
         "salt",
         "spices"
-      ]
+      ],
+      "data": {
+        "keepers": [
+          "npc_sabine"
+        ]
+      }
     },
     {
       "id": "f_observatory",
@@ -1410,7 +1486,12 @@
         "astrolabe"
       ],
       "data": {
-        "reveals_location": "ww_observatory"
+        "reveals_location": "ww_observatory",
+        "opportunity": {
+          "title": "The Sunken Observatory",
+          "text": "A Ring-age observatory is said to lie deep in the Whisperwood beyond Cobb's Fields.",
+          "unless_flag": "found:ww_observatory"
+        }
       }
     },
     {
@@ -1425,7 +1506,8 @@
         "whisperwood",
         "healing",
         "medicine"
-      ]
+      ],
+      "data": {}
     },
     {
       "id": "f_hedda_honest",
@@ -1439,7 +1521,8 @@
         "guard",
         "mayor",
         "honest"
-      ]
+      ],
+      "data": {}
     },
     {
       "id": "f_mayor_generous",
@@ -1452,7 +1535,8 @@
         "grain",
         "granary",
         "rumor"
-      ]
+      ],
+      "data": {}
     }
   ],
   "premises": [
@@ -1690,7 +1774,20 @@
           "rel": 12
         }
       ],
-      "debt": 1000
+      "agendas": [
+        {
+          "type": "debt",
+          "creditor": "fac_guild",
+          "amount": 1000,
+          "due_month": 7,
+          "seize_to": "npc_aurel",
+          "ruin_text": "The Guild of Weights seized Odile Varne's stock for her unpaid debt."
+        },
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ]
     },
     {
       "id": "npc_sabine",
@@ -1797,6 +1894,13 @@
           "type": "salt",
           "qty": 5,
           "source": "salt bought off the flats carters"
+        }
+      ],
+      "agendas": [
+        {
+          "type": "undercut",
+          "rival": "npc_odile",
+          "motive": "drive Odile out of the salt trade"
         }
       ]
     },
@@ -2010,6 +2114,12 @@
           "id": "apprentice",
           "text": "Find an apprentice worth teaching"
         }
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
       ]
     },
     {
@@ -2136,6 +2246,12 @@
           "days": 90,
           "rel": 25
         }
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
       ]
     },
     {
@@ -2256,6 +2372,12 @@
           "days": 20,
           "rel": 15
         }
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
       ]
     },
     {
@@ -2330,19 +2452,25 @@
           "secret": true
         }
       ],
-      "hoard": {
-        "partner": "npc_tamsin",
-        "types": [
-          "grain",
-          "flour"
-        ],
-        "per_day": 3,
-        "store": "bm_mill_granary"
-      },
       "stipend": {
         "from": "fac_council",
         "amount": 4
-      }
+      },
+      "agendas": [
+        {
+          "type": "stockpile",
+          "partner": "npc_tamsin",
+          "types": [
+            "grain",
+            "flour"
+          ],
+          "per_day": 3,
+          "store": "bm_mill_granary",
+          "max": 160,
+          "until_month": 7,
+          "motive": "winter is coming; scarcity will pay"
+        }
+      ]
     },
     {
       "id": "npc_tamsin",
@@ -2690,14 +2818,26 @@
         "markup": 0.3,
         "fence": true
       },
-      "thief": {
-        "chance": 0.25
-      },
       "goals": [
         {
           "id": "profit",
           "text": "Turn a profit without catching the watch's eye",
           "secret": true
+        }
+      ],
+      "agendas": [
+        {
+          "type": "pilfer",
+          "chance": 0.25,
+          "min": 3,
+          "max": 9,
+          "memo": "Purses lifted in the market",
+          "suspicion": {
+            "watcher": "npc_hedda",
+            "fact": "f_jory_fence",
+            "chance": 0.15,
+            "confidence": 0.12
+          }
         }
       ]
     },
@@ -2865,6 +3005,12 @@
           "id": "stability",
           "text": "Keep the guild solvent and the market orderly"
         }
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
       ]
     },
     {
@@ -2942,7 +3088,8 @@
           "cloth",
           "timber"
         ],
-        "markup": 0.15
+        "markup": 0.15,
+        "restock_buys": true
       },
       "production": [
         {
@@ -3249,8 +3396,15 @@
         "item": "grain_ledger",
         "tn": 17,
         "skill": "investigation",
-        "fact": "f_grain_hoard"
-      }
+        "fact": "f_grain_hoard",
+        "partial_fact": "f_grain_rumor"
+      },
+      "found_text": "Through a gap in the boards you see sacks of grain and flour stacked to the rafters. Nailed inside the door is a tally signed with the mayor's mark.",
+      "watchers": [
+        "npc_tamsin",
+        "npc_corvin"
+      ],
+      "seized_text": "The granary chains hang broken; the watch has already been here."
     }
   ],
   "secrets_at": [
@@ -3260,7 +3414,8 @@
       "tn": 15,
       "item": "ring_astrolabe",
       "fact": "f_observatory",
-      "text": "Beneath a fallen star-chart you find a brass astrolabe, green with age but whole."
+      "text": "Beneath a fallen star-chart you find a brass astrolabe, green with age but whole.",
+      "flag": "found:ww_observatory"
     }
   ],
   "backgrounds": [
@@ -3365,5 +3520,27 @@
         "days": 45
       }
     }
-  ]
+  ],
+  "spec_version": 2,
+  "start": {
+    "location": "bm_inn",
+    "known_facts": [
+      "f_mayor",
+      "f_bread_prices"
+    ],
+    "journal": [
+      {
+        "kind": "opportunity",
+        "ref": "find_work",
+        "title": "Find work",
+        "body": "Odile Varne (Guildhall), Piet Lunder (docks), Brannoc Hale (forge), Mirela Tosk (the Lantern) and Wenna Cobb (the fields) all hire help. Ask them for work."
+      },
+      {
+        "kind": "opportunity",
+        "ref": "bread_mystery",
+        "title": "Why is bread so dear?",
+        "body": "Bread and flour prices have climbed for weeks. Someone in Brindlemarch must know why."
+      }
+    ]
+  }
 }
