@@ -1,41 +1,22 @@
 // Grounding helpers: resolve names the player or AI used into real entity ids,
 // strictly within what the player can perceive or knows about.
-import { SKILLS } from './rules.js';
 
 export function norm(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-const SKILL_SYNONYMS = {
-  medicine: ['medicine', 'medical', 'healing', 'heal', 'physician', 'doctor', 'surgery', 'anatomy', 'treat', 'treatment'],
-  herbalism: ['herbalism', 'herbs', 'herb', 'botany', 'plants', 'herbal', 'herblore', 'foraging herbs'],
-  commerce: ['commerce', 'trade', 'trading', 'business', 'bookkeeping', 'accounting', 'accounts', 'ledger', 'merchant', 'mercantile', 'economics', 'finance'],
-  negotiation: ['negotiation', 'negotiate', 'haggle', 'haggling', 'bargain', 'bargaining', 'deal'],
-  persuasion: ['persuasion', 'persuade', 'convince', 'rhetoric', 'charm', 'diplomacy', 'oratory', 'speech'],
-  deception: ['deception', 'deceive', 'lie', 'lying', 'bluff', 'disguise', 'con', 'forgery'],
-  intimidation: ['intimidation', 'intimidate', 'threaten', 'menace', 'coerce'],
-  leadership: ['leadership', 'lead', 'command', 'management', 'organize', 'organise', 'politics'],
-  scholarship: ['scholarship', 'history', 'lore', 'letters', 'reading', 'writing', 'research', 'mathematics', 'math', 'astronomy', 'philosophy', 'law', 'languages', 'study'],
-  engineering: ['engineering', 'mechanics', 'mechanical', 'machines', 'invention', 'inventing', 'architecture', 'construction', 'metallurgy', 'alloy', 'alloys'],
-  alchemy: ['alchemy', 'chemistry', 'tinctures', 'potions', 'reagents'],
-  smithing: ['smithing', 'blacksmithing', 'smith', 'forging', 'forge', 'metalwork', 'metalworking'],
-  crafting: ['crafting', 'craft', 'cooking', 'baking', 'brewing', 'carpentry', 'woodwork', 'sewing', 'handiwork'],
-  athletics: ['athletics', 'climbing', 'climb', 'swimming', 'swim', 'running', 'lifting', 'hauling', 'strength', 'fitness'],
-  melee: ['melee', 'fighting', 'fight', 'sword', 'swordplay', 'swordsmanship', 'combat', 'brawling', 'weapons', 'fencing', 'dagger'],
-  stealth: ['stealth', 'sneak', 'sneaking', 'hide', 'hiding', 'skulk'],
-  sleight_of_hand: ['sleight of hand', 'sleight', 'pickpocket', 'pickpocketing', 'lockpicking', 'lockpick', 'pick locks', 'palming', 'thievery'],
-  survival: ['survival', 'tracking', 'foraging', 'hunting', 'wilderness', 'woodcraft', 'camping'],
-  perception: ['perception', 'awareness', 'noticing', 'observation', 'spotting', 'watching'],
-  investigation: ['investigation', 'investigate', 'searching', 'search', 'deduction', 'detective', 'sleuthing'],
-};
-
-export function resolveSkill(name) {
+/** Resolve a free-text skill name to a skill id of the given world ruleset. */
+export function resolveSkill(name, rules) {
   const n = norm(name).replace(/_/g, ' ');
-  if (!n) return null;
+  if (!n || !rules) return null;
+  const skills = rules.skills;
   const direct = n.replace(/ /g, '_');
-  if (SKILLS[direct]) return direct;
-  for (const [skill, syns] of Object.entries(SKILL_SYNONYMS)) if (syns.includes(n)) return skill;
-  for (const [skill, syns] of Object.entries(SKILL_SYNONYMS)) if (syns.some((s) => n.includes(s))) return skill;
+  if (skills[direct]) return direct;
+  for (const [id, s] of Object.entries(skills)) if (norm(s.label) === n) return id;
+  for (const [id, s] of Object.entries(skills)) if ((s.keywords || []).includes(n)) return id;
+  const hasWords = (phrase) => new RegExp(`(^|\\s)${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`).test(n);
+  for (const [id, s] of Object.entries(skills)) if (norm(s.label).length > 3 && hasWords(norm(s.label))) return id;
+  for (const [id, s] of Object.entries(skills)) if ((s.keywords || []).some((k) => k.length > 2 && hasWords(k))) return id;
   return null;
 }
 

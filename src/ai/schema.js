@@ -3,7 +3,6 @@
 // afterwards. Nothing outside this shape can reach the simulation.
 import Ajv from 'ajv';
 import { ACTION_TYPES } from '../engine/actions.js';
-import { SKILL_NAMES } from '../engine/rules.js';
 import { DIFFICULTY_NAMES } from '../engine/dice.js';
 
 const nullable = (schema) => ({ type: [schema.type, 'null'], ...(schema.enum ? { enum: [...schema.enum, null] } : {}), ...(schema.maxLength ? { maxLength: schema.maxLength } : {}) });
@@ -18,7 +17,7 @@ export const ACTION_SCHEMA = {
     target: nullable({ type: 'string', maxLength: 60 }),
     item: nullable({ type: 'string', maxLength: 60 }),
     quantity: { type: ['integer', 'null'] },
-    skill: nullable({ type: 'string', enum: SKILL_NAMES }),
+    skill: nullable({ type: 'string', maxLength: 60 }),
     topic: nullable({ type: 'string', maxLength: 120 }),
     approach: nullable({ type: 'string', enum: APPROACH_VALUES }),
     hours: { type: ['number', 'null'] },
@@ -43,7 +42,7 @@ export const LLM_ACTION_SCHEMA = {
     target: nullable({ type: 'string', maxLength: 60 }),
     item: nullable({ type: 'string', maxLength: 60 }),
     quantity: { type: ['integer', 'null'] },
-    skill: nullable({ type: 'string', enum: SKILL_NAMES }),
+    skill: nullable({ type: 'string', maxLength: 60 }),
     topic: nullable({ type: 'string', maxLength: 120 }),
     approach: nullable({ type: 'string', enum: APPROACH_VALUES }),
     hours: { type: ['number', 'null'] },
@@ -85,6 +84,17 @@ export const LLM_INTERPRETATION_SCHEMA = {
   properties: { ...INTERPRETATION_SCHEMA.properties, actions: { type: 'array', items: LLM_ACTION_SCHEMA, maxItems: 6 } },
 };
 
+/** LLM output schema for a specific world: the skill field is constrained to that world's skills. */
+const _llmSchemaCache = new Map();
+export function llmInterpretationSchema(skillIds) {
+  const key = skillIds.join(',');
+  if (!_llmSchemaCache.has(key)) {
+    const action = { ...LLM_ACTION_SCHEMA, properties: { ...LLM_ACTION_SCHEMA.properties, skill: { type: ['string', 'null'], enum: [...skillIds, null] } } };
+    _llmSchemaCache.set(key, { ...INTERPRETATION_SCHEMA, properties: { ...INTERPRETATION_SCHEMA.properties, actions: { type: 'array', items: action, maxItems: 6 } } });
+  }
+  return _llmSchemaCache.get(key);
+}
+
 const ajv = new Ajv({ allErrors: true, coerceTypes: false, useDefaults: false });
 const validateInterp = ajv.compile(INTERPRETATION_SCHEMA);
 const validateNarr = ajv.compile(NARRATION_SCHEMA);
@@ -112,7 +122,7 @@ export function normalizeInterpretation(raw) {
       for (const k of ['quantity', 'days', 'price']) if (typeof b[k] === 'number') b[k] = Math.round(b[k]);
       for (const k of ['quantity', 'days', 'price', 'hours']) if (typeof b[k] === 'string' && /^\d+(\.\d+)?$/.test(b[k])) b[k] = Number(b[k]);
       for (const k of ['target', 'item', 'topic', 'destination', 'detail']) if (typeof b[k] === 'string') { b[k] = b[k].trim().slice(0, ACTION_SCHEMA.properties[k].maxLength); if (!b[k]) b[k] = null; }
-      if (b.skill && !SKILL_NAMES.includes(b.skill)) b.skill = null;
+      if (typeof b.skill === 'string') { b.skill = b.skill.trim().slice(0, 60) || null; }
       if (b.approach && !APPROACH_VALUES.includes(b.approach)) b.approach = null;
       if (b.difficulty && !DIFFICULTY_NAMES.includes(b.difficulty)) b.difficulty = null;
       if (b.novelty && !NOVELTY_VALUES.includes(b.novelty)) b.novelty = null;

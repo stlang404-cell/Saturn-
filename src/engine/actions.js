@@ -9,9 +9,9 @@ import { quote, executeTrade, marketPrice, homeSettlement } from './economy.js';
 import { factsAbout, belief, getFact, worldFactsAbout } from './knowledge.js';
 import { retrieveMemories } from './memory.js';
 import { socialMod, attitudeLabel, disposition } from './relationships.js';
-import { SKILLS, LEARNING_METHODS, studyXpPerHour, DRILLABLE, EXPERIMENTABLE, MINUTES_PER_DAY, clamp, xpForRank, round2 } from './rules.js';
+import { LEARNING_METHODS, studyXpPerHour, MINUTES_PER_DAY, clamp, xpForRank, round2 } from './rules.js';
 import { DIFFICULTY, isSuccess, isAtLeastPartial, DEGREE_LABEL } from './dice.js';
-import { resolveCharacter, resolveItemType, resolveLocation, resolveSkill, norm } from './resolve.js';
+import { resolveCharacter, resolveItemType, resolveLocation, norm } from './resolve.js';
 import { foundBusiness, businessesOf, businessOp, addInvestor, premisesList, getBusiness } from './business.js';
 import { getFlags } from './sim.js';
 
@@ -406,13 +406,13 @@ function askJob(game, p) {
   const rolls = [], facts = [];
   let hired = true;
   for (const [k, v] of Object.entries(def.job.requires || {})) {
-    const have = SKILLS[k] ? game.skill(game.playerId, k).rank : game.attr(game.playerId, k);
+    const have = game.rules.skills[game.skillFor(k)] ? game.skill(game.playerId, game.skillFor(k)).rank : game.attr(game.playerId, k);
     if (have < v) {
       const rel = game.rel(npc.id, game.playerId);
       const r = game.check(game.playerId, { skill: 'persuasion', tn: DIFFICULTY.hard, label: `Talk ${npc.name} into a trial`, mods: [{ label: `Relationship (${attitudeLabel(rel)})`, value: socialMod(rel) }] });
       rolls.push(r);
-      if (!isSuccess(r.degree)) { hired = false; facts.push(`${npc.name} wants someone with ${SKILLS[k]?.label || k} ${v}+; you have ${have}.`); }
-      else facts.push(`You lack the usual ${SKILLS[k]?.label || k} (${have}/${v}) but talk ${npc.name} into a trial.`);
+      if (!isSuccess(r.degree)) { hired = false; facts.push(`${npc.name} wants someone with ${game.rules.skills[k]?.label || k} ${v}+; you have ${have}.`); }
+      else facts.push(`You lack the usual ${game.rules.skills[k]?.label || k} (${have}/${v}) but talk ${npc.name} into a trial.`);
     }
   }
   if (game.rel(npc.id, game.playerId).trust <= -30) { hired = false; facts.push(`${npc.name} does not trust you enough to hire you.`); }
@@ -918,7 +918,7 @@ function studySource(game, skill, p) {
   }
   if (mentorQuery && (p.method === 'mentor' || !p.method)) {
     const any = game.def.npcs.find((n) => (n.teaches || []).some(([s]) => s === skill));
-    if (p.method === 'mentor') fail('no_mentor', any ? `${any.name} teaches ${SKILLS[skill].label}, but isn't here.` : `Nobody here teaches ${SKILLS[skill].label}.`);
+    if (p.method === 'mentor') fail('no_mentor', any ? `${any.name} teaches ${game.rules.skills[skill].label}, but isn't here.` : `Nobody here teaches ${game.rules.skills[skill].label}.`);
   }
   const book = game.held(game.playerId).find((i) => i.type_data.teaches === skill);
   if (book) return { method: 'book', cap: book.type_data.max_rank, book: book.name, label: `studying ${book.name}` };
@@ -944,7 +944,7 @@ function learnSession(game, skill, src, hours, mode) {
   const attrName = (mode === 'train' ? LEARNING_METHODS.drill.attr : LEARNING_METHODS[src.method]?.attr) || 'intellect';
   const methodKey = mode === 'train' ? (src.method === 'experiment' ? 'experiment' : 'drill') : src.method;
   const capRank = mode === 'train' ? LEARNING_METHODS[methodKey].cap : src.cap;
-  if (s.rank >= capRank) return { xp: 0, capped: true, notes: [`${src.label || LEARNING_METHODS[methodKey].label} can't take you past rank ${capRank} in ${SKILLS[skill].label}.`] };
+  if (s.rank >= capRank) return { xp: 0, capped: true, notes: [`${src.label || LEARNING_METHODS[methodKey].label} can't take you past rank ${capRank} in ${game.rules.skills[skill].label}.`] };
   let xp = 0;
   const perHour = studyXpPerHour(methodKey, game.attr(game.playerId, attrName));
   for (let h = 0; h < hours; h++) {
@@ -959,7 +959,7 @@ function learnSession(game, skill, src, hours, mode) {
     const sessions = Math.max(1, Math.round(hours / 4));
     const fee = src.fee * sessions;
     if (game.balance(game.playerId) < fee) fail('insufficient_funds', `${src.mentor.name} charges ${fee} marks for this; you have ${game.balance(game.playerId)}.`);
-    game.pay(game.playerId, src.mentor.id, fee, `${SKILLS[skill].label} lessons`, 'tuition');
+    game.pay(game.playerId, src.mentor.id, fee, `${game.rules.skills[skill].label} lessons`, 'tuition');
     notes.push(`Paid ${src.mentor.name} ${fee} marks.`);
     game.adjustRel(src.mentor.id, game.playerId, { familiarity: 2, ...(daily(game, `lesson:${src.mentor.id}`) ? { respect: 1 } : {}) }, 'lessons');
   }
@@ -1001,8 +1001,8 @@ function multiDay(game, days, hoursPerDay, dayFn) {
 }
 
 function study(game, p) {
-  const skill = resolveSkill(p.skill || p.topic);
-  if (!skill) fail('unknown_skill', `There's no way to study "${p.skill || p.topic}" here. Skills: ${Object.values(SKILLS).map((s) => s.label).join(', ')}.`);
+  const skill = game.resolveSkill(p.skill || p.topic);
+  if (!skill) fail('unknown_skill', `There's no way to study "${p.skill || p.topic}" here. Skills: ${Object.values(game.rules.skills).map((s) => s.label).join(', ')}.`);
   const src = studySource(game, skill, p);
   const days = p.days ? clamp(Math.floor(Number(p.days)), 1, 365) : (Number(p.hours) > 12 ? Math.ceil(Number(p.hours) / 6) : 0);
   const facts = [];
@@ -1014,33 +1014,33 @@ function study(game, p) {
       try { return learnSession(game, skill, cur, 6, 'study'); } catch (e) { if (e instanceof RuleError) return { stop: e.message }; throw e; }
     });
     const after = game.skill(game.playerId, skill);
-    facts.push(`Studied ${r.completed} of ${days} days by ${src.label}.`, `${SKILLS[skill].label}: rank ${before.rank} → ${after.rank} (+${round2(after.xp - before.xp)} xp).`, ...r.notes);
+    facts.push(`Studied ${r.completed} of ${days} days by ${src.label}.`, `${game.rules.skills[skill].label}: rank ${before.rank} → ${after.rank} (+${round2(after.xp - before.xp)} xp).`, ...r.notes);
     if (after.rank >= src.cap && !r.notes.some((n) => n.includes("can't take you past"))) facts.push(`${src.label} can't take you past rank ${src.cap}; you'll need a better teacher, deeper texts, or real practice.`);
     if (src.method === 'self') facts.push('Without a teacher or book you only grasp the basics. Seek a mentor (Ysolde at the archive, Brother Aldous, Brannoc) or a book.');
-    return { ok: r.completed > 0, minutes: 0, summary: `You spend ${r.completed} days studying ${SKILLS[skill].label.toLowerCase()}.`, facts };
+    return { ok: r.completed > 0, minutes: 0, summary: `You spend ${r.completed} days studying ${game.rules.skills[skill].label.toLowerCase()}.`, facts };
   }
   const hours = studyHours(p);
   const r = learnSession(game, skill, src, hours, 'study');
   const after = game.skill(game.playerId, skill);
-  facts.push(...r.notes, `Method: ${src.label}.`, r.capped && r.xp === 0 ? '' : `${SKILLS[skill].label}: +${r.xp} xp (rank ${after.rank}, ${round2(after.xp)}/${xpForRank(after.rank + 1)} xp).`);
+  facts.push(...r.notes, `Method: ${src.label}.`, r.capped && r.xp === 0 ? '' : `${game.rules.skills[skill].label}: +${r.xp} xp (rank ${after.rank}, ${round2(after.xp)}/${xpForRank(after.rank + 1)} xp).`);
   if (src.method === 'self') facts.push('Without a teacher or book you only grasp the basics. Seek a mentor or a book.');
-  return { ok: true, minutes: hours * 60, summary: `You study ${SKILLS[skill].label.toLowerCase()} for ${hours} hours.`, facts: facts.filter(Boolean) };
+  return { ok: true, minutes: hours * 60, summary: `You study ${game.rules.skills[skill].label.toLowerCase()} for ${hours} hours.`, facts: facts.filter(Boolean) };
 }
 
 function train(game, p) {
-  const skill = resolveSkill(p.skill || p.topic);
-  if (!skill) fail('unknown_skill', `Train what? Skills: ${Object.values(SKILLS).map((s) => s.label).join(', ')}.`);
+  const skill = game.resolveSkill(p.skill || p.topic);
+  if (!skill) fail('unknown_skill', `Train what? Skills: ${Object.values(game.rules.skills).map((s) => s.label).join(', ')}.`);
   let method = 'drill';
-  if (!DRILLABLE.has(skill)) {
-    if (EXPERIMENTABLE.has(skill)) method = 'experiment';
-    else fail('cant_drill', `${SKILLS[skill].label} can't be drilled alone. Study it, or use it for real with people.`);
+  if (!game.rules.drillable(skill)) {
+    if (game.rules.experimentable(skill)) method = 'experiment';
+    else fail('cant_drill', `${game.rules.skills[skill].label} can't be drilled alone. Study it, or use it for real with people.`);
   }
   if (skill === 'smithing') {
     if (!game.location(here(game)).tags.includes('smithing')) fail('need_forge', 'You need a forge to practise smithing.');
   }
   if (method === 'experiment') {
     const tool = inv.toolBonus(game.db, game.playerId, skill);
-    if (!tool) fail('need_tools', `Experimenting in ${SKILLS[skill].label} needs proper tools.`);
+    if (!tool) fail('need_tools', `Experimenting in ${game.rules.skills[skill].label} needs proper tools.`);
   }
   const src = { method, label: LEARNING_METHODS[method].label };
   const days = p.days ? clamp(Math.floor(Number(p.days)), 1, 365) : 0;
@@ -1049,15 +1049,15 @@ function train(game, p) {
   if (days) {
     const r = multiDay(game, days, 5, () => learnSession(game, skill, src, 5, 'train'));
     const after = game.skill(game.playerId, skill);
-    facts.push(`Trained ${r.completed} of ${days} days.`, `${SKILLS[skill].label}: rank ${before.rank} → ${after.rank}.`, ...r.notes);
+    facts.push(`Trained ${r.completed} of ${days} days.`, `${game.rules.skills[skill].label}: rank ${before.rank} → ${after.rank}.`, ...r.notes);
     if (after.rank >= LEARNING_METHODS[method].cap) facts.push(`Drills alone won't take you past rank ${LEARNING_METHODS[method].cap}. Real challenges will.`);
-    return { ok: true, minutes: 0, summary: `You train ${SKILLS[skill].label.toLowerCase()} for ${r.completed} days.`, facts };
+    return { ok: true, minutes: 0, summary: `You train ${game.rules.skills[skill].label.toLowerCase()} for ${r.completed} days.`, facts };
   }
   const hours = studyHours(p, 3);
   const r = learnSession(game, skill, src, hours, 'train');
   const after = game.skill(game.playerId, skill);
-  facts.push(...r.notes, `${SKILLS[skill].label}: +${r.xp} xp (rank ${after.rank}).`);
-  return { ok: true, minutes: hours * 60, summary: `You train ${SKILLS[skill].label.toLowerCase()} for ${hours} hours.`, facts };
+  facts.push(...r.notes, `${game.rules.skills[skill].label}: +${r.xp} xp (rank ${after.rank}).`);
+  return { ok: true, minutes: hours * 60, summary: `You train ${game.rules.skills[skill].label.toLowerCase()} for ${hours} hours.`, facts };
 }
 
 // ============================================================================
@@ -1446,7 +1446,7 @@ const NOVELTY = {
 };
 
 function research(game, p) {
-  const skill = resolveSkill(p.skill) || 'scholarship';
+  const skill = game.resolveSkill(p.skill) || game.skillFor(p.skill) || game.rules.roles.research;
   const title = String(p.topic || p.item || 'an untitled inquiry').slice(0, 80);
   let proj = game.db.prepare("SELECT * FROM projects WHERE owner_id=? AND status='active' AND (lower(title)=lower(?) OR ?=1) ORDER BY id DESC").get(game.playerId, title, p.continue ? 1 : 0);
   const facts = [], rolls = [];
@@ -1454,13 +1454,13 @@ function research(game, p) {
     const novelty = NOVELTY[p.novelty] ? p.novelty : (p.difficulty === 'extreme' || p.difficulty === 'legendary' ? 'revolutionary' : p.difficulty === 'hard' || p.difficulty === 'very_hard' ? 'significant' : 'incremental');
     const n = NOVELTY[novelty];
     const rank = game.skill(game.playerId, skill).rank;
-    if (rank < n.minRank) fail('underqualified', `A ${novelty} project in ${SKILLS[skill].label} needs at least rank ${n.minRank}; you have ${rank}. Study or practise first — or attempt something more modest.`);
+    if (rank < n.minRank) fail('underqualified', `A ${novelty} project in ${game.rules.skills[skill].label} needs at least rank ${n.minRank}; you have ${rank}. Study or practise first — or attempt something more modest.`);
     const kind = p.approach === 'invention' || /invent|device|machine|build|design|alloy|tool/.test(norm(title + ' ' + (p.detail || ''))) ? 'invention' : 'research';
     const r = game.db.prepare('INSERT INTO projects(owner_id,kind,title,description,skill,tn,progress,required,status,created_at,data) VALUES (?,?,?,?,?,?,0,?,?,?,?)')
       .run(game.playerId, kind, title, String(p.detail || title).slice(0, 400), skill, n.tn, n.required, 'active', game.time, J.str({ novelty, hours: 0 }));
     proj = game.db.prepare('SELECT * FROM projects WHERE id=?').get(Number(r.lastInsertRowid));
-    facts.push(`New ${novelty} ${kind} project: "${title}" (${SKILLS[skill].label}, TN ${n.tn}, ${n.required} progress needed).`);
-    game.journal('plan', `Project: ${title}`, `A ${novelty} ${kind} project in ${SKILLS[skill].label}. Progress ${0}/${n.required}.`, `proj:${proj.id}`);
+    facts.push(`New ${novelty} ${kind} project: "${title}" (${game.rules.skills[skill].label}, TN ${n.tn}, ${n.required} progress needed).`);
+    game.journal('plan', `Project: ${title}`, `A ${novelty} ${kind} project in ${game.rules.skills[skill].label}. Progress ${0}/${n.required}.`, `proj:${proj.id}`);
   }
   const hours = clamp(Number(p.hours) || 4, 2, 12);
   const blocks = Math.floor(hours / 2);
@@ -1501,7 +1501,7 @@ function research(game, p) {
     game.recordEvent({ kind: 'discovery', actor: game.playerId, summary: `${game.player().name} completed "${proj.title}".`, visibility: 'private', importance: 8 });
     game.journal('discovery', proj.title, `Completed after ${data.hours} hours of work.`, `proj:${proj.id}`, 'done');
     game.gainXp(game.playerId, proj.skill, 10, 'experiment', 0, `completed ${proj.title}`);
-  } else game.journal('plan', `Project: ${proj.title}`, `Progress ${progress}/${proj.required}. TN ${proj.tn} in ${SKILLS[proj.skill].label}.`, `proj:${proj.id}`);
+  } else game.journal('plan', `Project: ${proj.title}`, `Progress ${progress}/${proj.required}. TN ${proj.tn} in ${game.rules.skills[proj.skill].label}.`, `proj:${proj.id}`);
   game.db.prepare('UPDATE projects SET progress=?, status=?, data=? WHERE id=?').run(Math.min(progress, proj.required), status, J.str(data), proj.id);
   return { ok: true, minutes: blocks * 120, summary: status === 'completed' ? `You complete "${proj.title}".` : `You work on "${proj.title}".`, facts, rolls };
 }
@@ -1510,12 +1510,12 @@ function research(game, p) {
 // attempt — bounded catch-all for creative actions without a dedicated rule
 // ============================================================================
 function attempt(game, p) {
-  const skill = resolveSkill(p.skill) || 'perception';
+  const skill = game.resolveSkill(p.skill) || game.skillFor(p.skill) || game.rules.roles.notice;
   const tn = clamp(DIFFICULTY[p.difficulty] || DIFFICULTY.moderate, DIFFICULTY.easy, DIFFICULTY.legendary);
   const target = p.target ? resolveCharacter(p.target, npcsHere(game)).match : null;
   const minutes = clamp(Math.round((Number(p.hours) || 0.5) * 60), 5, 240);
   const r = game.check(game.playerId, { skill, tn, label: String(p.detail || p.topic || 'An attempt').slice(0, 80) });
-  const facts = [`${DEGREE_LABEL[r.degree]} (${SKILLS[skill].label} vs TN ${tn}).`];
+  const facts = [`${DEGREE_LABEL[r.degree]} (${game.rules.skills[skill].label} vs TN ${tn}).`];
   if (target) {
     const d = { critical: 4, strong: 3, success: 2, partial: 0, failure: -1, severe_failure: -3 }[r.degree] || 0;
     if (d && daily(game, `attempt:${target.id}`)) game.adjustRel(target.id, game.playerId, d > 0 ? { respect: d } : { respect: d, affection: d }, String(p.detail || 'an attempt').slice(0, 60));
@@ -1573,7 +1573,7 @@ export function previewAction(game, a) {
       if (!dest || !game.knowsLocation(game.playerId, dest)) { out.feasible = false; out.notes.push('Unknown destination'); }
       else { const path = findPath(game, here(game), dest); if (!path) { out.feasible = false; out.notes.push('No known route'); } else { out.minutes = path.minutes; out.cost = path.cost; } }
     } else if (a.type === 'study' || a.type === 'train') {
-      const skill = resolveSkill(a.skill || a.topic);
+      const skill = game.resolveSkill(a.skill || a.topic);
       if (!skill) { out.feasible = false; out.notes.push('Unknown skill'); }
       else { out.skill = skill; out.minutes = (a.days ? a.days * MINUTES_PER_DAY : (Number(a.hours) || 4) * 60); }
     } else if (a.type === 'found_business') {

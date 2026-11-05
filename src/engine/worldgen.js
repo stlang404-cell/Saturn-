@@ -2,7 +2,7 @@
 import { J } from './db.js';
 import * as ledger from './ledger.js';
 import * as inv from './inventory.js';
-import { ATTRIBUTES, SKILLS, xpForRank, MINUTES_PER_DAY } from './rules.js';
+import { xpForRank, MINUTES_PER_DAY, buildRuleset } from './rules.js';
 import { RuleError } from './ledger.js';
 import { addMemory } from './memory.js';
 import { learn } from './knowledge.js';
@@ -12,6 +12,7 @@ import { updatePrices } from './economy.js';
 export const CREATION_POINTS = 3;
 
 export function validatePlayerSpec(def, spec = {}) {
+  const ATTRIBUTES = buildRuleset(def).attrIds;
   const name = String(spec.name || 'Wren').trim().slice(0, 40) || 'Wren';
   const bg = def.backgrounds.find((b) => b.id === (spec.background || def.backgrounds[0].id));
   if (!bg) throw new RuleError('bad_background', `Unknown background ${spec.background}`);
@@ -80,7 +81,7 @@ export function populateWorld(game, playerSpec) {
     if (n.money) ledger.mint(ctx, { to: n.id, amount: n.money, memo: `${n.name}'s savings at world creation` });
     for (const [typeId, qty] of Object.entries(n.inventory || {})) inv.createItems(ctx, { typeId, qty, holderKind: 'character', holderId: n.id, ownerId: n.id, reason: 'init', memo: 'world creation' });
     for (const [skill, rank] of Object.entries(n.skills || {})) {
-      if (!SKILLS[skill]) continue;
+      if (!game.rules.skills[skill]) continue;
       db.prepare('INSERT INTO skills(character_id,skill,xp,rank) VALUES (?,?,?,?)').run(n.id, skill, xpForRank(rank), rank);
     }
     for (const [factId, belief = 'known', conf] of n.knows || []) {

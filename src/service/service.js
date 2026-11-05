@@ -321,7 +321,7 @@ export class GameService {
     });
     const items = g.held(p.id).map((i) => ({ id: i.id, type: i.type_id, name: i.name, qty: i.quantity, category: i.category, weight: i.weight, value: i.base_value, equipped: i.equipped, slot: i.slot, owner: i.owner_id === p.id ? null : (g.char(i.owner_id)?.name || i.owner_id), stolen: !!i.stolen }));
     const settlement = loc.settlement;
-    const skills = Object.entries(SKILLS).map(([id, info]) => {
+    const skills = Object.entries(g.rules.skills).map(([id, info]) => {
       const s = g.skill(p.id, id);
       return { id, label: info.label, attr: info.attr, group: info.group, rank: s.rank, xp: s.xp, next: xpForRank(Math.min(10, s.rank + 1)), title: RANK_TITLES[s.rank], trained: !!info.trained, desc: info.desc };
     });

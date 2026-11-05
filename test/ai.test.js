@@ -63,7 +63,7 @@ test('schema validation rejects unknown action types, bad enums and extra fields
   const n = normalizeInterpretation(I({ actions: [{ ...A({ type: 'buy', item: 'bread' }), balance: 99999, skill: 'flying' }] }));
   assert.equal(n.ok, true);
   assert.equal(n.value.actions[0].balance, undefined, 'unknown fields are dropped');
-  assert.equal(n.value.actions[0].skill, null, 'invalid skills are nulled');
+  assert.equal(newGame().resolveSkill(n.value.actions[0].skill), null, 'skills are resolved against the world, and unknown ones do not resolve');
   assert.equal(normalizeInterpretation(I({ mode: 'act', actions: [] })).ok, false);
 });
 

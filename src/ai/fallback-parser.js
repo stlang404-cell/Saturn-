@@ -3,7 +3,6 @@
 // phrasings; anything it cannot map is returned as a clarification request rather
 // than guessed. Output goes through the same schema validation as the LLM's.
 import { blankAction } from './schema.js';
-import { resolveSkill } from '../engine/resolve.js';
 
 const NUM_WORDS = { a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twelve: 12, twenty: 20, few: 3, several: 4, some: null };
 
@@ -130,12 +129,12 @@ export function parseSingle(raw) {
   if ((m = l.match(/^(?:visit|enter|leave for)\s+(?:the\s+)?(.+)$/))) return act('move', { destination: m[1] });
   // learning
   if ((m = l.match(/^(?:study|learn|read about|read up on|take lessons in|research the basics of)\s+(.+?)(?:\s+(?:with|from|under)\s+([a-z' -]+?))?(?:\s+(?:for|over)\s+.+)?$/)) || (m = l.match(/^(?:spend .+? (?:studying|learning))\s+(.+?)(?:\s+(?:with|from|under)\s+([a-z' -]+?))?$/))) {
-    const skill = resolveSkill(m[1].replace(/\s+(for|over)\s+.*$/, ''));
+    const skill = m[1].replace(/\s+(for|over)\s+.*$/, '').trim(); // resolved against the world's skills by the engine
     if (skill) return act('study', { skill, target: m[2] || null, hours: dur.hours || null, days: dur.days || null, approach: null });
   }
   if ((m = l.match(/^(?:read)\s+(?:my\s+|the\s+)?(.+)$/))) return act('use', { item: m[1], hours: dur.hours || null });
   if ((m = l.match(/^(?:train|practi[cs]e|drill|exercise)\s+(?:my\s+)?(.+?)(?:\s+(?:for|over)\s+.+)?$/))) {
-    const skill = resolveSkill(m[1]);
+    const skill = m[1].trim();
     if (skill) return act('train', { skill, hours: dur.hours || null, days: dur.days || null });
   }
   // invention & research

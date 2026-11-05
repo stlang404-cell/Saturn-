@@ -114,3 +114,72 @@ export function timeBlock(minuteOfDay) {
 }
 
 export const BLOCK_START_HOUR = { dawn: 5, morning: 8, afternoon: 12, evening: 17, night: 22 };
+
+// ---------------------------------------------------------------------------
+// World rulesets. Every world defines its own attributes, skills and currency in its
+// World Specification. Worlds without them (saves from before World Forge) use the
+// legacy Saltwind definitions above, so old saves keep working unchanged.
+// ---------------------------------------------------------------------------
+const LEGACY_KEYWORDS = {
+  medicine: ['medical', 'healing', 'heal', 'physician', 'doctor', 'surgery', 'anatomy', 'treat', 'treatment'],
+  herbalism: ['herbs', 'herb', 'botany', 'plants', 'herbal', 'herblore'],
+  commerce: ['trade', 'trading', 'business', 'bookkeeping', 'accounting', 'accounts', 'ledger', 'merchant', 'mercantile', 'economics', 'finance'],
+  negotiation: ['negotiate', 'haggle', 'haggling', 'bargain', 'bargaining', 'deal'],
+  persuasion: ['persuade', 'convince', 'rhetoric', 'charm', 'diplomacy', 'oratory', 'speech'],
+  deception: ['deceive', 'lie', 'lying', 'bluff', 'disguise', 'con', 'forgery'],
+  intimidation: ['intimidate', 'threaten', 'menace', 'coerce'],
+  leadership: ['lead', 'command', 'management', 'organize', 'organise', 'politics'],
+  scholarship: ['history', 'lore', 'letters', 'reading', 'writing', 'research', 'mathematics', 'math', 'astronomy', 'philosophy', 'law', 'languages', 'study'],
+  engineering: ['mechanics', 'mechanical', 'machines', 'invention', 'inventing', 'architecture', 'construction', 'metallurgy', 'alloy', 'alloys'],
+  alchemy: ['chemistry', 'tinctures', 'potions', 'reagents'],
+  smithing: ['blacksmithing', 'smith', 'forging', 'forge', 'metalwork', 'metalworking'],
+  crafting: ['craft', 'cooking', 'baking', 'brewing', 'carpentry', 'woodwork', 'sewing', 'handiwork'],
+  athletics: ['climbing', 'climb', 'swimming', 'swim', 'running', 'lifting', 'hauling', 'strength', 'fitness'],
+  melee: ['fighting', 'fight', 'sword', 'swordplay', 'swordsmanship', 'combat', 'brawling', 'weapons', 'fencing', 'dagger'],
+  stealth: ['sneak', 'sneaking', 'hide', 'hiding', 'skulk'],
+  sleight_of_hand: ['sleight of hand', 'sleight', 'pickpocket', 'pickpocketing', 'lockpicking', 'lockpick', 'pick locks', 'palming', 'thievery'],
+  survival: ['tracking', 'foraging', 'hunting', 'wilderness', 'woodcraft', 'camping'],
+  perception: ['awareness', 'noticing', 'observation', 'spotting', 'watching'],
+  investigation: ['investigate', 'searching', 'search', 'deduction', 'detective', 'sleuthing'],
+};
+
+/** Roles every world needs (the engine uses them for generic actions). Values are skill ids. */
+export const ROLE_DEFAULTS = {
+  social: 'persuasion', lie: 'deception', threaten: 'intimidation', haggle: 'negotiation', notice: 'perception',
+  search: 'investigation', steal: 'sleight_of_hand', sneak: 'stealth', fight: 'melee', labor: 'athletics',
+  wilds: 'survival', heal: 'medicine', manage: 'commerce', research: 'scholarship', invent: 'engineering', craft: 'crafting',
+};
+
+export function buildRuleset(def = {}) {
+  const custom = Array.isArray(def.skills) && def.skills.length;
+  const attributes = Array.isArray(def.attributes) && def.attributes.length
+    ? def.attributes.map((a) => (typeof a === 'string' ? { id: a, label: a, info: ATTRIBUTE_INFO[a] || '' } : { label: a.id, info: '', ...a }))
+    : ATTRIBUTES.map((id) => ({ id, label: id, info: ATTRIBUTE_INFO[id] }));
+  const attrIds = attributes.map((a) => a.id);
+  const skills = {};
+  if (custom) {
+    for (const s of def.skills) {
+      skills[s.id] = {
+        label: s.label || s.id, attr: attrIds.includes(s.attr) ? s.attr : attrIds[0], group: s.group || 'general', desc: s.desc || '',
+        trained: !!s.trained, keywords: (s.keywords || []).map((k) => String(k).toLowerCase()),
+        drill: s.drill ?? !s.trained, experiment: s.experiment ?? !!s.trained,
+      };
+    }
+  } else {
+    for (const [id, s] of Object.entries(SKILLS)) skills[id] = { ...s, keywords: LEGACY_KEYWORDS[id] || [], drill: DRILLABLE.has(id), experiment: EXPERIMENTABLE.has(id) };
+  }
+  const skillIds = Object.keys(skills);
+  // map engine roles onto this world's skills (a world may rename or omit any of them)
+  const roles = {};
+  for (const [role, dflt] of Object.entries(ROLE_DEFAULTS)) {
+    const given = def.skill_roles?.[role];
+    roles[role] = skills[given] ? given : skills[dflt] ? dflt : skillIds[0];
+  }
+  const currency = { name: 'coin', plural: 'coins', symbol: 'c', ...(def.currency || {}) };
+  return {
+    attributes, attrIds, skills, skillIds, roles, currency,
+    drillable: (id) => !!skills[id]?.drill,
+    experimentable: (id) => !!skills[id]?.experiment,
+    money: (n) => `${n} ${Math.abs(n) === 1 ? currency.name : currency.plural}`,
+  };
+}

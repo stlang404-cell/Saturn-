@@ -6,13 +6,14 @@ import { fileURLToPath } from 'node:url';
 import { openDatabase, getMeta, setMeta, J } from './db.js';
 import { AuditRng, seedFromString } from './rng.js';
 import { resolveCheck, resolveOpposed, DEGREE_LABEL } from './dice.js';
-import { ATTRIBUTES, SKILLS, MINUTES_PER_DAY, practiceXp, rankForXp, xpForRank, diminishing, round2, clamp, timeBlock } from './rules.js';
+import { buildRuleset, ROLE_DEFAULTS, MINUTES_PER_DAY, practiceXp, rankForXp, xpForRank, diminishing, round2, clamp, timeBlock } from './rules.js';
 import * as ledger from './ledger.js';
 import * as inv from './inventory.js';
 import { addMemory } from './memory.js';
 import { learn } from './knowledge.js';
 import { adjustRel, getRel } from './relationships.js';
 import { RuleError } from './ledger.js';
+import { resolveSkill } from './resolve.js';
 import { populateWorld } from './worldgen.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,6 +36,27 @@ export class Game {
     this.digest = [];
     this._recipes = Object.fromEntries((this.def.recipes || []).map((r) => [r.id, r]));
     this._npcDefs = Object.fromEntries((this.def.npcs || []).map((n) => [n.id, n]));
+    this.rules = buildRuleset(this.def);
+  }
+
+  /**
+   * Map a skill name, a legacy skill id, or an engine role onto this world's skill ids.
+   * Generic actions name the skill they would use in Saltwind (e.g. 'sleight_of_hand');
+   * worlds that define their own skills receive the skill filling that role.
+   */
+  skillFor(name) {
+    if (!name) return null;
+    if (this.rules.skills[name]) return name;
+    if (this.rules.roles[name]) return this.rules.roles[name];
+    const role = Object.entries(ROLE_DEFAULTS).find(([, legacy]) => legacy === name)?.[0];
+    if (role) return this.rules.roles[role];
+    return resolveSkill(name, this.rules);
+  }
+  resolveSkill(name) {
+    return resolveSkill(name, this.rules);
+  }
+  money(n) {
+    return this.rules.money(n);
   }
 
   // ---------- lifecycle ----------
@@ -183,14 +205,14 @@ export class Game {
 
   /** Build the full modifier list for a character using a skill. */
   skillMods(charId, skill, extra = []) {
-    const info = SKILLS[skill];
+    const info = this.rules.skills[skill];
     const s = this.skill(charId, skill);
     const mods = [];
     if (info?.trained && s.rank === 0) mods.push({ label: 'Untrained in a specialist skill', value: -3 });
     if (s.specialization) mods.push({ label: `Specialization: ${s.specialization}`, value: 0 });
     const tool = inv.toolBonus(this.db, charId, skill);
     if (tool) mods.push(tool);
-    if (skill === 'melee') {
+    if (skill === this.rules.roles.fight) {
       const w = inv.equippedBonus(this.db, charId, 'melee');
       if (w) mods.push({ label: 'Weapon', value: w });
     }
@@ -202,17 +224,18 @@ export class Game {
    * opts: { skill, tn, mods, label, opposedBy, opposedSkill, opposedMods, forceRoll, noXp }
    */
   check(actorId, opts) {
-    const { skill, label = skill } = opts;
-    const info = SKILLS[skill];
-    if (!info) throw new RuleError('unknown_skill', `Unknown skill ${skill}`);
+    const skill = this.skillFor(opts.skill);
+    const label = opts.label || skill;
+    const info = this.rules.skills[skill];
+    if (!info) throw new RuleError('unknown_skill', `Unknown skill ${opts.skill}`);
     const s = this.skill(actorId, skill);
     const attrName = info.attr;
     const attribute = this.attr(actorId, attrName);
     const mods = this.skillMods(actorId, skill, opts.mods || []);
     let result;
     if (opts.opposedBy) {
-      const oppSkill = opts.opposedSkill || 'perception';
-      const oInfo = SKILLS[oppSkill];
+      const oppSkill = this.skillFor(opts.opposedSkill || 'perception');
+      const oInfo = this.rules.skills[oppSkill];
       const os = this.skill(opts.opposedBy, oppSkill);
       result = resolveOpposed(this.rng,
         { attributeName: attrName, attribute, skillName: info.label, skill: s.rank, mods },
@@ -257,8 +280,8 @@ export class Game {
       .run(charId, skill, newXp, rank, daily, this.day);
     if (gained > 0) this.db.prepare('INSERT INTO training_log(time, character_id, skill, method, minutes, xp, note) VALUES (?,?,?,?,?,?,?)').run(this._time, charId, skill, method, minutes, gained, note);
     if (rank > s.rank && charId === this.playerId) {
-      this.recordEvent({ kind: 'skill_rank', actor: charId, summary: `${this.char(charId).name} reached rank ${rank} in ${SKILLS[skill].label}.`, visibility: 'private', importance: 5, data: { skill, rank } });
-      this.journal('consequence', `Skill improved: ${SKILLS[skill].label} ${rank}`, `Your ${SKILLS[skill].label.toLowerCase()} has improved to rank ${rank}.`, `rank:${skill}:${rank}`);
+      this.recordEvent({ kind: 'skill_rank', actor: charId, summary: `${this.char(charId).name} reached rank ${rank} in ${this.rules.skills[skill].label}.`, visibility: 'private', importance: 5, data: { skill, rank } });
+      this.journal('consequence', `Skill improved: ${this.rules.skills[skill].label} ${rank}`, `Your ${this.rules.skills[skill].label.toLowerCase()} has improved to rank ${rank}.`, `rank:${skill}:${rank}`);
     }
     return { xp: gained, rankBefore: s.rank, rankAfter: rank, capped: gained < xp };
   }
