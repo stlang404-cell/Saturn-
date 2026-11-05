@@ -1,0 +1,71 @@
+# Development status
+
+Labels: **Verified** = implemented and demonstrated by automated tests or a recorded run.
+**Partial** = implemented but with known gaps, or verified only in part. **Not implemented** = absent.
+
+Development environment for all measurements: Linux container, 4 vCPU (Intel Xeon 2.1 GHz),
+15 GB RAM, **no GPU**. No Windows machine was available.
+
+## Test results
+
+`npm test` — **48 tests, 48 passing** (≈15 s): resolution maths and RNG, economy and exploit
+resistance, memory and NPC behaviour, persistence and crash safety, AI reliability with a mock
+model, parser coverage, server security, and the §17 acceptance scenario.
+
+`npm run soak -- 5000` — 5,000 scripted turns (~1 year of game time) in 29 s; ledger and item
+conservation checked every 500 turns: **0 problems**; RSS flat at ~105 MB; save file 13.6 MB.
+
+## Feature status
+
+| Area | Status | Evidence / notes |
+|---|---|---|
+| Offline desktop app (Electron shell + game server on bundled Node) | **Verified on Linux** | Packaged `linux-unpacked` app passed the headless smoke test inside a network namespace with no external network, with the bundled model: model ready in 4.2 s, free-form sentence interpreted by the LLM, LLM narration, integrity OK |
+| Windows build | **Partial** | `win-unpacked` cross-built and inspected: SATURN.exe, node.exe, SQLite addon and llama.cpp CPU/Vulkan DLLs are correct PE32+ x64 binaries; 2.9 GB with model. **Not executed on Windows.** |
+| Windows installer | **Partial** | NSIS config (+ model-folder install script) and Inno Setup script written; `.github/workflows/windows-release.yml` builds, smoke-tests and packages on a Windows runner. **Not yet run** — no installer has been produced or installed. |
+| Bundled local model + runtime, licences | **Verified** | Qwen3-4B-Instruct-2507 Q4_K_M (Apache-2.0), pinned revision + SHA-256; llama.cpp via node-llama-cpp (MIT); licence texts in `licenses/` |
+| Model comparison | **Verified** | 5 models benchmarked on SATURN's tasks (`docs/AI.md`, `docs/benchmarks/`) |
+| Free-text interpretation (LLM) | **Verified** | 11/12 on the benchmark set; schema-constrained decoding, Ajv validation, repair retry, fallback (mock-model tests) |
+| Deterministic fallback parser | **Verified** | ~35 phrasing families tested; used for short commands (fast path) and when the model fails |
+| Grounded narration | **Partial** | Rejects invented numbers, uninvolved people, mechanics talk and roll-polarity contradictions; retries then falls back to templates. A 4B model still adds small invented details (see limitations) |
+| Plan preview & confirmation | **Verified** | Long/consequential multi-step plans stored and previewed with risks and living-cost estimates; nothing changes until confirmed |
+| Resolution system | **Verified** | Exact probabilities, six degrees, automatic/impossible classification, opposed checks, replayable rolls |
+| Skills & progression | **Verified** | Practice, books, mentors, drills, experimentation, caps, diminishing returns, anti-grinding test |
+| Inventory & ownership | **Verified** | Conservation checks; ownership vs possession; stolen and consigned goods; double-theft impossible |
+| Currency ledger | **Verified** | Double-entry, idempotency, no negative balances (DB constraint), mint/sink reconciliation |
+| Markets, production, supply chains | **Verified** | Prices from real stock; spoilage; local and river trade; controlled test shows hoarding raises prices |
+| Businesses, loans, investment | **Verified** | Bakery operates for 8 days with revenue; loan default consequences; investor shares |
+| Banking, auctions, property purchase, prediction markets | **Not implemented** | See roadmap |
+| NPC schedules, agendas, decisions with reasons | **Verified** | Mayor's hoard, Sabine's price war, Odile's debt and bankruptcy, Jory's thefts, restocking |
+| Knowledge boundaries, gossip, hearsay, reactions | **Verified** | Secret-boundary tests; gossip decay; evidence → raid on the granary |
+| Memory retrieval & consolidation | **Verified** | Promise recalled after 400 turns; consolidation bounds; memory inspector |
+| Persistence, crash safety, backups, export/import, migrations | **Verified** | Exact reload; simulated crash mid-turn leaves no trace; newer-schema saves refused |
+| UI (all 12 tabs, inspectors, creation) | **Verified in browser** | Playwright run with no page errors; screenshots in `docs/screenshots/` |
+| Combat | **Partial** | Opposed rounds, damage, death, fines; no stances, retreat or wound care |
+| Accessibility | **Partial** | Keyboard navigation, focus styles, reduced motion, text scaling; no screen-reader audit |
+
+## Performance (CPU only, 4 vCPU, no GPU)
+
+| Operation | Time |
+|---|---|
+| Model load (Qwen3-4B, warm disk) | 4–16 s |
+| LLM interpretation of a free-form sentence | median ~30 s (11–67 s) |
+| LLM narration | ~20 s |
+| Fast-path command ("buy 2 bread") | < 50 ms |
+| Simulating one game week | ~80 ms |
+
+A typical modern desktop (8+ faster cores) should be roughly 2–3× faster on CPU; Vulkan GPU
+offload is expected to be an order of magnitude faster. **These GPU/desktop figures are
+estimates — not measured.**
+
+## Known limitations
+
+- Windows installer not yet built or run; no Windows hardware testing has been done.
+- CPU-only latency for complex sentences (~30 s here) is long. Streaming narration is planned.
+- The 4B model sometimes embellishes narration with small invented details or attitudes (e.g.
+  an NPC claiming not to know common facts). State is never affected, the outcome checks catch
+  numeric/name/polarity contradictions, but subtle semantic inventions are not detected.
+- Interpretation benchmark is 12 cases; it needs to grow (see roadmap).
+- Economy balance is plausible over simulated years but has had no long human play-testing.
+- One setting; the data format supports more but none has been written.
+- The project has no licence of its own yet (the owner should choose one); bundled components'
+  licences are documented in `THIRD_PARTY_NOTICES.md`.

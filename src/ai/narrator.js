@@ -62,6 +62,9 @@ export function checkNarration(game, text, outcomeText) {
     if (mentioned && !outcomeText.includes(first) && !presentNames.includes(full)) problems.push(`mentions ${full}, who is not involved`);
   }
   if (/\b(as an ai|language model|system prompt|json)\b/i.test(text)) problems.push('breaks the fiction');
+  // the player is always "you": naming them signals invented third-person framing or invented history
+  const pname = game.player()?.name;
+  if (pname && new RegExp(`\\b${pname.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text)) problems.push('refers to the player by name');
   // outcome polarity: narration must not depict failure for a success or vice versa
   const works = (outcomeText.match(/IT WORKS/g) || []).length;
   const fails = (outcomeText.match(/IT FAILS/g) || []).length;

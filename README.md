@@ -71,7 +71,7 @@ Without a model, SATURN still plays with its deterministic parser and template n
 ## Develop
 
 ```bash
-npm test                                  # 44 tests: rules, economy, memory, NPCs, persistence, AI reliability, acceptance
+npm test                                  # 48 tests: rules, economy, memory, NPCs, persistence, AI reliability, acceptance
 npm run soak -- 5000                      # long-campaign soak with continuous integrity checks
 npm run bench                             # benchmark local models on SATURN's real tasks
 node scripts/package.mjs --platform win32 --arch x64 --target dir    # Windows build

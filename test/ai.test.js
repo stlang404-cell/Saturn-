@@ -132,3 +132,10 @@ test('narration that contradicts the roll result is rejected', () => {
   const bad = ok.replace('Success → IT WORKS — show it succeeding', 'Failure → IT FAILS — show it failing');
   assert.equal(checkNarration(g, 'Aurel agrees at once.', bad).ok, false);
 });
+
+test('narration naming the player in the third person is rejected', () => {
+  const g = newGame();
+  const o = 'PLAYER INPUT: x\n1. talk — DONE: You talk with Mirela Tosk.';
+  assert.equal(checkNarration(g, 'Mirela says, "I told Wren the same thing."', o).ok, false);
+  assert.equal(checkNarration(g, 'Mirela tells you the price of bread has risen.', o).ok, true);
+});
