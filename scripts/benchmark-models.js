@@ -72,5 +72,5 @@ fs.mkdirSync('docs/benchmarks', { recursive: true });
 const file = `docs/benchmarks/bench-${out.date.slice(0, 19).replace(/[:T]/g, '-')}.json`;
 fs.writeFileSync(file, JSON.stringify(out, null, 2));
 console.log('\nSUMMARY');
-for (const r of out.results) console.log(`${r.model.padEnd(44)} ${r.error ? 'ERROR ' + r.error : `score ${r.score}  median ${(r.medianMs / 1000).toFixed(1)}s  load ${(r.loadMs / 1000).toFixed(1)}s  ~${r.tokPerSec} chars/s  narration:${r.narration?.source}`}`);
+for (const r of out.results) console.log(`${r.model.padEnd(44)} ${r.error ? 'ERROR ' + r.error : `score ${r.score}  median ${(r.medianMs / 1000).toFixed(1)}s  load ${(r.loadMs / 1000).toFixed(1)}s  ~${r.tokPerSec} tok/s  narration:${r.narration?.source}`}`);
 console.log('written', file);

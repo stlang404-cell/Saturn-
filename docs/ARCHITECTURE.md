@@ -32,7 +32,8 @@ and commits changes. Narration happens after commit and cannot change state.
 | `src/engine/sim.js`, `economy.js`, `business.js` | Hourly/daily world simulation: schedules, gossip, NPC agendas, markets, production, businesses, contracts |
 | `src/ai/*` | Local LLM wrapper, prompts, context builder, interpreter with repair, narrator with grounding, fallback parser |
 | `src/service/*` | `GameService` (saves, autosave rotation, export/import, AI lifecycle, views); local dev HTTP server |
-| `src/app/*` | Electron shell: sandboxed renderer, IPC whitelist, network blocking |
+| `src/app/*` | Electron shell: sandboxed renderer, IPC whitelist, network blocking; spawns the game server |
+| `src/service/server-entry.js` | Game server process (bundled Node runtime), loopback + token |
 | `src/ui/*` | Text-first UI; procedural original artwork |
 | `data/worlds/saltwind/world.json` | The setting, entirely data-driven |
 
@@ -43,7 +44,14 @@ and commits changes. Narration happens after commit and cannot change state.
 engine would need a Rust rewrite or a bundled Node sidecar — two runtimes to ship and debug);
 a Python stack (packaging native inference + Python on Windows is more fragile); a browser-only
 game (cannot bundle a native model runtime). Electron gives one language for engine, AI layer
-and UI, mature Windows packaging, and runs node-llama-cpp's prebuilt N-API binaries directly.
+and UI and mature Windows packaging.
+
+*Amendment (verified during packaging):* node-llama-cpp's prebuilt llama.cpp addon crashes
+inside Electron 38's embedded runtime ("Illegal instruction") but works under standard Node 22.
+The game therefore runs as a **separate process on a bundled standalone Node runtime**; Electron
+is only the window. Renderer → whitelisted IPC → main process → HTTP on 127.0.0.1 with a
+per-launch secret token → game server. Benefits beyond the fix: a model crash cannot take down
+the UI, and native modules use one ABI (Node) in development, tests and production.
 
 ### ADR-2: llama.cpp via node-llama-cpp for inference
 *Chosen:* node-llama-cpp 3.22 (bundles prebuilt llama.cpp for Windows x64 CPU and Vulkan; no

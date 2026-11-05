@@ -1,8 +1,18 @@
 # Packaging the offline Windows build
 
-SATURN ships as a self-contained desktop application: the Electron runtime, the game, the
-SQLite engine, the llama.cpp inference backends (CPU and Vulkan) and the language model. The
-player installs nothing else, and the game makes no network requests.
+SATURN ships as a self-contained desktop application: the Electron runtime (window only), a
+standalone Node.js runtime (`resources/node`) that runs the game server, the game, the SQLite
+engine, the llama.cpp inference backends (CPU and Vulkan) and the language model. The player
+installs nothing else, and the game makes no network requests.
+
+### Why two processes
+The prebuilt llama.cpp addon crashes when loaded inside Electron's embedded runtime
+("Illegal instruction"; reproduced on Linux with Electron 38, both in the main process and in
+`ELECTRON_RUN_AS_NODE` mode), while it runs correctly under standard Node 22. SATURN therefore
+runs the GameService in a child process on the bundled Node runtime. The Electron main process
+talks to it over HTTP on 127.0.0.1 with a per-launch random token; the sandboxed renderer only
+talks to the main process over a whitelisted IPC channel. A model crash cannot corrupt the save
+(every turn is a transaction) or take down the window.
 
 ## Pipeline
 
@@ -17,8 +27,8 @@ node scripts/package.mjs --platform win32 --arch x64 --target dir    # dist/win3
 1. stages a clean copy of `src/` and `data/` in `out/stage-win32-x64/` (the developer's
    `node_modules` is never touched, so `npm test` keeps working);
 2. installs production dependencies for the *target* OS/CPU (`npm install --os=win32 --cpu=x64`);
-3. installs the **better-sqlite3 prebuilt for Electron 38 on win32-x64** (`prebuild-install`;
-   better-sqlite3 is pinned to 12.11.1 because 13.x does not publish Electron prebuilts);
+3. downloads the standalone Node runtime (default 22.22.0) for the target, verified against
+   nodejs.org's SHASUMS256, and installs the **better-sqlite3 prebuilt for that Node ABI**;
 4. keeps only node-llama-cpp's `win-x64` (CPU) and `win-x64-vulkan` backends and removes the
    llama.cpp sources (SATURN never compiles at runtime; `getLlama({ build: 'never' })`);
 5. adds the model and licence texts as extra resources (`resources/models`, `resources/licenses`);
@@ -36,8 +46,10 @@ two supported formats:
 | **NSIS + model folder** | `node scripts/package.mjs --platform win32 --arch x64 --target nsis` | `dist/win32-x64/SATURN-0.1.0-offline/` containing `SATURN-Setup-0.1.0.exe` and `models/*.gguf`. The installer (with `build/installer.nsh`) copies the model into the install directory and creates desktop and Start-menu shortcuts. Distribute the folder as one zip. |
 | **Inno Setup (single installer, disk-spanning)** | build `--target dir`, then on Windows `iscc /DAppVersion=0.1.0 installer\saturn.iss` | `dist/installer/SATURN-Setup-0.1.0.exe` + `.bin` volumes |
 
-Cross-building from Linux works for `dir` and `nsis` (NSIS needs Wine for the uninstaller stub).
-Inno Setup runs on Windows. `.github/workflows/windows-release.yml` performs the whole release
+Cross-building from Linux works for `--target dir` (verified: correct PE32+ binaries for
+SATURN.exe, node.exe, the SQLite addon and the llama.cpp CPU/Vulkan backends; 2.9 GB with the
+model). Building the NSIS installer on Linux requires a full 32-bit Wine, which was not
+available in the development container; both installers are built natively on Windows. `.github/workflows/windows-release.yml` performs the whole release
 on a Windows runner: tests, model fetch, packaging, **smoke tests of the packaged
 `SATURN.exe`** (offline-parser path and real-model path), and the Inno Setup installer.
 

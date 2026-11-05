@@ -68,7 +68,8 @@ async function main() {
     if (line === '/journal') { for (const j of svc.state().journal.filter((x) => x.status === 'open')) console.log(`• [${j.kind}] ${j.title}: ${j.body}`); continue; }
     if (line === '/inv') { for (const i of svc.state().inventory) console.log(`• ${i.qty} × ${i.name}${i.equipped ? ' (equipped)' : ''}${i.owner ? ` (${i.owner}'s)` : ''}`); continue; }
     try {
-      let r = await svc.act(line, { onStage: (s) => process.stdout.write(C.dim(`\r  …${s}      `)) });
+      let lastStage = '';
+      let r = await svc.act(line, { onStage: (s) => { if (s !== lastStage) { lastStage = s; process.stdout.write(C.dim(`\r  …${s}      `)); } } });
       process.stdout.write('\r');
       if (r.kind === 'plan') {
         showResult(r);

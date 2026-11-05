@@ -123,3 +123,12 @@ test('the parser maps a wide range of phrasings to typed actions', () => {
   assert.equal(multi.actions.length, 2);
   assert.equal(fallbackInterpret('xyzzy plugh').mode, 'clarify');
 });
+
+test('narration that contradicts the roll result is rejected', () => {
+  const g = newGame();
+  const ok = 'PLAYER INPUT: x\n1. talk — DONE: You talk.\n   RESULT of "Persuade Aurel": Success → IT WORKS — show it succeeding';
+  assert.equal(checkNarration(g, 'Aurel listens, unmoved, and turns away.', ok).ok, false);
+  assert.equal(checkNarration(g, 'Aurel listens and, at last, nods: he is persuaded.', ok).ok, true);
+  const bad = ok.replace('Success → IT WORKS — show it succeeding', 'Failure → IT FAILS — show it failing');
+  assert.equal(checkNarration(g, 'Aurel agrees at once.', bad).ok, false);
+});

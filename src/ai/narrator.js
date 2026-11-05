@@ -17,7 +17,10 @@ export function describeOutcomes(game, input, result) {
     }
     lines.push(`${i + 1}. ${o.type} — ${o.status.toUpperCase()}: ${o.summary}`);
     if (o.facts?.length) lines.push(`   FACTS: ${o.facts.join(' ')}`);
-    for (const r of o.rolls || []) lines.push(`   RESULT of "${r.label}": ${DEGREE_LABEL[r.degree]}`);
+    for (const r of o.rolls || []) {
+      const verdict = /success|critical|automatic/.test(r.degree) && r.degree !== 'partial' ? 'IT WORKS — show it succeeding' : r.degree === 'partial' ? 'IT PARTLY WORKS, at a cost' : 'IT FAILS — show it failing';
+      lines.push(`   RESULT of "${r.label}": ${DEGREE_LABEL[r.degree]} → ${verdict}`);
+    }
     const d = o.dialogue;
     if (d) {
       const v = d.voice || {};
@@ -59,6 +62,13 @@ export function checkNarration(game, text, outcomeText) {
     if (mentioned && !outcomeText.includes(first) && !presentNames.includes(full)) problems.push(`mentions ${full}, who is not involved`);
   }
   if (/\b(as an ai|language model|system prompt|json)\b/i.test(text)) problems.push('breaks the fiction');
+  // outcome polarity: narration must not depict failure for a success or vice versa
+  const works = (outcomeText.match(/IT WORKS/g) || []).length;
+  const fails = (outcomeText.match(/IT FAILS/g) || []).length;
+  const FAIL_WORDS = /\b(not acknowledged|unmoved|unimpressed|ignores you|does not react|doesn't react|not persuaded|unconvinced|isn't convinced|is not convinced|refuses|turns away|without looking|you fail|fails to|no effect|not looking at you|shakes (his|her|their) head)\b/i;
+  const SUCCESS_WORDS = /\b(is persuaded|is convinced|agrees|impressed|won over|you succeed|succeeds|nods approvingly|warms to you|delighted)\b/i;
+  if (works && !fails && FAIL_WORDS.test(text)) problems.push(`depicts failure but the outcome succeeded ("${text.match(FAIL_WORDS)[0]}")`);
+  if (fails && !works && SUCCESS_WORDS.test(text)) problems.push(`depicts success but the outcome failed ("${text.match(SUCCESS_WORDS)[0]}")`);
   return { ok: problems.length === 0, problems };
 }
 

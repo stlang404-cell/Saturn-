@@ -1663,7 +1663,8 @@
       "goals": [
         {
           "id": "clear_debt",
-          "text": "Clear her debt to the Guild before Harvestide"
+          "text": "Clear her debt to the Guild before Harvestide",
+          "secret": true
         },
         {
           "id": "beat_sabine",
@@ -1776,7 +1777,8 @@
       "goals": [
         {
           "id": "ruin_odile",
-          "text": "Drive Odile Varne out of the salt trade"
+          "text": "Drive Odile Varne out of the salt trade",
+          "secret": true
         }
       ],
       "relationships": [
@@ -2412,7 +2414,8 @@
       "goals": [
         {
           "id": "keep_job",
-          "text": "Keep the mayor happy and his own conscience quiet"
+          "text": "Keep the mayor happy and his own conscience quiet",
+          "secret": true
         }
       ]
     },
@@ -2693,7 +2696,8 @@
       "goals": [
         {
           "id": "profit",
-          "text": "Turn a profit without catching the watch's eye"
+          "text": "Turn a profit without catching the watch's eye",
+          "secret": true
         }
       ]
     },

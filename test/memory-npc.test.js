@@ -137,3 +137,11 @@ test('hearsay: witnesses of a crime spread it; listeners judge the player withou
   const leaked = g.db.prepare("SELECT owner_id FROM memories WHERE summary LIKE '%steal%' AND source NOT IN ('hearsay','witnessed','experienced')").all();
   assert.equal(leaked.length, 0, 'no NPC knows of the theft without a legitimate source');
 });
+
+test('public NPC concerns given to the narrator never reveal secrets', () => {
+  const g = newGame();
+  goTo(g, 'Guildhall of Weights');
+  const r = run(g, { type: 'talk', target: 'Odile', approach: 'chat' });
+  assert.ok(!r.outcomes[0].dialogue.goals.some((t) => /debt/i.test(t)), JSON.stringify(r.outcomes[0].dialogue.goals));
+  for (const n of g.def.npcs) for (const goal of n.goals || []) if (!goal.secret) assert.ok(!/debt|ruin|corner|hoard/i.test(goal.text), `${n.id}: ${goal.text}`);
+});

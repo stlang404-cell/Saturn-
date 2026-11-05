@@ -1,0 +1,11 @@
+# Real-model play-test script (node src/cli/play.js --script scripts/playtest-ai.txt)
+I stroll over to the innkeeper and ask whether she knows anyone who might need a hand with honest work
+go to the guild
+I introduce myself to the salt merchant and ask if she needs a clerk
+I want to convince this merchant to finance my expedition to Kestrel Point
+I investigate whether the mayor is manipulating grain prices.
+I spend the next three months learning medicine.
+I want to research a new metal alloy.
+I approach the king's enemies and propose an alliance.
+I try to compose a rousing ballad about the Great Ring to impress the guildmaster
+/integrity
