@@ -67,9 +67,32 @@ export class LocalLLM {
     }
   }
 
+  /**
+   * Grammar for a JSON schema. node-llama-cpp's default JSON grammar forces pretty-printed
+   * output (newlines + 4-space indentation per level), which wastes many tokens on large
+   * objects; SATURN builds a compact single-line grammar from the same schema instead,
+   * falling back to the default if the internal generator is unavailable.
+   */
   async grammar(schema) {
     const key = JSON.stringify(schema);
-    if (!this._grammars.has(key)) this._grammars.set(key, await this.llama.createGrammarForJsonSchema(schema));
+    if (!this._grammars.has(key)) {
+      let g = null;
+      try {
+        if (!this._gbnf) {
+          const { fileURLToPath, pathToFileURL } = await import('node:url');
+          const base = path.dirname(fileURLToPath(import.meta.resolve('node-llama-cpp')));
+          this._gbnf = (await import(pathToFileURL(path.join(base, 'utils/gbnfJson/getGbnfGrammarForGbnfJsonSchema.js')).href)).getGbnfGrammarForGbnfJsonSchema;
+        }
+        const gbnf = this._gbnf(schema, { allowNewLines: false });
+        const grammar = await this.llama.createGrammar({ grammar: gbnf });
+        g = { grammar, parse: (text) => JSON.parse(text) };
+      } catch (e) {
+        this.log(`compact grammar unavailable (${e.message}); using default JSON grammar`);
+        const def = await this.llama.createGrammarForJsonSchema(schema);
+        g = { grammar: def, parse: (text) => def.parse(text) };
+      }
+      this._grammars.set(key, g);
+    }
     return this._grammars.get(key);
   }
 
@@ -86,7 +109,7 @@ export class LocalLLM {
 
   async _generate({ system, user, schema, maxTokens = 400, temperature = 0.3, timeoutMs = 90000, signal, onToken, seed }) {
     if (this.state !== 'ready') throw new Error(`model not ready (${this.state})`);
-    const grammar = await this.grammar(schema);
+    const { grammar, parse } = await this.grammar(schema);
     const ac = new AbortController();
     const timer = setTimeout(() => ac.abort(new Error('timeout')), timeoutMs);
     const onAbort = () => ac.abort(new Error('cancelled'));
@@ -101,7 +124,7 @@ export class LocalLLM {
         onToken: (t) => { tokens += Array.isArray(t) ? t.length : 1; onToken?.(tokens); },
       });
       let parsed;
-      try { parsed = grammar.parse(text); } catch (e) {
+      try { parsed = parse(text); } catch (e) {
         // tolerate stray leading/trailing characters around a single JSON object
         const a = text.indexOf('{'), b = text.lastIndexOf('}');
         if (a < 0 || b <= a) throw e;
