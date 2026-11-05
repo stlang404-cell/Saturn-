@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UI_DIR = path.resolve(__dirname, '../ui');
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.json': 'application/json' };
 
-export const METHODS = ['creationOptions', 'listSaves', 'newGame', 'loadGame', 'deleteSave', 'state', 'act', 'confirmPlan', 'cancelPlan', 'cancel', 'snapshot', 'listSnapshots', 'restoreSnapshot', 'inspectTurn', 'inspectMemory', 'integrity', 'saveSettings', 'availableModels', 'aiStatus', 'closeGame', 'exportSave', 'importSave'];
+export const METHODS = ['creationOptions', 'listSaves', 'newGame', 'loadGame', 'deleteSave', 'state', 'act', 'confirmPlan', 'cancelPlan', 'cancel', 'snapshot', 'listSnapshots', 'restoreSnapshot', 'inspectTurn', 'inspectMemory', 'integrity', 'saveSettings', 'availableModels', 'aiStatus', 'closeGame', 'exportSave', 'importSave', 'listWorlds', 'deleteWorld', 'forgeStart', 'forgeStatus', 'forgeCancel', 'forgeRegenerate', 'forgeEdit', 'forgeSave'];
 
 export function dispatch(svc, method, args = []) {
   if (!METHODS.includes(method)) throw new Error(`Unknown method ${method}`);

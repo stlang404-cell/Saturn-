@@ -42,27 +42,114 @@ const TABS = [
 // ---------------------------------------------------------------- title & creation
 async function showTitle() {
   S.screen = 'title';
-  [S.saves, S.ai] = await Promise.all([bridge('listSaves'), bridge('aiStatus')]);
+  [S.saves, S.ai, S.worlds] = await Promise.all([bridge('listSaves'), bridge('aiStatus'), bridge('listWorlds')]);
   render();
 }
 
 function renderTitle() {
   const ai = S.ai || {};
+  const tab = S.titleTab || 'create';
+  const menu = [['create', 'Create World'], ['continue', 'Continue World'], ['library', 'World Library'], ['settings', 'Settings']];
+  let body = '';
+  if (tab === 'create') {
+    body = `<div class="card"><h3>Create a new world</h3><p class="muted serif">Describe any world you can imagine — its people, its physics, its power and money, who you are when you arrive. SATURN builds its skills, places, economy, people and rules, and then lets you live in it.</p>
+      <button class="btn primary" data-act="forge">Open the World Forge</button>
+      <p class="faint" style="font-size:.82em;margin-top:10px">Or begin in the sample world, <i>The Saltwind Reach</i>: <button class="btn small" data-newin="bundled:saltwind">Start there</button></p></div>`;
+  } else if (tab === 'continue') {
+    body = `<div class="card saves"><h3>Continue a life</h3>${S.saves.length ? S.saves.map((s) => `<div class="save"><div><div>${esc(s.name)}</div><div class="faint" style="font-size:.8em">${s.error ? esc(s.error) : `${s.turns} turns · ${esc((s.lastPlayed || '').slice(0, 16).replace('T', ' '))}`}</div></div>
+        <div class="row"><button class="btn small" data-load="${esc(s.id)}" ${s.error ? 'disabled' : ''}>Load</button><button class="btn small ghost" data-del="${esc(s.id)}" title="Delete">✕</button></div></div>`).join('') : '<p class="faint">No saved games yet.</p>'}</div>`;
+  } else if (tab === 'library') {
+    body = `<div class="card saves"><h3>World Library</h3><p class="faint" style="font-size:.85em">Every world you forge is kept here. Start as many lives in each as you like — every game has its own independent history.</p>${(S.worlds || []).map((w) => `<div class="save"><div><div>${esc(w.name)}</div><div class="faint" style="font-size:.8em">${esc(w.tagline || '')} · ${esc(w.origin)}</div></div>
+        <div class="row"><button class="btn small" data-newin="${esc(w.ref)}">New life here</button>${w.ref.startsWith('library:') ? `<button class="btn small ghost" data-delworld="${esc(w.ref)}" title="Delete world">✕</button>` : ''}</div></div>`).join('')}</div>`;
+  } else {
+    body = `<div class="card"><h3>Settings</h3><p class="muted">Local AI: ${esc(ai.state || 'unknown')} — ${esc(ai.message || '')}</p><p class="faint" style="font-size:.85em">Installed models: ${esc((ai.models || []).map((m) => m.file).join(', ') || 'none')}. More settings are available in-game (Settings tab).</p></div>`;
+  }
   return `<div class="title-screen"><div class="title-wrap">
-    <div class="hero">${sceneSVG('square', 'evening', 'title')}<div class="over"><h1>SATURN</h1><div class="tag">The Living World — a persistent simulation beneath the Great Ring.</div></div></div>
-    <div class="title-actions">
-      <div class="card"><h3>Begin a new life</h3><p class="muted serif">Arrive in Brindlemarch with a few marks and a past. The world will not wait for you.</p>
-        <button class="btn primary" data-act="create">New journey</button></div>
-      <div class="card saves"><h3>Continue</h3>${S.saves.length ? S.saves.map((s) => `<div class="save"><div><div>${esc(s.name)}</div><div class="faint" style="font-size:.8em">${s.error ? esc(s.error) : `${s.turns} turns · ${esc((s.lastPlayed || '').slice(0, 16).replace('T', ' '))}`}</div></div>
-        <div class="row"><button class="btn small" data-load="${esc(s.id)}" ${s.error ? 'disabled' : ''}>Load</button><button class="btn small ghost" data-del="${esc(s.id)}" title="Delete">✕</button></div></div>`).join('') : '<p class="faint">No saved worlds yet.</p>'}</div>
-    </div>
-    <p class="faint" style="margin-top:14px;font-size:.82em">Local AI: ${esc(ai.state || 'unknown')} — ${esc(ai.message || '')}. Fully offline: no accounts, no network.</p>
+    <div class="hero">${sceneSVG('square', 'evening', 'title')}<div class="over"><h1>SATURN</h1><div class="tag">A world engine you play with. Describe a world; live in it; change its history.</div></div></div>
+    <div class="row" style="margin-top:18px;gap:6px" role="tablist">${menu.map(([id, label]) => `<button class="btn ${tab === id ? 'primary' : ''}" data-titletab="${id}" role="tab" aria-selected="${tab === id}">${label}</button>`).join('')}</div>
+    <div style="margin-top:14px">${body}</div>
+    <p class="faint" style="margin-top:14px;font-size:.82em">Local AI: ${esc(ai.state || 'unknown')}. Fully offline: no accounts, no network.</p>
   </div></div>`;
 }
 
-async function startCreation() {
-  const opts = await bridge('creationOptions');
-  S.creation = { opts, name: '', bg: opts.backgrounds[0].id, alloc: Object.fromEntries(opts.attributes.map((a) => [a.id, 0])) };
+// ---------------------------------------------------------------- World Forge
+const FORGE_EXAMPLES = [
+  'Create a realistic modern world where I can build businesses, invest, pursue careers, develop relationships, and become wealthy or powerful.',
+  'Create an ancient civilization with competing empires, trade networks, military campaigns, political intrigue, and realistic social advancement.',
+  'A civilization living on floating islands, where gravity is manipulated through crystals and merchants travel between islands using flying ships.',
+  'A drowned world of salvage crews and reef cities, where memories can be extracted, stored in coral, and traded as fuel.',
+];
+
+async function openForge() {
+  S.screen = 'forge';
+  S.forge = await bridge('forgeStatus');
+  render();
+  if (S.forge.state === 'running') pollForge();
+}
+
+let forgePoll = null;
+function pollForge() {
+  clearInterval(forgePoll);
+  forgePoll = setInterval(async () => {
+    S.forge = await bridge('forgeStatus');
+    if (S.screen === 'forge') render();
+    if (S.forge.state !== 'running') clearInterval(forgePoll);
+  }, 1000);
+}
+
+function renderForge() {
+  const f = S.forge || { state: 'idle', stages: [] };
+  const ai = S.ai || {};
+  if (f.state === 'running') {
+    return `<div class="title-screen"><div class="title-wrap card" style="padding:22px"><h2 style="margin-top:0">Forging your world…</h2>
+      <p class="muted serif">“${esc(f.description)}”</p>
+      <ol class="forge-stages">${f.stages.map((st, i) => `<li class="${i < f.index ? 'done' : i === f.index ? 'now' : ''}">${i < f.index ? '✓' : i === f.index ? '<span class="spinner" style="display:inline-block;vertical-align:middle"></span>' : '·'} ${esc(st.label)}${i === f.index && f.tokens ? ` <span class="faint">(${f.tokens} tokens)</span>` : ''}</li>`).join('')}</ol>
+      <p class="faint">${f.seconds}s elapsed. On a CPU-only machine a world takes several minutes; with a GPU, about a minute.</p>
+      <button class="btn ghost" data-act="forgecancel">Cancel</button></div></div>`;
+  }
+  if (f.state === 'done' && f.summary) return renderForgePreview(f.summary);
+  return `<div class="title-screen"><div class="title-wrap card" style="padding:22px">
+    <h2 style="margin-top:0">World Forge</h2>
+    <p class="muted serif">Describe the world you want. One description is enough: genre, physics, magic or technology, power and money, and who you are when you begin.</p>
+    <textarea id="forgedesc" rows="5" style="width:100%;font-family:var(--serif);font-size:1.05em;padding:10px;border-radius:10px;background:#11131f;color:var(--text);border:1px solid #3a4066" placeholder="Create a world where…">${esc(S.forgeDraftText || '')}</textarea>
+    <div class="hint" style="margin:8px 0;display:flex;flex-wrap:wrap;gap:6px">${FORGE_EXAMPLES.map((e, i) => `<button class="btn small ghost" data-example="${i}">${esc(e.slice(0, 60))}…</button>`).join('')}</div>
+    ${f.state === 'error' ? `<p class="chip bad">${esc(f.error)}</p>` : ''}${f.state === 'cancelled' ? '<p class="chip">Cancelled.</p>' : ''}
+    ${ai.state !== 'ready' ? `<p class="chip bad">The World Forge needs the local AI model (${esc(ai.message || ai.state || '')}).</p>` : ''}
+    <div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn ghost" data-act="title">Back</button><button class="btn primary" data-act="forgestart" ${ai.state !== 'ready' ? 'disabled' : ''}>Forge this world</button></div>
+  </div></div>`;
+}
+
+function renderForgePreview(w) {
+  const list = (xs) => `<ul style="margin:4px 0 0 18px;padding:0">${xs.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  const r = w.report || { repairs: [], approximations: [], warnings: [] };
+  return `<div class="title-screen"><div class="title-wrap card" style="padding:22px">
+    <div class="row"><div class="grow"><h2 style="margin:0">${esc(w.name)}</h2><div class="muted">${esc(w.tagline)}</div></div>
+      <button class="btn small" data-act="forgerename">Rename</button></div>
+    <p class="serif" style="line-height:1.6">${esc(w.premise)}</p>
+    <div class="card"><div class="b serif" style="font-size:1em;color:var(--text)">${esc(w.intro)}</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><h3>Laws of this world</h3>${list([...w.physics, `Magic: ${w.magic?.exists ? w.magic.summary : 'none'}`, `Technology: ${w.technology?.summary || ''}`, `Currency: ${w.currency.plural}${w.currency.medium ? ` (${w.currency.medium})` : ''}`])}
+        ${w.contradictions_resolved?.length ? `<h3>Contradictions resolved</h3>${list(w.contradictions_resolved)}` : ''}
+        <h3>Special rules</h3>${list(w.rules)}
+        <h3>Skills</h3><p class="faint" style="font-size:.9em">${esc(w.skills.map((s) => s.label).join(', '))}</p>
+        <h3>Attributes</h3>${list(w.attributes)}</div>
+      <div><h3>Places</h3>${list(w.places.map((p) => `${p.name} (${p.settlement})`))}
+        <h3>People</h3>${list(w.people)}
+        <h3>Factions</h3><p class="faint" style="font-size:.9em">${esc(w.factions.join(', '))}</p>
+        <h3>Tensions</h3>${list(w.tensions.length ? w.tensions : ['none'])}
+        <h3>Goods</h3><p class="faint" style="font-size:.9em">${esc(w.items.join(', '))}</p>
+        <h3>Starting backgrounds</h3>${list(w.backgrounds)}</div>
+    </div>
+    <details style="margin-top:10px"><summary class="faint">Engine validation: ${r.repairs.length} repairs, ${r.approximations.length} approximations, ${r.warnings.length} warnings</summary>${list([...r.repairs, ...r.approximations.map((x) => `≈ ${x}`), ...r.warnings.map((x) => `⚠ ${x}`)])}</details>
+    <h3>Revise</h3><div class="row"><select id="regenstage">${(S.forge.stages || []).map((st) => `<option value="${st.id}">${esc(st.label)}</option>`).join('')}</select>
+      <input id="regenfb" type="text" class="grow" placeholder="What should change? (optional)"><button class="btn small" data-act="forgeregen">Regenerate</button></div>
+    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" data-act="forgediscard">Start over</button><button class="btn" data-act="forgesave">Save to library</button><button class="btn primary" data-act="forgeenter">Save &amp; enter</button></div>
+  </div></div>`;
+}
+
+async function startCreation(worldRef = 'bundled:saltwind') {
+  const opts = await bridge('creationOptions', worldRef);
+  S.creation = { opts, worldRef, name: '', bg: opts.backgrounds[0].id, alloc: Object.fromEntries(opts.attributes.map((a) => [a.id, 0])) };
   S.screen = 'create';
   render();
 }
@@ -72,20 +159,21 @@ function renderCreation() {
   const bg = c.opts.backgrounds.find((b) => b.id === c.bg);
   const spent = Object.values(c.alloc).reduce((s, v) => s + v, 0);
   const left = c.opts.points - spent;
+  const skillName = (k) => c.opts.skills?.[k] || k.replace(/_/g, ' ');
   const attrRows = c.opts.attributes.map((a) => {
     const base = 2 + (bg.attributes[a.id] || 0);
     const val = base + c.alloc[a.id];
-    return `<div class="attr-row"><b style="text-transform:capitalize">${esc(a.id)}</b><span class="rank">${val}</span>
+    return `<div class="attr-row"><b style="text-transform:capitalize">${esc(a.label || a.id)}</b><span class="rank">${val}</span>
       <button class="btn small" data-attr="${a.id}" data-d="-1" ${c.alloc[a.id] <= 0 ? 'disabled' : ''} aria-label="decrease ${a.id}">−</button>
       <button class="btn small" data-attr="${a.id}" data-d="1" ${left <= 0 || val >= 5 ? 'disabled' : ''} aria-label="increase ${a.id}">+</button>
       <span class="faint" style="font-size:.82em">${esc(a.info)}</span></div>`;
   }).join('');
   return `<div class="title-screen"><div class="title-wrap card" style="padding:22px">
-    <h2 style="margin-top:0">Who arrives in Brindlemarch?</h2>
+    <h2 style="margin-top:0">Who enters ${esc(c.opts.world.name)}?</h2><p class="muted">${esc(c.opts.world.tagline || '')}</p>
     <div class="row" style="margin-bottom:12px"><label for="cname">Name</label><input id="cname" type="text" maxlength="40" placeholder="Wren" value="${esc(c.name)}" style="width:240px"></div>
     <h3>Background</h3><div class="bg-grid">${c.opts.backgrounds.map((b) => `<button class="bg-card" data-bg="${b.id}" aria-pressed="${b.id === c.bg}">
       <div class="n">${esc(b.name)}</div><div class="d">${esc(b.description)}</div>
-      <div class="faint" style="font-size:.78em">${Object.entries(b.skills).map(([k, v]) => `${k.replace(/_/g, ' ')} ${v}`).join(', ')} · ${b.money} ${esc(c.opts.currency?.plural || 'coins')}${b.debt ? ` · owes ${b.debt.amount}` : ''}</div></button>`).join('')}</div>
+      <div class="faint" style="font-size:.78em">${Object.entries(b.skills).map(([k, v]) => `${esc(skillName(k))} ${v}`).join(', ')} · ${b.money} ${esc(c.opts.currency?.plural || 'coins')}${b.debt ? ` · owes ${b.debt.amount}` : ''}</div></button>`).join('')}</div>
     <h3>Attributes <span class="chip gold">${left} point${left === 1 ? '' : 's'} to spend</span></h3>${attrRows}
     <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" data-act="title">Back</button><button class="btn primary" data-act="begin">Begin</button></div>
   </div></div>`;
@@ -96,7 +184,7 @@ async function beginGame() {
   const name = ($('#cname')?.value || '').trim() || 'Wren';
   setBusy(true, 'Creating the world…');
   try {
-    const r = await bridge('newGame', { name, background: c.bg, allocation: c.alloc });
+    const r = await bridge('newGame', { name, background: c.bg, allocation: c.alloc, worldRef: c.worldRef });
     S.st = r.state;
     S.entries = [{ kind: 'intro', narration: r.intro }];
     S.screen = 'game';
@@ -313,7 +401,13 @@ const TAB_RENDER = {
     return `<h3>Opportunities</h3>${opp.length ? opp.map((j) => `<div class="card"><div class="t">${esc(j.title)}</div><div class="b">${esc(j.body)}</div></div>`).join('') : '<p class="faint">None known yet. Talk to people.</p>'}
       <h3>Ongoing</h3>${plans.length ? plans.map((j) => `<div class="card"><div class="t">${esc(j.title)}</div><div class="b">${esc(j.body)}</div></div>`).join('') : '<p class="faint">Nothing in progress.</p>'}
       <h3>Recent consequences</h3>${cons.length ? cons.map((j) => `<div class="card"><div class="t">${esc(j.title)} <span class="faint" style="font-size:.8em">${esc(j.when)}</span></div><div class="b">${esc(j.body)}</div></div>`).join('') : '<p class="faint">None yet.</p>'}
-      <h3>Recent events you know of</h3>${st.history.slice(0, 6).map((h) => `<div class="card"><div class="b"><span class="faint">${esc(h.when)}</span> — ${esc(h.summary)}</div></div>`).join('')}`;
+      <h3>Recent events you know of</h3>${st.history.slice(0, 6).map((h) => `<div class="card"><div class="b"><span class="faint">${esc(h.when)}</span> — ${esc(h.summary)}</div></div>`).join('')}
+      <h3>This world</h3><div class="card"><div class="t">${esc(st.worldInfo.name)}</div><div class="b">${esc(st.worldInfo.premise || st.worldInfo.tagline || '')}</div>
+        ${st.worldInfo.physics.length ? `<div class="b">${st.worldInfo.physics.map((x) => `• ${esc(x)}`).join('<br>')}</div>` : ''}
+        <div class="b">Magic: ${esc(st.worldInfo.magic?.exists ? st.worldInfo.magic.summary : 'none')} · Technology: ${esc(st.worldInfo.technology?.summary || st.worldInfo.technology?.level || '—')}</div></div>
+      <h3>Special abilities, techniques &amp; inventions</h3>${st.rules.length ? st.rules.map((r) => `<div class="card"><div class="t">${esc(r.name)} <span class="chip ${r.known ? 'good' : ''}">${r.known ? 'you know it' : r.needsLearning ? 'must be learned' : 'anyone may try'}</span> <span class="chip">${esc(r.origin === 'world' ? 'of this world' : r.origin === 'player' ? 'your invention' : 'NPC innovation')}</span></div>
+        <div class="b">${esc(r.summary)} <span class="faint">(${esc(r.skill || '')}, ${esc(r.difficulty)}; ${r.holders} know it; v${r.version})</span></div>
+        <div class="faint" style="font-size:.75em">${r.revisions.map((x) => `v${x.version} ${esc(x.when)}: ${esc(x.reason)}`).join(' · ')}</div></div>`).join('') : '<p class="faint">None yet.</p>'}`;
   },
   character(st) {
     const p = st.player;
@@ -415,6 +509,7 @@ function render() {
   const app = $('#app');
   if (S.screen === 'title') app.innerHTML = renderTitle();
   else if (S.screen === 'create') app.innerHTML = renderCreation();
+  else if (S.screen === 'forge') app.innerHTML = renderForge();
   else renderGame();
 }
 
@@ -474,6 +569,18 @@ document.addEventListener('click', async (ev) => {
   const d = t.dataset;
   if (d.close && (ev.target === t || t.tagName === 'BUTTON')) return closeModal();
   if (d.act === 'create') return startCreation();
+  if (d.titletab) { S.titleTab = d.titletab; return render(); }
+  if (d.newin) return startCreation(d.newin);
+  if (d.delworld) { if (confirm('Delete this world from the library? Saved games in it are kept.')) { await bridge('deleteWorld', d.delworld); return showTitle(); } return; }
+  if (d.act === 'forge') return openForge();
+  if (d.example) { S.forgeDraftText = FORGE_EXAMPLES[Number(d.example)]; const t = $('#forgedesc'); if (t) t.value = S.forgeDraftText; return; }
+  if (d.act === 'forgestart') { const v = ($('#forgedesc')?.value || '').trim(); if (!v) return toast('Describe your world first.'); S.forgeDraftText = v; try { S.forge = await bridge('forgeStart', { description: v }); pollForge(); render(); } catch (e) { toast(e.message); } return; }
+  if (d.act === 'forgecancel') { await bridge('forgeCancel'); return; }
+  if (d.act === 'forgeregen') { try { S.forge = await bridge('forgeRegenerate', { stage: $('#regenstage').value, feedback: $('#regenfb').value }); pollForge(); render(); } catch (e) { toast(e.message); } return; }
+  if (d.act === 'forgerename') { const n = prompt('Name of this world:', S.forge.summary.name); if (n) { S.forge = await bridge('forgeEdit', { name: n }); render(); } return; }
+  if (d.act === 'forgediscard') { S.forge = { state: 'idle', stages: S.forge.stages }; return render(); }
+  if (d.act === 'forgesave') { const r = await bridge('forgeSave'); toast(`Saved “${r.name}” to the World Library`); return; }
+  if (d.act === 'forgeenter') { const r = await bridge('forgeSave'); return startCreation(r.ref); }
   if (d.act === 'title') return showTitle();
   if (d.act === 'begin') return beginGame();
   if (d.load) return loadGame(d.load);

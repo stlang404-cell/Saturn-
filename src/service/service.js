@@ -14,12 +14,14 @@ import { knownFacts } from '../engine/knowledge.js';
 import { attitudeLabel, disposition } from '../engine/relationships.js';
 import { marketPrice, priceTrend } from '../engine/economy.js';
 import { businessesOf, premisesList } from '../engine/business.js';
-import { SKILLS, ATTRIBUTES, ATTRIBUTE_INFO, RANK_TITLES, xpForRank, MINUTES_PER_DAY } from '../engine/rules.js';
+import { RANK_TITLES, xpForRank, MINUTES_PER_DAY, buildRuleset } from '../engine/rules.js';
 import { loadWorldDef } from '../engine/game.js';
 import { CREATION_POINTS } from '../engine/worldgen.js';
 import { GameMaster } from '../ai/gm.js';
 import { LocalLLM, findModels, MODEL_PROFILES } from '../ai/llm.js';
 import { normalizeInterpretation } from '../ai/schema.js';
+import { WorldForge, STAGES } from '../forge/forge.js';
+import { activeRules } from '../engine/worldrules.js';
 
 const AUTOSAVE_EVERY = 8;
 const AUTOSAVE_KEEP = 5;
@@ -34,6 +36,9 @@ export class GameService {
   constructor({ dataDir = defaultDataDir(), modelDirs = [], log = (...a) => console.log('[saturn]', ...a), aiEnabled = true } = {}) {
     this.dataDir = dataDir;
     this.savesDir = path.join(dataDir, 'saves');
+    this.worldsDir = path.join(dataDir, 'worlds');
+    fs.mkdirSync(this.worldsDir, { recursive: true });
+    this.forgeJob = null;
     this.modelDirs = modelDirs;
     this.log = log;
     fs.mkdirSync(this.savesDir, { recursive: true });
@@ -124,19 +129,113 @@ export class GameService {
     return out.sort((a, b) => String(b.lastPlayed).localeCompare(String(a.lastPlayed)));
   }
 
-  creationOptions() {
-    const def = loadWorldDef('saltwind');
-    return { backgrounds: def.backgrounds.map((b) => ({ id: b.id, name: b.name, description: b.description, attributes: b.attributes, skills: b.skills, money: b.money, debt: b.debt || null })), attributes: ATTRIBUTES.map((a) => ({ id: a, info: ATTRIBUTE_INFO[a] })), points: CREATION_POINTS, world: { name: def.name, tagline: def.tagline, intro: def.intro } };
+  // ---------------- World Library & World Forge ----------------
+  /** Worlds available to start a new game in: the bundled sample and every forged world. */
+  listWorlds() {
+    const out = [];
+    const sample = loadWorldDef('saltwind');
+    out.push({ ref: 'bundled:saltwind', name: sample.name, tagline: sample.tagline, origin: 'bundled sample world' });
+    for (const f of fs.readdirSync(this.worldsDir).filter((x) => x.endsWith('.json'))) {
+      try {
+        const spec = JSON.parse(fs.readFileSync(path.join(this.worldsDir, f), 'utf8'));
+        out.push({ ref: `library:${f.replace(/\.json$/, '')}`, name: spec.name, tagline: spec.tagline, origin: spec.origin?.description ? `forged from: "${spec.origin.description.slice(0, 120)}"` : 'forged' });
+      } catch { /* skip unreadable */ }
+    }
+    return out;
   }
 
-  newGame({ name, background, allocation, seed, saveName } = {}) {
+  worldSpec(ref = 'bundled:saltwind') {
+    const [kind, id] = String(ref).split(':');
+    if (kind === 'bundled') return loadWorldDef(id);
+    if (kind === 'library') {
+      const f = path.join(this.worldsDir, `${path.basename(id)}.json`);
+      if (!fs.existsSync(f)) throw new Error('No such world in the library');
+      return JSON.parse(fs.readFileSync(f, 'utf8'));
+    }
+    throw new Error(`Unknown world reference ${ref}`);
+  }
+
+  deleteWorld(ref) {
+    const [kind, id] = String(ref).split(':');
+    if (kind !== 'library') throw new Error('Only forged worlds can be deleted');
+    fs.rmSync(path.join(this.worldsDir, `${path.basename(id)}.json`), { force: true });
+  }
+
+  /** Start generating a world from a description (runs in the background; poll forgeStatus). */
+  forgeStart({ description, fromStage = 'core', feedback = null } = {}) {
+    if (this.forgeJob?.state === 'running') throw new Error('A world is already being forged');
+    if (!description && !this.forgeJob?.draft) throw new Error('Describe the world you want to create');
+    if (this.llm?.state !== 'ready') throw new Error(this.aiStatus.state === 'loading' ? 'The local AI is still loading — try again in a moment.' : 'The World Forge needs the local AI model, which is not available.');
+    const forge = new WorldForge({ llm: this.llm, log: this.log });
+    const base = fromStage === 'core' ? { description } : this.forgeJob.draft;
+    const job = { state: 'running', stage: fromStage, index: 0, total: STAGES.length, tokens: 0, startedAt: Date.now(), description: description || base.description, abort: new AbortController() };
+    this.forgeJob = job;
+    forge.generate(job.description, { draft: base, fromStage, feedback, signal: job.abort.signal, onProgress: (p) => Object.assign(job, p) })
+      .then((draft) => {
+        const { spec, report, summary } = WorldForge.compile(draft);
+        Object.assign(job, { state: 'done', draft, spec, report, summary, seconds: Math.round((Date.now() - job.startedAt) / 1000) });
+      })
+      .catch((e) => Object.assign(job, { state: /cancel|abort/.test(String(e.message)) ? 'cancelled' : 'error', error: String(e.message || e) }));
+    return this.forgeStatus();
+  }
+
+  forgeStatus() {
+    const j = this.forgeJob;
+    if (!j) return { state: 'idle', stages: STAGES.map((s) => ({ id: s.id, label: s.label })) };
+    return { state: j.state, stage: j.stage, index: j.index, total: j.total, label: j.label, tokens: j.tokens, error: j.error, seconds: Math.round((Date.now() - j.startedAt) / 1000), description: j.description, summary: j.state === 'done' ? j.summary : null, stages: STAGES.map((s) => ({ id: s.id, label: s.label })) };
+  }
+
+  forgeCancel() {
+    this.forgeJob?.abort?.abort(new Error('cancelled'));
+  }
+
+  /** Regenerate one part of the draft (and everything that depends on it), with optional feedback. */
+  forgeRegenerate({ stage, feedback } = {}) {
+    if (!this.forgeJob?.draft) throw new Error('Nothing to regenerate yet');
+    return this.forgeStart({ description: this.forgeJob.draft.description, fromStage: stage, feedback });
+  }
+
+  forgeEdit({ name, tagline } = {}) {
+    const j = this.forgeJob;
+    if (!j?.draft) throw new Error('No world draft');
+    if (name) j.draft.core.name = String(name).slice(0, 40);
+    if (tagline) j.draft.core.tagline = String(tagline).slice(0, 100);
+    Object.assign(j, WorldForge.compile(j.draft));
+    return this.forgeStatus();
+  }
+
+  /** Save the forged world to the library; returns its reference. */
+  forgeSave() {
+    const j = this.forgeJob;
+    if (j?.state !== 'done') throw new Error('No finished world to save');
+    const id = `${j.spec.id}_${Date.now().toString(36)}`;
+    fs.writeFileSync(path.join(this.worldsDir, `${id}.json`), JSON.stringify(j.spec, null, 2));
+    fs.writeFileSync(path.join(this.worldsDir, `${id}.draft`), JSON.stringify(j.draft, null, 2));
+    return { ref: `library:${id}`, name: j.spec.name };
+  }
+
+  /** Import an already compiled spec (used by tests and recorded fixtures). */
+  saveWorldSpec(spec) {
+    const id = `${spec.id}_${Date.now().toString(36)}`;
+    fs.writeFileSync(path.join(this.worldsDir, `${id}.json`), JSON.stringify(spec, null, 2));
+    return { ref: `library:${id}`, name: spec.name };
+  }
+
+  creationOptions(worldRef = 'bundled:saltwind') {
+    const def = this.worldSpec(worldRef);
+    const rules = buildRuleset(def);
+    return { worldRef, backgrounds: def.backgrounds.map((b) => ({ id: b.id, name: b.name, description: b.description, attributes: b.attributes, skills: b.skills, money: b.money, debt: b.debt || null })), attributes: rules.attributes.map((a) => ({ id: a.id, label: a.label, info: a.info })), skills: Object.fromEntries(Object.entries(rules.skills).map(([id, sk]) => [id, sk.label])), currency: rules.currency, points: CREATION_POINTS, world: { name: def.name, tagline: def.tagline, intro: def.intro } };
+  }
+
+  newGame({ name, background, allocation, seed, saveName, worldRef = 'bundled:saltwind' } = {}) {
     this.closeGame();
+    const def = this.worldSpec(worldRef);
     const id = `w${Date.now().toString(36)}`;
     fs.mkdirSync(this._saveDir(id), { recursive: true });
-    const game = Game.create(this._saveFile(id), { seed: seed ?? undefined, player: { name, background, allocation } });
+    const game = Game.create(this._saveFile(id), { def, seed: seed ?? undefined, player: { name, background, allocation } });
     attach(game);
     game.transact(() => {
-      game.db.prepare("INSERT OR REPLACE INTO meta(key,value) VALUES('save_name',?)").run(JSON.stringify(saveName || `${game.player().name} of Brindlemarch`));
+      game.db.prepare("INSERT OR REPLACE INTO meta(key,value) VALUES('save_name',?)").run(JSON.stringify(saveName || `${game.player().name} — ${game.def.name}`));
       game.db.prepare("INSERT OR REPLACE INTO meta(key,value) VALUES('player_name',?)").run(JSON.stringify(game.player().name));
     });
     this.game = game;
@@ -375,6 +474,8 @@ export class GameService {
       map: { locations: mapLocs, routes }, factions, history, log, pendingPlans, flags: getFlags(g),
       ledger: recentTransactions(g.db, p.id, 25).map((t) => ({ ...t, when: g.calendar(t.time).short })),
       ai: this.aiStatus, settings: this.settings,
+      worldInfo: { name: g.def.name, tagline: g.def.tagline, premise: g.def.premise, physics: g.def.physics || [], magic: g.def.magic, technology: g.def.technology, origin: g.def.origin?.kind || 'bundled' },
+      rules: activeRules(g).map((r) => ({ id: r.id, name: r.name, kind: r.kind, origin: r.origin, version: r.version, summary: r.spec.summary, skill: g.rules.skills[r.spec.skill]?.label, difficulty: r.spec.difficulty, needsLearning: !!r.spec.requires?.capability, known: !!g.db.prepare('SELECT 1 FROM capabilities WHERE holder_id=? AND rule_id=?').get(g.playerId, r.id), holders: g.db.prepare('SELECT COUNT(*) n FROM capabilities WHERE rule_id=?').get(r.id).n, revisions: g.db.prepare('SELECT version, reason, time FROM world_rule_revisions WHERE rule_id=? ORDER BY version').all(r.id).map((x) => ({ ...x, when: g.calendar(x.time).short })) })),
     };
   }
 

@@ -75,10 +75,10 @@ export class Game {
   }
 
   // ---------- lifecycle ----------
-  static create(file, { worldId = 'saltwind', seed = null, player = {} } = {}) {
+  static create(file, { worldId = 'saltwind', def: givenDef = null, seed = null, player = {} } = {}) {
     if (file !== ':memory:' && fs.existsSync(file)) throw new Error(`Save already exists: ${file}`);
     const db = openDatabase(file);
-    const def = loadWorldDef(worldId);
+    const def = givenDef ? JSON.parse(JSON.stringify(givenDef)) : loadWorldDef(worldId);
     const s = seed ?? Math.floor(Math.random() * 2 ** 31);
     db.transaction(() => {
       setMeta(db, 'world_def', def);

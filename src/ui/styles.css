@@ -161,3 +161,8 @@ pre.json { background: #0c0e16; border: 1px solid var(--line); border-radius: 8p
   .side-col { max-height: 40vh; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto !important; } }
+
+.forge-stages { list-style: none; padding: 0; margin: 14px 0; }
+.forge-stages li { padding: 6px 0; color: var(--faint); }
+.forge-stages li.done { color: var(--good); }
+.forge-stages li.now { color: var(--gold2); }
