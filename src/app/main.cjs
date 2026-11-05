@@ -64,16 +64,23 @@ async function runSmoke() {
   const out = { ok: false };
   try {
     await new Promise((r) => win.webContents.once('did-finish-load', r));
+    const wantAI = process.env.SATURN_NO_AI !== '1';
+    if (wantAI) {
+      const t0 = Date.now();
+      while (!['ready', 'error', 'missing'].includes(svc.aiStatus.state) && Date.now() - t0 < 600000) await new Promise((r) => setTimeout(r, 500));
+      out.aiLoadMs = Date.now() - t0;
+    }
     const js = `(async () => {
       const call = window.saturn.call;
       const ng = await call('newGame', { name: 'Smoke', background: 'clerk', seed: 1 });
       const r1 = await call('act', 'look');
       const r2 = await call('act', 'buy 1 bread');
+      const r3 = ${wantAI} ? await call('act', 'I wander over to the innkeeper and quietly ask what she has heard about the grain shortage') : null;
       const integ = await call('integrity');
-      return { title: document.title, player: ng.state.player.name, r1: r1.kind, r2: r2.outcomes[0].status, money: r2.state.player.money, integ };
+      return { title: document.title, player: ng.state.player.name, r1: r1.kind, r2: r2.outcomes[0].status, money: r2.state.player.money, r3: r3 && { kind: r3.kind, source: r3.source, narrationSource: r3.narrationSource, narration: r3.narration }, integ };
     })()`;
     out.result = await win.webContents.executeJavaScript(js);
-    out.ok = out.result.r2 === 'done' && out.result.integ.sqlite === 'ok';
+    out.ok = out.result.r2 === 'done' && out.result.integ.sqlite === 'ok' && (!wantAI || (svc.aiStatus.state === 'ready' && out.result.r3?.source === 'llm'));
     out.ai = svc.aiStatus;
   } catch (e) { out.error = String(e.message || e); }
   console.log('SATURN_SMOKE_RESULT ' + JSON.stringify(out));

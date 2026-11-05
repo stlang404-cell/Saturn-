@@ -83,7 +83,7 @@ export function templateNarration(game, input, result) {
     const d = o.dialogue;
     if (d && (o.type === 'talk' || o.type === 'tell' || o.type === 'ask_job' || o.type === 'accept_request' || o.type === 'invest')) {
       const name = d.npcName;
-      const first = name.split(' ')[0];
+      const first = /^(Brother|Captain|Old|Sister|Master|Mayor)\b/.test(name) ? name : name.split(' ')[0];
       const opener = d.firstMeeting
         ? pickFrom([`${name} looks you over — a new face.`, `${name} gives you a measuring look as you introduce yourself.`, `You introduce yourself to ${name}.`], seed)
         : pickFrom([`${name} turns to you.`, `${first} looks up as you approach.`, `${first} nods in recognition.`], seed);
@@ -100,7 +100,7 @@ export function templateNarration(game, input, result) {
       if (d.unknown && !d.disclosed?.length) parts.push(pickFrom([`"Can't say I know anything about that," ${first} says.`, `${first} shrugs. "Nothing I've heard of."`, `"You're asking the wrong person," ${first} says.`], seed));
       if (d.keeperDenies) parts.push(pickFrom([`"Whoever told you that is mistaken," ${first} says, a little too quickly.`, `${first}'s smile doesn't reach their eyes. "Idle gossip. Nothing more."`], seed));
       else if (d.refused && !d.disclosed?.length) parts.push(`${first} hesitates, then changes the subject.`);
-      if (d.request) parts.push(`"Since you ask," ${first} adds, "${d.request.text.replace(/^\w+ (needs|wants|will pay well for)/, 'I need')}"`);
+      if (d.request) parts.push(`"Since you ask," ${first} adds, "${d.request.text.replace(/^.*?\b(needs|wants|will pay well for)\b/, 'I need')}"`);
       const other = (o.facts || []).filter((f) => !/does not know anything|mentions a task|will not say/.test(f));
       if (other.length && o.type !== 'talk') parts.push(other.join(' '));
       else if (other.length) parts.push(other.filter((f) => /pays you|could use|sees through/.test(f)).join(' '));

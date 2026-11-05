@@ -1,0 +1,46 @@
+# Builds and verifies the Windows installer on a real Windows machine.
+# Triggered manually or by pushing a tag like v0.1.0.
+name: windows-release
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit, simulation and acceptance tests
+        run: npm test
+      - name: Fetch the pinned, checksum-verified model (build time only)
+        run: node scripts/fetch-model.mjs standard
+      - name: Build unpacked Windows app (Electron + game + inference backends + model)
+        run: node scripts/package.mjs --platform win32 --arch x64 --target dir
+      - name: Smoke test the packaged app (offline parser path)
+        shell: pwsh
+        run: |
+          $env:SATURN_SMOKE = "1"; $env:SATURN_NO_AI = "1"; $env:SATURN_HOME = "$env:RUNNER_TEMP\saturn-smoke"
+          $p = Start-Process -FilePath "dist\win32-x64\win-unpacked\SATURN.exe" -PassThru -Wait -NoNewWindow -RedirectStandardOutput smoke.txt
+          Get-Content smoke.txt
+          if ($p.ExitCode -ne 0) { exit 1 }
+      - name: Smoke test with the bundled local model
+        shell: pwsh
+        run: |
+          $env:SATURN_SMOKE = "1"; $env:SATURN_HOME = "$env:RUNNER_TEMP\saturn-smoke-ai"
+          $p = Start-Process -FilePath "dist\win32-x64\win-unpacked\SATURN.exe" -PassThru -Wait -NoNewWindow -RedirectStandardOutput smoke-ai.txt
+          Get-Content smoke-ai.txt
+          if ($p.ExitCode -ne 0) { exit 1 }
+      - name: Build installer (Inno Setup, disk-spanning for the >2 GB payload)
+        run: iscc /DAppVersion=${{ github.ref_name }} /DSourceDir=..\dist\win32-x64\win-unpacked installer\saturn.iss
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SATURN-windows-installer
+          path: dist/installer/*
+          retention-days: 14

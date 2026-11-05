@@ -173,11 +173,16 @@ export function parseSingle(raw) {
   return null;
 }
 
+export const HELP_TEXT = 'Describe what you want to do in your own words — SATURN understands far more than commands. For example: "ask Mirela what she has heard about the bread prices", "ask Odile for work", "buy two loaves of bread", "go to the docks", "study medicine with Brother Aldous for a week", "investigate the granary at night", "borrow 50 marks from the guildmaster and open a bakery", "invent a better waterwheel". People and exits on the left are clickable. The World and Journal tabs list opportunities; click any roll to see exactly how it was decided.';
+
 const SPLIT_RX = /\s*(?:,?\s+and then\s+|,?\s+then\s+|;\s*|\.\s+(?=[A-Za-z]))\s*/i;
 
 export function fallbackInterpret(text) {
   const t = String(text || '').trim();
   if (!t) return { mode: 'clarify', intent: '', actions: [], plan_title: null, risks: [], question: 'What would you like to do?', reason: null };
+  if (/^(help|\?|how (do|can) i play|what can i do|commands)\b/i.test(t)) {
+    return { mode: 'meta', intent: 'help', actions: [], plan_title: null, risks: [], question: HELP_TEXT, reason: null };
+  }
   const parts = t.split(SPLIT_RX).filter(Boolean).slice(0, 6);
   const actions = [];
   const unparsed = [];

@@ -35,6 +35,7 @@ export class GameMaster {
     const fb = fallbackInterpret(input);
     const fbNorm = normalizeInterpretation(fb);
     const words = input.split(/\s+/).length;
+    if (fbNorm.ok && fbNorm.value.mode === 'meta') return { interp: fbNorm.value, source: 'help', attempts: 0, errors: [], ms: 0, debug };
     if (!this.aiReady || (this.useFastPath && words <= FAST_PATH_MAX_WORDS && fbNorm.ok && fbNorm.value.mode === 'act')) {
       debug.source = this.aiReady ? 'fast-path' : 'fallback';
       debug.ms = Date.now() - t0;

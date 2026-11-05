@@ -12,6 +12,7 @@ import { businessDaily } from './business.js';
 export const sim = {
   hourly(game) {
     moveNpcs(game);
+    approachPlayer(game);
     const cal = game.calendar();
     if (cal.hour === 20) gossip(game);
   },
@@ -48,6 +49,34 @@ export function moveNpcs(game) {
     const sched = J.parse(c.schedule, {});
     const dest = sched[block];
     if (dest && dest !== c.location_id) game.db.prepare('UPDATE characters SET location_id=? WHERE id=?').run(dest, c.id);
+  }
+}
+
+// ---------------------------------------------------------------- NPC-initiated encounters
+/**
+ * NPCs with something to ask take the initiative when they share a place with the
+ * player: a merchant with a delivery, a healer short of herbs. The offer becomes known
+ * to the player (journal + world digest) without the player having to ask.
+ */
+export function approachPlayer(game) {
+  const p = game.player();
+  if (!p?.alive) return;
+  const here = game.charactersAt(p.location_id, { excludeId: p.id }).filter((c) => c.kind === 'npc' && !c.data.jailed);
+  for (const npc of here) {
+    const req = game.db.prepare("SELECT * FROM contracts WHERE kind='request' AND party_a=? AND party_b=? AND status='offered'").get(npc.id, p.id);
+    if (!req) continue;
+    const data = J.parse(req.data, {});
+    if (data.known || data.approached) continue;
+    if (game.rel(npc.id, p.id).trust < -20 || !game.rng.chance(0.35)) continue;
+    data.known = true;
+    data.approached = true;
+    game.db.prepare('UPDATE contracts SET data=? WHERE id=?').run(J.str(data), req.id);
+    const terms = J.parse(req.terms, {});
+    game.journal('opportunity', req.title, `${terms.text} Reward: ${terms.reward} marks. (Say you accept it while ${npc.name} is present.)`, `req:${req.id}`);
+    game.recordEvent({ kind: 'approach', actor: npc.id, target: p.id, summary: `${npc.name} approached ${p.name} with a request: ${terms.text}`, visibility: 'private', importance: 4, data: { request: req.id } });
+    game.digest.push({ time: game.time, kind: 'approach', summary: `${npc.name} approaches you: "${terms.text.replace(/^.*?\b(needs|wants|will pay well for)\b/, 'I need')}" (reward ${terms.reward} marks)`, importance: 5 });
+    decision(game, npc.id, 'approach the newcomer with a request', [`needs: ${req.title}`, 'the newcomer is here'], 'offer made');
+    return;
   }
 }
 

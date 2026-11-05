@@ -240,7 +240,7 @@ export class GameService {
       const ir = await this.gm.interpret(this.game, text, { signal, onProgress: (n) => onStage?.('interpreting', n) });
       const interp = ir.interp;
       if (interp.mode === 'clarify' || interp.mode === 'impossible' || interp.mode === 'meta' || !interp.actions.length) {
-        const msg = interp.mode === 'impossible' ? (interp.reason || 'That is not possible here.') : (interp.question || interp.reason || 'Could you say that another way?');
+        const msg = interp.mode === 'impossible' ? (interp.reason || 'That is not possible here.') : interp.mode === 'meta' && interp.intent !== 'help' ? (interp.reason || interp.question || 'That is a question about the game rather than an action. Type "help" for guidance.') : (interp.question || interp.reason || 'Could you say that another way?');
         this._logNonTurn(text, interp, ir.source, msg);
         return { kind: interp.mode === 'impossible' ? 'impossible' : 'clarify', narration: msg, interpretation: interp, source: ir.source, debug: ir.debug, state: this.state() };
       }

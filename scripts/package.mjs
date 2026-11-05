@@ -50,11 +50,13 @@ const stagedPkg = {
     asarUnpack: ['node_modules/better-sqlite3/**', 'node_modules/node-llama-cpp/**', 'node_modules/@node-llama-cpp/**'],
     npmRebuild: false,
     extraResources: [
-      ...(skipModel ? [] : [{ from: path.join(root, 'models', model), to: path.join('models', model) }]),
+      // NSIS cannot hold the model (>2 GB): it is shipped beside the installer and copied at install time
+      ...(skipModel || target === 'nsis' ? [] : [{ from: path.join(root, 'models', model), to: path.join('models', model) }]),
       ...(fs.existsSync(path.join(root, 'licenses')) ? [{ from: path.join(root, 'licenses'), to: 'licenses' }] : []),
     ],
     win: { target: [{ target, arch: [arch] }], signAndEditExecutable: false },
-    nsis: { oneClick: false, allowToChangeInstallationDirectory: true, createDesktopShortcut: true, createStartMenuShortcut: true, shortcutName: 'SATURN' },
+    nsis: { oneClick: false, allowToChangeInstallationDirectory: true, createDesktopShortcut: true, createStartMenuShortcut: true, shortcutName: 'SATURN', include: path.join(root, 'build', 'installer.nsh'), artifactName: 'SATURN-Setup-${version}.${ext}' },
+    icon: path.join(root, 'build', 'icon.png'),
     linux: { target: [{ target, arch: [arch] }], category: 'Game' },
   },
 };
@@ -83,4 +85,15 @@ sh(`npm install --no-save --no-audit --no-fund --ignore-scripts electron@${elect
 if (!skipModel && !fs.existsSync(path.join(root, 'models', model))) throw new Error(`Model not found: models/${model}. Run scripts/fetch-model.mjs first.`);
 const builder = path.join(root, 'node_modules', '.bin', 'electron-builder');
 sh(`"${builder}" --projectDir "${stage}" --${platform === 'win32' ? 'win' : platform === 'darwin' ? 'mac' : 'linux'} --${arch} --publish never`, root);
+if (target === 'nsis' && !skipModel) {
+  // assemble the offline distribution folder: installer + models/<model>.gguf
+  const distDir = path.join(root, 'dist', `${platform}-${arch}`);
+  const bundle = path.join(distDir, `SATURN-${pkg.version}-offline`);
+  fs.rmSync(bundle, { recursive: true, force: true });
+  fs.mkdirSync(path.join(bundle, 'models'), { recursive: true });
+  fs.copyFileSync(path.join(distDir, `SATURN-Setup-${pkg.version}.exe`), path.join(bundle, `SATURN-Setup-${pkg.version}.exe`));
+  fs.linkSync(path.join(root, 'models', model), path.join(bundle, 'models', model));
+  fs.writeFileSync(path.join(bundle, 'README.txt'), `SATURN ${pkg.version} — offline installer\r\n\r\nKeep this folder together. Run SATURN-Setup-${pkg.version}.exe; it installs the game and the bundled language model (models\\${model}).\r\nNo internet connection is required or used.\r\n`);
+  console.log(`Offline bundle: ${bundle}`);
+}
 console.log(`\nDone. Output in dist/${platform}-${arch}/`);
