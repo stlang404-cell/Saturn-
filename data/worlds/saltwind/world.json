@@ -1,0 +1,3340 @@
+{
+  "id": "saltwind",
+  "name": "The Saltwind Reach",
+  "tagline": "A river-market frontier beneath the Great Ring.",
+  "currency": {
+    "name": "mark",
+    "plural": "marks",
+    "symbol": "m"
+  },
+  "calendar": {
+    "era": "of the Ringed Age",
+    "startYear": 412,
+    "months": [
+      "Frostwane",
+      "Thawmere",
+      "Seedtide",
+      "Bloomrise",
+      "Highsun",
+      "Goldreach",
+      "Emberfall",
+      "Harvestide",
+      "Mistfall",
+      "Duskmere",
+      "Rimefrost",
+      "Longnight"
+    ],
+    "daysPerMonth": 30,
+    "weekdays": [
+      "Moonday",
+      "Tideday",
+      "Ringday",
+      "Hearthday",
+      "Marketday",
+      "Restday"
+    ],
+    "start": {
+      "month": 2,
+      "day": 1,
+      "hour": 8
+    }
+  },
+  "intro": "Spring has come late to the Saltwind Reach. Above Brindlemarch the Great Ring hangs pale across the morning sky, as it has for every one of the four hundred and twelve years men have kept records here. Barges crowd the docks, the Guildhall bells count the hours of trade, and the price of bread has risen three times this month. No one at the Lantern can say why.\n\nYou arrive with little more than a name, a few marks, and whatever your past has taught you. What you make of Brindlemarch is your own affair.",
+  "settlements": [
+    {
+      "id": "brindlemarch",
+      "name": "Brindlemarch",
+      "population": 1800,
+      "wage": 3,
+      "description": "A river-market town of timber and grey stone at the head of the Saltwind."
+    },
+    {
+      "id": "kestrel",
+      "name": "Kestrel Point",
+      "population": 900,
+      "wage": 3,
+      "description": "A wind-scoured fishing harbour where the Saltwind meets the sea."
+    }
+  ],
+  "locations": [
+    {
+      "id": "bm_square",
+      "name": "Market Square",
+      "settlement": "brindlemarch",
+      "kind": "square",
+      "art": "square",
+      "x": 50,
+      "y": 46,
+      "tags": [
+        "public",
+        "market"
+      ],
+      "description": "Stalls and handcarts crowd the cobbles beneath the Guildhall clock. Hawkers shout the price of salt and cloth; a crier reads the council's notices beside a weathered statue of the town's founder."
+    },
+    {
+      "id": "bm_inn",
+      "name": "The Gilded Lantern",
+      "settlement": "brindlemarch",
+      "kind": "inn",
+      "art": "inn",
+      "x": 40,
+      "y": 38,
+      "tags": [
+        "inn",
+        "lodging",
+        "food",
+        "public",
+        "gossip"
+      ],
+      "description": "A low-beamed common room smelling of woodsmoke and barley ale. Travellers trade news by the hearth; rooms upstairs rent by the night."
+    },
+    {
+      "id": "bm_docks",
+      "name": "Saltwind Docks",
+      "settlement": "brindlemarch",
+      "kind": "docks",
+      "art": "docks",
+      "x": 62,
+      "y": 62,
+      "tags": [
+        "work",
+        "public",
+        "river"
+      ],
+      "description": "Barges and flat-bottomed riverboats jostle along the quays. Porters haul sacks of salt and grain; the riverboat to Kestrel Point leaves each morning."
+    },
+    {
+      "id": "bm_guild",
+      "name": "Guildhall of Weights",
+      "settlement": "brindlemarch",
+      "kind": "guild",
+      "art": "guild",
+      "x": 56,
+      "y": 36,
+      "tags": [
+        "commerce",
+        "contracts",
+        "public"
+      ],
+      "description": "Brass scales and ledgers fill the high hall of the merchants' guild. Here loans are written, licences granted and disputes over weight and measure settled."
+    },
+    {
+      "id": "bm_archive",
+      "name": "Ringwatch Archive",
+      "settlement": "brindlemarch",
+      "kind": "archive",
+      "art": "archive",
+      "x": 34,
+      "y": 26,
+      "tags": [
+        "study",
+        "library",
+        "quiet"
+      ],
+      "description": "A tower of crooked shelves built around an old brass orrery. Scholars copy manuscripts by lamplight; a reading desk can be had for a small fee."
+    },
+    {
+      "id": "bm_forge",
+      "name": "Hale's Forge",
+      "settlement": "brindlemarch",
+      "kind": "forge",
+      "art": "forge",
+      "x": 68,
+      "y": 44,
+      "tags": [
+        "work",
+        "craft",
+        "smithing"
+      ],
+      "description": "Heat rolls out of the open forge. Tongs, hammers and half-finished blades hang from the rafters above a soot-black anvil."
+    },
+    {
+      "id": "bm_temple",
+      "name": "Temple of the Still Ring",
+      "settlement": "brindlemarch",
+      "kind": "temple",
+      "art": "temple",
+      "x": 28,
+      "y": 50,
+      "tags": [
+        "healing",
+        "quiet",
+        "public"
+      ],
+      "description": "A round white chapel open to the sky, its floor inlaid with the Ring's silver arc. Healers tend the sick in the cloister garden."
+    },
+    {
+      "id": "bm_hall",
+      "name": "Town Hall",
+      "settlement": "brindlemarch",
+      "kind": "hall",
+      "art": "hall",
+      "x": 46,
+      "y": 30,
+      "tags": [
+        "government",
+        "law",
+        "public"
+      ],
+      "description": "The council's seat: a pillared hall with the town watch quartered behind it. Petitioners wait on benches beneath the mayor's portrait."
+    },
+    {
+      "id": "bm_narrows",
+      "name": "The Narrows",
+      "settlement": "brindlemarch",
+      "kind": "slum",
+      "art": "narrows",
+      "x": 74,
+      "y": 58,
+      "tags": [
+        "crime",
+        "public"
+      ],
+      "description": "Crooked lanes behind the docks where the eaves nearly touch. Things change hands here that would not survive the Guildhall's scales."
+    },
+    {
+      "id": "bm_mill",
+      "name": "Ashby Mill & Granary",
+      "settlement": "brindlemarch",
+      "kind": "mill",
+      "art": "mill",
+      "x": 30,
+      "y": 70,
+      "tags": [
+        "work",
+        "storage"
+      ],
+      "description": "A great waterwheel turns beside the millrace. Behind the mill stands a stone granary, its lower doors chained."
+    },
+    {
+      "id": "bm_fields",
+      "name": "Cobb's Fields",
+      "settlement": "brindlemarch",
+      "kind": "fields",
+      "art": "fields",
+      "x": 18,
+      "y": 82,
+      "tags": [
+        "work",
+        "outdoors"
+      ],
+      "description": "Long furrows of young barley run down toward the river. A farmhouse with a sagging roof watches over the fields."
+    },
+    {
+      "id": "ww_edge",
+      "name": "Whisperwood",
+      "settlement": null,
+      "region": "wilds",
+      "kind": "forest",
+      "art": "forest",
+      "x": 10,
+      "y": 60,
+      "tags": [
+        "wild",
+        "outdoors",
+        "gather"
+      ],
+      "description": "Old beeches whisper in the wind that gives the forest its name. Mossy glades hide herbs that healers prize; deeper in, the paths grow faint.",
+      "data": {
+        "gather": [
+          {
+            "type": "herb_silverleaf",
+            "skill": "herbalism",
+            "tn": 13,
+            "capacity": 14,
+            "regen": 1
+          },
+          {
+            "type": "timber",
+            "skill": "survival",
+            "tn": 9,
+            "capacity": 20,
+            "regen": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "ww_observatory",
+      "name": "Sunken Observatory",
+      "settlement": null,
+      "region": "wilds",
+      "kind": "ruin",
+      "art": "observatory",
+      "x": 6,
+      "y": 34,
+      "tags": [
+        "wild",
+        "ruin",
+        "discovery"
+      ],
+      "hidden": true,
+      "description": "A dome of green-black stone half swallowed by the earth. Through cracks in its roof the Great Ring's light falls on corroded brass and fallen star-charts."
+    },
+    {
+      "id": "kp_harbor",
+      "name": "Kestrel Harbour",
+      "settlement": "kestrel",
+      "kind": "docks",
+      "art": "harbor",
+      "x": 88,
+      "y": 84,
+      "tags": [
+        "work",
+        "public",
+        "river",
+        "sea"
+      ],
+      "description": "Fishing boats rock against a long stone mole. Gulls scream over the drying racks; the air tastes of salt and tar."
+    },
+    {
+      "id": "kp_market",
+      "name": "Kestrel Fishmarket",
+      "settlement": "kestrel",
+      "kind": "square",
+      "art": "fishmarket",
+      "x": 92,
+      "y": 74,
+      "tags": [
+        "public",
+        "market"
+      ],
+      "description": "A covered market of slick flagstones where fishwives shout prices and foreign spice traders unpack their chests."
+    },
+    {
+      "id": "kp_tidewatch",
+      "name": "The Tidewatch",
+      "settlement": "kestrel",
+      "kind": "inn",
+      "art": "inn",
+      "x": 96,
+      "y": 82,
+      "tags": [
+        "inn",
+        "lodging",
+        "food",
+        "gossip"
+      ],
+      "description": "A sailors' tavern built from the timbers of wrecked ships. The landlord keeps a lamp burning in the window for boats still at sea."
+    }
+  ],
+  "routes": [
+    [
+      "bm_square",
+      "bm_inn",
+      5
+    ],
+    [
+      "bm_square",
+      "bm_docks",
+      10
+    ],
+    [
+      "bm_square",
+      "bm_guild",
+      5
+    ],
+    [
+      "bm_square",
+      "bm_archive",
+      10
+    ],
+    [
+      "bm_square",
+      "bm_forge",
+      8
+    ],
+    [
+      "bm_square",
+      "bm_temple",
+      10
+    ],
+    [
+      "bm_square",
+      "bm_hall",
+      5
+    ],
+    [
+      "bm_square",
+      "bm_narrows",
+      12
+    ],
+    [
+      "bm_square",
+      "bm_mill",
+      20
+    ],
+    [
+      "bm_docks",
+      "bm_narrows",
+      8
+    ],
+    [
+      "bm_mill",
+      "bm_fields",
+      15
+    ],
+    [
+      "bm_inn",
+      "bm_guild",
+      6
+    ],
+    [
+      "bm_fields",
+      "ww_edge",
+      60,
+      {
+        "risk": 0.04
+      }
+    ],
+    [
+      "ww_edge",
+      "ww_observatory",
+      150,
+      {
+        "risk": 0.12,
+        "hidden": true
+      }
+    ],
+    [
+      "bm_docks",
+      "kp_harbor",
+      480,
+      {
+        "mode": "riverboat",
+        "cost": 6
+      }
+    ],
+    [
+      "bm_fields",
+      "kp_market",
+      960,
+      {
+        "mode": "road",
+        "risk": 0.06
+      }
+    ],
+    [
+      "kp_harbor",
+      "kp_market",
+      10
+    ],
+    [
+      "kp_market",
+      "kp_tidewatch",
+      6
+    ],
+    [
+      "kp_harbor",
+      "kp_tidewatch",
+      8
+    ]
+  ],
+  "item_types": [
+    {
+      "id": "grain",
+      "name": "sack of grain",
+      "category": "commodity",
+      "base_value": 4,
+      "weight": 10,
+      "commodity": true,
+      "data": {
+        "spoil": 0.01
+      }
+    },
+    {
+      "id": "flour",
+      "name": "sack of flour",
+      "category": "commodity",
+      "base_value": 6,
+      "weight": 10,
+      "commodity": true,
+      "data": {
+        "spoil": 0.01
+      }
+    },
+    {
+      "id": "bread",
+      "name": "loaf of bread",
+      "category": "food",
+      "base_value": 1,
+      "weight": 0.5,
+      "commodity": true,
+      "tags": [
+        "food"
+      ],
+      "data": {
+        "nourish": 8,
+        "spoil": 0.06
+      }
+    },
+    {
+      "id": "ale",
+      "name": "jug of ale",
+      "category": "food",
+      "base_value": 2,
+      "weight": 2,
+      "commodity": true,
+      "tags": [
+        "drink"
+      ],
+      "data": {
+        "spoil": 0.01
+      }
+    },
+    {
+      "id": "fish",
+      "name": "fresh fish",
+      "category": "commodity",
+      "base_value": 2,
+      "weight": 1,
+      "commodity": true,
+      "tags": [
+        "food"
+      ],
+      "data": {
+        "nourish": 6,
+        "spoil": 0.06
+      }
+    },
+    {
+      "id": "salted_fish",
+      "name": "salted fish",
+      "category": "commodity",
+      "base_value": 4,
+      "weight": 1,
+      "commodity": true,
+      "tags": [
+        "food"
+      ],
+      "data": {
+        "nourish": 8,
+        "spoil": 0.01
+      }
+    },
+    {
+      "id": "salt",
+      "name": "sack of salt",
+      "category": "commodity",
+      "base_value": 5,
+      "weight": 10,
+      "commodity": true
+    },
+    {
+      "id": "cloth",
+      "name": "bolt of cloth",
+      "category": "commodity",
+      "base_value": 12,
+      "weight": 4,
+      "commodity": true
+    },
+    {
+      "id": "spices",
+      "name": "pouch of spices",
+      "category": "commodity",
+      "base_value": 18,
+      "weight": 0.5,
+      "commodity": true
+    },
+    {
+      "id": "iron",
+      "name": "iron ingot",
+      "category": "commodity",
+      "base_value": 8,
+      "weight": 5,
+      "commodity": true
+    },
+    {
+      "id": "timber",
+      "name": "bundle of timber",
+      "category": "commodity",
+      "base_value": 3,
+      "weight": 8,
+      "commodity": true
+    },
+    {
+      "id": "herb_silverleaf",
+      "name": "silverleaf bundle",
+      "category": "commodity",
+      "base_value": 3,
+      "weight": 0.2,
+      "commodity": true,
+      "tags": [
+        "herb"
+      ],
+      "data": {
+        "spoil": 0.03
+      }
+    },
+    {
+      "id": "remedy",
+      "name": "silverleaf salve",
+      "category": "medicine",
+      "base_value": 9,
+      "weight": 0.3,
+      "commodity": true,
+      "tags": [
+        "medicine"
+      ],
+      "data": {
+        "heal": 25
+      }
+    },
+    {
+      "id": "meal",
+      "name": "hot meal",
+      "category": "food",
+      "base_value": 2,
+      "weight": 1,
+      "tags": [
+        "food"
+      ],
+      "data": {
+        "nourish": 12,
+        "spoil": 0.06
+      }
+    },
+    {
+      "id": "rations",
+      "name": "travel rations",
+      "category": "food",
+      "base_value": 1,
+      "weight": 1,
+      "tags": [
+        "food"
+      ],
+      "data": {
+        "nourish": 8
+      }
+    },
+    {
+      "id": "dagger",
+      "name": "dagger",
+      "category": "weapon",
+      "base_value": 10,
+      "weight": 1,
+      "stackable": false,
+      "slot": "weapon",
+      "tags": [
+        "weapon"
+      ],
+      "data": {
+        "melee": 1
+      }
+    },
+    {
+      "id": "cudgel",
+      "name": "oak cudgel",
+      "category": "weapon",
+      "base_value": 4,
+      "weight": 2,
+      "stackable": false,
+      "slot": "weapon",
+      "tags": [
+        "weapon"
+      ],
+      "data": {
+        "melee": 1
+      }
+    },
+    {
+      "id": "shortsword",
+      "name": "shortsword",
+      "category": "weapon",
+      "base_value": 30,
+      "weight": 3,
+      "stackable": false,
+      "slot": "weapon",
+      "tags": [
+        "weapon"
+      ],
+      "data": {
+        "melee": 2
+      }
+    },
+    {
+      "id": "leather_armor",
+      "name": "leather jerkin",
+      "category": "armor",
+      "base_value": 25,
+      "weight": 6,
+      "stackable": false,
+      "slot": "body",
+      "tags": [
+        "armor"
+      ],
+      "data": {
+        "defense": 1
+      }
+    },
+    {
+      "id": "common_clothes",
+      "name": "common clothes",
+      "category": "clothing",
+      "base_value": 3,
+      "weight": 1,
+      "stackable": false,
+      "slot": "clothes"
+    },
+    {
+      "id": "fine_clothes",
+      "name": "fine clothes",
+      "category": "clothing",
+      "base_value": 40,
+      "weight": 2,
+      "stackable": false,
+      "slot": "clothes",
+      "tags": [
+        "tool:persuasion"
+      ],
+      "data": {
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "lantern",
+      "name": "lantern",
+      "category": "tool",
+      "base_value": 6,
+      "weight": 1,
+      "stackable": false,
+      "tags": [
+        "tool:perception",
+        "tool:investigation",
+        "light"
+      ],
+      "data": {
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "rope",
+      "name": "coil of rope",
+      "category": "tool",
+      "base_value": 3,
+      "weight": 3,
+      "tags": [
+        "tool:athletics"
+      ],
+      "data": {
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "lockpicks",
+      "name": "set of lockpicks",
+      "category": "tool",
+      "base_value": 15,
+      "weight": 0.2,
+      "stackable": false,
+      "tags": [
+        "tool:sleight_of_hand",
+        "illicit"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "smith_hammer",
+      "name": "smith's hammer",
+      "category": "tool",
+      "base_value": 12,
+      "weight": 2,
+      "stackable": false,
+      "tags": [
+        "tool:smithing"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "herbalist_kit",
+      "name": "herbalist's kit",
+      "category": "tool",
+      "base_value": 14,
+      "weight": 2,
+      "stackable": false,
+      "tags": [
+        "tool:herbalism"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "medical_kit",
+      "name": "physician's satchel",
+      "category": "tool",
+      "base_value": 18,
+      "weight": 2,
+      "stackable": false,
+      "tags": [
+        "tool:medicine"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "ledger_book",
+      "name": "merchant's ledger",
+      "category": "tool",
+      "base_value": 5,
+      "weight": 1,
+      "stackable": false,
+      "tags": [
+        "tool:commerce",
+        "tool:negotiation"
+      ],
+      "data": {
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "ink_paper",
+      "name": "ink and paper",
+      "category": "tool",
+      "base_value": 2,
+      "weight": 0.5,
+      "tags": [
+        "tool:scholarship",
+        "tool:investigation"
+      ],
+      "data": {
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "surveyor_tools",
+      "name": "surveyor's instruments",
+      "category": "tool",
+      "base_value": 28,
+      "weight": 4,
+      "stackable": false,
+      "tags": [
+        "tool:engineering"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "glassware",
+      "name": "alchemist's glassware",
+      "category": "tool",
+      "base_value": 30,
+      "weight": 3,
+      "stackable": false,
+      "tags": [
+        "tool:alchemy"
+      ],
+      "data": {
+        "tool_bonus": 2
+      }
+    },
+    {
+      "id": "pack",
+      "name": "travelling pack",
+      "category": "container",
+      "base_value": 8,
+      "weight": 1,
+      "stackable": false,
+      "slot": "back",
+      "data": {
+        "capacity": 30
+      }
+    },
+    {
+      "id": "book_medicine",
+      "name": "A Primer of the Healing Arts",
+      "category": "book",
+      "base_value": 35,
+      "weight": 1.5,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "medicine",
+        "max_rank": 4
+      }
+    },
+    {
+      "id": "book_commerce",
+      "name": "The Merchant's Reckoning",
+      "category": "book",
+      "base_value": 30,
+      "weight": 1,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "commerce",
+        "max_rank": 4
+      }
+    },
+    {
+      "id": "book_herbal",
+      "name": "Herbal of the Saltwind Reach",
+      "category": "book",
+      "base_value": 25,
+      "weight": 1,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "herbalism",
+        "max_rank": 4
+      }
+    },
+    {
+      "id": "book_engineering",
+      "name": "On Levers, Wheels and Waters",
+      "category": "book",
+      "base_value": 40,
+      "weight": 2,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "engineering",
+        "max_rank": 4
+      }
+    },
+    {
+      "id": "book_lore",
+      "name": "Chronicle of the Ringed Age",
+      "category": "book",
+      "base_value": 20,
+      "weight": 2,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "scholarship",
+        "max_rank": 4
+      }
+    },
+    {
+      "id": "book_alchemy",
+      "name": "Tinctures and Transmutations",
+      "category": "book",
+      "base_value": 45,
+      "weight": 1.5,
+      "stackable": false,
+      "tags": [
+        "book"
+      ],
+      "data": {
+        "teaches": "alchemy",
+        "max_rank": 3
+      }
+    },
+    {
+      "id": "ring_astrolabe",
+      "name": "Ring-age astrolabe",
+      "category": "treasure",
+      "base_value": 300,
+      "weight": 3,
+      "stackable": false,
+      "tags": [
+        "artifact"
+      ],
+      "description": "A brass astrolabe engraved with the Ring's divisions, far finer than anything made today."
+    },
+    {
+      "id": "grain_ledger",
+      "name": "mill granary ledger",
+      "category": "evidence",
+      "base_value": 0,
+      "weight": 0.5,
+      "stackable": false,
+      "tags": [
+        "evidence"
+      ],
+      "description": "A tally of grain moved into the chained lower granary, signed with the mayor's mark.",
+      "data": {
+        "proves": "f_grain_hoard"
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "bake_bread",
+      "name": "bake bread",
+      "skill": "crafting",
+      "tn": 10,
+      "minutes": 120,
+      "inputs": {
+        "flour": 1
+      },
+      "outputs": {
+        "bread": 6
+      },
+      "location_tags": [
+        "food"
+      ]
+    },
+    {
+      "id": "brew_ale",
+      "name": "brew ale",
+      "skill": "crafting",
+      "tn": 12,
+      "minutes": 240,
+      "inputs": {
+        "grain": 2
+      },
+      "outputs": {
+        "ale": 5
+      },
+      "location_tags": []
+    },
+    {
+      "id": "salt_fish",
+      "name": "salt fish",
+      "skill": "crafting",
+      "tn": 10,
+      "minutes": 90,
+      "inputs": {
+        "fish": 4,
+        "salt": 1
+      },
+      "outputs": {
+        "salted_fish": 4
+      }
+    },
+    {
+      "id": "make_salve",
+      "name": "make silverleaf salve",
+      "skill": "herbalism",
+      "tn": 13,
+      "minutes": 120,
+      "inputs": {
+        "herb_silverleaf": 2
+      },
+      "outputs": {
+        "remedy": 1
+      },
+      "tools": [
+        "herbalist_kit"
+      ]
+    },
+    {
+      "id": "forge_dagger",
+      "name": "forge a dagger",
+      "skill": "smithing",
+      "tn": 14,
+      "minutes": 240,
+      "inputs": {
+        "iron": 1,
+        "timber": 1
+      },
+      "outputs": {
+        "dagger": 1
+      },
+      "tools": [
+        "smith_hammer"
+      ],
+      "location_tags": [
+        "smithing"
+      ]
+    },
+    {
+      "id": "forge_hammer",
+      "name": "forge a smith's hammer",
+      "skill": "smithing",
+      "tn": 13,
+      "minutes": 240,
+      "inputs": {
+        "iron": 2
+      },
+      "outputs": {
+        "smith_hammer": 1
+      },
+      "location_tags": [
+        "smithing"
+      ]
+    },
+    {
+      "id": "forge_sword",
+      "name": "forge a shortsword",
+      "skill": "smithing",
+      "tn": 18,
+      "minutes": 480,
+      "inputs": {
+        "iron": 3,
+        "timber": 1
+      },
+      "outputs": {
+        "shortsword": 1
+      },
+      "tools": [
+        "smith_hammer"
+      ],
+      "location_tags": [
+        "smithing"
+      ]
+    }
+  ],
+  "markets": {
+    "brindlemarch": {
+      "grain": [
+        30,
+        3
+      ],
+      "flour": [
+        16,
+        2
+      ],
+      "bread": [
+        40,
+        10
+      ],
+      "ale": [
+        24,
+        5
+      ],
+      "fish": [
+        20,
+        6
+      ],
+      "salted_fish": [
+        16,
+        3
+      ],
+      "salt": [
+        40,
+        3
+      ],
+      "cloth": [
+        12,
+        1
+      ],
+      "spices": [
+        8,
+        1
+      ],
+      "iron": [
+        10,
+        0
+      ],
+      "timber": [
+        20,
+        1
+      ],
+      "herb_silverleaf": [
+        10,
+        1
+      ],
+      "remedy": [
+        6,
+        1
+      ]
+    },
+    "kestrel": {
+      "grain": [
+        20,
+        2
+      ],
+      "flour": [
+        10,
+        1
+      ],
+      "bread": [
+        20,
+        3
+      ],
+      "ale": [
+        16,
+        3
+      ],
+      "fish": [
+        60,
+        14
+      ],
+      "salted_fish": [
+        10,
+        2
+      ],
+      "salt": [
+        20,
+        4
+      ],
+      "cloth": [
+        8,
+        1
+      ],
+      "spices": [
+        30,
+        1
+      ],
+      "iron": [
+        20,
+        0
+      ],
+      "timber": [
+        10,
+        1
+      ],
+      "herb_silverleaf": [
+        4,
+        0
+      ],
+      "remedy": [
+        3,
+        0
+      ]
+    }
+  },
+  "market_base": {
+    "brindlemarch": {
+      "salt": 4,
+      "fish": 3,
+      "spices": 22,
+      "grain": 4
+    },
+    "kestrel": {
+      "salt": 9,
+      "fish": 1,
+      "spices": 12,
+      "grain": 6,
+      "salted_fish": 3,
+      "iron": 6
+    }
+  },
+  "factions": [
+    {
+      "id": "fac_guild",
+      "name": "Guild of Weights",
+      "description": "Brindlemarch's merchants' guild. It writes loans, licenses trade and settles disputes over measure."
+    },
+    {
+      "id": "fac_council",
+      "name": "Town Council",
+      "description": "The mayor and aldermen who govern Brindlemarch, tax its market and command the watch."
+    },
+    {
+      "id": "fac_temple",
+      "name": "Temple of the Still Ring",
+      "description": "Healers and keepers of the calendar who read the Ring's slow turning."
+    },
+    {
+      "id": "fac_narrows",
+      "name": "The Narrows Crew",
+      "description": "Smugglers, fences and pickpockets who run the lanes behind the docks."
+    },
+    {
+      "id": "fac_kestrel",
+      "name": "Kestrel Fishers' Compact",
+      "description": "The boat-owners of Kestrel Point, who buy salt by the ton and answer to no inland council."
+    }
+  ],
+  "facts": [
+    {
+      "id": "f_mayor",
+      "subject": "Corvin Ashby",
+      "content": "Corvin Ashby is mayor of Brindlemarch and owns the mill.",
+      "truth": 1,
+      "secrecy": 0,
+      "tags": [
+        "mayor",
+        "mill",
+        "corvin",
+        "council"
+      ]
+    },
+    {
+      "id": "f_bread_prices",
+      "subject": "bread prices",
+      "content": "The price of bread and flour in Brindlemarch has been rising for weeks.",
+      "truth": 1,
+      "secrecy": 0,
+      "tags": [
+        "bread",
+        "grain",
+        "flour",
+        "prices",
+        "market"
+      ]
+    },
+    {
+      "id": "f_grain_hoard",
+      "subject": "the mill granary",
+      "content": "Mayor Corvin Ashby is secretly storing grain and flour in the chained lower granary of the mill to drive up prices before winter.",
+      "truth": 1,
+      "secrecy": 2,
+      "tags": [
+        "grain",
+        "mayor",
+        "corvin",
+        "mill",
+        "granary",
+        "prices",
+        "hoard",
+        "bread",
+        "flour",
+        "manipulating",
+        "conspiracy"
+      ],
+      "data": {
+        "reactions": {
+          "npc_hedda": "expose_hoard"
+        }
+      }
+    },
+    {
+      "id": "f_grain_rumor",
+      "subject": "the mill granary",
+      "content": "Some say the mill's lower granary is full while the market goes short.",
+      "truth": 1,
+      "secrecy": 1,
+      "tags": [
+        "grain",
+        "mill",
+        "granary",
+        "rumor",
+        "prices",
+        "bread"
+      ]
+    },
+    {
+      "id": "f_odile_debt",
+      "subject": "Odile Varne",
+      "content": "Odile Varne owes the Guild of Weights a thousand marks, due by Harvestide; without a profitable venture or a partner she will be ruined.",
+      "truth": 1,
+      "secrecy": 2,
+      "tags": [
+        "odile",
+        "debt",
+        "guild"
+      ]
+    },
+    {
+      "id": "f_kestrel_salt",
+      "subject": "salt trade",
+      "content": "Salt sells for roughly twice its Brindlemarch price at Kestrel Point, where the fishers need it to cure their catch.",
+      "truth": 1,
+      "secrecy": 0,
+      "tags": [
+        "salt",
+        "kestrel",
+        "trade",
+        "prices",
+        "profit"
+      ]
+    },
+    {
+      "id": "f_kestrel_spices",
+      "subject": "spice trade",
+      "content": "Spices landed at Kestrel Point cost barely half what they fetch in Brindlemarch.",
+      "truth": 1,
+      "secrecy": 1,
+      "tags": [
+        "spices",
+        "kestrel",
+        "trade",
+        "prices",
+        "profit"
+      ]
+    },
+    {
+      "id": "f_jory_fence",
+      "subject": "Jory Pell",
+      "content": "Jory Pell fences stolen goods out of the back of a cooper's shop in the Narrows.",
+      "truth": 1,
+      "secrecy": 2,
+      "tags": [
+        "jory",
+        "fence",
+        "stolen",
+        "narrows",
+        "crime",
+        "thief"
+      ],
+      "data": {
+        "reactions": {
+          "npc_hedda": "arrest_jory"
+        }
+      }
+    },
+    {
+      "id": "f_sabine_plan",
+      "subject": "Sabine Kroll",
+      "content": "Sabine Kroll means to undercut Odile Varne's salt and spice prices until Odile's creditors call in her debt.",
+      "truth": 1,
+      "secrecy": 2,
+      "tags": [
+        "sabine",
+        "odile",
+        "rivalry",
+        "prices",
+        "salt",
+        "spices"
+      ]
+    },
+    {
+      "id": "f_observatory",
+      "subject": "the Sunken Observatory",
+      "content": "An observatory from the first years of the Ringed Age lies half-buried deep in the Whisperwood, west of Cobb's Fields.",
+      "truth": 1,
+      "secrecy": 1,
+      "tags": [
+        "observatory",
+        "whisperwood",
+        "ruin",
+        "ring",
+        "ancient",
+        "astrolabe"
+      ],
+      "data": {
+        "reveals_location": "ww_observatory"
+      }
+    },
+    {
+      "id": "f_silverleaf",
+      "subject": "silverleaf",
+      "content": "Silverleaf grows in the mossy glades of the Whisperwood; healers make salves from it.",
+      "truth": 1,
+      "secrecy": 0,
+      "tags": [
+        "silverleaf",
+        "herb",
+        "whisperwood",
+        "healing",
+        "medicine"
+      ]
+    },
+    {
+      "id": "f_hedda_honest",
+      "subject": "Hedda Strom",
+      "content": "Captain Hedda Strom of the watch cannot be bribed and has long distrusted the mayor.",
+      "truth": 1,
+      "secrecy": 1,
+      "tags": [
+        "hedda",
+        "watch",
+        "guard",
+        "mayor",
+        "honest"
+      ]
+    },
+    {
+      "id": "f_mayor_generous",
+      "subject": "Corvin Ashby",
+      "content": "The mayor is said to be storing grain only to protect the town against a poor harvest.",
+      "truth": 0,
+      "secrecy": 0,
+      "tags": [
+        "mayor",
+        "grain",
+        "granary",
+        "rumor"
+      ]
+    }
+  ],
+  "premises": [
+    {
+      "id": "prem_bakehouse",
+      "name": "the old bakehouse on Oven Lane",
+      "location_id": "bm_square",
+      "landlord": "npc_corvin",
+      "rent": 4,
+      "suits": [
+        "bakery",
+        "brewery",
+        "apothecary",
+        "workshop"
+      ]
+    },
+    {
+      "id": "prem_riverside",
+      "name": "the riverside storehouse",
+      "location_id": "bm_docks",
+      "landlord": "npc_aurel",
+      "rent": 3,
+      "suits": [
+        "trading_company",
+        "brewery",
+        "fish_curing"
+      ]
+    },
+    {
+      "id": "prem_kp_shed",
+      "name": "a net-shed on Kestrel mole",
+      "location_id": "kp_harbor",
+      "landlord": "npc_isa",
+      "rent": 2,
+      "suits": [
+        "fish_curing",
+        "trading_company"
+      ]
+    }
+  ],
+  "business_templates": [
+    {
+      "id": "bakery",
+      "name": "Bakery",
+      "recipe": "bake_bread",
+      "startup_cost": 60,
+      "batches_per_day": 4,
+      "staff": 1,
+      "wage": 3,
+      "description": "Turns flour into bread for the market."
+    },
+    {
+      "id": "brewery",
+      "name": "Brewhouse",
+      "recipe": "brew_ale",
+      "startup_cost": 70,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Brews grain into ale for the inns."
+    },
+    {
+      "id": "fish_curing",
+      "name": "Fish-curing works",
+      "recipe": "salt_fish",
+      "startup_cost": 40,
+      "batches_per_day": 3,
+      "staff": 1,
+      "wage": 3,
+      "description": "Cures fresh fish with salt for inland markets."
+    },
+    {
+      "id": "apothecary",
+      "name": "Apothecary",
+      "recipe": "make_salve",
+      "startup_cost": 50,
+      "batches_per_day": 2,
+      "staff": 0,
+      "wage": 0,
+      "description": "Prepares silverleaf salves. Needs a steady supply of herbs."
+    },
+    {
+      "id": "trading_company",
+      "name": "Trading company",
+      "recipe": null,
+      "startup_cost": 50,
+      "staff": 1,
+      "wage": 4,
+      "trip_days": 2,
+      "capacity": 12,
+      "freight": 6,
+      "description": "Ships a chosen commodity between Brindlemarch and Kestrel Point to profit from the price difference."
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_odile",
+      "name": "Odile Varne",
+      "role": "salt and cloth merchant",
+      "location": "bm_guild",
+      "schedule": {
+        "dawn": "bm_inn",
+        "morning": "bm_guild",
+        "afternoon": "bm_square",
+        "evening": "bm_inn",
+        "night": "bm_inn"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 2,
+        "endurance": 2,
+        "intellect": 4,
+        "insight": 3,
+        "presence": 3
+      },
+      "skills": {
+        "commerce": 6,
+        "negotiation": 5,
+        "persuasion": 3,
+        "insight_reading": 0,
+        "perception": 2
+      },
+      "traits": [
+        "shrewd",
+        "proud",
+        "secretly desperate"
+      ],
+      "persona": "A sharp-eyed woman in a salt-stained travelling coat. Speaks quickly, counts everything, never admits weakness, but is warmer to people who prove useful.",
+      "money": 140,
+      "inventory": {
+        "salt": 30,
+        "cloth": 8,
+        "spices": 3,
+        "ledger_book": 1,
+        "pack": 2,
+        "fine_clothes": 1
+      },
+      "factions": [
+        [
+          "fac_guild",
+          "member"
+        ]
+      ],
+      "knows": [
+        [
+          "f_odile_debt",
+          "known"
+        ],
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_kestrel_spices",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "salt",
+          "cloth",
+          "spices",
+          "ledger_book",
+          "pack",
+          "fine_clothes"
+        ],
+        "buys": [
+          "salt",
+          "cloth",
+          "spices",
+          "herb_silverleaf"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "salt",
+          "qty": 2,
+          "source": "her saltpan lease on the flats"
+        }
+      ],
+      "job": {
+        "title": "ledger clerk",
+        "wage": 5,
+        "location": "bm_guild",
+        "minutes": 480,
+        "skill": "commerce",
+        "requires": {
+          "commerce": 1
+        }
+      },
+      "invests": {
+        "max": 80,
+        "share": 0.3,
+        "interest": [
+          "trading_company",
+          "fish_curing"
+        ]
+      },
+      "goals": [
+        {
+          "id": "clear_debt",
+          "text": "Clear her debt to the Guild before Harvestide"
+        },
+        {
+          "id": "beat_sabine",
+          "text": "Keep her customers from Sabine Kroll"
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_salt_run",
+          "title": "A salt run to Kestrel Point",
+          "text": "Odile needs 10 sacks of her salt delivered to Captain Isa Dunmore at Kestrel Harbour.",
+          "objective": {
+            "type": "deliver",
+            "item": "salt",
+            "qty": 10,
+            "to": "npc_isa",
+            "consign": true,
+            "pay_to": "npc_odile",
+            "price_each": 9
+          },
+          "reward": 18,
+          "days": 8,
+          "rel": 12
+        }
+      ],
+      "debt": 1000
+    },
+    {
+      "id": "npc_sabine",
+      "name": "Sabine Kroll",
+      "role": "rival merchant",
+      "location": "bm_square",
+      "schedule": {
+        "dawn": "bm_guild",
+        "morning": "bm_square",
+        "afternoon": "bm_square",
+        "evening": "bm_guild",
+        "night": "bm_guild"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 2,
+        "endurance": 2,
+        "intellect": 3,
+        "insight": 4,
+        "presence": 4
+      },
+      "skills": {
+        "commerce": 5,
+        "negotiation": 6,
+        "deception": 4,
+        "persuasion": 4,
+        "perception": 3
+      },
+      "traits": [
+        "charming",
+        "ruthless",
+        "ambitious"
+      ],
+      "persona": "Elegant, smiling, generous with compliments and stingy with everything else. Always seems to know a little more than she says.",
+      "money": 220,
+      "inventory": {
+        "salt": 20,
+        "cloth": 10,
+        "spices": 6,
+        "fine_clothes": 1
+      },
+      "factions": [
+        [
+          "fac_guild",
+          "member"
+        ]
+      ],
+      "knows": [
+        [
+          "f_sabine_plan",
+          "known"
+        ],
+        [
+          "f_odile_debt",
+          "suspected",
+          0.7
+        ],
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "salt",
+          "cloth",
+          "spices"
+        ],
+        "buys": [
+          "salt",
+          "cloth",
+          "spices"
+        ],
+        "markup": 0.12
+      },
+      "goals": [
+        {
+          "id": "ruin_odile",
+          "text": "Drive Odile Varne out of the salt trade"
+        }
+      ],
+      "relationships": [
+        [
+          "npc_odile",
+          {
+            "trust": -40,
+            "affection": -30,
+            "rivalry": 70,
+            "familiarity": 60
+          }
+        ]
+      ],
+      "production": [
+        {
+          "type": "salt",
+          "qty": 5,
+          "source": "salt bought off the flats carters"
+        }
+      ]
+    },
+    {
+      "id": "npc_mirela",
+      "name": "Mirela Tosk",
+      "role": "innkeeper of the Gilded Lantern",
+      "location": "bm_inn",
+      "schedule": {
+        "dawn": "bm_inn",
+        "morning": "bm_inn",
+        "afternoon": "bm_inn",
+        "evening": "bm_inn",
+        "night": "bm_inn"
+      },
+      "attributes": {
+        "might": 3,
+        "agility": 2,
+        "endurance": 3,
+        "intellect": 2,
+        "insight": 4,
+        "presence": 3
+      },
+      "skills": {
+        "crafting": 4,
+        "commerce": 3,
+        "perception": 4,
+        "persuasion": 2,
+        "negotiation": 3
+      },
+      "traits": [
+        "warm",
+        "gossipy",
+        "practical"
+      ],
+      "persona": "Broad-shouldered and quick to laugh, with flour on her sleeves. Hears every rumour in town and repeats most of them.",
+      "money": 60,
+      "inventory": {
+        "bread": 20,
+        "ale": 16,
+        "meal": 40,
+        "rations": 12,
+        "flour": 3,
+        "grain": 4
+      },
+      "knows": [
+        [
+          "f_grain_rumor",
+          "rumor",
+          0.5
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_silverleaf",
+          "known"
+        ],
+        [
+          "f_mayor_generous",
+          "rumor",
+          0.4
+        ],
+        [
+          "f_hedda_honest",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "meal",
+          "ale",
+          "bread",
+          "rations"
+        ],
+        "buys": [
+          "grain",
+          "flour",
+          "fish",
+          "salted_fish",
+          "ale"
+        ],
+        "markup": 0.25
+      },
+      "lodging": {
+        "price": 3
+      },
+      "consumes_recipes": [
+        {
+          "recipe": "bake_bread",
+          "per_day": 2.3
+        },
+        {
+          "recipe": "brew_ale",
+          "per_day": 1
+        }
+      ],
+      "job": {
+        "title": "serving hand",
+        "wage": 3,
+        "location": "bm_inn",
+        "minutes": 480,
+        "skill": "persuasion",
+        "perk": "meal"
+      },
+      "goals": [
+        {
+          "id": "keep_inn",
+          "text": "Keep the Lantern full and her cellar stocked despite rising flour prices"
+        }
+      ]
+    },
+    {
+      "id": "npc_brannoc",
+      "name": "Brannoc Hale",
+      "role": "blacksmith",
+      "location": "bm_forge",
+      "schedule": {
+        "dawn": "bm_forge",
+        "morning": "bm_forge",
+        "afternoon": "bm_forge",
+        "evening": "bm_inn",
+        "night": "bm_forge"
+      },
+      "attributes": {
+        "might": 5,
+        "agility": 2,
+        "endurance": 4,
+        "intellect": 2,
+        "insight": 2,
+        "presence": 2
+      },
+      "skills": {
+        "smithing": 7,
+        "melee": 3,
+        "athletics": 3,
+        "engineering": 2
+      },
+      "traits": [
+        "taciturn",
+        "honest",
+        "proud of his work"
+      ],
+      "persona": "A slab of a man with burn-scarred forearms. Says little, means all of it, and judges people by whether they keep their word.",
+      "money": 70,
+      "inventory": {
+        "dagger": 3,
+        "cudgel": 2,
+        "shortsword": 1,
+        "smith_hammer": 2,
+        "iron": 6,
+        "timber": 4,
+        "lantern": 3,
+        "rope": 4,
+        "leather_armor": 1,
+        "surveyor_tools": 1
+      },
+      "shop": {
+        "sells": [
+          "dagger",
+          "cudgel",
+          "shortsword",
+          "smith_hammer",
+          "lantern",
+          "rope",
+          "leather_armor",
+          "surveyor_tools"
+        ],
+        "buys": [
+          "iron",
+          "timber",
+          "dagger",
+          "shortsword"
+        ],
+        "markup": 0.2
+      },
+      "consumes_recipes": [
+        {
+          "recipe": "forge_dagger",
+          "per_day": 0.34
+        }
+      ],
+      "teaches": [
+        [
+          "smithing",
+          6,
+          4
+        ]
+      ],
+      "job": {
+        "title": "forge assistant",
+        "wage": 4,
+        "location": "bm_forge",
+        "minutes": 480,
+        "skill": "smithing",
+        "requires": {
+          "might": 3
+        }
+      },
+      "goals": [
+        {
+          "id": "apprentice",
+          "text": "Find an apprentice worth teaching"
+        }
+      ]
+    },
+    {
+      "id": "npc_ysolde",
+      "name": "Ysolde Ferrin",
+      "role": "archivist of the Ringwatch",
+      "location": "bm_archive",
+      "schedule": {
+        "dawn": "bm_archive",
+        "morning": "bm_archive",
+        "afternoon": "bm_archive",
+        "evening": "bm_archive",
+        "night": "bm_archive"
+      },
+      "attributes": {
+        "might": 1,
+        "agility": 2,
+        "endurance": 2,
+        "intellect": 5,
+        "insight": 4,
+        "presence": 2
+      },
+      "skills": {
+        "scholarship": 8,
+        "medicine": 4,
+        "engineering": 5,
+        "investigation": 4,
+        "alchemy": 3,
+        "perception": 3
+      },
+      "traits": [
+        "curious",
+        "absent-minded",
+        "stubborn"
+      ],
+      "persona": "A thin, ink-stained scholar who peers over spectacles and loses the thread of conversations when an interesting idea passes by.",
+      "money": 50,
+      "inventory": {
+        "book_medicine": 1,
+        "book_lore": 2,
+        "book_engineering": 1,
+        "book_alchemy": 1,
+        "book_commerce": 1,
+        "book_herbal": 1,
+        "ink_paper": 10,
+        "glassware": 1
+      },
+      "knows": [
+        [
+          "f_observatory",
+          "known"
+        ],
+        [
+          "f_silverleaf",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "book_medicine",
+          "book_lore",
+          "book_engineering",
+          "book_alchemy",
+          "book_commerce",
+          "book_herbal",
+          "ink_paper",
+          "glassware"
+        ],
+        "buys": [
+          "ink_paper",
+          "ring_astrolabe"
+        ],
+        "markup": 0.1
+      },
+      "teaches": [
+        [
+          "scholarship",
+          7,
+          3
+        ],
+        [
+          "engineering",
+          4,
+          3
+        ],
+        [
+          "medicine",
+          3,
+          3
+        ],
+        [
+          "alchemy",
+          2,
+          3
+        ]
+      ],
+      "reading_fee": 1,
+      "goals": [
+        {
+          "id": "find_observatory",
+          "text": "Prove the Sunken Observatory is real"
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_observatory",
+          "title": "The Sunken Observatory",
+          "text": "Ysolde will pay well for any instrument recovered from the lost observatory in the Whisperwood.",
+          "objective": {
+            "type": "deliver",
+            "item": "ring_astrolabe",
+            "qty": 1,
+            "to": "npc_ysolde"
+          },
+          "reward": 90,
+          "days": 90,
+          "rel": 25
+        }
+      ]
+    },
+    {
+      "id": "npc_aldous",
+      "name": "Brother Aldous",
+      "role": "healer of the Still Ring",
+      "location": "bm_temple",
+      "schedule": {
+        "dawn": "bm_temple",
+        "morning": "bm_temple",
+        "afternoon": "bm_temple",
+        "evening": "bm_temple",
+        "night": "bm_temple"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 2,
+        "endurance": 3,
+        "intellect": 4,
+        "insight": 5,
+        "presence": 3
+      },
+      "skills": {
+        "medicine": 7,
+        "herbalism": 6,
+        "persuasion": 3,
+        "scholarship": 3,
+        "perception": 4
+      },
+      "traits": [
+        "gentle",
+        "devout",
+        "observant"
+      ],
+      "persona": "A soft-spoken, grey-bearded healer who listens far more than he speaks and notices when people lie.",
+      "money": 45,
+      "inventory": {
+        "remedy": 4,
+        "medical_kit": 1,
+        "herbalist_kit": 2,
+        "herb_silverleaf": 1
+      },
+      "factions": [
+        [
+          "fac_temple",
+          "elder"
+        ]
+      ],
+      "knows": [
+        [
+          "f_silverleaf",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_hedda_honest",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "remedy",
+          "medical_kit",
+          "herbalist_kit"
+        ],
+        "buys": [
+          "herb_silverleaf",
+          "remedy"
+        ],
+        "markup": 0.1
+      },
+      "consumes_recipes": [
+        {
+          "recipe": "make_salve",
+          "per_day": 0.5
+        }
+      ],
+      "teaches": [
+        [
+          "medicine",
+          6,
+          3
+        ],
+        [
+          "herbalism",
+          5,
+          2
+        ]
+      ],
+      "healing": {
+        "price": 4
+      },
+      "goals": [
+        {
+          "id": "silverleaf",
+          "text": "Keep the temple stocked with silverleaf salve"
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_silverleaf",
+          "title": "Silverleaf for the temple",
+          "text": "Brother Aldous needs 4 bundles of silverleaf from the Whisperwood glades.",
+          "objective": {
+            "type": "deliver",
+            "item": "herb_silverleaf",
+            "qty": 4,
+            "to": "npc_aldous"
+          },
+          "reward": 20,
+          "days": 20,
+          "rel": 15
+        }
+      ]
+    },
+    {
+      "id": "npc_corvin",
+      "name": "Corvin Ashby",
+      "role": "mayor of Brindlemarch",
+      "location": "bm_hall",
+      "schedule": {
+        "dawn": "bm_hall",
+        "morning": "bm_hall",
+        "afternoon": "bm_mill",
+        "evening": "bm_hall",
+        "night": "bm_hall"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 2,
+        "endurance": 2,
+        "intellect": 4,
+        "insight": 4,
+        "presence": 4
+      },
+      "skills": {
+        "deception": 6,
+        "persuasion": 5,
+        "commerce": 4,
+        "leadership": 5,
+        "perception": 3
+      },
+      "traits": [
+        "genial",
+        "greedy",
+        "careful"
+      ],
+      "persona": "A plump, silver-haired man with a politician's handshake and cold eyes. Talks endlessly about the town's welfare.",
+      "money": 600,
+      "inventory": {
+        "fine_clothes": 1
+      },
+      "factions": [
+        [
+          "fac_council",
+          "mayor"
+        ]
+      ],
+      "knows": [
+        [
+          "f_grain_hoard",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_hedda_honest",
+          "known"
+        ],
+        [
+          "f_mayor_generous",
+          "known"
+        ]
+      ],
+      "goals": [
+        {
+          "id": "hoard",
+          "text": "Corner the grain market before winter",
+          "secret": true
+        }
+      ],
+      "hoard": {
+        "partner": "npc_tamsin",
+        "types": [
+          "grain",
+          "flour"
+        ],
+        "per_day": 3,
+        "store": "bm_mill_granary"
+      },
+      "stipend": {
+        "from": "fac_council",
+        "amount": 4
+      }
+    },
+    {
+      "id": "npc_tamsin",
+      "name": "Tamsin Reed",
+      "role": "miller and grain factor",
+      "location": "bm_mill",
+      "schedule": {
+        "dawn": "bm_mill",
+        "morning": "bm_mill",
+        "afternoon": "bm_mill",
+        "evening": "bm_inn",
+        "night": "bm_mill"
+      },
+      "attributes": {
+        "might": 3,
+        "agility": 2,
+        "endurance": 3,
+        "intellect": 3,
+        "insight": 2,
+        "presence": 2
+      },
+      "skills": {
+        "commerce": 3,
+        "engineering": 3,
+        "deception": 2,
+        "athletics": 2,
+        "perception": 2
+      },
+      "traits": [
+        "nervous",
+        "loyal",
+        "guilty conscience"
+      ],
+      "persona": "A floury, anxious man who sweats when the mayor's name comes up and keeps glancing at the granary doors.",
+      "money": 40,
+      "inventory": {
+        "grain": 14,
+        "flour": 10
+      },
+      "knows": [
+        [
+          "f_grain_hoard",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "grain",
+          "flour"
+        ],
+        "buys": [
+          "grain"
+        ],
+        "markup": 0.15
+      },
+      "mill": {
+        "converts": "grain",
+        "into": "flour",
+        "per_day": 6
+      },
+      "goals": [
+        {
+          "id": "keep_job",
+          "text": "Keep the mayor happy and his own conscience quiet"
+        }
+      ]
+    },
+    {
+      "id": "npc_wenna",
+      "name": "Wenna Cobb",
+      "role": "farmer",
+      "location": "bm_fields",
+      "schedule": {
+        "dawn": "bm_fields",
+        "morning": "bm_fields",
+        "afternoon": "bm_fields",
+        "evening": "bm_fields",
+        "night": "bm_fields"
+      },
+      "attributes": {
+        "might": 3,
+        "agility": 2,
+        "endurance": 4,
+        "intellect": 2,
+        "insight": 3,
+        "presence": 2
+      },
+      "skills": {
+        "survival": 4,
+        "athletics": 3,
+        "herbalism": 2,
+        "perception": 3
+      },
+      "traits": [
+        "blunt",
+        "hardworking",
+        "superstitious"
+      ],
+      "persona": "A sun-browned widow with a voice like a gate hinge. Has no patience for townsfolk and plenty for anyone who will pick up a hoe.",
+      "money": 20,
+      "inventory": {
+        "grain": 10,
+        "rations": 6
+      },
+      "knows": [
+        [
+          "f_observatory",
+          "rumor",
+          0.5
+        ],
+        [
+          "f_silverleaf",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_grain_rumor",
+          "suspected",
+          0.6
+        ],
+        [
+          "f_mayor",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "grain",
+          "rations"
+        ],
+        "buys": [
+          "rations"
+        ],
+        "markup": 0.05
+      },
+      "production": [
+        {
+          "type": "grain",
+          "qty": 14,
+          "source": "her fields"
+        }
+      ],
+      "sells_to": [
+        {
+          "npc": "npc_tamsin",
+          "type": "grain",
+          "keep": 8
+        }
+      ],
+      "job": {
+        "title": "field hand",
+        "wage": 2,
+        "location": "bm_fields",
+        "minutes": 480,
+        "skill": "survival",
+        "perk": "meal"
+      },
+      "goals": [
+        {
+          "id": "fair_price",
+          "text": "Get a fair price for her grain"
+        }
+      ]
+    },
+    {
+      "id": "npc_piet",
+      "name": "Piet Lunder",
+      "role": "dockmaster",
+      "location": "bm_docks",
+      "schedule": {
+        "dawn": "bm_docks",
+        "morning": "bm_docks",
+        "afternoon": "bm_docks",
+        "evening": "bm_inn",
+        "night": "bm_docks"
+      },
+      "attributes": {
+        "might": 3,
+        "agility": 2,
+        "endurance": 3,
+        "intellect": 3,
+        "insight": 3,
+        "presence": 3
+      },
+      "skills": {
+        "commerce": 3,
+        "leadership": 3,
+        "athletics": 2,
+        "perception": 3,
+        "intimidation": 3
+      },
+      "traits": [
+        "gruff",
+        "fair",
+        "tired"
+      ],
+      "persona": "Weathered, short-tempered, and fond of shouting numbers. Keeps a tally-stick behind his ear.",
+      "money": 80,
+      "inventory": {
+        "fish": 12,
+        "rope": 4
+      },
+      "knows": [
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_jory_fence",
+          "suspected",
+          0.5
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "fish",
+          "rope"
+        ],
+        "buys": [
+          "fish",
+          "rope"
+        ],
+        "markup": 0.15
+      },
+      "job": {
+        "title": "porter",
+        "wage": 3,
+        "location": "bm_docks",
+        "minutes": 480,
+        "skill": "athletics"
+      },
+      "imports": [
+        {
+          "from": "npc_isa",
+          "type": "fish",
+          "qty": 6
+        }
+      ],
+      "goals": [
+        {
+          "id": "order",
+          "text": "Keep the quays moving and the thieves off them"
+        }
+      ]
+    },
+    {
+      "id": "npc_jory",
+      "name": "Jory Pell",
+      "role": "fence and fixer",
+      "location": "bm_narrows",
+      "schedule": {
+        "dawn": "bm_narrows",
+        "morning": "bm_narrows",
+        "afternoon": "bm_docks",
+        "evening": "bm_narrows",
+        "night": "bm_narrows"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 4,
+        "endurance": 2,
+        "intellect": 3,
+        "insight": 4,
+        "presence": 3
+      },
+      "skills": {
+        "sleight_of_hand": 6,
+        "stealth": 5,
+        "deception": 5,
+        "negotiation": 4,
+        "perception": 4,
+        "melee": 2
+      },
+      "traits": [
+        "sly",
+        "cheerful",
+        "loyal to his own"
+      ],
+      "persona": "A wiry young man with a gap-toothed grin and too many pockets. Calls everyone 'friend' and means none of it.",
+      "money": 90,
+      "inventory": {
+        "lockpicks": 2,
+        "dagger": 2,
+        "cloth": 2
+      },
+      "factions": [
+        [
+          "fac_narrows",
+          "boss"
+        ]
+      ],
+      "knows": [
+        [
+          "f_jory_fence",
+          "known"
+        ],
+        [
+          "f_grain_rumor",
+          "rumor",
+          0.6
+        ],
+        [
+          "f_sabine_plan",
+          "suspected",
+          0.4
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "lockpicks",
+          "dagger",
+          "cloth"
+        ],
+        "buys": [
+          "*"
+        ],
+        "markup": 0.3,
+        "fence": true
+      },
+      "thief": {
+        "chance": 0.25
+      },
+      "goals": [
+        {
+          "id": "profit",
+          "text": "Turn a profit without catching the watch's eye"
+        }
+      ]
+    },
+    {
+      "id": "npc_hedda",
+      "name": "Hedda Strom",
+      "role": "captain of the watch",
+      "location": "bm_hall",
+      "schedule": {
+        "dawn": "bm_hall",
+        "morning": "bm_square",
+        "afternoon": "bm_docks",
+        "evening": "bm_hall",
+        "night": "bm_hall"
+      },
+      "attributes": {
+        "might": 4,
+        "agility": 3,
+        "endurance": 4,
+        "intellect": 3,
+        "insight": 4,
+        "presence": 3
+      },
+      "skills": {
+        "melee": 6,
+        "perception": 5,
+        "investigation": 4,
+        "intimidation": 4,
+        "athletics": 4
+      },
+      "traits": [
+        "incorruptible",
+        "suspicious",
+        "dutiful"
+      ],
+      "persona": "A tall, grey-eyed veteran with a scarred jaw. Speaks in short sentences and asks the second question nobody wants to answer.",
+      "money": 60,
+      "inventory": {
+        "shortsword": 1,
+        "leather_armor": 1
+      },
+      "factions": [
+        [
+          "fac_council",
+          "captain"
+        ]
+      ],
+      "knows": [
+        [
+          "f_jory_fence",
+          "suspected",
+          0.6
+        ],
+        [
+          "f_hedda_honest",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ]
+      ],
+      "guard": true,
+      "goals": [
+        {
+          "id": "catch_fence",
+          "text": "Find proof of who fences stolen goods in the Narrows"
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_fence",
+          "title": "The fence in the Narrows",
+          "text": "Captain Strom wants a name: who is moving stolen goods through the Narrows?",
+          "objective": {
+            "type": "inform",
+            "fact": "f_jory_fence",
+            "to": "npc_hedda"
+          },
+          "reward": 25,
+          "days": 40,
+          "rel": 20
+        }
+      ],
+      "stipend": {
+        "from": "fac_council",
+        "amount": 2
+      }
+    },
+    {
+      "id": "npc_aurel",
+      "name": "Aurel Vance",
+      "role": "guildmaster of the Guild of Weights",
+      "location": "bm_guild",
+      "schedule": {
+        "dawn": "bm_guild",
+        "morning": "bm_guild",
+        "afternoon": "bm_guild",
+        "evening": "bm_hall",
+        "night": "bm_guild"
+      },
+      "attributes": {
+        "might": 1,
+        "agility": 2,
+        "endurance": 2,
+        "intellect": 4,
+        "insight": 4,
+        "presence": 4
+      },
+      "skills": {
+        "commerce": 7,
+        "negotiation": 6,
+        "leadership": 4,
+        "persuasion": 4,
+        "perception": 3
+      },
+      "traits": [
+        "cautious",
+        "formal",
+        "fair-minded"
+      ],
+      "persona": "An elderly, precise man in a velvet cap who weighs words like coins and expects contracts to be honoured to the letter.",
+      "money": 600,
+      "inventory": {
+        "ledger_book": 2
+      },
+      "factions": [
+        [
+          "fac_guild",
+          "guildmaster"
+        ]
+      ],
+      "knows": [
+        [
+          "f_odile_debt",
+          "known"
+        ],
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_mayor",
+          "known"
+        ],
+        [
+          "f_bread_prices",
+          "known"
+        ]
+      ],
+      "lends": {
+        "max": 200,
+        "rate": 0.1,
+        "days": 30
+      },
+      "licenses": {
+        "fee": 15
+      },
+      "goals": [
+        {
+          "id": "stability",
+          "text": "Keep the guild solvent and the market orderly"
+        }
+      ]
+    },
+    {
+      "id": "npc_isa",
+      "name": "Isa Dunmore",
+      "role": "harbour trader of Kestrel Point",
+      "location": "kp_harbor",
+      "schedule": {
+        "dawn": "kp_harbor",
+        "morning": "kp_harbor",
+        "afternoon": "kp_market",
+        "evening": "kp_tidewatch",
+        "night": "kp_tidewatch"
+      },
+      "attributes": {
+        "might": 3,
+        "agility": 3,
+        "endurance": 3,
+        "intellect": 3,
+        "insight": 3,
+        "presence": 4
+      },
+      "skills": {
+        "commerce": 5,
+        "negotiation": 5,
+        "athletics": 3,
+        "perception": 3,
+        "leadership": 3
+      },
+      "traits": [
+        "bold",
+        "loud",
+        "generous"
+      ],
+      "persona": "A salt-bitten captain with a booming laugh and rings on every finger. Respects anyone who has crossed open water.",
+      "money": 260,
+      "inventory": {
+        "fish": 40,
+        "spices": 14,
+        "iron": 12,
+        "salt": 12,
+        "cloth": 4
+      },
+      "factions": [
+        [
+          "fac_kestrel",
+          "captain"
+        ]
+      ],
+      "knows": [
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_kestrel_spices",
+          "known"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "fish",
+          "spices",
+          "iron",
+          "cloth",
+          "salt",
+          "salted_fish"
+        ],
+        "buys": [
+          "salt",
+          "grain",
+          "flour",
+          "salted_fish",
+          "ale",
+          "cloth",
+          "timber"
+        ],
+        "markup": 0.15
+      },
+      "production": [
+        {
+          "type": "fish",
+          "qty": 22,
+          "source": "the Kestrel fishing fleet"
+        },
+        {
+          "type": "spices",
+          "qty": 1,
+          "source": "foreign spice ships"
+        },
+        {
+          "type": "iron",
+          "qty": 1,
+          "source": "coastal ore barges"
+        }
+      ],
+      "goals": [
+        {
+          "id": "salt",
+          "text": "Buy enough salt to cure the season's catch"
+        }
+      ],
+      "consumes_recipes": [
+        {
+          "recipe": "salt_fish",
+          "per_day": 2
+        }
+      ]
+    },
+    {
+      "id": "npc_fenwick",
+      "name": "Old Fenwick",
+      "role": "landlord of the Tidewatch",
+      "location": "kp_tidewatch",
+      "schedule": {
+        "dawn": "kp_tidewatch",
+        "morning": "kp_tidewatch",
+        "afternoon": "kp_tidewatch",
+        "evening": "kp_tidewatch",
+        "night": "kp_tidewatch"
+      },
+      "attributes": {
+        "might": 2,
+        "agility": 1,
+        "endurance": 2,
+        "intellect": 3,
+        "insight": 4,
+        "presence": 3
+      },
+      "skills": {
+        "crafting": 3,
+        "perception": 4,
+        "scholarship": 2,
+        "persuasion": 3
+      },
+      "traits": [
+        "wistful",
+        "talkative",
+        "kind"
+      ],
+      "persona": "A one-legged old sailor who tells the same three stories and remembers every ship that never came home.",
+      "money": 40,
+      "inventory": {
+        "meal": 30,
+        "ale": 14,
+        "bread": 10,
+        "rations": 10
+      },
+      "knows": [
+        [
+          "f_kestrel_salt",
+          "known"
+        ],
+        [
+          "f_observatory",
+          "rumor",
+          0.3
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "meal",
+          "ale",
+          "bread",
+          "rations"
+        ],
+        "buys": [
+          "grain",
+          "flour",
+          "fish",
+          "ale"
+        ],
+        "markup": 0.25
+      },
+      "lodging": {
+        "price": 2
+      },
+      "consumes_recipes": [
+        {
+          "recipe": "bake_bread",
+          "per_day": 0.5
+        }
+      ],
+      "goals": [
+        {
+          "id": "stories",
+          "text": "Have someone new to tell his stories to"
+        }
+      ]
+    }
+  ],
+  "npc_relationships": [
+    [
+      "npc_odile",
+      "npc_aurel",
+      {
+        "trust": 10,
+        "respect": 30,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_aurel",
+      "npc_odile",
+      {
+        "trust": -10,
+        "respect": 20,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_odile",
+      "npc_sabine",
+      {
+        "trust": -50,
+        "affection": -40,
+        "rivalry": 60,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_tamsin",
+      "npc_corvin",
+      {
+        "trust": 20,
+        "fear": 50,
+        "familiarity": 80
+      }
+    ],
+    [
+      "npc_corvin",
+      "npc_tamsin",
+      {
+        "trust": 40,
+        "familiarity": 80
+      }
+    ],
+    [
+      "npc_hedda",
+      "npc_corvin",
+      {
+        "trust": -30,
+        "respect": -10,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_hedda",
+      "npc_jory",
+      {
+        "trust": -40,
+        "familiarity": 40
+      }
+    ],
+    [
+      "npc_jory",
+      "npc_hedda",
+      {
+        "fear": 40,
+        "familiarity": 40
+      }
+    ],
+    [
+      "npc_mirela",
+      "npc_wenna",
+      {
+        "trust": 40,
+        "affection": 40,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_wenna",
+      "npc_mirela",
+      {
+        "trust": 40,
+        "affection": 30,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_mirela",
+      "npc_hedda",
+      {
+        "trust": 40,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_aldous",
+      "npc_ysolde",
+      {
+        "trust": 50,
+        "affection": 30,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_ysolde",
+      "npc_aldous",
+      {
+        "trust": 50,
+        "affection": 30,
+        "familiarity": 70
+      }
+    ],
+    [
+      "npc_piet",
+      "npc_odile",
+      {
+        "trust": 30,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_isa",
+      "npc_odile",
+      {
+        "trust": 40,
+        "affection": 20,
+        "familiarity": 50
+      }
+    ],
+    [
+      "npc_brannoc",
+      "npc_mirela",
+      {
+        "trust": 40,
+        "affection": 20,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_mirela",
+      "npc_brannoc",
+      {
+        "trust": 40,
+        "affection": 30,
+        "familiarity": 60
+      }
+    ],
+    [
+      "npc_jory",
+      "npc_mirela",
+      {
+        "trust": 10,
+        "familiarity": 50
+      }
+    ],
+    [
+      "npc_piet",
+      "npc_hedda",
+      {
+        "trust": 30,
+        "familiarity": 50
+      }
+    ],
+    [
+      "npc_wenna",
+      "npc_tamsin",
+      {
+        "trust": -10,
+        "familiarity": 60
+      }
+    ]
+  ],
+  "hidden_stores": [
+    {
+      "id": "bm_mill_granary",
+      "location_id": "bm_mill",
+      "owner": "npc_corvin",
+      "name": "the chained lower granary",
+      "items": {
+        "grain": 30,
+        "flour": 12
+      },
+      "evidence": {
+        "item": "grain_ledger",
+        "tn": 17,
+        "skill": "investigation",
+        "fact": "f_grain_hoard"
+      }
+    }
+  ],
+  "secrets_at": [
+    {
+      "location_id": "ww_observatory",
+      "skill": "investigation",
+      "tn": 15,
+      "item": "ring_astrolabe",
+      "fact": "f_observatory",
+      "text": "Beneath a fallen star-chart you find a brass astrolabe, green with age but whole."
+    }
+  ],
+  "backgrounds": [
+    {
+      "id": "dockhand",
+      "name": "Dockhand",
+      "description": "You've hauled cargo on rivers since you could walk. Strong back, few letters.",
+      "attributes": {
+        "might": 1,
+        "endurance": 1
+      },
+      "skills": {
+        "athletics": 2,
+        "melee": 1,
+        "perception": 1
+      },
+      "items": {
+        "common_clothes": 1,
+        "cudgel": 1,
+        "rations": 2
+      },
+      "money": 12
+    },
+    {
+      "id": "clerk",
+      "name": "Guild clerk's apprentice",
+      "description": "You learned figures and contracts in a counting-house until it went bankrupt.",
+      "attributes": {
+        "intellect": 1,
+        "presence": 1
+      },
+      "skills": {
+        "commerce": 2,
+        "scholarship": 1,
+        "negotiation": 1
+      },
+      "items": {
+        "common_clothes": 1,
+        "ledger_book": 1,
+        "ink_paper": 2
+      },
+      "money": 22
+    },
+    {
+      "id": "herbalist",
+      "name": "Hedge herbalist",
+      "description": "A village wise-woman taught you which roots heal and which kill.",
+      "attributes": {
+        "insight": 1,
+        "intellect": 1
+      },
+      "skills": {
+        "herbalism": 2,
+        "medicine": 1,
+        "survival": 1
+      },
+      "items": {
+        "common_clothes": 1,
+        "herbalist_kit": 1,
+        "rations": 2
+      },
+      "money": 14
+    },
+    {
+      "id": "streetwise",
+      "name": "Street orphan",
+      "description": "You grew up in other people's alleys, quick hands and quicker feet.",
+      "attributes": {
+        "agility": 1,
+        "insight": 1
+      },
+      "skills": {
+        "stealth": 2,
+        "sleight_of_hand": 1,
+        "deception": 1
+      },
+      "items": {
+        "common_clothes": 1,
+        "dagger": 1
+      },
+      "money": 9
+    },
+    {
+      "id": "exile",
+      "name": "Disgraced gentry",
+      "description": "Your family name opens doors and closes others. You left home owing money.",
+      "attributes": {
+        "presence": 2
+      },
+      "skills": {
+        "persuasion": 2,
+        "scholarship": 1,
+        "leadership": 1
+      },
+      "items": {
+        "fine_clothes": 1
+      },
+      "money": 45,
+      "debt": {
+        "lender": "npc_aurel",
+        "amount": 40,
+        "days": 45
+      }
+    }
+  ]
+}

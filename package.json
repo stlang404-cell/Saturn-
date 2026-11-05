@@ -1,0 +1,32 @@
+{
+  "name": "saturn",
+  "version": "0.1.0",
+  "description": "SATURN: The Living World - an offline AI-powered living-world text RPG",
+  "main": "src/app/main.cjs",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 \"test/**/*.test.js\"",
+    "play": "node src/cli/play.js",
+    "web": "node src/service/web-server.js",
+    "start": "electron .",
+    "bench": "node scripts/benchmark-models.js",
+    "soak": "node scripts/soak.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stlang404-cell/Saturn-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/stlang404-cell/Saturn-/issues"
+  },
+  "homepage": "https://github.com/stlang404-cell/Saturn-#readme",
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "better-sqlite3": "^13.0.3",
+    "node-llama-cpp": "^3.22.3"
+  },
+  "type": "module",
+  "private": true
+}

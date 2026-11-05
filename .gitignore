@@ -1,0 +1,10 @@
+node_modules/
+models/*.gguf
+models/*.part
+saves/
+dist/
+out/
+*.saturn
+*.saturn-wal
+*.saturn-shm
+.bench/
