@@ -856,16 +856,33 @@ function eatIfPossible(game, facts) {
     facts.push(`You eat ${f.name}.`);
     return true;
   }
-  const cook = npcsHere(game).find((n) => game.npcDef(n.id)?.shop?.sells?.includes('meal') && game.count(n.id, 'meal') > 0);
-  if (cook) {
-    const price = quote(game, cook.id, 'meal', 'sell');
-    if (game.balance(game.playerId) >= price) {
-      game.pay(game.playerId, cook.id, price, `A hot meal from ${cook.name}`, 'trade');
-      inv.destroyItems(game.ctx, { typeId: 'meal', qty: 1, holderKind: 'character', holderId: cook.id, reason: 'consume', memo: 'served to the player' });
-      game.updateChar(game.playerId, { last_meal: game.time });
-      facts.push(`You buy a hot meal from ${cook.name} for ${price} marks.`);
-      return true;
+  // buy the cheapest food anyone present is selling
+  let best = null;
+  for (const n of npcsHere(game)) {
+    const shop = game.npcDef(n.id)?.shop;
+    if (!shop || n.data.jailed) continue;
+    for (const t of shop.sells) {
+      const it = game.itemType(t);
+      if (!it?.tags.includes('food') || game.count(n.id, t) <= 0) continue;
+      const price = quote(game, n.id, t, 'sell');
+      if (price != null && price <= game.balance(game.playerId) && (!best || price < best.price || (price === best.price && t === 'meal'))) best = { npc: n, type: t, price, name: it.name };
     }
+  }
+  if (best) {
+    game.pay(game.playerId, best.npc.id, best.price, `${best.name} from ${best.npc.name}`, 'trade');
+    inv.destroyItems(game.ctx, { typeId: best.type, qty: 1, holderKind: 'character', holderId: best.npc.id, reason: 'consume', memo: 'eaten by the player' });
+    game.updateChar(game.playerId, { last_meal: game.time });
+    facts.push(`You buy ${best.type === 'meal' ? 'a hot meal' : `a ${best.name}`} from ${best.npc.name} for ${best.price} mark${best.price === 1 ? '' : 's'} and eat.`);
+    return true;
+  }
+  // Recovery path: the Temple of the Still Ring feeds the destitute, once a day
+  const loc = game.location(here(game));
+  if (loc.tags.includes('healing') && game.balance(game.playerId) < 3 && daily(game, 'alms')) {
+    game.updateChar(game.playerId, { last_meal: game.time });
+    const healer = npcsHere(game).find((n) => game.npcDef(n.id)?.healing);
+    if (healer) game.adjustRel(healer.id, game.playerId, { familiarity: 2 }, 'gave alms');
+    facts.push('The temple feeds you a bowl of barley soup from its alms kitchen, asking nothing in return.');
+    return true;
   }
   return false;
 }
@@ -879,7 +896,7 @@ function eat(game, p) {
     inv.destroyItems(game.ctx, { typeId, qty: 1, holderKind: 'character', holderId: game.playerId, reason: 'consume', memo: 'eaten' });
     if (t.tags.includes('food')) game.updateChar(game.playerId, { last_meal: game.time });
     facts.push(`You consume ${t.name}.`);
-  } else if (!eatIfPossible(game, facts)) fail('no_food', 'You have no food, and nobody here is selling a meal you can afford.');
+  } else if (!eatIfPossible(game, facts)) fail('no_food', game.balance(game.playerId) < 3 ? 'You have no food and no money. The Temple of the Still Ring is said to feed the destitute.' : `You have no food, and nobody here sells a meal you can afford. Meals are sold at ${game.def.npcs.filter((n) => n.shop?.sells?.includes('meal') && game.settlementOf(n.location) === game.settlementOf(here(game))).map((n) => game.location(n.location).name).join(' and ') || 'the nearest inn'}.`);
   game.addFatigue(game.playerId, -3);
   game.advance(20, 'eat');
   return { ok: true, minutes: 20, summary: 'You eat.', facts };

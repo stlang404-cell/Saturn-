@@ -293,6 +293,7 @@ function playerNeedsDaily(game) {
   if (game.time - p.last_meal > 3 * MINUTES_PER_DAY) {
     game.hurt(p.id, 6, 'starvation');
     game.digest.push({ time: game.time, kind: 'hunger', summary: 'You are starving. Hunger is wearing you down.', importance: 6 });
+    if (game.balance(p.id) < 3) game.journal('opportunity', 'Alms at the temple', 'You are starving and penniless. The Temple of the Still Ring feeds the destitute once a day.', 'alms');
   }
   if (p.health < 100 && p.health > 0 && game.time - p.last_meal < MINUTES_PER_DAY) game.heal(p.id, 3);
 }

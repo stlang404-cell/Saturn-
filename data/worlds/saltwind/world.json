@@ -1080,6 +1080,23 @@
       "location_tags": [
         "smithing"
       ]
+    },
+    {
+      "id": "cook_meal",
+      "name": "cook hot meals",
+      "skill": "crafting",
+      "tn": 9,
+      "minutes": 90,
+      "inputs": {
+        "bread": 2,
+        "fish": 1
+      },
+      "outputs": {
+        "meal": 4
+      },
+      "location_tags": [
+        "food"
+      ]
     }
   ],
   "markets": {
@@ -1877,6 +1894,10 @@
         },
         {
           "recipe": "brew_ale",
+          "per_day": 1
+        },
+        {
+          "recipe": "cook_meal",
           "per_day": 1
         }
       ],
@@ -3021,6 +3042,10 @@
         {
           "recipe": "bake_bread",
           "per_day": 0.5
+        },
+        {
+          "recipe": "cook_meal",
+          "per_day": 1
         }
       ],
       "goals": [

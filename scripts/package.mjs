@@ -1,0 +1,86 @@
+#!/usr/bin/env node
+// Reproducible packaging for SATURN.
+//
+//   node scripts/package.mjs --platform win32 --arch x64 [--model Qwen3-4B-Instruct-2507-Q4_K_M.gguf] [--target dir|nsis|zip]
+//   node scripts/package.mjs --platform linux --arch x64 --target dir
+//
+// 1. Stages a clean copy of the app in out/stage-<platform>-<arch>/ (dev node_modules untouched).
+// 2. Installs production dependencies there with native binaries for the TARGET platform and the
+//    bundled Electron ABI (better-sqlite3 prebuilt for Electron; node-llama-cpp prebuilt
+//    CPU/Vulkan/CUDA backends for the target OS).
+// 3. Copies the selected GGUF model and licences into extraResources.
+// 4. Runs electron-builder on the staged app.
+//
+// The Windows installer (NSIS) is limited to ~2 GB, smaller than the standard model; see
+// installer/saturn.iss (Inno Setup, disk-spanning) and docs/PACKAGING.md for the full release path.
+import fs from 'node:fs';
+import path from 'node:path';
+import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const args = process.argv.slice(2);
+const opt = (n, d) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : d; };
+const platform = opt('platform', process.platform);
+const arch = opt('arch', 'x64');
+const target = opt('target', 'dir');
+const model = opt('model', 'Qwen3-4B-Instruct-2507-Q4_K_M.gguf');
+const skipModel = args.includes('--no-model');
+
+const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+const electronVersion = JSON.parse(fs.readFileSync(path.join(root, 'node_modules/electron/package.json'), 'utf8')).version;
+const stage = path.join(root, 'out', `stage-${platform}-${arch}`);
+const sh = (cmd, cwd = stage, env = {}) => { console.log(`$ ${cmd}`); execSync(cmd, { cwd, stdio: 'inherit', env: { ...process.env, ...env } }); };
+
+console.log(`Staging SATURN ${pkg.version} for ${platform}-${arch} (Electron ${electronVersion})`);
+fs.rmSync(stage, { recursive: true, force: true });
+fs.mkdirSync(stage, { recursive: true });
+for (const d of ['src', 'data']) fs.cpSync(path.join(root, d), path.join(stage, d), { recursive: true, filter: (f) => !f.endsWith('.test.js') });
+for (const f of ['README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md']) if (fs.existsSync(path.join(root, f))) fs.copyFileSync(path.join(root, f), path.join(stage, f));
+
+const stagedPkg = {
+  name: pkg.name, version: pkg.version, description: pkg.description, main: pkg.main, type: pkg.type, license: pkg.license, author: pkg.author || 'SATURN',
+  dependencies: pkg.dependencies,
+  devDependencies: { electron: electronVersion },
+  build: {
+    appId: 'org.saturn.livingworld', productName: 'SATURN', copyright: 'SATURN contributors',
+    directories: { output: path.join(root, 'dist', `${platform}-${arch}`) },
+    files: ['src/**/*', 'data/**/*', 'package.json', 'node_modules/**/*'],
+    asar: true,
+    asarUnpack: ['node_modules/better-sqlite3/**', 'node_modules/node-llama-cpp/**', 'node_modules/@node-llama-cpp/**'],
+    npmRebuild: false,
+    extraResources: [
+      ...(skipModel ? [] : [{ from: path.join(root, 'models', model), to: path.join('models', model) }]),
+      ...(fs.existsSync(path.join(root, 'licenses')) ? [{ from: path.join(root, 'licenses'), to: 'licenses' }] : []),
+    ],
+    win: { target: [{ target, arch: [arch] }], signAndEditExecutable: false },
+    nsis: { oneClick: false, allowToChangeInstallationDirectory: true, createDesktopShortcut: true, createStartMenuShortcut: true, shortcutName: 'SATURN' },
+    linux: { target: [{ target, arch: [arch] }], category: 'Game' },
+  },
+};
+fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(stagedPkg, null, 2));
+
+// Production dependencies with native binaries for the target platform + Electron ABI.
+sh(`npm install --omit=dev --no-audit --no-fund --os=${platform} --cpu=${arch} --ignore-scripts`);
+// better-sqlite3: fetch the prebuilt binary for Electron on the target platform
+sh(`npx --yes prebuild-install@7 --runtime electron --target ${electronVersion} --platform ${platform} --arch ${arch} --tag-prefix v --verbose`, path.join(stage, 'node_modules', 'better-sqlite3'));
+// node-llama-cpp ships prebuilt backends as optional packages per platform
+const llamaVersion = JSON.parse(fs.readFileSync(path.join(stage, 'node_modules/node-llama-cpp/package.json'), 'utf8')).version;
+const backends = platform === 'win32' ? ['win-x64', 'win-x64-vulkan'] : platform === 'linux' ? ['linux-x64'] : [`${platform}-${arch}`];
+for (const b of backends) {
+  const dir = path.join(stage, 'node_modules', '@node-llama-cpp', b);
+  if (fs.existsSync(dir)) continue;
+  try { sh(`npm install --no-save --omit=dev --no-audit --no-fund --os=${platform} --cpu=${arch} --ignore-scripts @node-llama-cpp/${b}@${llamaVersion}`); } catch { console.warn(`optional backend ${b} unavailable`); }
+}
+// keep only the inference backends for the target platform (CPU + Vulkan; Vulkan covers NVIDIA, AMD and Intel GPUs)
+const keep = new Set(backends);
+const nlcDir = path.join(stage, 'node_modules', '@node-llama-cpp');
+for (const d of fs.existsSync(nlcDir) ? fs.readdirSync(nlcDir) : []) if (!keep.has(d)) fs.rmSync(path.join(nlcDir, d), { recursive: true, force: true });
+// llama.cpp sources are only needed to compile locally; SATURN never compiles at runtime
+for (const d of ['llama/llama.cpp', 'llama/gitRelease.bundle']) fs.rmSync(path.join(stage, 'node_modules', 'node-llama-cpp', d), { recursive: true, force: true });
+// electron itself is needed by electron-builder in the stage
+sh(`npm install --no-save --no-audit --no-fund --ignore-scripts electron@${electronVersion}`, stage, { ELECTRON_SKIP_BINARY_DOWNLOAD: '1' });
+if (!skipModel && !fs.existsSync(path.join(root, 'models', model))) throw new Error(`Model not found: models/${model}. Run scripts/fetch-model.mjs first.`);
+const builder = path.join(root, 'node_modules', '.bin', 'electron-builder');
+sh(`"${builder}" --projectDir "${stage}" --${platform === 'win32' ? 'win' : platform === 'darwin' ? 'mac' : 'linux'} --${arch} --publish never`, root);
+console.log(`\nDone. Output in dist/${platform}-${arch}/`);

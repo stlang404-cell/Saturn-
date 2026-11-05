@@ -24,9 +24,13 @@
   "homepage": "https://github.com/stlang404-cell/Saturn-#readme",
   "dependencies": {
     "ajv": "^8.20.0",
-    "better-sqlite3": "^13.0.3",
+    "better-sqlite3": "12.11.1",
     "node-llama-cpp": "^3.22.3"
   },
   "type": "module",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "electron": "^38.8.6",
+    "electron-builder": "^26.18.0"
+  }
 }
