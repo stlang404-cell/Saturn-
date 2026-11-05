@@ -14,11 +14,12 @@ import { DIFFICULTY, isSuccess, isAtLeastPartial, DEGREE_LABEL } from './dice.js
 import { resolveCharacter, resolveItemType, resolveLocation, norm } from './resolve.js';
 import { foundBusiness, businessesOf, businessOp, addInvestor, premisesList, getBusiness } from './business.js';
 import { getFlags, setFlag } from './agendas.js';
+import { findRule, useRule, hasCapability, grantCapability } from './worldrules.js';
 
 export const ACTION_TYPES = [
   'look', 'move', 'talk', 'tell', 'ask_job', 'accept_request', 'buy', 'sell', 'give', 'take', 'drop', 'steal', 'work',
   'study', 'train', 'rest', 'wait', 'eat', 'craft', 'gather', 'investigate', 'attack', 'heal', 'loan', 'repay',
-  'invest', 'found_business', 'manage_business', 'research', 'attempt', 'equip', 'use', 'status',
+  'invest', 'found_business', 'manage_business', 'research', 'attempt', 'equip', 'use', 'status', 'use_ability',
 ];
 
 // Actions whose consequences warrant explicit confirmation when part of a plan
@@ -1005,7 +1006,62 @@ function multiDay(game, days, hoursPerDay, dayFn) {
   return { completed, totalXp: round2(totalXp), notes: [...new Set(notes)] };
 }
 
+/**
+ * Learn a world ability/technique (rule with requires.capability). Needs a teacher present
+ * who has it, or enough skill to work it out alone; takes the rule's learn.hours of study.
+ */
+function learnAbility(game, rule, p) {
+  const spec = rule.spec;
+  if (hasCapability(game, game.playerId, rule.id)) return { ok: true, minutes: 0, summary: `You already know ${rule.name}.`, facts: [] };
+  const teacher = npcsHere(game).find((n) => hasCapability(game, n.id, rule.id));
+  const rank = game.skill(game.playerId, spec.skill).rank;
+  const need = spec.requires?.skill_min || 0;
+  if (!teacher && rank < need + 2) fail('no_teacher', `To learn ${rule.name} you need someone who knows it${spec.learn?.teachers?.length ? ` (${spec.learn.teachers.map((t) => game.char(t)?.name).filter(Boolean).join(', ')})` : ''}, or ${game.rules.skills[spec.skill].label} ${need + 2} to work it out yourself (you have ${rank}).`);
+  if (rank < need) fail('underqualified', `${rule.name} needs ${game.rules.skills[spec.skill].label} ${need} before it can be learned (you have ${rank}).`);
+  const hours = clamp(Number(p.hours) || (p.days ? p.days * 6 : 4), 1, 12 * 30);
+  const required = spec.learn?.hours || 12;
+  const prog = game.player().data.learning || {};
+  let done = prog[rule.id] || 0;
+  let spent = 0;
+  if (teacher) {
+    const fee = (game.npcDef(teacher.id)?.teaches_fee ?? 3) * Math.max(1, Math.round(Math.min(hours, required - done) / 4));
+    if (game.balance(game.playerId) < fee) fail('insufficient_funds', `${teacher.name} asks ${game.money(fee)} for the lessons.`);
+    if (fee > 0) game.pay(game.playerId, teacher.id, fee, `Lessons in ${rule.name}`, 'tuition');
+  }
+  while (spent < hours && done < required) {
+    const step = Math.min(4, hours - spent, required - done);
+    game.advance(step * 60, 'study');
+    game.addFatigue(game.playerId, step * 4);
+    done += step * (teacher ? 1 : 0.6);
+    spent += step;
+  }
+  const facts = [];
+  if (done >= required) {
+    grantCapability(game, game.playerId, rule.id, teacher ? `taught by ${teacher.name}` : 'self-taught');
+    game.recordEvent({ kind: 'learned', actor: game.playerId, target: teacher?.id || null, summary: `${game.player().name} learned ${rule.name}.`, visibility: 'private', importance: 6 });
+    game.journal('discovery', `Learned: ${rule.name}`, spec.summary, `cap:${rule.id}`);
+    facts.push(`You have learned ${rule.name}. (${spec.summary})`);
+    done = required;
+  } else facts.push(`Progress learning ${rule.name}: ${Math.floor(done)}/${required} hours.`);
+  game.setCharData(game.playerId, { learning: { ...prog, [rule.id]: done } });
+  return { ok: true, minutes: spent * 60, summary: `You study ${rule.name}${teacher ? ` with ${teacher.name}` : ''}.`, facts };
+}
+
+function useAbility(game, p) {
+  const rule = findRule(game, p.target || p.item || p.topic || p.detail);
+  if (!rule) fail('unknown_ability', `There is no ability or technique called "${p.target || p.topic || p.detail}" in this world.`);
+  let targetId = null;
+  if (rule.spec.requires?.target || p.item) {
+    const who = p.item ? resolveCharacter(p.item, npcsHere(game)).match : null;
+    targetId = who?.id || null;
+  }
+  const res = useRule(game, game.playerId, rule, { targetId, destination: p.detail || p.topic || p.item });
+  return { ok: res.bucket !== 'failure', minutes: res.minutes, summary: `You use ${rule.name}.`, facts: res.facts, rolls: [res.roll] };
+}
+
 function study(game, p) {
+  const asRule = !game.resolveSkill(p.skill || p.topic) && findRule(game, p.skill || p.topic || p.target);
+  if (asRule && asRule.spec.requires?.capability) return learnAbility(game, asRule, p);
   const skill = game.resolveSkill(p.skill || p.topic);
   if (!skill) fail('unknown_skill', `There's no way to study "${p.skill || p.topic}" here. Skills: ${Object.values(game.rules.skills).map((s) => s.label).join(', ')}.`);
   const src = studySource(game, skill, p);
@@ -1467,9 +1523,17 @@ function research(game, p) {
     const n = NOVELTY[novelty];
     const rank = game.skill(game.playerId, skill).rank;
     if (rank < n.minRank) fail('underqualified', `A ${novelty} project in ${game.rules.skills[skill].label} needs at least rank ${n.minRank}; you have ${rank}. Study or practise first — or attempt something more modest.`);
-    const kind = p.approach === 'invention' || /invent|device|machine|build|design|alloy|tool/.test(norm(title + ' ' + (p.detail || ''))) ? 'invention' : 'research';
+    const kind = p.approach === 'invention' || /invent|device|machine|build|design|alloy|tool|engine|ship|craft/.test(norm(title + ' ' + (p.detail || ''))) ? 'invention' : 'research';
+    // Foundation knowledge: related facts and techniques of this world that you do not yet
+    // understand make the work harder (+2 TN each, up to +6). Knowledge genuinely matters.
+    const words = norm(`${title} ${p.detail || ''}`).split(' ').filter((w) => w.length > 4);
+    const related = game.db.prepare('SELECT id, subject, tags, content FROM facts WHERE truth=1').all()
+      .filter((f) => words.some((w) => J.parse(f.tags, []).some((t) => t.length > 3 && (t.includes(w) || w.includes(t))) || norm(f.subject).includes(w)));
+    const unknown = related.filter((f) => !(belief(game.db, game.playerId, f.id)?.confidence >= 0.5)).slice(0, 3);
+    const foundationPenalty = unknown.length * 2;
+    if (unknown.length) facts.push(`You lack foundational knowledge (${unknown.map((f) => f.subject).join(', ')}): +${foundationPenalty} difficulty until you learn it.`);
     const r = game.db.prepare('INSERT INTO projects(owner_id,kind,title,description,skill,tn,progress,required,status,created_at,data) VALUES (?,?,?,?,?,?,0,?,?,?,?)')
-      .run(game.playerId, kind, title, String(p.detail || title).slice(0, 400), skill, n.tn, n.required, 'active', game.time, J.str({ novelty, hours: 0 }));
+      .run(game.playerId, kind, title, String(p.detail || title).slice(0, 400), skill, n.tn, n.required, 'active', game.time, J.str({ novelty, hours: 0, foundation: unknown.map((f) => f.id) }));
     proj = game.db.prepare('SELECT * FROM projects WHERE id=?').get(Number(r.lastInsertRowid));
     facts.push(`New ${novelty} ${kind} project: "${title}" (${game.rules.skills[skill].label}, TN ${n.tn}, ${n.required} progress needed).`);
     game.journal('plan', `Project: ${title}`, `A ${novelty} ${kind} project in ${game.rules.skills[skill].label}. Progress ${0}/${n.required}.`, `proj:${proj.id}`);
@@ -1484,7 +1548,9 @@ function research(game, p) {
       if (game.balance(game.playerId) < materialCost) { facts.push('You run out of money for materials.'); break; }
       game.burn(game.playerId, materialCost, `Materials for "${proj.title}"`);
     }
-    const r = game.check(game.playerId, { skill: proj.skill, tn: proj.tn, label: `Work on "${proj.title}"`, mods: game.location(here(game)).tags.includes('library') && proj.kind === 'research' ? [{ label: 'Archive resources', value: 1 }] : [] });
+    const missing = (data.foundation || []).filter((f) => !(belief(game.db, game.playerId, f)?.confidence >= 0.5)).length;
+    const mods = [...(game.location(here(game)).tags.includes('library') && proj.kind === 'research' ? [{ label: 'Library resources', value: 1 }] : []), ...(missing ? [{ label: `Missing foundational knowledge (${missing})`, value: -2 * missing }] : [])];
+    const r = game.check(game.playerId, { skill: proj.skill, tn: proj.tn, label: `Work on "${proj.title}"`, mods });
     rolls.push(r);
     const gain = { critical: 4, strong: 3, success: 2, partial: 1, failure: 0, severe_failure: -1, automatic: 2, impossible: 0 }[r.degree];
     progress = Math.max(0, progress + gain);
@@ -1497,21 +1563,11 @@ function research(game, p) {
   let status = 'active';
   if (progress >= proj.required) {
     status = 'completed';
-    const factId = `f_disc_${proj.id}`;
-    game.db.prepare('INSERT OR IGNORE INTO facts(id,subject,content,truth,secrecy,tags,created_at,data) VALUES (?,?,?,1,1,?,?,?)')
-      .run(factId, proj.title, `${game.player().name} developed ${proj.title}: ${proj.description}`, J.str(norm(proj.title).split(' ').filter((w) => w.length > 3)), game.time, J.str({ discovery: true, project: proj.id }));
-    game.learnFact(game.playerId, factId, { belief: 'known', confidence: 1, source: 'my own work' });
-    if (proj.kind === 'invention') {
-      const typeId = `inv_${proj.id}`;
-      const value = { incremental: 15, significant: 40, revolutionary: 120 }[data.novelty] || 15;
-      game.db.prepare('INSERT OR IGNORE INTO item_types(id,name,category,base_value,weight,stackable,commodity,tags,description,data,created_by) VALUES (?,?,?,?,?,0,0,?,?,?,?)')
-        .run(typeId, proj.title.toLowerCase().slice(0, 60), 'invention', value, 3, J.str(['invention', `tool:${proj.skill}`]), proj.description, J.str({ tool_bonus: data.novelty === 'revolutionary' ? 3 : 2 }), game.playerId);
-      data.recipe = { id: `make_${typeId}`, name: `make ${proj.title.toLowerCase()}`, skill: proj.skill, tn: proj.tn - 2, minutes: 240, inputs: { iron: 1, timber: 1 }, outputs: { [typeId]: 1 } };
-      inv.createItems(game.ctx, { typeId, qty: 1, holderKind: 'character', holderId: game.playerId, ownerId: game.playerId, reason: 'produce', memo: 'prototype' });
-      facts.push(`Breakthrough! You complete a working prototype: ${proj.title}. You can now make more (needs 1 iron, 1 timber).`);
-    } else facts.push(`Breakthrough! Your research into "${proj.title}" is complete — knowledge no one else in the Reach possesses.`);
+    // What the result actually does is designed after this turn commits (AI designer with
+    // engine validation, or a labelled deterministic fallback) — see engine/innovation.js.
+    data.needs_design = true;
+    facts.push(proj.kind === 'invention' ? `Breakthrough! "${proj.title}" works. You set down how it is built and used.` : `Breakthrough! Your research into "${proj.title}" is complete.`);
     game.recordEvent({ kind: 'discovery', actor: game.playerId, summary: `${game.player().name} completed "${proj.title}".`, visibility: 'private', importance: 8 });
-    game.journal('discovery', proj.title, `Completed after ${data.hours} hours of work.`, `proj:${proj.id}`, 'done');
     game.gainXp(game.playerId, proj.skill, 10, 'experiment', 0, `completed ${proj.title}`);
   } else game.journal('plan', `Project: ${proj.title}`, `Progress ${progress}/${proj.required}. TN ${proj.tn} in ${game.rules.skills[proj.skill].label}.`, `proj:${proj.id}`);
   game.db.prepare('UPDATE projects SET progress=?, status=?, data=? WHERE id=?').run(Math.min(progress, proj.required), status, J.str(data), proj.id);
@@ -1573,7 +1629,7 @@ function status(game) {
 export const HANDLERS = {
   look, move, talk, tell, ask_job: askJob, accept_request: acceptRequest, buy, sell, give, take, drop, steal, work,
   study, train, rest, wait, eat, craft, gather, investigate, attack, heal, loan, repay, invest,
-  found_business: foundBiz, manage_business: manageBiz, research, attempt, equip: equipA, use, status,
+  found_business: foundBiz, manage_business: manageBiz, research, attempt, equip: equipA, use, status, use_ability: useAbility,
 };
 
 /** Rough cost/feasibility preview without rolling dice or changing state. */

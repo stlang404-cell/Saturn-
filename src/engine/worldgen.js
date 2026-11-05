@@ -8,6 +8,7 @@ import { addMemory } from './memory.js';
 import { learn } from './knowledge.js';
 import { adjustRel } from './relationships.js';
 import { updatePrices } from './economy.js';
+import { installWorldRules } from './worldrules.js';
 
 export const CREATION_POINTS = 3;
 
@@ -114,6 +115,7 @@ export function populateWorld(game, playerSpec) {
   }
 
   createPlayer(game, playerSpec);
+  installWorldRules(game);
   updatePrices(game);
 }
 

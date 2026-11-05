@@ -1,7 +1,7 @@
 // The Game Master: interprets free text into validated action proposals, and
 // narrates verified outcomes. The model proposes; the engine disposes.
-import { LLM_INTERPRETATION_SCHEMA, NARRATION_SCHEMA, normalizeInterpretation, validateNarration } from './schema.js';
-import { INTERPRETER_SYSTEM, NARRATOR_SYSTEM } from './prompts.js';
+import { llmInterpretationSchema, NARRATION_SCHEMA, normalizeInterpretation, validateNarration } from './schema.js';
+import { interpreterSystem, narratorSystem } from './prompts.js';
 import { buildPlayerContext, sanitizePlayerText, npcVoiceContext } from './context.js';
 import { fallbackInterpret } from './fallback-parser.js';
 import { describeOutcomes, checkNarration, templateNarration } from './narrator.js';
@@ -16,6 +16,15 @@ export class GameMaster {
     this.interpretTimeoutMs = interpretTimeoutMs;
     this.narrateTimeoutMs = narrateTimeoutMs;
     this.lastDebug = null;
+  }
+
+  /** World-specific system prompts, cached per world and per rule version. */
+  _prompt(game, which) {
+    const ver = game.db.prepare("SELECT COUNT(*) n, COALESCE(SUM(version),0) v FROM world_rules").get();
+    const key = `${which}:${game.def.id}:${ver.n}:${ver.v}`;
+    this._prompts = this._prompts || new Map();
+    if (!this._prompts.has(key)) this._prompts.set(key, which === 'i' ? interpreterSystem(game) : narratorSystem(game));
+    return this._prompts.get(key);
   }
 
   get aiReady() {
@@ -49,7 +58,7 @@ export class GameMaster {
     let lastErr = null;
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
-        const r = await this.llm.generateJson({ system: INTERPRETER_SYSTEM, user, schema: LLM_INTERPRETATION_SCHEMA, maxTokens: 700, temperature: 0.2, timeoutMs: this.interpretTimeoutMs, signal, onToken: onProgress });
+        const r = await this.llm.generateJson({ system: this._prompt(game, 'i'), user, schema: llmInterpretationSchema(game.rules.skillIds), maxTokens: 700, temperature: 0.2, timeoutMs: this.interpretTimeoutMs, signal, onToken: onProgress });
         const norm = normalizeInterpretation(r.parsed);
         debug.attempts.push({ attempt, ms: r.ms, tokens: r.tokens, ok: norm.ok, errors: norm.errors, raw: r.parsed });
         if (norm.ok) {
@@ -74,6 +83,23 @@ export class GameMaster {
     return { interp: fbNorm.ok ? fbNorm.value : fb, source: 'fallback-after-llm', attempts: debug.attempts.length, errors: [lastErr], ms: debug.ms, debug };
   }
 
+  /**
+   * Design what a completed invention/research actually does in this world. Returns a
+   * proposal (validated later by the engine) and its source; never mutates state.
+   */
+  async designInvention(game, proj, { signal } = {}) {
+    const { inventionSchema, inventionPrompt, fallbackProposal } = await import('../engine/innovation.js');
+    if (!this.aiReady) return { proposal: fallbackProposal(game, proj), source: 'fallback' };
+    const { system, user } = inventionPrompt(game, proj);
+    try {
+      const r = await this.llm.generateJson({ system, user, schema: inventionSchema(game), maxTokens: 700, temperature: 0.5, timeoutMs: this.narrateTimeoutMs * 2, signal });
+      return { proposal: r.parsed, source: 'ai', ms: r.ms };
+    } catch (e) {
+      this.log(`invention design fell back: ${e.message}`);
+      return { proposal: fallbackProposal(game, proj), source: 'fallback-after-ai', error: String(e.message) };
+    }
+  }
+
   /** Narrate a committed turn result. Never changes state. */
   async narrate(game, input, result, { signal } = {}) {
     for (const o of result.outcomes) if (o.dialogue) o.dialogue.voice = npcVoiceContext(game, o.dialogue.npc, `${o.dialogue.topic || ''} ${o.dialogue.said || ''}`);
@@ -86,7 +112,7 @@ export class GameMaster {
     const problems = [];
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
-        const r = await this.llm.generateJson({ system: NARRATOR_SYSTEM, user, schema: NARRATION_SCHEMA, maxTokens: 420, temperature: 0.7, timeoutMs: this.narrateTimeoutMs, signal });
+        const r = await this.llm.generateJson({ system: this._prompt(game, 'n'), user, schema: NARRATION_SCHEMA, maxTokens: 420, temperature: 0.7, timeoutMs: this.narrateTimeoutMs, signal });
         const v = validateNarration(r.parsed);
         if (!v.ok) { problems.push(...v.errors); continue; }
         const text = String(r.parsed.narration).trim();

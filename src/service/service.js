@@ -289,6 +289,8 @@ export class GameService {
       narr = { text: templateNarration(this.game, text, result), source: 'template-after-error' };
     }
     setNarration(this.game, result.turnId, narr.text);
+    const adaptations = await this._adaptWorld(signal, onStage);
+    if (adaptations.length) narr.text += `\n\n${adaptations.map((a) => a.text).join('\n')}`;
     this.turnsSinceAutosave++;
     if (this.turnsSinceAutosave >= AUTOSAVE_EVERY) {
       this.turnsSinceAutosave = 0;
@@ -299,6 +301,23 @@ export class GameService {
       kind: 'turn', turnId: result.turnId, narration: narr.text, narrationSource: narr.source, source, interpretation: interp,
       outcomes: result.outcomes.map(publicOutcome), changes: result.changes, digest: result.digest, debug, state: this.state(),
     };
+  }
+
+  /** Turn completed projects into world capabilities (AI design → engine validation → install). */
+  async _adaptWorld(signal, onStage) {
+    const { pendingDesigns, installInvention, fallbackProposal } = await import('../engine/innovation.js');
+    const out = [];
+    for (const proj of pendingDesigns(this.game)) {
+      onStage?.('designing');
+      const d = await this.gm.designInvention(this.game, proj, { signal });
+      let res = this.game.transact(() => installInvention(this.game, proj, d.proposal, { designer: d.source }));
+      if (!res.ok) {
+        this.log('AI invention design rejected by validation:', res.errors);
+        res = this.game.transact(() => installInvention(this.game, proj, fallbackProposal(this.game, proj), { designer: 'fallback-after-validation' }));
+      }
+      if (res.ok) out.push({ text: `◆ ${proj.title}: ${d.proposal.summary}${res.deviceId ? ` (prototype built; to use it: "${res.rule.name}")` : ` (technique: "${res.rule.name}")`}${d.source === 'ai' ? '' : ' [generic design — no AI available]'}`, res });
+    }
+    return out;
   }
 
   _logNonTurn(text, interp, source, msg) {

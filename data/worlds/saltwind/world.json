@@ -3542,5 +3542,21 @@
         "body": "Bread and flour prices have climbed for weeks. Someone in Brindlemarch must know why."
       }
     ]
-  }
+  },
+  "premise": "A low-technology river-trade region. No magic exists. Governance is local: Brindlemarch has a mayor and council; there is no king.",
+  "magic": {
+    "exists": false
+  },
+  "technology": {
+    "level": "pre-industrial",
+    "summary": "Pre-industrial: waterwheels, sailing riverboats, forges, hand tools, no engines or firearms."
+  },
+  "common_knowledge": [
+    "The Great Ring crosses the sky and is known to everyone."
+  ],
+  "impossible": [
+    "flying unaided",
+    "magic spells",
+    "engines or firearms (until invented)"
+  ]
 }
