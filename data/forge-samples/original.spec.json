@@ -1,0 +1,2686 @@
+{
+  "spec_version": 2,
+  "id": "w_the_hollowed_light",
+  "name": "The Hollowed Light",
+  "tagline": "Where memory is gravity, and forgetting is the only fuel.",
+  "premise": "In a hollow world with a star trapped within its inner surface, people extract memories from their minds and store them in resonant crystals. These memories are then used as fuel to manipulate gravity, shaping the world’s structure and movement.",
+  "tone": "Calm, melancholic, grounded in quiet urgency — a world where…",
+  "origin": {
+    "kind": "forge",
+    "description": "An original universe: on the inside surface of a hollow world lit by a captive star, people can extract memories, store them in resonant crystals, and burn them as fuel for gravity manipulation. Forgetting is the price of power. Memory-brokers, archivist orders and the Forgotten (people who sold too much) shape society. I begin as a memory-courier who has sold one childhood summer.",
+    "created": "2026-11-06T03:02:26.952Z"
+  },
+  "intro": "You stand in the dim glow of a memory vault beneath the cracked stone of the Hollowed Light, your fingers trembling as you hold the cold, vibrating crystal that once held the scent of pine, the sound of laughter, and the warmth of your mother’s hand. The walls hum with low frequencies, and you know — the gravity in this chamber has shifted since you last came. You’ve sold it all. That summer.",
+  "physics": [
+    "The world is hollow, with a single star trapped inside its inner surface, casting light from within."
+  ],
+  "impossible": [
+    "Creating new memories through technology",
+    "Forgetting without memory loss",
+    "Gravity manipulation without memory fuel",
+    "Traveling outside the hollow world"
+  ],
+  "common_knowledge": [
+    "Memory is gravity. Without memory, there is no gravity.",
+    "To forget is to become lighter — and sometimes, unanchored.",
+    "The Forgotten live in the dark, their bodies failing to hold memory, their minds drifting like dust in a vacuum."
+  ],
+  "magic": {
+    "exists": false,
+    "summary": "No magic. All power comes from memory. Memories are extracted through neural resonance, stored in resonant crystals, and burned to alter gravitational fields. No spells, no incantations, no unexplained forces."
+  },
+  "technology": {
+    "level": "advanced but grounded",
+    "summary": "The technology is rooted in neural resonance and crystal engineering. Memory extraction is done via non-invasive resonance fields; storage in resonary crystals; gravity manipulation is achieved by burning memory fuel in gravity engines."
+  },
+  "currency": {
+    "name": "resonance units (rus)",
+    "plural": "rus",
+    "symbol": "r",
+    "medium": "memory fuel measured in units of stored memory intensity (intensity = depth of emotional resonance…"
+  },
+  "calendar": {
+    "era": "The Year of the Still Star",
+    "startYear": 1,
+    "months": [
+      "Solstice of the牢",
+      "Lapse",
+      "Fading",
+      "Stillness",
+      "Awakening",
+      "Burn",
+      "Unraveling",
+      "Return"
+    ],
+    "daysPerMonth": 30,
+    "weekdays": [
+      "Nexus",
+      "Hollow",
+      "Fog",
+      "Ash",
+      "Root",
+      "Bloom",
+      "Echo",
+      "Void"
+    ],
+    "start": {
+      "month": 0,
+      "day": 1,
+      "hour": 8
+    }
+  },
+  "attributes": [
+    {
+      "id": "memint",
+      "label": "memory intensity",
+      "info": "The depth and emotional resonance of your memories."
+    },
+    {
+      "id": "forgetrate",
+      "label": "forgetting rate",
+      "info": "How quickly you lose memories when not actively stored."
+    },
+    {
+      "id": "gravitytilt",
+      "label": "gravity tilt",
+      "info": "How much your body and environment respond to your memory output."
+    },
+    {
+      "id": "resonancesen",
+      "label": "resonance sensing",
+      "info": "Your ability to detect memory fields and resonate with others' stored emotions."
+    },
+    {
+      "id": "mobility",
+      "label": "mobility",
+      "info": "How efficiently you can move through gravity-altered zones."
+    },
+    {
+      "id": "crystalaffin",
+      "label": "crystal affinity",
+      "info": "Your natural compatibility with resonant crystals. Affects storage efficiency."
+    }
+  ],
+  "skills": [
+    {
+      "id": "memory_resonance",
+      "label": "Memory Resonance",
+      "attr": "resonancesen",
+      "group": "social",
+      "desc": "The ability to tune into and extract memories from others using non…",
+      "trained": true,
+      "keywords": [
+        "tune",
+        "vibrate",
+        "echoes in the mind\","
+      ]
+    },
+    {
+      "id": "gravity_tuning",
+      "label": "Gravity Tuning",
+      "attr": "gravitytilt",
+      "group": "trade",
+      "desc": "Adjusting gravitational fields by modulating memory fuel in gravity…",
+      "trained": true,
+      "keywords": [
+        "balance",
+        "pull",
+        "shift the world's h"
+      ]
+    },
+    {
+      "id": "crystal_affinity",
+      "label": "Crystal Affinity",
+      "attr": "crystalaffin",
+      "group": "trade",
+      "desc": "A natural connection to resonant crystals—feeling their vibrations…",
+      "trained": true,
+      "keywords": [
+        "crystal hum",
+        "vibrate with the s",
+        "feel the memory in a"
+      ]
+    },
+    {
+      "id": "memory_bargaining",
+      "label": "Memory Bargaining",
+      "attr": "memint",
+      "group": "social",
+      "desc": "Negotiating the exchange of memories for goods, services, or fuels…",
+      "trained": true,
+      "keywords": [
+        "trade memory",
+        "what do you remember",
+        "give me the feel of"
+      ]
+    },
+    {
+      "id": "forget_rate_control",
+      "label": "Forget Rate Control",
+      "attr": "forgetrate",
+      "group": "social",
+      "desc": "Regulating how quickly memories fade—either to preserve key moments…",
+      "trained": true,
+      "keywords": [
+        "slow the fade",
+        "hold on to the past",
+        "let go to save fuel"
+      ]
+    },
+    {
+      "id": "resonance_sensing",
+      "label": "Resonance Sensing",
+      "attr": "resonancesen",
+      "group": "social",
+      "desc": "Detecting hidden memories or emotional undercurrents in others by havi…",
+      "trained": true,
+      "keywords": [
+        "feel the silence",
+        "what's not said",
+        "echoes beneath the s"
+      ]
+    },
+    {
+      "id": "infiltration_via_memory",
+      "label": "Infiltration via Memory",
+      "attr": "mobility",
+      "group": "social",
+      "desc": "Gaining access to restricted areas by mimicking or borrowing the…",
+      "trained": true,
+      "keywords": [
+        "steal a moment",
+        "walk in someone's p",
+        "take the shape of a"
+      ]
+    },
+    {
+      "id": "memory_stealing",
+      "label": "Memory Stealing",
+      "attr": "forgetrate",
+      "group": "social",
+      "desc": "Extracting memories without consent—used to fuel engines or sabotage…",
+      "trained": true,
+      "keywords": [
+        "take the spark",
+        "siphon the memory",
+        "no one feels it"
+      ]
+    },
+    {
+      "id": "gravity_fighting",
+      "label": "Gravity Fighting",
+      "attr": "gravitytilt",
+      "group": "physical",
+      "desc": "Using localized gravity shifts to push, lift, or crush enemies in comb…",
+      "trained": true,
+      "keywords": [
+        "pull the world in",
+        "crush with silence",
+        "gravity spike"
+      ]
+    },
+    {
+      "id": "outdoor_survival",
+      "label": "Outdoor Survival",
+      "attr": "mobility",
+      "group": "physical",
+      "desc": "Navigating the hollow world’s shifting terrain—walls that move, gravit…",
+      "trained": true,
+      "keywords": [
+        "feel the wall shift",
+        "where does gravity g",
+        "the hollow breathes"
+      ]
+    },
+    {
+      "id": "business_fuel_management",
+      "label": "Business Fuel Management",
+      "attr": "memint",
+      "group": "trade",
+      "desc": "Planning memory supply chains—how much to store, burn, or trade to…",
+      "trained": true,
+      "keywords": [
+        "stock the memory",
+        "burn for profit",
+        "fuel the market"
+      ]
+    },
+    {
+      "id": "memory_healing",
+      "label": "Memory Healing",
+      "attr": "forgetrate",
+      "group": "social",
+      "desc": "Using memory extraction to reduce emotional pain—removing traumatic…",
+      "trained": true,
+      "keywords": [
+        "erase the pain",
+        "let go of the wound",
+        "no more echo"
+      ]
+    },
+    {
+      "id": "gravity_engineering",
+      "label": "Gravity Engineering",
+      "attr": "gravitytilt",
+      "group": "trade",
+      "desc": "Designing and building gravity engines that burn memory fuel to shape…",
+      "trained": true,
+      "keywords": [
+        "build a bend",
+        "make the world tilt",
+        "engine of silence"
+      ]
+    },
+    {
+      "id": "crafting_from_resonance",
+      "label": "Crafting from Resonance",
+      "attr": "crystalaffin",
+      "group": "physical",
+      "desc": "Shaping tools or armor from resonant crystals by aligning their vibra…",
+      "trained": true,
+      "keywords": [
+        "mold the crystal",
+        "vibrate the form",
+        "listen to the shape"
+      ]
+    },
+    {
+      "id": "memory_investigation",
+      "label": "Memory Investigation",
+      "attr": "resonancesen",
+      "group": "social",
+      "desc": "Tracking down a specific memory by probing the environment or people…",
+      "trained": true,
+      "keywords": [
+        "find the echo",
+        "where was it felt",
+        "trace the vibration"
+      ]
+    },
+    {
+      "id": "threatening_via_memory",
+      "label": "Threatening via Memory",
+      "attr": "forgetrate",
+      "group": "social",
+      "desc": "Using a specific, painful memory as leverage—forcing others to obey…",
+      "trained": true,
+      "keywords": [
+        "you remember this",
+        "what happened in the",
+        "i’ll burn it in your"
+      ]
+    }
+  ],
+  "skill_roles": {
+    "social": "memory_bargaining",
+    "lie": "memory_stealing",
+    "threaten": "threatening_via_memory",
+    "haggle": "memory_bargaining",
+    "notice": "resonance_sensing",
+    "search": "memory_investigation",
+    "steal": "memory_stealing",
+    "sneak": "infiltration_via_memory",
+    "fight": "gravity_fighting",
+    "labor": "crafting_from_resonance",
+    "wilds": "outdoor_survival",
+    "heal": "memory_healing",
+    "manage": "business_fuel_management",
+    "research": "memory_investigation",
+    "invent": "gravity_engineering",
+    "craft": "crafting_from_resonance"
+  },
+  "settlements": [
+    {
+      "id": "s_vault_of_the_remembe",
+      "name": "Vault of the Remembered",
+      "description": "A central market beneath the hollow world's inner surface where memory-brokers trade stored memories. Walls pulse with stored emotion.",
+      "population": 5000,
+      "wage": 3,
+      "government": "fac_the_hollow_engineers"
+    },
+    {
+      "id": "s_the_forgotten_trench",
+      "name": "The Forgotten Trench",
+      "description": "A deep trench beneath the world where memory has faded. People live in silence, their bodies slowly dissolving into the stone.",
+      "population": 450,
+      "wage": 3,
+      "government": "fac_the_cradle_guild"
+    },
+    {
+      "id": "s_the_spire_of_stillne",
+      "name": "The Spire of Stillness",
+      "description": "A vertical tower where archivists preserve memories in crystalline vaults. Gravity here is steady. No memory burns.",
+      "population": 800,
+      "wage": 3,
+      "government": "fac_the_echo_scribes"
+    }
+  ],
+  "locations": [
+    {
+      "id": "l_vault_of_the_remembered",
+      "name": "Vault of the Remembered",
+      "settlement": "s_vault_of_the_remembe",
+      "region": "s_vault_of_the_remembe",
+      "kind": "central hub",
+      "art": "ruin",
+      "tags": [
+        "market",
+        "lodging",
+        "work",
+        "food"
+      ],
+      "description": "A vast, pulsing chamber beneath the inner surface of the hollow world.",
+      "x": 79,
+      "y": 59
+    },
+    {
+      "id": "l_the_spire_of_stillness",
+      "name": "The Spire of Stillness",
+      "settlement": "s_the_spire_of_stillne",
+      "region": "s_the_spire_of_stillne",
+      "kind": "archivist station",
+      "art": "square",
+      "tags": [
+        "library",
+        "work",
+        "healing",
+        "quiet",
+        "charity",
+        "study"
+      ],
+      "description": "A vertical tower of smooth, white crystal that ascends for 300 meters. At each level, a memory is preserved in a sealed vault.",
+      "x": 31,
+      "y": 33
+    },
+    {
+      "id": "l_the_forgotten_trench",
+      "name": "The Forgotten Trench",
+      "settlement": "s_the_forgotten_trench",
+      "region": "s_the_forgotten_trench",
+      "kind": "outpost",
+      "art": "inn",
+      "tags": [
+        "lodging",
+        "food",
+        "healing",
+        "work",
+        "charity"
+      ],
+      "description": "A deep, dark trench where the light of the inner star has faded. People live in silence, their bodies slowly dissolving into the stone.",
+      "x": 31,
+      "y": 84
+    },
+    {
+      "id": "l_grove_of_echoes",
+      "name": "Grove of Echoes",
+      "settlement": "s_the_forgotten_trench",
+      "region": "s_the_forgotten_trench",
+      "kind": "wilds settlement",
+      "art": "forest",
+      "tags": [
+        "market",
+        "lodging",
+        "food",
+        "work"
+      ],
+      "description": "A ring of ancient stone formations that hum with residual memory vibrations.",
+      "x": 27,
+      "y": 70
+    },
+    {
+      "id": "l_hollow_pit",
+      "name": "Hollow Pit",
+      "settlement": "s_the_forgotten_trench",
+      "region": "s_the_forgotten_trench",
+      "kind": "wilds settlement",
+      "art": "forest",
+      "tags": [
+        "market",
+        "lodging",
+        "food",
+        "healing",
+        "charity"
+      ],
+      "description": "A deep fissure in the hollow wall where gravity is weakest. People gather here to trade forgotten memories for small food rations.",
+      "x": 42,
+      "y": 71
+    },
+    {
+      "id": "l_bazaar_of_slight_remains",
+      "name": "Bazaar of Slight Remains",
+      "settlement": "s_vault_of_the_remembe",
+      "region": "s_vault_of_the_remembe",
+      "kind": "market",
+      "art": "square",
+      "tags": [
+        "market",
+        "work"
+      ],
+      "description": "A narrow market where memory brokers sell fragments of memories — a child’s first steps, a lover’s first kiss. Prices vary by emotional resonance. A '",
+      "x": 75,
+      "y": 44
+    },
+    {
+      "id": "l_cradle_of_the_unremember",
+      "name": "Cradle of the Unremembered",
+      "settlement": "s_the_forgotten_trench",
+      "region": "s_the_forgotten_trench",
+      "kind": "healing",
+      "art": "square",
+      "tags": [
+        "healing",
+        "work",
+        "food",
+        "charity"
+      ],
+      "description": "A stone chamber where those who have lost too much memory are given place to rest.",
+      "x": 36,
+      "y": 85
+    },
+    {
+      "id": "l_echo_library",
+      "name": "Echo Library",
+      "settlement": "s_the_spire_of_stillne",
+      "region": "s_the_spire_of_stillne",
+      "kind": "learning",
+      "art": "archive",
+      "tags": [
+        "library",
+        "work",
+        "healing",
+        "charity",
+        "study"
+      ],
+      "description": "A vertical library where memory fragments are stored in crystal shelves. Each shelf emits a faint echo when touched.",
+      "x": 27,
+      "y": 19
+    },
+    {
+      "id": "l_council_of_resonance",
+      "name": "Council of Resonance",
+      "settlement": "s_vault_of_the_remembe",
+      "region": "s_vault_of_the_remembe",
+      "kind": "government",
+      "art": "hall",
+      "tags": [
+        "government",
+        "work",
+        "market"
+      ],
+      "description": "A circular hall where memory-brokers debate the ethics of memory extraction. Rules are written in memory-etched stone.",
+      "x": 90,
+      "y": 45
+    },
+    {
+      "id": "l_the_shattered_bench",
+      "name": "The Shattered Bench",
+      "settlement": "s_the_forgotten_trench",
+      "region": "s_the_forgotten_trench",
+      "kind": "seedy",
+      "art": "square",
+      "tags": [
+        "market",
+        "food",
+        "healing",
+        "charity"
+      ],
+      "description": "A dark, narrow alcove where people trade stolen memories or sell body fragments for food. No one speaks. The only sound is the hum of fading gravity.",
+      "x": 25,
+      "y": 75
+    }
+  ],
+  "routes": [
+    [
+      "l_vault_of_the_remembered",
+      "l_the_spire_of_stillness",
+      45,
+      {
+        "mode": "lift"
+      }
+    ],
+    [
+      "l_vault_of_the_remembered",
+      "l_the_forgotten_trench",
+      90,
+      {
+        "mode": "submersible_cart"
+      }
+    ],
+    [
+      "l_vault_of_the_remembered",
+      "l_grove_of_echoes",
+      30,
+      {}
+    ],
+    [
+      "l_the_spire_of_stillness",
+      "l_grove_of_echoes",
+      15,
+      {}
+    ],
+    [
+      "l_the_forgotten_trench",
+      "l_grove_of_echoes",
+      60,
+      {}
+    ],
+    [
+      "l_grove_of_echoes",
+      "l_hollow_pit",
+      25,
+      {
+        "mode": "footpath"
+      }
+    ],
+    [
+      "l_hollow_pit",
+      "l_the_forgotten_trench",
+      10,
+      {}
+    ],
+    [
+      "l_bazaar_of_slight_remains",
+      "l_vault_of_the_remembered",
+      2,
+      {}
+    ],
+    [
+      "l_cradle_of_the_unremember",
+      "l_the_forgotten_trench",
+      2,
+      {}
+    ],
+    [
+      "l_echo_library",
+      "l_the_spire_of_stillness",
+      2,
+      {}
+    ],
+    [
+      "l_council_of_resonance",
+      "l_vault_of_the_remembered",
+      2,
+      {}
+    ],
+    [
+      "l_the_shattered_bench",
+      "l_the_forgotten_trench",
+      2,
+      {}
+    ]
+  ],
+  "item_types": [
+    {
+      "id": "food_grain_millet",
+      "name": "millet grains",
+      "category": "food",
+      "base_value": 2,
+      "weight": 0.3,
+      "commodity": false,
+      "tags": [
+        "food"
+      ],
+      "description": "A staple crop grown in shallow, luminous soil near the inner walls…",
+      "data": {
+        "nourish": 10
+      }
+    },
+    {
+      "id": "crystal_resonant_base",
+      "name": "resonant crystal base",
+      "category": "treasure",
+      "base_value": 50,
+      "weight": 0.8,
+      "commodity": true,
+      "tags": [
+        "tool:crystal_affinity"
+      ],
+      "description": "A raw crystal grown in the starlight caverns; emits a soft hum when…",
+      "data": {
+        "tool_bonus": 2
+      },
+      "stackable": false
+    },
+    {
+      "id": "memory_fuel_amber",
+      "name": "amber memory fuel",
+      "category": "food",
+      "base_value": 15,
+      "weight": 0.2,
+      "commodity": true,
+      "tags": [
+        "food",
+        "tool:gravity_tuning"
+      ],
+      "description": "A semi-solid memory fuel derived from emotional fragments.",
+      "data": {
+        "nourish": 10,
+        "tool_bonus": 1
+      }
+    },
+    {
+      "id": "resonance_gear_torch",
+      "name": "resonance torch",
+      "category": "tool",
+      "base_value": 3,
+      "weight": 0.1,
+      "commodity": false,
+      "tags": [
+        "tool:resonance_sensing"
+      ],
+      "description": "A small handheld device that hums when near strong memory fields.",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "gravity_crank_handle",
+      "name": "gravity crank handle",
+      "category": "tool",
+      "base_value": 8,
+      "weight": 0.4,
+      "commodity": false,
+      "tags": [
+        "tool:gravity_engineering"
+      ],
+      "description": "A durable handle used in gravity engines to manually adjust resonance…",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "memory_shield_laminate",
+      "name": "memory shield laminate",
+      "category": "armor",
+      "base_value": 20,
+      "weight": 0.6,
+      "commodity": false,
+      "tags": [],
+      "description": "A flexible shield made from woven memory residue.",
+      "data": {
+        "defense": 1
+      },
+      "slot": "body",
+      "stackable": false
+    },
+    {
+      "id": "resonance_hammer",
+      "name": "resonance hammer",
+      "category": "weapon",
+      "base_value": 12,
+      "weight": 1,
+      "commodity": false,
+      "tags": [
+        "tool:memory_bargaining"
+      ],
+      "description": "A hammer that can disrupt memory fields; used to extract or break…",
+      "data": {
+        "tool_bonus": 1,
+        "melee": 1
+      },
+      "slot": "weapon",
+      "stackable": false
+    },
+    {
+      "id": "crystal_burner_core",
+      "name": "crystal burner core",
+      "category": "tool",
+      "base_value": 40,
+      "weight": 0.5,
+      "commodity": true,
+      "tags": [
+        "tool:gravity_tuning"
+      ],
+      "description": "The heart of a gravity engine.",
+      "data": {
+        "tool_bonus": 2
+      },
+      "stackable": false
+    },
+    {
+      "id": "forgotten_amber",
+      "name": "forgotten amber",
+      "category": "treasure",
+      "base_value": 100,
+      "weight": 0.4,
+      "commodity": false,
+      "tags": [
+        "tool:memory_healing"
+      ],
+      "description": "A rare, dark amber formed from deeply forgotten memories.",
+      "data": {
+        "tool_bonus": 2
+      },
+      "stackable": false
+    },
+    {
+      "id": "starlight_moss",
+      "name": "starlight moss",
+      "category": "treasure",
+      "base_value": 35,
+      "weight": 0.2,
+      "commodity": true,
+      "tags": [
+        "tool:resonance_sensing"
+      ],
+      "description": "Grows only in starlight caverns.",
+      "data": {
+        "tool_bonus": 2
+      },
+      "stackable": false
+    },
+    {
+      "id": "memory_parchment",
+      "name": "memory parchment",
+      "category": "tool",
+      "base_value": 1,
+      "weight": 0.05,
+      "commodity": true,
+      "tags": [
+        "tool:memory_investigation"
+      ],
+      "description": "A thin, flexible sheet that records memory echoes.",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "gravity_shackles",
+      "name": "gravity shackles",
+      "category": "armor",
+      "base_value": 18,
+      "weight": 0.7,
+      "commodity": false,
+      "tags": [
+        "tool:gravity_fighting"
+      ],
+      "description": "Metal cuffs that bind to gravity fields.",
+      "data": {
+        "tool_bonus": 1,
+        "defense": 1
+      },
+      "slot": "body",
+      "stackable": false
+    },
+    {
+      "id": "resonance_burner",
+      "name": "resonance burner",
+      "category": "tool",
+      "base_value": 6,
+      "weight": 0.2,
+      "commodity": false,
+      "tags": [
+        "tool:gravity_engineering"
+      ],
+      "description": "A small device that burns memory fuel to generate localized gravity…",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "crystal_gear_pendant",
+      "name": "crystal gear pendant",
+      "category": "tool",
+      "base_value": 25,
+      "weight": 0.1,
+      "commodity": true,
+      "tags": [
+        "tool:crystal_affinity"
+      ],
+      "description": "A personal item worn to enhance resonance with memory crystals…",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "forgotten_moonstone",
+      "name": "forgotten moonstone",
+      "category": "treasure",
+      "base_value": 150,
+      "weight": 0.3,
+      "commodity": false,
+      "tags": [
+        "tool:memory_healing"
+      ],
+      "description": "A moon-shaped crystal formed from a forgotten memory of a person…",
+      "data": {
+        "tool_bonus": 2
+      },
+      "stackable": false
+    },
+    {
+      "id": "memory_sand",
+      "name": "memory sand",
+      "category": "treasure",
+      "base_value": 5,
+      "weight": 0.1,
+      "commodity": true,
+      "tags": [
+        "tool:memory_bargaining"
+      ],
+      "description": "A fine powder made from fragmented memories.",
+      "data": {
+        "tool_bonus": 1
+      },
+      "stackable": false
+    },
+    {
+      "id": "resonance_fuel",
+      "name": "resonance fuel",
+      "category": "material",
+      "base_value": 2,
+      "weight": 1,
+      "commodity": true,
+      "tags": [],
+      "description": "A material used to make Grain from Moss.",
+      "data": {}
+    },
+    {
+      "id": "millet_grains",
+      "name": "millet grains",
+      "category": "material",
+      "base_value": 1,
+      "weight": 1,
+      "commodity": true,
+      "tags": [],
+      "description": "A material used to make Resonance Torch from Parchment.",
+      "data": {}
+    },
+    {
+      "id": "iron_rod",
+      "name": "iron rod",
+      "category": "material",
+      "base_value": 3,
+      "weight": 1,
+      "commodity": true,
+      "tags": [],
+      "description": "A material used to make Resonance Hammer from Iron.",
+      "data": {}
+    }
+  ],
+  "recipes": [
+    {
+      "id": "r_grain_from_moss",
+      "name": "grain from moss",
+      "skill": "outdoor_survival",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "starlight_moss": 1,
+        "resonance_fuel": 1
+      },
+      "outputs": {
+        "food_grain_millet": 3
+      }
+    },
+    {
+      "id": "r_crystal_base_from_moss",
+      "name": "crystal base from moss",
+      "skill": "crystal_affinity",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "starlight_moss": 2,
+        "memory_fuel_amber": 1
+      },
+      "outputs": {
+        "crystal_resonant_base": 1
+      }
+    },
+    {
+      "id": "r_resonance_torch_from_par",
+      "name": "resonance torch from parchment",
+      "skill": "resonance_sensing",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "memory_parchment": 1,
+        "millet_grains": 1
+      },
+      "outputs": {
+        "resonance_gear_torch": 1
+      }
+    },
+    {
+      "id": "r_gravity_crank_from_handl",
+      "name": "gravity crank from handle",
+      "skill": "gravity_engineering",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "gravity_crank_handle": 1,
+        "resonance_burner": 1
+      },
+      "outputs": {
+        "gravity_crank_handle": 1
+      }
+    },
+    {
+      "id": "r_memory_shield_from_reson",
+      "name": "memory shield from resonant base",
+      "skill": "memory_healing",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "crystal_resonant_base": 1,
+        "forgotten_amber": 1
+      },
+      "outputs": {
+        "memory_shield_laminate": 1
+      }
+    },
+    {
+      "id": "r_resonance_hammer_from_ir",
+      "name": "resonance hammer from iron",
+      "skill": "memory_bargaining",
+      "tn": 12,
+      "minutes": 15,
+      "inputs": {
+        "iron_rod": 1,
+        "memory_parchment": 1
+      },
+      "outputs": {
+        "resonance_hammer": 1
+      }
+    }
+  ],
+  "markets": {
+    "s_vault_of_the_remembe": {
+      "food_grain_millet": [
+        30,
+        6
+      ],
+      "crystal_resonant_base": [
+        16,
+        1
+      ],
+      "memory_fuel_amber": [
+        30,
+        6
+      ],
+      "crystal_burner_core": [
+        16,
+        1
+      ],
+      "starlight_moss": [
+        16,
+        1
+      ],
+      "memory_parchment": [
+        16,
+        1
+      ],
+      "crystal_gear_pendant": [
+        16,
+        1
+      ],
+      "memory_sand": [
+        16,
+        1
+      ],
+      "resonance_fuel": [
+        16,
+        1
+      ],
+      "millet_grains": [
+        16,
+        1
+      ],
+      "iron_rod": [
+        16,
+        1
+      ]
+    },
+    "s_the_forgotten_trench": {
+      "food_grain_millet": [
+        30,
+        6
+      ],
+      "crystal_resonant_base": [
+        16,
+        1
+      ],
+      "memory_fuel_amber": [
+        30,
+        6
+      ],
+      "crystal_burner_core": [
+        16,
+        1
+      ],
+      "starlight_moss": [
+        16,
+        1
+      ],
+      "memory_parchment": [
+        16,
+        1
+      ],
+      "crystal_gear_pendant": [
+        16,
+        1
+      ],
+      "memory_sand": [
+        16,
+        1
+      ],
+      "resonance_fuel": [
+        16,
+        1
+      ],
+      "millet_grains": [
+        16,
+        1
+      ],
+      "iron_rod": [
+        16,
+        1
+      ]
+    },
+    "s_the_spire_of_stillne": {
+      "food_grain_millet": [
+        30,
+        6
+      ],
+      "crystal_resonant_base": [
+        16,
+        1
+      ],
+      "memory_fuel_amber": [
+        30,
+        6
+      ],
+      "crystal_burner_core": [
+        16,
+        1
+      ],
+      "starlight_moss": [
+        16,
+        1
+      ],
+      "memory_parchment": [
+        16,
+        1
+      ],
+      "crystal_gear_pendant": [
+        16,
+        1
+      ],
+      "memory_sand": [
+        16,
+        1
+      ],
+      "resonance_fuel": [
+        16,
+        1
+      ],
+      "millet_grains": [
+        16,
+        1
+      ],
+      "iron_rod": [
+        16,
+        1
+      ]
+    }
+  },
+  "market_base": {
+    "s_vault_of_the_remembe": {
+      "crystal_resonant_base": 50,
+      "memory_fuel_amber": 24,
+      "crystal_burner_core": 40,
+      "starlight_moss": 56,
+      "memory_parchment": 2,
+      "crystal_gear_pendant": 40,
+      "memory_sand": 5,
+      "resonance_fuel": 2,
+      "millet_grains": 1,
+      "iron_rod": 3
+    },
+    "s_the_forgotten_trench": {
+      "crystal_resonant_base": 50,
+      "memory_fuel_amber": 15,
+      "crystal_burner_core": 64,
+      "starlight_moss": 35,
+      "memory_parchment": 2,
+      "crystal_gear_pendant": 25,
+      "memory_sand": 8,
+      "resonance_fuel": 3,
+      "millet_grains": 2,
+      "iron_rod": 5
+    },
+    "s_the_spire_of_stillne": {
+      "crystal_resonant_base": 50,
+      "memory_fuel_amber": 24,
+      "crystal_burner_core": 64,
+      "starlight_moss": 56,
+      "memory_parchment": 1,
+      "crystal_gear_pendant": 40,
+      "memory_sand": 8,
+      "resonance_fuel": 3,
+      "millet_grains": 2,
+      "iron_rod": 5
+    }
+  },
+  "factions": [
+    {
+      "id": "fac_the_cradle_guild",
+      "name": "The Cradle Guild",
+      "description": "A collective of memory healers and crystal artisans who believe that forgetting is a disease, not a necessity.",
+      "treasury": 200
+    },
+    {
+      "id": "fac_the_hollow_engineers",
+      "name": "The Hollow Engineers",
+      "description": "A faction of gravity manipulators who use memory fuel to stabilize the world's structure.",
+      "treasury": 200
+    },
+    {
+      "id": "fac_the_echo_scribes",
+      "name": "The Echo Scribes",
+      "description": "Scholars and scribes who preserve memories in parchment and crystal.",
+      "treasury": 200
+    },
+    {
+      "id": "fac_the_moonstone_syndic",
+      "name": "The Moonstone Syndicate",
+      "description": "A secretive trade group that hoards forgotten amber and moonstones, using them to control memory markets and infl…",
+      "treasury": 200
+    },
+    {
+      "id": "fac_the_gravitas_council",
+      "name": "The Gravitas Council",
+      "description": "The ruling body of the Hollowed Light. They oversee memory extraction, gravity engines, and distribution.",
+      "treasury": 200
+    }
+  ],
+  "facts": [
+    {
+      "id": "f_the_starlight_moss_grows",
+      "subject": "The starlight moss grows only where memories are…",
+      "content": "The starlight moss only grows in places where memories have been burned and forgotten — it feeds on the emotional residue left behind in the gravity engines.",
+      "truth": 0,
+      "secrecy": 2,
+      "tags": [
+        "rumor",
+        "biological",
+        "false"
+      ],
+      "data": {
+        "keepers": [
+          "npc_dorin"
+        ]
+      }
+    },
+    {
+      "id": "f_the_vault_of_the_remembe",
+      "subject": "The Vault of the Remembered is not just a merchant…",
+      "content": "The Vault of the Remembered is secretly running a memory recycling program — they take old, unused memories and convert them into forgotten amber, which is then sold to '",
+      "truth": 0,
+      "secrecy": 2,
+      "tags": [
+        "rumor",
+        "economy",
+        "deception"
+      ],
+      "data": {
+        "keepers": [
+          "npc_elira"
+        ]
+      }
+    },
+    {
+      "id": "f_every_memory_burned_in_a",
+      "subject": "Every memory burned in a gravity engine causes a…",
+      "content": "Every memory burned in a gravity engine causes a tiny ripple in the hollow wall — like a pulse. If too many memories are burned in one place, the wall begins to hum.",
+      "truth": 1,
+      "secrecy": 2,
+      "tags": [
+        "physics",
+        "truth",
+        "public"
+      ],
+      "data": {
+        "keepers": [
+          "npc_orin"
+        ]
+      }
+    },
+    {
+      "id": "f_the_cradle_of_the_unreme",
+      "subject": "The Cradle of the Unremembered is not a healing…",
+      "content": "The Cradle of the Unremembered is not a healing place — it's a trap. The air there is thick with forgotten amber, and people who stay too long begin to forget who they…",
+      "truth": 0,
+      "secrecy": 2,
+      "tags": [
+        "danger",
+        "rumor",
+        "false"
+      ],
+      "data": {
+        "keepers": [
+          "npc_tovar"
+        ]
+      }
+    },
+    {
+      "id": "f_starlight_moss_can_be_us",
+      "subject": "Starlight moss can be used as a memory anchor…",
+      "content": "Some crafters claim that starlight moss can be woven into memory anchors — when a person touches it, their memories grow stronger and more vivid.",
+      "truth": 0,
+      "secrecy": 2,
+      "tags": [
+        "craft",
+        "rumor",
+        "contested"
+      ],
+      "data": {
+        "keepers": [
+          "npc_mara"
+        ]
+      }
+    }
+  ],
+  "premises": [
+    {
+      "id": "prem_l_vault_of_the_remembered",
+      "name": "a workspace at Vault of the Remembered",
+      "location_id": "l_vault_of_the_remembered",
+      "landlord": "npc_elira",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    },
+    {
+      "id": "prem_l_bazaar_of_slight_remains",
+      "name": "a workspace at Bazaar of Slight Remains",
+      "location_id": "l_bazaar_of_slight_remains",
+      "landlord": "npc_elira",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    },
+    {
+      "id": "prem_l_the_forgotten_trench",
+      "name": "a workspace at The Forgotten Trench",
+      "location_id": "l_the_forgotten_trench",
+      "landlord": "npc_mara",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    },
+    {
+      "id": "prem_l_grove_of_echoes",
+      "name": "a workspace at Grove of Echoes",
+      "location_id": "l_grove_of_echoes",
+      "landlord": "npc_mara",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    },
+    {
+      "id": "prem_l_the_spire_of_stillness",
+      "name": "a workspace at The Spire of Stillness",
+      "location_id": "l_the_spire_of_stillness",
+      "landlord": "npc_dorin",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    },
+    {
+      "id": "prem_l_echo_library",
+      "name": "a workspace at Echo Library",
+      "location_id": "l_echo_library",
+      "landlord": "npc_dorin",
+      "rent": 3,
+      "suits": [
+        "b_r_grain_from_moss",
+        "b_r_crystal_base_from_moss",
+        "b_r_resonance_torch_from_par",
+        "b_r_gravity_crank_from_handl",
+        "b_r_memory_shield_from_reson",
+        "trading_company"
+      ]
+    }
+  ],
+  "business_templates": [
+    {
+      "id": "b_r_grain_from_moss",
+      "name": "Grain from moss works",
+      "recipe": "r_grain_from_moss",
+      "startup_cost": 60,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Produces millet grains for sale."
+    },
+    {
+      "id": "b_r_crystal_base_from_moss",
+      "name": "Crystal base from moss works",
+      "recipe": "r_crystal_base_from_moss",
+      "startup_cost": 60,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Produces resonant crystal base for sale."
+    },
+    {
+      "id": "b_r_resonance_torch_from_par",
+      "name": "Resonance torch from parchment works",
+      "recipe": "r_resonance_torch_from_par",
+      "startup_cost": 60,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Produces resonance torch for sale."
+    },
+    {
+      "id": "b_r_gravity_crank_from_handl",
+      "name": "Gravity crank from handle works",
+      "recipe": "r_gravity_crank_from_handl",
+      "startup_cost": 60,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Produces gravity crank handle for sale."
+    },
+    {
+      "id": "b_r_memory_shield_from_reson",
+      "name": "Memory shield from resonant base works",
+      "recipe": "r_memory_shield_from_reson",
+      "startup_cost": 60,
+      "batches_per_day": 2,
+      "staff": 1,
+      "wage": 3,
+      "description": "Produces memory shield laminate for sale."
+    },
+    {
+      "id": "trading_company",
+      "name": "Trading company",
+      "recipe": null,
+      "startup_cost": 50,
+      "staff": 1,
+      "wage": 4,
+      "trip_days": 2,
+      "capacity": 12,
+      "freight": 6,
+      "description": "Ships a commodity between settlements to profit from price differences."
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_elira",
+      "name": "Elira Vos",
+      "role": "merchant",
+      "location": "l_vault_of_the_remembered",
+      "schedule": {
+        "dawn": "l_vault_of_the_remembered",
+        "morning": "l_vault_of_the_remembered",
+        "afternoon": "l_vault_of_the_remembered",
+        "evening": "l_vault_of_the_remembered",
+        "night": "l_vault_of_the_remembered"
+      },
+      "attributes": {
+        "memint": 2,
+        "forgetrate": 2,
+        "gravitytilt": 2,
+        "resonancesen": 2,
+        "mobility": 2,
+        "crystalaffin": 2
+      },
+      "skills": {
+        "resonance_sensing": 4,
+        "crystal_affinity": 3
+      },
+      "traits": [
+        "pragmatic",
+        "observant",
+        "efficient"
+      ],
+      "persona": "A woman in her late 40s with eyes that flicker with soft amber light when she speaks about memory.",
+      "money": 180,
+      "inventory": {
+        "resonance_gear_torch": 2,
+        "crystal_burner_core": 2,
+        "crystal_resonant_base": 8,
+        "memory_sand": 8,
+        "resonance_fuel": 8,
+        "millet_grains": 8,
+        "iron_rod": 8
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To maintain stable gravity in the city without over-consuming memory fuel, so the people…"
+        },
+        {
+          "id": "agenda",
+          "text": "Elira secretly hoards memory fuel amber from her purchases from Mara Tis, so she can sell it at a premium when market…",
+          "secret": true
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_hollow_engineers",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "resonance_gear_torch",
+          "crystal_burner_core",
+          "crystal_resonant_base",
+          "memory_sand",
+          "resonance_fuel",
+          "millet_grains",
+          "iron_rod"
+        ],
+        "buys": [
+          "memory_fuel_amber",
+          "starlight_moss",
+          "resonance_gear_torch",
+          "crystal_burner_core",
+          "crystal_resonant_base",
+          "memory_sand",
+          "resonance_fuel",
+          "millet_grains",
+          "iron_rod"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "crystal_burner_core",
+          "qty": 1,
+          "source": "supplies from beyond the region"
+        },
+        {
+          "type": "memory_sand",
+          "qty": 8,
+          "source": "supplies from beyond the region"
+        },
+        {
+          "type": "resonance_fuel",
+          "qty": 8,
+          "source": "supplies from beyond the region"
+        },
+        {
+          "type": "millet_grains",
+          "qty": 8,
+          "source": "supplies from beyond the region"
+        },
+        {
+          "type": "iron_rod",
+          "qty": 8,
+          "source": "supplies from beyond the region"
+        }
+      ],
+      "consumes_recipes": [
+        {
+          "recipe": "r_crystal_base_from_moss",
+          "per_day": 1
+        },
+        {
+          "recipe": "r_resonance_torch_from_par",
+          "per_day": 1
+        }
+      ],
+      "knows": [
+        [
+          "f_the_vault_of_the_remembe",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "stockpile",
+          "partner": "npc_mara",
+          "types": [
+            "forgotten_amber",
+            "memory_fuel_amber"
+          ],
+          "per_day": 2,
+          "store": "store_npc_elira",
+          "until_month": 7,
+          "motive": "Elira secretly hoards memory fuel amber from her purchases from Mara Tis, so she can sell it at a premium when market…"
+        },
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "abilities": [
+        "burn_memory_to_move"
+      ]
+    },
+    {
+      "id": "npc_dorin",
+      "name": "Dorin the Still",
+      "role": "healer",
+      "location": "l_the_spire_of_stillness",
+      "schedule": {
+        "dawn": "l_the_spire_of_stillness",
+        "morning": "l_the_spire_of_stillness",
+        "afternoon": "l_the_spire_of_stillness",
+        "evening": "l_the_spire_of_stillness",
+        "night": "l_the_spire_of_stillness"
+      },
+      "attributes": {
+        "memint": 2,
+        "forgetrate": 2,
+        "gravitytilt": 2,
+        "resonancesen": 2,
+        "mobility": 2,
+        "crystalaffin": 2
+      },
+      "skills": {
+        "memory_healing": 5,
+        "resonance_sensing": 4
+      },
+      "traits": [
+        "calm",
+        "deeply compassionate",
+        "quietly observant"
+      ],
+      "persona": "A tall man with silver hair braided into a single thread that hums faintly.",
+      "money": 180,
+      "inventory": {
+        "memory_parchment": 8,
+        "starlight_moss": 2
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To restore memory to those whose minds have been weakened by excessive fuel…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_echo_scribes",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "memory_parchment",
+          "starlight_moss"
+        ],
+        "buys": [
+          "memory_fuel_amber",
+          "forgotten_amber",
+          "memory_parchment",
+          "starlight_moss"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "memory_parchment",
+          "qty": 12,
+          "source": "Dorin the Still's work"
+        }
+      ],
+      "teaches": [
+        [
+          "memory_healing",
+          4,
+          3
+        ],
+        [
+          "resonance_sensing",
+          3,
+          3
+        ]
+      ],
+      "healing": {
+        "price": 4
+      },
+      "knows": [
+        [
+          "f_the_starlight_moss_grows",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_deliver_a_memory_shi",
+          "title": "Deliver a memory shield laminate to Kaelen Mire…",
+          "text": "Kaelen’s crops are failing. He needs a memory shield laminate to protect the grove from gravity shifts caused by nearby engines.",
+          "objective": {
+            "type": "deliver",
+            "item": "memory_shield_laminate",
+            "qty": 1,
+            "to": "npc_kaelen"
+          },
+          "reward": 5,
+          "days": 2,
+          "rel": 12
+        }
+      ]
+    },
+    {
+      "id": "npc_kaelen",
+      "name": "Kaelen Mire",
+      "role": "farmer",
+      "location": "l_grove_of_echoes",
+      "schedule": {
+        "dawn": "l_grove_of_echoes",
+        "morning": "l_grove_of_echoes",
+        "afternoon": "l_grove_of_echoes",
+        "evening": "l_the_forgotten_trench",
+        "night": "l_grove_of_echoes"
+      },
+      "attributes": {
+        "memint": 4,
+        "forgetrate": 4,
+        "gravitytilt": 4,
+        "resonancesen": 4,
+        "mobility": 4,
+        "crystalaffin": 4
+      },
+      "skills": {
+        "memory_resonance": 2,
+        "forget_rate_control": 3
+      },
+      "traits": [
+        "patient",
+        "connected to the gro"
+      ],
+      "persona": "A wiry man who walks with slow steps, his hands stained with millet dust.",
+      "money": 180,
+      "inventory": {
+        "food_grain_millet": 36
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To grow food that doesn't require memory fuel to grow — a way to reduce dependency on…"
+        }
+      ],
+      "shop": {
+        "sells": [
+          "food_grain_millet"
+        ],
+        "buys": [
+          "resonance_gear_torch",
+          "food_grain_millet"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "food_grain_millet",
+          "qty": 12,
+          "source": "Kaelen Mire's work"
+        }
+      ],
+      "consumes_recipes": [
+        {
+          "recipe": "r_grain_from_moss",
+          "per_day": 1
+        }
+      ],
+      "knows": [
+        [
+          "f_the_starlight_moss_grows",
+          "rumor",
+          0.6
+        ],
+        [
+          "f_the_cradle_of_the_unreme",
+          "rumor",
+          0.6
+        ]
+      ],
+      "abilities": [
+        "resonance_anchor"
+      ]
+    },
+    {
+      "id": "npc_mara",
+      "name": "Mara Tis",
+      "role": "craftsman",
+      "location": "l_hollow_pit",
+      "schedule": {
+        "dawn": "l_hollow_pit",
+        "morning": "l_hollow_pit",
+        "afternoon": "l_hollow_pit",
+        "evening": "l_the_forgotten_trench",
+        "night": "l_hollow_pit"
+      },
+      "attributes": {
+        "memint": 4,
+        "forgetrate": 4,
+        "gravitytilt": 4,
+        "resonancesen": 4,
+        "mobility": 4,
+        "crystalaffin": 4
+      },
+      "skills": {
+        "resonance_sensing": 5,
+        "crystal_affinity": 5
+      },
+      "traits": [
+        "intuitive",
+        "creative",
+        "protective"
+      ],
+      "persona": "A woman with a face that seems to shift slightly when she works, as if memory is shaping her features.",
+      "money": 180,
+      "inventory": {
+        "memory_shield_laminate": 8,
+        "crystal_gear_pendant": 8
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To create memory shields that protect people from the emotional weight of remembering…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_cradle_guild",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "memory_shield_laminate",
+          "crystal_gear_pendant",
+          "forgotten_amber",
+          "memory_fuel_amber"
+        ],
+        "buys": [
+          "forgotten_moonstone",
+          "memory_fuel_amber",
+          "memory_shield_laminate",
+          "crystal_gear_pendant"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "memory_shield_laminate",
+          "qty": 3,
+          "source": "Mara Tis's work"
+        },
+        {
+          "type": "crystal_gear_pendant",
+          "qty": 2,
+          "source": "Mara Tis's work"
+        },
+        {
+          "type": "forgotten_amber",
+          "qty": 5,
+          "source": "Mara Tis's trade"
+        },
+        {
+          "type": "memory_fuel_amber",
+          "qty": 5,
+          "source": "Mara Tis's trade"
+        }
+      ],
+      "job": {
+        "title": "craftsman's assistant",
+        "wage": 4,
+        "location": "l_hollow_pit",
+        "minutes": 480,
+        "skill": "resonance_sensing"
+      },
+      "consumes_recipes": [
+        {
+          "recipe": "r_memory_shield_from_reson",
+          "per_day": 1
+        }
+      ],
+      "knows": [
+        [
+          "f_every_memory_burned_in_a",
+          "known",
+          1
+        ],
+        [
+          "f_starlight_moss_can_be_us",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "abilities": [
+        "resonance_anchor"
+      ]
+    },
+    {
+      "id": "npc_orin",
+      "name": "Orin Serr",
+      "role": "guard",
+      "location": "l_the_shattered_bench",
+      "schedule": {
+        "dawn": "l_the_shattered_bench",
+        "morning": "l_the_shattered_bench",
+        "afternoon": "l_the_shattered_bench",
+        "evening": "l_the_shattered_bench",
+        "night": "l_the_shattered_bench"
+      },
+      "attributes": {
+        "memint": 2,
+        "forgetrate": 2,
+        "gravitytilt": 2,
+        "resonancesen": 2,
+        "mobility": 2,
+        "crystalaffin": 2
+      },
+      "skills": {
+        "gravity_engineering": 5,
+        "resonance_sensing": 4
+      },
+      "traits": [
+        "strict",
+        "detailed",
+        "truthful"
+      ],
+      "persona": "A man who wears gravity shackles as part of his uniform.",
+      "money": 70,
+      "inventory": {},
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To prevent unauthorized memory fuel use in the Shattered Bench, especially by those who…"
+        },
+        {
+          "id": "agenda",
+          "text": "Orin is undercutting Rex's prices on gravity cranks, hoping to drive him out of the Hollow Pit and claim his customers…",
+          "secret": true
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_hollow_engineers",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [],
+        "buys": [
+          "memory_fuel_amber"
+        ],
+        "markup": 0.2
+      },
+      "guard": true,
+      "knows": [
+        [
+          "f_every_memory_burned_in_a",
+          "known",
+          1
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "undercut",
+          "rival": "npc_rex",
+          "motive": "Orin is undercutting Rex's prices on gravity cranks, hoping to drive him out of the Hollow Pit and claim his customers…"
+        },
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "abilities": [
+        "gravity_shift_test"
+      ]
+    },
+    {
+      "id": "npc_nalyn",
+      "name": "Nalyn",
+      "role": "lender",
+      "location": "l_grove_of_echoes",
+      "schedule": {
+        "dawn": "l_grove_of_echoes",
+        "morning": "l_grove_of_echoes",
+        "afternoon": "l_grove_of_echoes",
+        "evening": "l_the_forgotten_trench",
+        "night": "l_grove_of_echoes"
+      },
+      "attributes": {
+        "memint": 4,
+        "forgetrate": 4,
+        "gravitytilt": 4,
+        "resonancesen": 4,
+        "mobility": 4,
+        "crystalaffin": 4
+      },
+      "skills": {
+        "memory_stealing": 1,
+        "resonance_sensing": 2
+      },
+      "traits": [
+        "calm",
+        "wise",
+        "patient"
+      ],
+      "persona": "A quiet woman who rarely speaks, but when she does, her words carry weight.",
+      "money": 600,
+      "inventory": {},
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To lend memory fuel at fair rates to those who can't afford it, especially farmers and…"
+        },
+        {
+          "id": "agenda",
+          "text": "Nalyn owes Soren Mire a large sum of memory parchments — she hasn’t paid in three cycles, and Soren is preparing to take…",
+          "secret": true
+        }
+      ],
+      "shop": {
+        "sells": [],
+        "buys": [
+          "forgotten_amber",
+          "memory_fuel_amber"
+        ],
+        "markup": 0.2
+      },
+      "lends": {
+        "max": 200,
+        "rate": 0.1,
+        "days": 30
+      },
+      "knows": [
+        [
+          "f_every_memory_burned_in_a",
+          "known",
+          1
+        ],
+        [
+          "f_starlight_moss_can_be_us",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "debt",
+          "creditor": "npc_soren",
+          "amount": 800,
+          "due_month": 6,
+          "seize_to": "npc_soren",
+          "ruin_text": "Nalyn was ruined by an unpaid debt."
+        }
+      ],
+      "abilities": [
+        "resonance_anchor"
+      ]
+    },
+    {
+      "id": "npc_tovar",
+      "name": "Tovar the Hollow",
+      "role": "healer",
+      "location": "l_cradle_of_the_unremember",
+      "schedule": {
+        "dawn": "l_cradle_of_the_unremember",
+        "morning": "l_cradle_of_the_unremember",
+        "afternoon": "l_cradle_of_the_unremember",
+        "evening": "l_the_forgotten_trench",
+        "night": "l_cradle_of_the_unremember"
+      },
+      "attributes": {
+        "memint": 3,
+        "forgetrate": 3,
+        "gravitytilt": 3,
+        "resonancesen": 3,
+        "mobility": 3,
+        "crystalaffin": 3
+      },
+      "skills": {
+        "memory_healing": 4,
+        "forget_rate_control": 4
+      },
+      "traits": [
+        "gentle",
+        "compassionate",
+        "naturally attuned"
+      ],
+      "persona": "A man with no visible memory of his past, yet he heals others with a quiet power.",
+      "money": 180,
+      "inventory": {
+        "starlight_moss": 8
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To help those who have lost everything, so that even their absence can be felt again…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_cradle_guild",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "starlight_moss"
+        ],
+        "buys": [
+          "forgotten_moonstone",
+          "memory_fuel_amber",
+          "starlight_moss"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "starlight_moss",
+          "qty": 2,
+          "source": "Tovar the Hollow's work"
+        }
+      ],
+      "healing": {
+        "price": 4
+      },
+      "knows": [
+        [
+          "f_the_cradle_of_the_unreme",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "requests": [
+        {
+          "id": "req_bring_forgotten_moon",
+          "title": "Bring forgotten moonstone to the Spire of Stilless…",
+          "text": "The Spire needs a forgotten moonstone to recalibrate the stillness chamber. It’s a rare item — only a few exist.",
+          "objective": {
+            "type": "deliver",
+            "item": "forgotten_moonstone",
+            "qty": 1,
+            "to": "npc_soren"
+          },
+          "reward": 10,
+          "days": 3,
+          "rel": 12
+        }
+      ],
+      "abilities": [
+        "gravity_shift_test"
+      ]
+    },
+    {
+      "id": "npc_soren",
+      "name": "Soren Mire",
+      "role": "teacher",
+      "location": "l_the_spire_of_stillness",
+      "schedule": {
+        "dawn": "l_the_spire_of_stillness",
+        "morning": "l_the_spire_of_stillness",
+        "afternoon": "l_the_spire_of_stillness",
+        "evening": "l_the_spire_of_stillness",
+        "night": "l_the_spire_of_stillness"
+      },
+      "attributes": {
+        "memint": 3,
+        "forgetrate": 3,
+        "gravitytilt": 3,
+        "resonancesen": 3,
+        "mobility": 3,
+        "crystalaffin": 3
+      },
+      "skills": {
+        "resonance_sensing": 5,
+        "memory_stealing": 2
+      },
+      "traits": [
+        "patient",
+        "detailed",
+        "meticulous"
+      ],
+      "persona": "A scholar who teaches memory writing and resonance reading. His voice is calm, like a slow river.",
+      "money": 180,
+      "inventory": {
+        "memory_parchment": 8
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To teach people how to write memories that don't require fuel, so that they can live in…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_echo_scribes",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "memory_parchment"
+        ],
+        "buys": [
+          "memory_fuel_amber",
+          "memory_parchment"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "memory_parchment",
+          "qty": 12,
+          "source": "Soren Mire's work"
+        }
+      ],
+      "teaches": [
+        [
+          "resonance_sensing",
+          4,
+          3
+        ]
+      ],
+      "knows": [
+        [
+          "f_the_vault_of_the_remembe",
+          "rumor",
+          0.6
+        ],
+        [
+          "f_the_cradle_of_the_unreme",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "abilities": [
+        "gravity_shift_test"
+      ]
+    },
+    {
+      "id": "npc_veyra",
+      "name": "Veyra of the Hollow",
+      "role": "host",
+      "location": "l_hollow_pit",
+      "schedule": {
+        "dawn": "l_hollow_pit",
+        "morning": "l_hollow_pit",
+        "afternoon": "l_hollow_pit",
+        "evening": "l_hollow_pit",
+        "night": "l_hollow_pit"
+      },
+      "attributes": {
+        "memint": 3,
+        "forgetrate": 3,
+        "gravitytilt": 3,
+        "resonancesen": 3,
+        "mobility": 3,
+        "crystalaffin": 3
+      },
+      "skills": {
+        "resonance_sensing": 3,
+        "memory_stealing": 1
+      },
+      "traits": [
+        "warm",
+        "organized",
+        "attentive"
+      ],
+      "persona": "A woman who runs the Hollow Pit lodging with a smile that never fades.",
+      "money": 180,
+      "inventory": {
+        "food_grain_millet": 50,
+        "memory_shield_laminate": 2,
+        "memory_fuel_amber": 20
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To offer safe, quiet places for those who have forgotten much, so they can begin to re…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_cradle_guild",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "food_grain_millet",
+          "memory_shield_laminate",
+          "memory_fuel_amber"
+        ],
+        "buys": [
+          "forgotten_moonstone",
+          "resonance_gear_torch",
+          "food_grain_millet",
+          "memory_shield_laminate"
+        ],
+        "markup": 0.2
+      },
+      "job": {
+        "title": "host's assistant",
+        "wage": 4,
+        "location": "l_hollow_pit",
+        "minutes": 480,
+        "skill": "resonance_sensing"
+      },
+      "lodging": {
+        "price": 3
+      },
+      "production": [
+        {
+          "type": "memory_fuel_amber",
+          "qty": 3,
+          "source": "supplies from beyond the region"
+        }
+      ],
+      "knows": [
+        [
+          "f_the_starlight_moss_grows",
+          "rumor",
+          0.6
+        ],
+        [
+          "f_starlight_moss_can_be_us",
+          "rumor",
+          0.6
+        ]
+      ],
+      "requests": [
+        {
+          "id": "req_bring_a_resonance_bu",
+          "title": "Bring a resonance burner to the Shattered Bench…",
+          "text": "Orin Serr is having trouble with gravity shackles. We need a resonance burner to stabilize his tools during repair work.",
+          "objective": {
+            "type": "deliver",
+            "item": "resonance_burner",
+            "qty": 1,
+            "to": "npc_orin"
+          },
+          "reward": 3,
+          "days": 2,
+          "rel": 12
+        }
+      ],
+      "abilities": [
+        "burn_memory_to_move"
+      ]
+    },
+    {
+      "id": "npc_rex",
+      "name": "Rex the Burner",
+      "role": "craftsman",
+      "location": "l_vault_of_the_remembered",
+      "schedule": {
+        "dawn": "l_vault_of_the_remembered",
+        "morning": "l_vault_of_the_remembered",
+        "afternoon": "l_vault_of_the_remembered",
+        "evening": "l_vault_of_the_remembered",
+        "night": "l_vault_of_the_remembered"
+      },
+      "attributes": {
+        "memint": 4,
+        "forgetrate": 4,
+        "gravitytilt": 4,
+        "resonancesen": 4,
+        "mobility": 4,
+        "crystalaffin": 4
+      },
+      "skills": {
+        "gravity_engineering": 4,
+        "crystal_affinity": 3
+      },
+      "traits": [
+        "driven",
+        "hot-tempered",
+        "prone to accidents"
+      ],
+      "persona": "A man who wears a cracked resonance burner core around his neck.",
+      "money": 180,
+      "inventory": {
+        "resonance_burner": 8
+      },
+      "goals": [
+        {
+          "id": "goal",
+          "text": "To build gravity engines that burn memory fuel more efficiently — even if it means using…"
+        }
+      ],
+      "factions": [
+        [
+          "fac_the_hollow_engineers",
+          "member"
+        ]
+      ],
+      "shop": {
+        "sells": [
+          "resonance_burner"
+        ],
+        "buys": [
+          "memory_fuel_amber",
+          "forgotten_moonstone",
+          "resonance_burner"
+        ],
+        "markup": 0.2
+      },
+      "production": [
+        {
+          "type": "resonance_burner",
+          "qty": 10,
+          "source": "Rex the Burner's work"
+        }
+      ],
+      "job": {
+        "title": "craftsman's assistant",
+        "wage": 4,
+        "location": "l_vault_of_the_remembered",
+        "minutes": 480,
+        "skill": "gravity_engineering"
+      },
+      "knows": [
+        [
+          "f_the_vault_of_the_remembe",
+          "rumor",
+          0.6
+        ]
+      ],
+      "agendas": [
+        {
+          "type": "adopt_innovations",
+          "chance": 0.08
+        }
+      ],
+      "abilities": [
+        "burn_memory_to_move"
+      ]
+    }
+  ],
+  "npc_relationships": [],
+  "hidden_stores": [
+    {
+      "id": "store_npc_elira",
+      "location_id": "l_hollow_pit",
+      "owner": "npc_elira",
+      "name": "Elira Vos's hidden store",
+      "items": {
+        "forgotten_amber": 10,
+        "memory_fuel_amber": 10
+      },
+      "watchers": [
+        "npc_elira",
+        "npc_mara"
+      ]
+    }
+  ],
+  "secrets_at": [],
+  "backgrounds": [
+    {
+      "id": "bg_memory_courier_first",
+      "name": "Memory-Courier (First Match)",
+      "description": "You are a memory-courier who has sold a childhood summer — the sound of a creek, the smell of pine needles…",
+      "attributes": {
+        "resonancesen": 1,
+        "mobility": 1
+      },
+      "skills": {
+        "memory_bargaining": 1,
+        "crystal_affinity": 1
+      },
+      "items": {
+        "memory_fuel_amber": 1,
+        "resonance_gear_torch": 1,
+        "gravity_crank_handle": 1,
+        "food_grain_millet": 2
+      },
+      "money": 10
+    },
+    {
+      "id": "bg_farmer_of_echoes",
+      "name": "Farmer of Echoes",
+      "description": "You grow food in the Grove of Echoes, using memory-based protection to shield crops from gravity shifts.",
+      "attributes": {
+        "forgetrate": 1,
+        "resonancesen": 1
+      },
+      "skills": {
+        "gravity_tuning": 2,
+        "crystal_affinity": 1
+      },
+      "items": {
+        "food_grain_millet": 3,
+        "memory_shield_laminate": 1,
+        "gravity_crank_handle": 1
+      },
+      "money": 5
+    },
+    {
+      "id": "bg_healer_of_the_still",
+      "name": "Healer of the Still",
+      "description": "You work at the Spire of Stillness, using memory resonance to stabilize the emotional state of those who have…",
+      "attributes": {
+        "resonancesen": 2
+      },
+      "skills": {
+        "resonance_sensing": 2,
+        "gravity_tuning": 1
+      },
+      "items": {
+        "resonance_hammer": 1,
+        "memory_parchment": 1,
+        "forgotten_moonstone": 1,
+        "food_grain_millet": 2
+      },
+      "money": 8
+    }
+  ],
+  "start": {
+    "location": "l_grove_of_echoes",
+    "known_facts": []
+  },
+  "rules": [
+    {
+      "id": "burn_memory_to_move",
+      "name": "Burn Memory to Move",
+      "kind": "ability",
+      "summary": "You can burn a memory fuel amber to instantly travel to a known settlement, reducing travel time from 3 days to 1 day.",
+      "skill": "memory_bargaining",
+      "difficulty": "moderate",
+      "minutes": 5,
+      "requires": {
+        "capability": false,
+        "skill_min": 1
+      },
+      "costs": {
+        "items": [
+          {
+            "item": "memory_fuel_amber",
+            "qty": 1
+          }
+        ],
+        "fatigue": 2
+      },
+      "effects": {
+        "success": [
+          {
+            "type": "travel",
+            "speed": 0.4
+          }
+        ],
+        "failure": [
+          {
+            "type": "harm_self",
+            "amount": 1
+          }
+        ]
+      },
+      "learn": {
+        "hours": 12,
+        "teachers": [
+          "npc_elira",
+          "npc_rex",
+          "npc_veyra"
+        ]
+      },
+      "keywords": [
+        "burn",
+        "memory",
+        "move"
+      ]
+    },
+    {
+      "id": "resonance_anchor",
+      "name": "Resonance Anchor",
+      "kind": "ability",
+      "summary": "Place a crystal gear pendant near a memory source (e.g. a person's mind) to strengthen the memory’s clarity and durability. Use once per day.",
+      "skill": "crystal_affinity",
+      "difficulty": "easy",
+      "minutes": 5,
+      "requires": {
+        "capability": false,
+        "skill_min": 0
+      },
+      "costs": {
+        "items": [
+          {
+            "item": "crystal_gear_pendant",
+            "qty": 1
+          }
+        ],
+        "fatigue": 1
+      },
+      "effects": {
+        "success": [
+          {
+            "type": "produce",
+            "item": "memory_parchment",
+            "qty": 1
+          }
+        ],
+        "failure": [
+          {
+            "type": "fatigue",
+            "amount": 1
+          }
+        ]
+      },
+      "learn": {
+        "hours": 8,
+        "teachers": [
+          "npc_mara",
+          "npc_kaelen",
+          "npc_nalyn"
+        ]
+      },
+      "keywords": [
+        "resonance",
+        "anchor"
+      ]
+    },
+    {
+      "id": "gravity_shift_test",
+      "name": "Gravity Shift Test",
+      "kind": "ability",
+      "summary": "Use a gravity crank handle to test the local gravity flow. If the memory in your mind is strong enough, you can detect hidden memory leaks or unstable…",
+      "skill": "gravity_tuning",
+      "difficulty": "hard",
+      "minutes": 10,
+      "requires": {
+        "capability": false,
+        "skill_min": 3
+      },
+      "costs": {
+        "items": [
+          {
+            "item": "gravity_crank_handle",
+            "qty": 1
+          }
+        ],
+        "fatigue": 3
+      },
+      "effects": {
+        "success": [
+          {
+            "type": "note",
+            "text": "You detect a memory leak near the Spire — a forgotten memory is leaking into the gravity field."
+          }
+        ],
+        "failure": [
+          {
+            "type": "harm_self",
+            "amount": 1
+          }
+        ]
+      },
+      "learn": {
+        "hours": 20,
+        "teachers": [
+          "npc_orin",
+          "npc_tovar",
+          "npc_soren"
+        ]
+      },
+      "keywords": [
+        "gravity",
+        "shift",
+        "test"
+      ]
+    }
+  ],
+  "contradictions_resolved": []
+}

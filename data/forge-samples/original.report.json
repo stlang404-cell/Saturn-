@@ -1,0 +1,55 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1955,
+  "timings": {
+    "core": {
+      "ms": 138300,
+      "tokens": 1090
+    },
+    "skills": {
+      "ms": 162980,
+      "tokens": 1246
+    },
+    "roles": {
+      "ms": 22976,
+      "tokens": 157
+    },
+    "places": {
+      "ms": 166308,
+      "tokens": 1251
+    },
+    "items": {
+      "ms": 255306,
+      "tokens": 1841
+    },
+    "people": {
+      "ms": 577148,
+      "tokens": 3400
+    },
+    "story": {
+      "ms": 377705,
+      "tokens": 2304
+    }
+  },
+  "report": {
+    "repairs": [
+      "dropped connection from The Spire of Stillness to unknown place \"The Hollow Grove\"",
+      "recipe \"Grain from Moss\" needed \"resonance fuel\", which did not exist; created it as a traded material",
+      "recipe \"Resonance Torch from Parchment\" needed \"millet grains\", which did not exist; created it as a traded material",
+      "recipe \"Resonance Hammer from Iron\" needed \"iron rod\", which did not exist; created it as a traded material",
+      "resonant crystal base had no seller; Elira Vos now sells it",
+      "amber memory fuel had no source; Veyra of the Hollow now receives a steady supply",
+      "crystal burner core had no source; Elira Vos now receives a steady supply",
+      "memory sand had no source; Elira Vos now receives a steady supply",
+      "memory sand had no seller; Elira Vos now sells it",
+      "resonance fuel had no source; Elira Vos now receives a steady supply",
+      "resonance fuel had no seller; Elira Vos now sells it",
+      "millet grains had no source; Elira Vos now receives a steady supply",
+      "millet grains had no seller; Elira Vos now sells it",
+      "iron rod had no source; Elira Vos now receives a steady supply",
+      "iron rod had no seller; Elira Vos now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}

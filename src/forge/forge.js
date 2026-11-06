@@ -34,6 +34,7 @@ export function coerceToSchema(schema, v) {
     let s = v.toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^[^a-z]+/, '').replace(/_+$/, '');
     const lettersOnly = /^\^\[a-z\]\{/.test(schema.pattern);
     if (lettersOnly) s = s.replace(/[^a-z]/g, '');
+    else if (!/0-9/.test(schema.pattern)) s = s.replace(/[0-9]+/g, '').replace(/_+/g, '_').replace(/_$/, '');
     const max = Number((schema.pattern.match(/,(\d+)\}\$$/) || [])[1]) || 30;
     s = s.slice(0, lettersOnly ? max : max + 1);
     if (s.length < 3) s = (s + 'xyz').slice(0, 3);

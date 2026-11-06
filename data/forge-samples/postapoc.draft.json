@@ -1,0 +1,1732 @@
+{
+  "description": "A post-apocalyptic survival world forty years after the collapse: no working governments, scavenger clans, water as currency, mutated wildlife, scraps of old technology. I start as a lone scavenger with a damaged water filter.",
+  "core": {
+    "name": "The Drought Expanse",
+    "tagline": "Water is life. Water is power. Water is everything.",
+    "premise": "Forty years after the Collapse, the world is a network of cracked earth, rusted steel, and choked rivers — where every drop of water is traded like gold, and survival depends on knowledge, grit, and the quiet desperation of the living.",
+    "tone": "Gritty, grounded, immersive, with a quiet melancholy and a t",
+    "intro": "You wake beneath a rusted overpass, the wind carrying the smell of rot and old oil. Your hands are raw from scrubbing the filter — a cracked, plastic casing with a leaky hose — and your chest aches with the weight of the day. The sky is dull gray, like a wound left open. A few miles away, the water tank at the old medical clinic leaks. Nearby, a woman in a torn raincoat is arguing with a child over a broken jug. You know what they're arguing about — the water in it. You don’t",
+    "contradictions_resolved": [],
+    "physics": [
+      "Gravity, friction, and thermodynamics function as in our world.",
+      "Water flows downhill, but scarcity makes movement dangerous — rivers are dry, lakes have evaporated or are buried under dust.",
+      "Scavenging is physically demanding: movement is slow, and every step costs energy.",
+      "Old technology fails due to corrosion, lack of power, or moisture damage — no functional batteries or generators exist.",
+      "Water cannot be created or extracted from air — only collected, stored, or traded."
+    ],
+    "impossible": [
+      "Creating water from nothing.",
+      "Traveling through air without a water source.",
+      "Using technology that was designed to run on electricity or solar power — no re-"
+    ],
+    "common_knowledge": [
+      "Water is the only universally accepted currency. If you don’t have water, you are invisible.",
+      "The old world’s technology was overhyped — it didn’t last. A radio that once broadcast news now just hums, dead.",
+      "Mutated animals are dangerous — not because they’re smarter, but because they’re unpredictable, often aggressive, and sometimes carry diseases that spread by sc"
+    ],
+    "magic": {
+      "exists": false,
+      "summary": "No magic. Only adaptation. The world has no supernatural elements. What you see is what you get — mutations are biological, not mystical."
+    },
+    "technology": {
+      "level": "post-industrial decay",
+      "summary": "Technology exists in fragments — rusted vehicles, broken radios, solar panels that still catch light but fail to charge. Most electronics are dead. Some mechanical systems (like pumps or filters) are still functional if maintained, but only"
+    },
+    "currency": {
+      "name": "drops",
+      "plural": "drops",
+      "medium": "water measured in milliliters (mL) or standard units (1 drop = 0.05 mL, 1 standard unit = 50 mL, a '"
+    },
+    "attributes": [
+      {
+        "id": "hunger",
+        "label": "hunger",
+        "info": "The body's need for food. Without food, you lose strength, and eventually, you'd"
+      },
+      {
+        "id": "hydration",
+        "label": "hydration",
+        "info": "Your current water level. If below 30%, you risk dehydration and collapse. If at"
+      },
+      {
+        "id": "endurance",
+        "label": "endurance",
+        "info": "How long you can walk or work before tiring. High endurance allows longer trips,"
+      },
+      {
+        "id": "alertness",
+        "label": "alertness",
+        "info": "How aware you are of your surroundings. Low alertness means you miss threats or"
+      },
+      {
+        "id": "scavengingsk",
+        "label": "scavenging_skill",
+        "info": "Your ability to find, repair, and extract usable parts from old tech. Higher val"
+      },
+      {
+        "id": "socialmaster",
+        "label": "social_mastery",
+        "info": "Your ability to negotiate, avoid conflict, or build trust with others. This is k"
+      }
+    ],
+    "calendar": {
+      "era": "Post-Collapse Era (PCE)",
+      "months": [
+        "Dust March",
+        "Ashen April",
+        "Rust May",
+        "Grit June",
+        "Scorch July",
+        "Drought August",
+        "Frost September",
+        "Bone October",
+        "Crack November",
+        "Waste December",
+        "Rust January",
+        "Hollow February"
+      ],
+      "weekdays": [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Rust Gulch",
+        "kind": "scavenger camp",
+        "description": "A cluster of half-buried vehicles, a rusted water tower, and a crumbling clinic. Water is traded in buckets. A few elders live in the clinic",
+        "population": 50
+      },
+      {
+        "name": "Ash Hollow",
+        "kind": "refuge settlement",
+        "description": "Built in the hollow of a collapsed city. Walls are made of concrete and rebar. Water is stored in sealed tanks. People here are more settled",
+        "population": 50
+      },
+      {
+        "name": "The Bone Ridge",
+        "kind": "wilderness outpost",
+        "description": "A high plateau with dry riverbeds. No permanent water, but a few people collect rainwater from old rooftop catchers. It's dangerous, but the",
+        "population": 50
+      }
+    ],
+    "player": {
+      "background": "You are a lone scavenger with a damaged,",
+      "description": "You start with a cracked water filter, no tools, no allies, and only a few drops of water in your canteen. You’ve survived three weeks on scavenged parts and memories. Your body is tired, your hands c",
+      "wealth": "destitute"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "hydratation_intuition",
+        "label": "Hydration Intuition",
+        "attr": "hydration",
+        "group": "social",
+        "desc": "The ability to sense subtle shifts in water availability — detecting d",
+        "trained": true,
+        "keywords": [
+          "drought signs",
+          "dry soil",
+          "cracks in earth that"
+        ]
+      },
+      {
+        "id": "water_tracking",
+        "label": "Water Tracking",
+        "attr": "alertness",
+        "group": "social",
+        "desc": "The ability to follow traces of water — like rusted metal, moss, or cr",
+        "trained": true,
+        "keywords": [
+          "water trails",
+          "mud patterns",
+          "wet stone marks"
+        ]
+      },
+      {
+        "id": "scavenging_sense",
+        "label": "Scavenging Sense",
+        "attr": "scavengingsk",
+        "group": "physical",
+        "desc": "A heightened awareness of what is near, usable, and valuable in the",
+        "trained": true,
+        "keywords": [
+          "what's left",
+          "old metal",
+          "dust patterns"
+        ]
+      },
+      {
+        "id": "silent_movement",
+        "label": "Silent Movement",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Moving through cracked terrain without making sound — essential for a",
+        "trained": true,
+        "keywords": [
+          "step light",
+          "no noise",
+          "move like dust"
+        ]
+      },
+      {
+        "id": "drip_sense",
+        "label": "Drip Sense",
+        "attr": "alertness",
+        "group": "social",
+        "desc": "Detecting the faintest sound of water — like a leak, a drip, or a dist",
+        "trained": true,
+        "keywords": [
+          "drip",
+          "gurgle",
+          "liquid movement"
+        ]
+      },
+      {
+        "id": "rusted_mechanics",
+        "label": "Rusted Mechanics",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Understanding how old machines work — even when corroded — to fix, r",
+        "trained": true,
+        "keywords": [
+          "how rust breaks",
+          "pump gears",
+          "cylinder movement"
+        ]
+      },
+      {
+        "id": "barter_barter",
+        "label": "Barter Bargaining",
+        "attr": "socialmaster",
+        "group": "social",
+        "desc": "Negotiating trade based on water, tools, food, or labor — knowing w",
+        "trained": true,
+        "keywords": [
+          "trade in drops",
+          "what's worth what",
+          "give and take"
+        ]
+      },
+      {
+        "id": "threat_sense",
+        "label": "Threat Sense",
+        "attr": "alertness",
+        "group": "social",
+        "desc": "Reading body language, tone, or hesitation to detect deception or ag",
+        "trained": true,
+        "keywords": [
+          "is he lying?",
+          "fear in eyes",
+          "tense jaw"
+        ]
+      },
+      {
+        "id": "water_scouting",
+        "label": "Water Scouting",
+        "attr": "alertness",
+        "group": "physical",
+        "desc": "Traveling long distances to find hidden water — often under dust or",
+        "trained": true,
+        "keywords": [
+          "look for wet spots",
+          "dig in sand",
+          "follow wind patterns"
+        ]
+      },
+      {
+        "id": "sneak_infiltration",
+        "label": "Sneak Infiltration",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Entering restricted zones — like abandoned water stations or guard",
+        "trained": true,
+        "keywords": [
+          "go unseen",
+          "pass through cracks",
+          "no one sees"
+        ]
+      },
+      {
+        "id": "craft_metal",
+        "label": "Craft Metal",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Shaping rusted scrap metal into tools, filters, or containers — from",
+        "trained": true,
+        "keywords": [
+          "hammer and wire",
+          "cut metal",
+          "bend pipe"
+        ]
+      },
+      {
+        "id": "outdoor_survival",
+        "label": "Outdoor Survival",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Staying alive in open, barren terrain — managing body heat, hydration",
+        "trained": true,
+        "keywords": [
+          "stay warm",
+          "drink when dry",
+          "avoid sun"
+        ]
+      },
+      {
+        "id": "water_trade_knowledge",
+        "label": "Water Trade Knowledge",
+        "attr": "socialmaster",
+        "group": "social",
+        "desc": "Understanding the network of water traders — who has what, where, an",
+        "trained": true,
+        "keywords": [
+          "who sells drops",
+          "where water flows",
+          "price per liter"
+        ]
+      },
+      {
+        "id": "dust_reading",
+        "label": "Dust Reading",
+        "attr": "alertness",
+        "group": "physical",
+        "desc": "Interpreting wind patterns and dust layers to predict water flow — s",
+        "trained": true,
+        "keywords": [
+          "dust movement",
+          "wind direction",
+          "how dust settles"
+        ]
+      },
+      {
+        "id": "rusted_pump_maintenance",
+        "label": "Rusted Pump Maintenance",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Repairing and operating old water pumps — manually turning gears, l",
+        "trained": true,
+        "keywords": [
+          "turn crank",
+          "clean gears",
+          "keep it moving"
+        ]
+      },
+      {
+        "id": "heal_dry_skin",
+        "label": "Heal Dry Skin",
+        "attr": "hydration",
+        "group": "physical",
+        "desc": "Applying natural remedies to prevent skin cracking — using clay, m",
+        "trained": true,
+        "keywords": [
+          "clay mix",
+          "moisture paste",
+          "soak skin"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "barter_barter",
+    "lie": "threat_sense",
+    "threaten": "threat_sense",
+    "haggle": "barter_barter",
+    "notice": "dust_reading",
+    "search": "water_tracking",
+    "steal": "sneak_infiltration",
+    "sneak": "silent_movement",
+    "fight": "threat_sense",
+    "labor": "rusted_mechanics",
+    "wilds": "outdoor_survival",
+    "heal": "heal_dry_skin",
+    "manage": "water_trade_knowledge",
+    "research": "drip_sense",
+    "invent": "craft_metal",
+    "craft": "craft_metal"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Rust Gulch Market",
+        "settlement": "Rust Gulch",
+        "kind": "market",
+        "tags": [
+          "market",
+          "public",
+          "ruin"
+        ],
+        "description": "A patch of cracked asphalt where old metal scraps and rusted barrels form a temporary trading floor. Water is sold in chipped ceramic buckets — each 1",
+        "connections": [
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 40,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 60,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Rust Gulch Clinic",
+        "settlement": "Rust Gulch",
+        "kind": "health",
+        "tags": [
+          "lodging",
+          "healing",
+          "lodging",
+          "public"
+        ],
+        "description": "A crumbling clinic built into the side of a rusted water tower. The walls are lined with dry plaster and salvaged glass. Elders live here — one runs a",
+        "connections": [
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 70,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Ash Hollow Water Tanks",
+        "settlement": "Ash Hollow",
+        "kind": "lodging+food",
+        "tags": [
+          "lodging",
+          "food",
+          "public",
+          "ruin"
+        ],
+        "description": "A central chamber where sealed steel tanks hold the last of the stored water. Residents eat from shared rations — dry bread, boiled beans, and salted-",
+        "connections": [
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 40,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 80,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Bone Ridge Rain Catchers",
+        "settlement": "The Bone Ridge",
+        "kind": "wild",
+        "tags": [
+          "wild",
+          "work",
+          "public"
+        ],
+        "description": "A network of old rooftops and metal frames strung across the plateau. Rainwater is collected in rusted cisterns and stored in barrels. People gather, ",
+        "connections": [
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 60,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 70,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 80,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Ash Hollow Library",
+        "settlement": "Ash Hollow",
+        "kind": "learning",
+        "tags": [
+          "library",
+          "work",
+          "public"
+        ],
+        "description": "A converted subway tunnel with faded maps, old blueprints, and mechanical schematics. Water is used only for cleaning. The walls are lined with dried,",
+        "connections": [
+          {
+            "to": "Ash Hollow Water Tanks",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 80,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Bone Ridge Water Filter Station",
+        "settlement": "The Bone Ridge",
+        "kind": "work",
+        "tags": [
+          "work",
+          "public",
+          "ruin"
+        ],
+        "description": "A repaired mechanical filter built from scavenged pumps and old pipes. It's the only place in the wilds where water is filtered — though only rain is",
+        "connections": [
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 60,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow Water Tanks",
+            "minutes": 80,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 5,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Rust Gulch Water Vault",
+        "settlement": "Rust Gulch",
+        "kind": "storage",
+        "tags": [
+          "lodging",
+          "food",
+          "public"
+        ],
+        "description": "A shallow underground chamber beneath a half-buried truck. Water is stored in sealed, cracked steel drums. It's a place where people sleep, store food",
+        "connections": [
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 3,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 40,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Ash Hollow Council Chamber",
+        "settlement": "Ash Hollow",
+        "kind": "government",
+        "tags": [
+          "government",
+          "public",
+          "ruin"
+        ],
+        "description": "A concrete hall with a cracked ceiling. A council of elders meets weekly to set water rations, resolve disputes, and decide who gets to trade with",
+        "connections": [
+          {
+            "to": "Ash Hollow Water Tanks",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 80,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Rust Gulch Night Bazaar",
+        "settlement": "Rust Gulch",
+        "kind": "seedy",
+        "tags": [
+          "lodging",
+          "public",
+          "ruin"
+        ],
+        "description": "A dark, narrow alley where people trade water for food, favors, or stolen goods. The air smells of rot and rust. No one knows who the real sellers are",
+        "connections": [
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Clinic",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 40,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Bone Ridge Watchtower",
+        "settlement": "The Bone Ridge",
+        "kind": "watch",
+        "tags": [
+          "work",
+          "public",
+          "ruin"
+        ],
+        "description": "A rusted steel platform built into a cliff edge. People take turns watching for dust storms, water leaks, or intruders. It's dangerous, but critical —",
+        "connections": [
+          {
+            "to": "Bone Ridge Rain Catchers",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Rust Gulch Market",
+            "minutes": 60,
+            "mode": "walk"
+          },
+          {
+            "to": "Ash Hollow",
+            "minutes": 80,
+            "mode": "walk"
+          }
+        ]
+      }
+    ],
+    "start": "Rust Gulch Market"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "water_bottle",
+        "name": "Dust-Cradled Water Bottle",
+        "category": "food",
+        "value": 150,
+        "weight": 0.2,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "water_scouting",
+        "description": "A small, hand-forged bottle made from reconstituted plastic and clay. "
+      },
+      {
+        "id": "desert_bread",
+        "name": "Sun-Dried Meal",
+        "category": "food",
+        "value": 200,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "dust_reading",
+        "description": "A thin, crusted loaf made from crushed dust-stored grains, baked in a "
+      },
+      {
+        "id": "reclaimed_rust_pipe",
+        "name": "Rust-Run Pipe",
+        "category": "treasure",
+        "value": 300,
+        "weight": 0.8,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "rusted_mechanics",
+        "description": "A section of corroded pipe salvaged from an old aqueduct. It can be re"
+      },
+      {
+        "id": "sand_cord",
+        "name": "Silent Sand Cord",
+        "category": "tool",
+        "value": 120,
+        "weight": 0.1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "silent_movement",
+        "description": "A thin, woven string of sand-bound fibers. Used to move quietly over d"
+      },
+      {
+        "id": "drip_siphon",
+        "name": "Drip-Siphon Tube",
+        "category": "tool",
+        "value": 400,
+        "weight": 0.4,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "drip_sense",
+        "description": "A hand-crafted tube made from cured plant fibers and thin metal. Used"
+      },
+      {
+        "id": "dry_bark_suit",
+        "name": "Bark & Mud Coat",
+        "category": "armor",
+        "value": 250,
+        "weight": 1.5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "outdoor_survival",
+        "description": "A protective garment woven from dried desert bark and mud, worn to"
+      },
+      {
+        "id": "rust_breath_mask",
+        "name": "Rust-Breath Mask",
+        "category": "armor",
+        "value": 350,
+        "weight": 0.6,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "threat_sense",
+        "description": "A mask made from welded metal mesh and woven plant fibers, designed to"
+      },
+      {
+        "id": "dust_metal_cage",
+        "name": "Dust Metal Cage",
+        "category": "treasure",
+        "value": 800,
+        "weight": 1.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "rusted_pump_maintenance",
+        "description": "A small, rusted metal cage used to store purified water. Found in se"
+      },
+      {
+        "id": "old_solar_panel",
+        "name": "Faded Solar Panel",
+        "category": "tool",
+        "value": 180,
+        "weight": 0.5,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "water_scouting",
+        "description": "A cracked solar panel from an old water station. It catches light bu"
+      },
+      {
+        "id": "water_filter_plate",
+        "name": "Ceramic Filter Plate",
+        "category": "tool",
+        "value": 220,
+        "weight": 0.3,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "water_tracking",
+        "description": "A thin ceramic disc that filters grit from water when pressed with h"
+      },
+      {
+        "id": "scavenger_satchel",
+        "name": "Scavenger Satchel",
+        "category": "tool",
+        "value": 100,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "scavenging_sense",
+        "description": "A worn leather sack with sand-sealed compartments. Used to carry sc"
+      },
+      {
+        "id": "dry_thorn_spear",
+        "name": "Dry Thorn Spear",
+        "category": "weapon",
+        "value": 300,
+        "weight": 0.8,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "threat_sense",
+        "description": "A spear forged from sharpened thorns and bundled into a wooden shaft. "
+      },
+      {
+        "id": "dust_pump_handle",
+        "name": "Dust Pump Handle",
+        "category": "tool",
+        "value": 450,
+        "weight": 0.7,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "rusted_pump_maintenance",
+        "description": "A handle salvaged from a buried water pump. Used to manually turn a"
+      },
+      {
+        "id": "cracked_water_tank",
+        "name": "Cracked Water Tank",
+        "category": "treasure",
+        "value": 1000,
+        "weight": 2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "water_trade_knowledge",
+        "description": "A large, fractured water tank found in a dried-up riverbed. Can hold"
+      },
+      {
+        "id": "desert_worm_cradle",
+        "name": "Desert Worm Cradle",
+        "category": "tool",
+        "value": 500,
+        "weight": 0.6,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "water_tracking",
+        "description": "A small container used to hold and monitor moisture from deep sand d"
+      },
+      {
+        "id": "desert_ore_chunk",
+        "name": "Desert Ore Chunk",
+        "category": "treasure",
+        "value": 900,
+        "weight": 0.9,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "rusted_mechanics",
+        "description": "A piece of rusted metal ore from a buried mine. Contains trace metals"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "desert_bread",
+        "skill": "dust_reading",
+        "inputs": [
+          {
+            "item": "dust_metal_cage",
+            "qty": 1
+          },
+          {
+            "item": "cracked_water_tank",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "desert_bread",
+            "qty": 1
+          }
+        ],
+        "minutes": 40
+      },
+      {
+        "name": "drip_siphon",
+        "skill": "drip_sense",
+        "inputs": [
+          {
+            "item": "sand_cord",
+            "qty": 1
+          },
+          {
+            "item": "dry_thorn_spear",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "drip_siphon",
+            "qty": 1
+          }
+        ],
+        "minutes": 30
+      },
+      {
+        "name": "rusted_breath_mask",
+        "skill": "threat_sense",
+        "inputs": [
+          {
+            "item": "old_solar_panel",
+            "qty": 1
+          },
+          {
+            "item": "sand_cord",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "rust_breath_mask",
+            "qty": 1
+          }
+        ],
+        "minutes": 25
+      },
+      {
+        "name": "dry_bark_suit",
+        "skill": "outdoor_survival",
+        "inputs": [
+          {
+            "item": "desert_ore_chunk",
+            "qty": 1
+          },
+          {
+            "item": "sand_cord",
+            "qty": 2
+          }
+        ],
+        "outputs": [
+          {
+            "item": "dry_bark_suit",
+            "qty": 1
+          }
+        ],
+        "minutes": 60
+      },
+      {
+        "name": "dust_metal_cage",
+        "skill": "rusted_pump_maintenance",
+        "inputs": [
+          {
+            "item": "reclaimed_rust_pipe",
+            "qty": 2
+          },
+          {
+            "item": "cracked_water_tank",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "dust_metal_cage",
+            "qty": 1
+          }
+        ],
+        "minutes": 75
+      },
+      {
+        "name": "water_filter_plate",
+        "skill": "water_tracking",
+        "inputs": [
+          {
+            "item": "sand_cord",
+            "qty": 1
+          },
+          {
+            "item": "dust_metal_cage",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "water_filter_plate",
+            "qty": 1
+          }
+        ],
+        "minutes": 20
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Drip Guild",
+        "description": "A network of water-scarce engineers and mechanics who specialize in restoring and maintaining broken water systems. They",
+        "governs": "Rust Gulch"
+      },
+      {
+        "name": "Ash Hollow Accord",
+        "description": "A coalition of elders and rationing officials who govern water distribution in the dried-out valley. They enforce strict",
+        "governs": "Ash Hollow"
+      },
+      {
+        "name": "Bone Ridge Watch",
+        "description": "A vigilance group formed from former military and patrol crews. They guard the riverbeds and the water catchers, pat",
+        "governs": "Rust Gulch"
+      },
+      {
+        "name": "The Sand Cords",
+        "description": "A loose, nomadic group of traders and scavengers who move between ruins, bartering for water and survival. They hav",
+        "governs": "Rust Gulch"
+      },
+      {
+        "name": "The Vault Keepers",
+        "description": "A secretive order that manages the water vaults beneath Rust Gulch, maintaining strict access rules and guarding",
+        "governs": "Rust Gulch"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Kaelen Rook",
+        "role": "merchant",
+        "location": "Rust Gulch Market",
+        "faction": "The Drip Guild",
+        "traits": [
+          "pragmatic",
+          "tired",
+          "wears a patched rain"
+        ],
+        "persona": "Kaelen speaks slowly, with a dry chuckle. He knows every pipe in the market, and often fixes a siphon mid-sell",
+        "goal": "Ensure the Drip Guild can maintain its water filters by trading dried thorn spear tips for",
+        "skills": [
+          {
+            "skill": "water_scouting",
+            "rank": 3
+          },
+          {
+            "skill": "scavenging_sense",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "drip_siphon",
+          "reclaimed_rust_pipe"
+        ],
+        "buys": [
+          "desert_ore_chunk",
+          "dry_thorn_spear"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Mara Dune",
+        "role": "healer",
+        "location": "Rust Gulch Clinic",
+        "faction": "None",
+        "traits": [
+          "quiet",
+          "observant",
+          "wears a dry bark-she"
+        ],
+        "persona": "Mara listens as patients describe their symptoms. She knows when someone is dehydrated before they speak",
+        "goal": "Keep the clinic running by restoring water balance in bodies and minds",
+        "skills": [
+          {
+            "skill": "heal_dry_skin",
+            "rank": 5
+          },
+          {
+            "skill": "dust_reading",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "desert_bread",
+          "dry_bark_suit"
+        ],
+        "buys": [
+          "water_bottle",
+          "dust_metal_cage"
+        ],
+        "produces": [
+          "desert_bread"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Orin Tarn",
+        "role": "craftsman",
+        "location": "Bone Ridge Water Filter Station",
+        "faction": "The Drip Guild",
+        "traits": [
+          "methodical",
+          "cynical",
+          "frequent smoker of a"
+        ],
+        "persona": "Orin spends hours cleaning filter plates, often muttering about how the water tastes like rust and dust",
+        "goal": "Build a working filter system that can extract moisture from dust storms",
+        "skills": [
+          {
+            "skill": "water_scouting",
+            "rank": 4
+          },
+          {
+            "skill": "water_tracking",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "water_filter_plate"
+        ],
+        "buys": [
+          "old_solar_panel",
+          "desert_ore_chunk"
+        ],
+        "produces": [
+          "water_filter_plate"
+        ],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Lysa Vane",
+        "role": "teacher",
+        "location": "Ash Hollow Library",
+        "faction": "Ash Hollow Accord",
+        "traits": [
+          "calm",
+          "detailed",
+          "wears a rusted book"
+        ],
+        "persona": "Lysa teaches young scavengers how to read old water reports, map flow patterns, and track weather shifts",
+        "goal": "Teach the next generation to predict water movements before they dry up",
+        "skills": [
+          {
+            "skill": "water_tracking",
+            "rank": 5
+          },
+          {
+            "skill": "scavenging_sense",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "desert_bread",
+          "dry_thorn_spear"
+        ],
+        "buys": [
+          "water_bottle",
+          "sand_cord"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dagor Kell",
+        "role": "guard",
+        "location": "Bone Ridge Watchtower",
+        "faction": "Bone Ridge Watch",
+        "traits": [
+          "hard",
+          "no-nonsense",
+          "carries a dust pump"
+        ],
+        "persona": "Dagor doesn’t speak much. He stands at the tower’s edge and watches the horizon — if the wind shifts, he knows",
+        "goal": "Prevent unauthorized access to Bone Ridge’s catchers and ensure water is not stolen",
+        "skills": [
+          {
+            "skill": "dust_reading",
+            "rank": 5
+          },
+          {
+            "skill": "sneak_infiltration",
+            "rank": 4
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "water_bottle",
+          "sand_cord"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Tariq Bane",
+        "role": "lender",
+        "location": "Rust Gulch Market",
+        "faction": "The Sand Cords",
+        "traits": [
+          "gruff",
+          "unpredictable",
+          "has a satchel full"
+        ],
+        "persona": "Tariq lends water bottles on credit — only if the borrower promises to pay in food or ore",
+        "goal": "Survive by trading in water access, not just by hoarding",
+        "skills": [
+          {
+            "skill": "scavenging_sense",
+            "rank": 4
+          },
+          {
+            "skill": "barter_barter",
+            "rank": 5
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "desert_ore_chunk",
+          "dry_bark_suit"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": true,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Fen the Old",
+        "role": "host",
+        "location": "Rust Gulch Water Vault",
+        "faction": "The Vault Keepers",
+        "traits": [
+          "wise",
+          "silent",
+          "wears a cracked tank"
+        ],
+        "persona": "Fen speaks only when necessary. He knows the exact depth of every water layer and when the vaults will refill",
+        "goal": "Keep the vaults safe and accessible to those who need them most",
+        "skills": [
+          {
+            "skill": "water_tracking",
+            "rank": 5
+          },
+          {
+            "skill": "dust_reading",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "desert_bread",
+          "dry_bark_suit"
+        ],
+        "buys": [
+          "water_bottle",
+          "sand_cord"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": true
+      },
+      {
+        "name": "Brenna Hollow",
+        "role": "farmer",
+        "location": "Ash Hollow Water Tanks",
+        "faction": "Ash Hollow Accord",
+        "traits": [
+          "quiet",
+          "patient",
+          "grows things in clay"
+        ],
+        "persona": "Brenna uses cracked tanks to grow desert bread and thorn succulents in the dry soil",
+        "goal": "Grow enough food so the community doesn’t have to trade for water",
+        "skills": [
+          {
+            "skill": "water_scouting",
+            "rank": 3
+          },
+          {
+            "skill": "dust_reading",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "desert_bread",
+          "desert_ore_chunk"
+        ],
+        "buys": [
+          "water_bottle"
+        ],
+        "produces": [
+          "desert_bread",
+          "desert_ore_chunk"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Zorin Vale",
+        "role": "miner",
+        "location": "Bone Ridge Rain Catchers",
+        "faction": "Bone Ridge Watch",
+        "traits": [
+          "focused",
+          "hardworking",
+          "carries a dust pump"
+        ],
+        "persona": "Zorin digs deep into the ridgeline to find water-stained rock that can be filtered",
+        "goal": "Find a hidden aquifer beneath the ridge to refill the catchers",
+        "skills": [
+          {
+            "skill": "dust_reading",
+            "rank": 5
+          },
+          {
+            "skill": "scavenging_sense",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "desert_ore_chunk"
+        ],
+        "buys": [
+          "water_bottle"
+        ],
+        "produces": [
+          "desert_ore_chunk"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Elara Mire",
+        "role": "teacher",
+        "location": "Rust Gulch Market",
+        "faction": "The Drip Guild",
+        "traits": [
+          "observant",
+          "lively",
+          "teaches with hands"
+        ],
+        "persona": "Elara teaches children how to build siphons using scrap metal and sand cord",
+        "goal": "Pass on practical water knowledge to the next generation",
+        "skills": [
+          {
+            "skill": "water_tracking",
+            "rank": 4
+          },
+          {
+            "skill": "scavenging_sense",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "dry_thorn_spear",
+          "desert_bread"
+        ],
+        "buys": [
+          "sand_cord",
+          "water_bottle"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The old solar panels at Bone Ridge still catch the",
+        "content": "The old solar panels at Bone Ridge still catch the morning light and produce a faint hum — some say they generate a trickle of current when dust is brushed off. No one's ",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Orin Tarn",
+          "Zorin Vale",
+          "Fen the Old"
+        ],
+        "keepers": [
+          "Orin Tarn"
+        ],
+        "tags": [
+          "rumor",
+          "false"
+        ]
+      },
+      {
+        "subject": "Water from the Rain Catchers is not actually from",
+        "content": "Water from the Rain Catchers at Bone Ridge is not actually from rain — it comes from a forgotten underground reservoir, discovered after the Collapse. Rumor says it's fed",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Zorin Vale",
+          "Dagor Kell",
+          "Lysa Vane"
+        ],
+        "keepers": [
+          "Zorin Vale"
+        ],
+        "tags": [
+          "rumor",
+          "secret"
+        ]
+      },
+      {
+        "subject": "Mara Dune claims she can heal with just a drop of",
+        "content": "Mara Dune claims she can heal with just a drop of water — she says it’s from a rare mineral in the bones of desert worms. The clinic has no evidence, but patients report ",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Brenna Hollow",
+          "Tariq Bane",
+          "Mara Dune"
+        ],
+        "keepers": [
+          "Mara Dune"
+        ],
+        "tags": [
+          "rumor",
+          "false"
+        ]
+      },
+      {
+        "subject": "The Water Vault's ledger shows a debt of 15 drops",
+        "content": "Fen the Old has a ledger that shows a 15-drop debt to a person who never came to claim it — some say it's a test. Others say it's a trap to keep outsiders away.",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Tariq Bane",
+          "Kaelen Rook",
+          "Fen the Old"
+        ],
+        "keepers": [
+          "Fen the Old"
+        ],
+        "tags": [
+          "rumor",
+          "debt"
+        ]
+      },
+      {
+        "subject": "The drip siphon works only when pointed downhill",
+        "content": "A drip siphon can only function if it is pointed downhill — even with a small slope, it will fail if laid flat. This is known in every scavenger’s manual, but rarely put",
+        "secret_level": 1,
+        "true_fact": true,
+        "known_by": [
+          "Orin Tarn",
+          "Kaelen Rook",
+          "Lysa Vane"
+        ],
+        "keepers": [
+          "Orin Tarn"
+        ],
+        "tags": [
+          "public_knowledge",
+          "true"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Tariq Bane",
+        "kind": "stockpile",
+        "partner_or_rival": "Kaelen Rook",
+        "items": [
+          "water_bottle",
+          "desert_bread"
+        ],
+        "motive": "He bought 300 water bottles from Kaelen Rook last week, stored them in a sealed cage behind the market wall. He says he "
+      },
+      {
+        "who": "Orin Tarn",
+        "kind": "undercut",
+        "partner_or_rival": "Fen the Old",
+        "items": [
+          "water_filter_plate",
+          "drip_siphon"
+        ],
+        "motive": "Orin is selling filters at 50% of Fen’s price, claiming he can maintain them better — he’s undercutting the vault’s main"
+      },
+      {
+        "who": "Brenna Hollow",
+        "kind": "debt",
+        "partner_or_rival": "Mara Dune",
+        "items": [
+          "dry_thorn_spear"
+        ],
+        "motive": "Brenna owes Mara 30 drops for healing her daughter's cracked ribs — she hasn't paid, and the debt is marked in the Ash"
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Orin Tarn",
+        "title": "Deliver a dry-thorn spear to Bone Ridge Water Pump",
+        "text": "I need a dry-thorn spear delivered to the pump at Bone Ridge — it’s been damaged. The spear will help repair the old siphon. I’ll ",
+        "item": "dry_thorn_spear",
+        "qty": 1,
+        "deliver_to": "Dagor Kell",
+        "reward": 20,
+        "days": 3
+      },
+      {
+        "giver": "Fen the Old",
+        "title": "Fetch a cracked water tank for the Vault",
+        "text": "A cracked tank from Ash Hollow is needed to stabilize the old reservoir. It must be delivered by dawn. I’ll pay 10 drops for the",
+        "item": "cracked_water_tank",
+        "qty": 1,
+        "deliver_to": "Fen the Old",
+        "reward": 15,
+        "days": 2
+      },
+      {
+        "giver": "Lysa Vane",
+        "title": "Bring a scrap of reclaimed rust pipe to the clinic",
+        "text": "I need a piece of reclaimed rust pipe to help rebuild a broken drip siphon. It must be delivered by midday. I’ll pay 15 drops",
+        "item": "reclaimed_rust_pipe",
+        "qty": 1,
+        "deliver_to": "Mara Dune",
+        "reward": 10,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Drip Siphon Downhill Rule",
+        "kind": "ability",
+        "summary": "A siphon can only function if it's pointed downhill. If the scavenger tries to use a siphon on a flat surface or uphill, it fails immediately and the ",
+        "skill": "drip_sense",
+        "difficulty": "moderate",
+        "minutes": 5,
+        "must_be_learned": true,
+        "min_skill": 0,
+        "consumes": [],
+        "fatigue": 10,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "drip_siphon",
+            "amount": 1,
+            "text": "The siphon begins to draw water, a thin stream begins to flow."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "scavenger_satchel",
+            "amount": 5,
+            "text": "The siphon clicks and fails. The scavenger feels a sudden strain in their arms."
+          }
+        ],
+        "known_by": [
+          "Orin Tarn",
+          "Kaelen Rook"
+        ]
+      },
+      {
+        "name": "Filter Maintenance",
+        "kind": "ability",
+        "summary": "A water filter can only be used after being cleaned with dry thorn bark. Without it, it leaks and fails. Cleaning takes time and effort.",
+        "skill": "water_tracking",
+        "difficulty": "moderate",
+        "minutes": 10,
+        "must_be_learned": true,
+        "min_skill": 0,
+        "consumes": [
+          {
+            "item": "dry_thorn_spear",
+            "qty": 1
+          }
+        ],
+        "fatigue": 15,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "water_bottle",
+            "amount": 1,
+            "text": "The filter produces a clean drop of water. The scavenger now has one bottle of usable water."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "scavenger_satchel",
+            "amount": 10,
+            "text": "The filter leaks and rusts. The scavenger loses all water from the filter."
+          }
+        ],
+        "known_by": [
+          "Orin Tarn",
+          "Mara Dune"
+        ]
+      },
+      {
+        "name": "Dust Pump Handle Trade",
+        "kind": "technique",
+        "summary": "A dust pump handle can only be used if paired with a water bottle. It draws water from the ground, but only if the bottle is used as a seal. Without a",
+        "skill": "dust_reading",
+        "difficulty": "hard",
+        "minutes": 15,
+        "must_be_learned": true,
+        "min_skill": 0,
+        "consumes": [
+          {
+            "item": "water_bottle",
+            "qty": 1
+          },
+          {
+            "item": "dust_pump_handle",
+            "qty": 1
+          }
+        ],
+        "fatigue": 20,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "water_bottle",
+            "amount": 2,
+            "text": "The pump extracts a small stream. One full bottle is produced."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_self",
+            "item": "scavenger_satchel",
+            "amount": 1,
+            "text": "The pump collapses and the scavenger’s hand is scraped. One drop of water is lost."
+          }
+        ],
+        "known_by": [
+          "Zorin Vale",
+          "Dagor Kell"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Lone Scavenger (Damaged)",
+        "description": "You are a lone scavenger with a damaged, cracked water filter. You have no tools, no allies, and only a few s.",
+        "attribute_bonus": [
+          "endurance",
+          "alertness"
+        ],
+        "skills": [
+          {
+            "skill": "drip_sense",
+            "rank": 1
+          },
+          {
+            "skill": "water_tracking",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "cracked_water_tank",
+          "water_bottle",
+          "scavenger_satchel"
+        ],
+        "money": 0
+      },
+      {
+        "name": "Water Healer (Former)",
+        "description": "You once worked in a clinic and learned to use water to restore health. Now you travel with a cracked filter, ",
+        "attribute_bonus": [
+          "endurance",
+          "socialmaster"
+        ],
+        "skills": [
+          {
+            "skill": "water_tracking",
+            "rank": 2
+          },
+          {
+            "skill": "heal_dry_skin",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "water_bottle",
+          "dry_thorn_spear",
+          "reclaimed_rust_pipe"
+        ],
+        "money": 10
+      },
+      {
+        "name": "Filter Rebuilder (Ex-Craftsman)",
+        "description": "You once repaired water filters for Orin Tarn. You know the proper techniques. You carry a broken filter and a",
+        "attribute_bonus": [
+          "endurance",
+          "socialmaster"
+        ],
+        "skills": [
+          {
+            "skill": "water_tracking",
+            "rank": 2
+          },
+          {
+            "skill": "dust_reading",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "reclaimed_rust_pipe",
+          "water_filter_plate",
+          "dry_thorn_spear"
+        ],
+        "money": 25
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 162661,
+      "tokens": 1236
+    },
+    "skills": {
+      "ms": 152687,
+      "tokens": 1186
+    },
+    "roles": {
+      "ms": 22185,
+      "tokens": 151
+    },
+    "places": {
+      "ms": 209352,
+      "tokens": 1522
+    },
+    "items": {
+      "ms": 360669,
+      "tokens": 2400
+    },
+    "people": {
+      "ms": 341216,
+      "tokens": 2249
+    },
+    "story": {
+      "ms": 379685,
+      "tokens": 2300
+    }
+  }
+}

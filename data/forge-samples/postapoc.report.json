@@ -1,0 +1,49 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1629,
+  "timings": {
+    "core": {
+      "ms": 162661,
+      "tokens": 1236
+    },
+    "skills": {
+      "ms": 152687,
+      "tokens": 1186
+    },
+    "roles": {
+      "ms": 22185,
+      "tokens": 151
+    },
+    "places": {
+      "ms": 209352,
+      "tokens": 1522
+    },
+    "items": {
+      "ms": 360669,
+      "tokens": 2400
+    },
+    "people": {
+      "ms": 341216,
+      "tokens": 2249
+    },
+    "story": {
+      "ms": 379685,
+      "tokens": 2300
+    }
+  },
+  "report": {
+    "repairs": [
+      "prices rescaled by 1/75 so everyday food costs about 2 drops",
+      "rust-run pipe had no source; Kaelen Rook now receives a steady supply",
+      "dust metal cage had no seller; Kaelen Rook now sells it",
+      "faded solar panel had no source; Kaelen Rook now receives a steady supply",
+      "faded solar panel had no seller; Kaelen Rook now sells it",
+      "dust pump handle had no source; Kaelen Rook now receives a steady supply",
+      "dust pump handle had no seller; Kaelen Rook now sells it",
+      "cracked water tank had no source; Kaelen Rook now receives a steady supply",
+      "cracked water tank had no seller; Kaelen Rook now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}

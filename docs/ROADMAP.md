@@ -11,6 +11,33 @@ Milestones from the directive, with where SATURN stands. See `docs/STATUS.md` fo
 | M4 Living economy | Partly done: trade, businesses, production, loans, investment. Not yet: property purchase, auctions, banking, prediction markets |
 | M5 Polished release | Partly done: UI, onboarding hints, Windows build pipeline. Pending: installer verified on real Windows hardware, broader balancing |
 
+## World Forge milestones
+
+| Milestone | State |
+|---|---|
+| WF0 Existing build audit | Done (baseline 48/48; assumptions catalogued in `WORLD_FORGE.md`) |
+| WF1 Universal World Specification | Done (spec v2, rulesets, roles, declarative agendas/reactions, schema migration v2) |
+| WF2 World Forge | Done (staged generation, compiler, preview, revise, library, UI) |
+| WF3 Adaptive gameplay | Done for the core loop (world skills/currency/laws in engine and prompts, rule engine, use/learn abilities) |
+| WF4 Continuous adaptation | Done for inventions → capabilities → NPC adoption; institutions reacting with new laws not yet |
+| WF5 Release quality | In progress: cross-world tests, real-model acceptance; generation speed on CPU is the main gap |
+
+## World Forge next steps
+
+1. **Generation speed**: GPU (Vulkan) measurement; parallel stage generation where independent;
+   a streaming preview so players watch the world appear; optional "quick world" with fewer places.
+2. **Recipe stage with item enums** (separate grammar-constrained call) so recipes never name
+   undefined materials (today the compiler creates them, transparently).
+3. **Passive world laws as mechanics**: environmental modifiers (e.g. gravity tides changing
+   difficulty of certain skills by location/time) as a declarative rule type.
+4. **Institutional adaptation**: factions issuing licences, bans or monopolies in response to
+   innovations (declarative reaction types), and NPC-originated research projects.
+5. **Procedural expansion**: generate new regions/settlements on demand when the player travels
+   beyond the map, grounded in the existing spec.
+6. **Realism controls**: an optional "grounded/realistic" style instruction so realistic worlds
+   use plain skill names (finance, programming) instead of stylised ones.
+7. Art: more procedural scene families (sky islands, stations, wastelands, cities).
+
 ## Next (M5 completion), in priority order
 
 1. **Run the Windows release workflow** on a real Windows runner and play-test the installed
