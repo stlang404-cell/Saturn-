@@ -1,0 +1,1669 @@
+{
+  "description": "A medieval kingdom of feuding noble houses where magic is real but rare: hedge-witches brew remedies and court mages bend fire, at great personal cost. There are guilds, tournaments and monster-haunted forests. Also, magic does not exist and only charlatans claim it, yet wizards openly cast fireballs in the streets. I start as a squire with no lord.",
+  "core": {
+    "name": "The Shattered Crown",
+    "tagline": "Magic is spoken of in whispers — but the fire in the street is always burning.",
+    "premise": "A kingdom of feuding noble houses where magic is both celebrated and feared, with competing truths: some believe in rare, ancient magic, others deny it entirely, yet both sides live with fire, blood, and the constant threat of supernatural violence.",
+    "tone": "Dense, grounded, tense — a world where truth is fragile, and",
+    "intro": "You stand at the edge of a muddy lane in the shadow of a collapsed gate, your tunic torn, your belt unfastened. No lord has claimed you. No house has offered you protection. The wind carries the smell of charred stone and wet grass — and somewhere, a fireball flares in the square, not from a mage, but from a smith’s forge. You don’t know if that was magic or just a trick of the wind. You don’t know if you’re supposed to believe it. But you do know: the market stalls are open,",
+    "contradictions_resolved": [
+      "The description claims both that magic exists and that it doesn’t — this is resolved by asserting that magic *is* real but *rare and deeply controversial*, with"
+    ],
+    "physics": [
+      "Normal gravity and mechanics apply. Objects fall, people walk, fire burns. ",
+      "Magic, when it occurs, behaves like a physical force: it requires energy, causes observable damage, and has limited range. Fireballs cast by wizards are not eth"
+    ],
+    "impossible": [
+      "True, permanent, unexplained magic (e.g. teleportation without cost, healing of "
+    ],
+    "common_knowledge": [
+      "People know fire can be cast — even if they don’t know how. ",
+      "People know that some say magic is real, others say it’s fraud. Both sides claim to have seen fireballs or healings. ",
+      "People know that the forests beyond the western wall are haunted — not by ghosts, but by things that move in the dark and do not speak. "
+    ],
+    "magic": {
+      "exists": true,
+      "summary": "Magic is real but rare, inconsistent, and often dangerous. It appears in specific forms: fire manipulation by court mages, healing or tinctures by hedge-witches. Every use costs the caster — pain, illness, or even death. No one knows where,"
+    },
+    "technology": {
+      "level": "medieval",
+      "summary": "Stone buildings, wooden wheels, hand-crafted tools. No iron armor, no steam. Some towns have windmills and bell towers, but no machines. Communication is by word, horn, or rider. Maps are hand-drawn and rarely accurate. "
+    },
+    "currency": {
+      "name": "silver crowns",
+      "plural": "silver crowns",
+      "medium": "silver crowns and tokens of local trade (e.g., grain, iron, cloth, or a single fireball witnessed)"
+    },
+    "attributes": [
+      {
+        "id": "endurance",
+        "label": "endurance",
+        "info": "Your ability to endure hardship, pain, or physical stress — especially when you'"
+      },
+      {
+        "id": "wits",
+        "label": "wits",
+        "info": "Your ability to think quickly, solve riddles, or spot deception — crucial in a f"
+      },
+      {
+        "id": "craft",
+        "label": "craft",
+        "info": "Your skill with tools, healing, or construction — useful in trade, survival, or"
+      },
+      {
+        "id": "fear",
+        "label": "fear",
+        "info": "How much you are shaken by the unknown, by magic, by violence — this affects how"
+      },
+      {
+        "id": "loyalty",
+        "label": "loyalty",
+        "info": "Your sense of allegiance — to people, causes, or places. Low loyalty makes you a"
+      },
+      {
+        "id": "sight",
+        "label": "sight",
+        "info": "Your ability to observe details, detect changes, or see what others miss — vital"
+      }
+    ],
+    "calendar": {
+      "era": "The Year of the Burning Gate",
+      "months": [
+        "New Ash",
+        "Dawn of Dust",
+        "Mid-Blaze",
+        "Hollow Frost",
+        "Sundering Wind",
+        "The Long Rain",
+        "Ashen Reckoning",
+        "Fallow",
+        "First Flame",
+        "Gathering Storm",
+        "Last Hush",
+        "Burning Return"
+      ],
+      "weekdays": [
+        "dawn",
+        "dusk",
+        "midday",
+        "evening",
+        "twilight",
+        "afternoon",
+        "night"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Blackthorn Hollow",
+        "kind": "outskirts settlement",
+        "description": "A cluster of huts near a forest edge. No lord. Known for hedge-witch tinctures sold in clay jars. A place where people trade secrets and say",
+        "population": 120
+      },
+      {
+        "name": "Furnace Square",
+        "kind": "market town",
+        "description": "The center of the kingdom’s trade. A square with fire-lit stalls. Every evening, a wizard casts a fireball into the center, and no one knows",
+        "population": 850
+      },
+      {
+        "name": "Haven’s Edge",
+        "kind": "fortified village",
+        "description": "Guarded by a stone wall with a single gate. Home to a powerful noble house, but also the only place with a known fire-witch who can heal. A",
+        "population": 310
+      }
+    ],
+    "player": {
+      "background": "You are a squire with no lord. You have ",
+      "description": "A squire with no lord. You are young, untrained, and adrift in a world where everyone claims to know magic — but no one knows who to trust. You have no armor, no coin, and no name. You are standing in",
+      "wealth": "poor"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "firebending",
+        "label": "Firebending",
+        "attr": "endurance",
+        "group": "mental",
+        "desc": "The controlled projection of flame from the hands—only the court mages",
+        "trained": true,
+        "keywords": [
+          "fire in hand",
+          "flame arc",
+          "blaze cast"
+        ]
+      },
+      {
+        "id": "tincturecraft",
+        "label": "Tincturecraft",
+        "attr": "wits",
+        "group": "mental",
+        "desc": "Mixing herbs, roots, and metals to create healing or curative liquids.",
+        "trained": true,
+        "keywords": [
+          "brew",
+          "herb blend",
+          "syrup of thorns"
+        ]
+      },
+      {
+        "id": "stealthstep",
+        "label": "Stealthstep",
+        "attr": "fear",
+        "group": "physical",
+        "desc": "Moving silently through crowded streets or shadowed alleys without a w",
+        "trained": true,
+        "keywords": [
+          "step low",
+          "no sound",
+          "shadow walk"
+        ]
+      },
+      {
+        "id": "watcheye",
+        "label": "Watcheye",
+        "attr": "sight",
+        "group": "social",
+        "desc": "Noticing subtle changes in behavior, posture, or lighting that signal.",
+        "trained": true,
+        "keywords": [
+          "see the shift",
+          "light flickers",
+          "body still"
+        ]
+      },
+      {
+        "id": "whispertruth",
+        "label": "Whispertruth",
+        "attr": "wits",
+        "group": "social",
+        "desc": "Using quiet, precise words to extract truth from someone—often in a fe",
+        "trained": true,
+        "keywords": [
+          "say it softly",
+          "truth in silence",
+          "only one word"
+        ]
+      },
+      {
+        "id": "edgebargain",
+        "label": "Edgebargain",
+        "attr": "loyalty",
+        "group": "social",
+        "desc": "Negotiating terms so tight that a man or woman can only accept or refu",
+        "trained": true,
+        "keywords": [
+          "no room to move",
+          "bend the price",
+          "give and take"
+        ]
+      },
+      {
+        "id": "hedgeheal",
+        "label": "Hedgeheal",
+        "attr": "craft",
+        "group": "mental",
+        "desc": "Applying natural remedies to wounds or sickness—often in remote farms",
+        "trained": true,
+        "keywords": [
+          "apply leaf",
+          "cracked skin",
+          "herb press"
+        ]
+      },
+      {
+        "id": "runout",
+        "label": "Runout",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Escaping from danger through sudden speed or terrain use—often to s",
+        "trained": true,
+        "keywords": [
+          "dash through",
+          "run with fire",
+          "find the gap"
+        ]
+      },
+      {
+        "id": "wheelpower",
+        "label": "Wheelpower",
+        "attr": "craft",
+        "group": "mental",
+        "desc": "Operating wooden wheels—windmills, carts, or stage wheels with hands",
+        "trained": true,
+        "keywords": [
+          "turn the wheel",
+          "wind turns",
+          "carts move"
+        ]
+      },
+      {
+        "id": "firewatch",
+        "label": "Firewatch",
+        "attr": "fear",
+        "group": "social",
+        "desc": "Staying alert to the signs of uncontrolled fire—smell, sound, color",
+        "trained": true,
+        "keywords": [
+          "smell the smoke",
+          "fire in the stone",
+          "see the glow"
+        ]
+      },
+      {
+        "id": "taleweave",
+        "label": "Taleweave",
+        "attr": "wits",
+        "group": "social",
+        "desc": "Spreading stories that shape perception—used to gain favor or scare",
+        "trained": true,
+        "keywords": [
+          "tell a new one",
+          "the truth is not",
+          "fire comes from east"
+        ]
+      },
+      {
+        "id": "silksteal",
+        "label": "Silksteal",
+        "attr": "craft",
+        "group": "physical",
+        "desc": "Infiltrating homes or shops to take small but valuable items—like a",
+        "trained": true,
+        "keywords": [
+          "steal the silk",
+          "in the dark",
+          "quick hand"
+        ]
+      },
+      {
+        "id": "wheatsurv",
+        "label": "Wheatsurv",
+        "attr": "endurance",
+        "group": "physical",
+        "desc": "Living in the open fields—surviving by gathering wild grains, rain, s",
+        "trained": true,
+        "keywords": [
+          "tend the field",
+          "harvest before rain",
+          "no shelter"
+        ]
+      },
+      {
+        "id": "marketkeen",
+        "label": "Marketkeen",
+        "attr": "wits",
+        "group": "social",
+        "desc": "Reading market prices, rumors, and rumors of fire to know what’s pr",
+        "trained": true,
+        "keywords": [
+          "what’s hot",
+          "price drop",
+          "rumor spreads"
+        ]
+      },
+      {
+        "id": "forgefear",
+        "label": "Forgefear",
+        "attr": "fear",
+        "group": "mental",
+        "desc": "Using physical threats to scare others into submission—without killing",
+        "trained": true,
+        "keywords": [
+          "point the fire",
+          "no more talk",
+          "you will burn"
+        ]
+      },
+      {
+        "id": "stonecraft",
+        "label": "Stonecraft",
+        "attr": "craft",
+        "group": "physical",
+        "desc": "Carving or shaping stone—used to build walls, gates, or simple tools",
+        "trained": true,
+        "keywords": [
+          "hew the stone",
+          "cut the edge",
+          "dry hand"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "taleweave",
+    "lie": "whispertruth",
+    "threaten": "forgefear",
+    "haggle": "edgebargain",
+    "notice": "watcheye",
+    "search": "silksteal",
+    "steal": "silksteal",
+    "sneak": "stealthstep",
+    "fight": "firebending",
+    "labor": "wheelpower",
+    "wilds": "wheatsurv",
+    "heal": "hedgeheal",
+    "manage": "marketkeen",
+    "research": "tincturecraft",
+    "invent": "stonecraft",
+    "craft": "tincturecraft"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Blackthorn Hollow",
+        "settlement": "Haven’s Edge",
+        "kind": "settlement",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A cluster of weathered huts nestled at the edge of the Whisperwood, where the air smells of damp moss and dried herbs. The central meeting spot is the",
+        "connections": [
+          {
+            "to": "Furnace Square",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Haven’s Edge",
+            "minutes": 120,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Furnace Square",
+        "settlement": "Furnace Square",
+        "kind": "market town",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "The heart of trade in the kingdom. A square lit by flickering fire-lit stalls, where merchants sell wool, grain, and hand-crafted tools. Every evening",
+        "connections": [
+          {
+            "to": "Blackthorn Hollow",
+            "minutes": 45,
+            "mode": "walk"
+          },
+          {
+            "to": "Haven’s Edge",
+            "minutes": 60,
+            "mode": "walk"
+          },
+          {
+            "to": "The Gutter",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Haven’s Edge",
+        "settlement": "Haven’s Edge",
+        "kind": "fortified village",
+        "tags": [
+          "healing",
+          "government",
+          "lodging",
+          "food"
+        ],
+        "description": "A stone-walled village with a single gate guarded by two men in iron-knuckled coats. The great hall hosts weekly councils, and the only known fire-wit",
+        "connections": [
+          {
+            "to": "Furnace Square",
+            "minutes": 60,
+            "mode": "walk"
+          },
+          {
+            "to": "Blackthorn Hollow",
+            "minutes": 120,
+            "mode": "walk"
+          },
+          {
+            "to": "The Gutter",
+            "minutes": 20,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "The Gutter",
+        "settlement": "Haven’s Edge",
+        "kind": "seedy place",
+        "tags": [
+          "work",
+          "healing",
+          "food"
+        ],
+        "description": "A narrow alley behind the stone wall, lit by guttering oil lamps. Smell of sweat, spoiled meat, and burnt tincture. Run by a shadowy figure who sells”",
+        "connections": [
+          {
+            "to": "Furnace Square",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Haven’s Edge",
+            "minutes": 20,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "The Hollow Bazaar",
+        "settlement": "Blackthorn Hollow",
+        "kind": "work",
+        "tags": [
+          "work"
+        ],
+        "description": "A hidden clearing behind the huts where hedge-witches gather to brew tinctures. A place where the fire is not cast — but felt. The air is thick with a",
+        "connections": [
+          {
+            "to": "Blackthorn Hollow",
+            "minutes": 2,
+            "mode": "none"
+          },
+          {
+            "to": "Furnace Square",
+            "minutes": 45,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "The Ash Library",
+        "settlement": "Haven’s Edge",
+        "kind": "learning",
+        "tags": [
+          "library",
+          "healing"
+        ],
+        "description": "A small stone building with cracked shelves, where old parchment is stored. Some say the pages were burned by fire-witches long ago. A few scrolls are",
+        "connections": [
+          {
+            "to": "Haven’s Edge",
+            "minutes": 2,
+            "mode": "none"
+          },
+          {
+            "to": "Furnace Square",
+            "minutes": 60,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "The Council Hall",
+        "settlement": "Haven’s Edge",
+        "kind": "government",
+        "tags": [
+          "government",
+          "food",
+          "lodging"
+        ],
+        "description": "A stone hall with a high oak table. Every fortnight, the noble houses gather to argue over land, trade, and who gets to use the central fire",
+        "connections": [
+          {
+            "to": "Haven’s Edge",
+            "minutes": 2,
+            "mode": "none"
+          },
+          {
+            "to": "Furnace Square",
+            "minutes": 60,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "The Fire-Witch’s Cellar",
+        "settlement": "Haven’s Edge",
+        "kind": "healing",
+        "tags": [
+          "healing",
+          "food"
+        ],
+        "description": "A dimly lit cellar beneath the stone wall. Only one witch, Elira, tends it. She brews healing tinctures from crushed herbs and the rare smoke of the",
+        "connections": [
+          {
+            "to": "Haven’s Edge",
+            "minutes": 2,
+            "mode": "none"
+          },
+          {
+            "to": "Furnace Square",
+            "minutes": 60,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Ashen Ridge",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "wild",
+          "work",
+          "healing"
+        ],
+        "description": "A rocky outcrop near the edge of the Whisperwood. People go here to collect rare herbs that glow faintly in the dark. A few believe the fire there",
+        "connections": [
+          {
+            "to": "Blackthorn Hollow",
+            "minutes": 90,
+            "mode": "walk"
+          },
+          {
+            "to": "Haven’s Edge",
+            "minutes": 150,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Burned Thicket",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "wild",
+          "work",
+          "food"
+        ],
+        "description": "A burned patch of forest where fire-affected trees stand like broken sentinels. Locals say that when the wind blows just right, a small fire starts",
+        "connections": [
+          {
+            "to": "Furnace Square",
+            "minutes": 75,
+            "mode": "walk"
+          },
+          {
+            "to": "Haven’s Edge",
+            "minutes": 180,
+            "mode": "walk"
+          }
+        ]
+      }
+    ],
+    "start": "Blackthorn Hollow"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "wheat_bread",
+        "name": "Wheat Bread",
+        "category": "food",
+        "value": 3,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": null,
+        "description": "A simple, flat loaf of coarse wheat bread baked in open ovens. Often b"
+      },
+      {
+        "id": "black_iron_ore",
+        "name": "Black Iron Ore",
+        "category": "treasure",
+        "value": 25,
+        "weight": 2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "forgefear",
+        "description": "A dark, metallic ore found in mountain veins near the Frostfang Peaks."
+      },
+      {
+        "id": "fireball_token",
+        "name": "Fireball Token",
+        "category": "clothing",
+        "value": 100,
+        "weight": 0.02,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": null,
+        "description": "A small, burned token awarded to witnesses of a successful fireball. A"
+      },
+      {
+        "id": "firewatch_bell",
+        "name": "Firewatch Bell",
+        "category": "tool",
+        "value": 4,
+        "weight": 1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "firewatch",
+        "description": "A hand-hammered bronze bell hung in watchtowers. When struck, it sends"
+      },
+      {
+        "id": "tincture_vial",
+        "name": "Tincture Vial",
+        "category": "medicine",
+        "value": 15,
+        "weight": 0.1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "hedgeheal",
+        "description": "A small glass vial containing a healing tincture made from dried moonb"
+      },
+      {
+        "id": "stealthstep_cloth",
+        "name": "Stealthstep Cloth",
+        "category": "clothing",
+        "value": 18,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "stealthstep",
+        "description": "A thin, woven fabric dyed with ash and spider-silk. Worn to reduce s"
+      },
+      {
+        "id": "whispertruth_leaf",
+        "name": "Whispertruth Leaf",
+        "category": "tool",
+        "value": 22,
+        "weight": 0.05,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "whispertruth",
+        "description": "A rare leaf from the hushbloom tree, said to vibrate when truth is t"
+      },
+      {
+        "id": "edgebargain_rod",
+        "name": "Edgebargain Rod",
+        "category": "tool",
+        "value": 14,
+        "weight": 0.2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "edgebargain",
+        "description": "A carved wooden rod with a sharpened tip. Used to subtly influence pe"
+      },
+      {
+        "id": "wheatsurv_seed",
+        "name": "Wheatsurv Seed",
+        "category": "food",
+        "value": 5,
+        "weight": 0.01,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "wheatsurv",
+        "description": "A hardy seed that grows even in poor soil, used in famine times."
+      },
+      {
+        "id": "silk_steal_silk",
+        "name": "Silk-Steal Silk",
+        "category": "clothing",
+        "value": 30,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "silksteal",
+        "description": "A fine, unspun silk that can be pulled from the air by trained hands."
+      },
+      {
+        "id": "stonecraft_chisel",
+        "name": "Stonecraft Chisel",
+        "category": "tool",
+        "value": 8,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "stonecraft",
+        "description": "A hand-carved chisel used for shaping stone in tight spaces."
+      },
+      {
+        "id": "firebend_cloak",
+        "name": "Firebend Cloak",
+        "category": "armor",
+        "value": 60,
+        "weight": 2.5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": null,
+        "description": "A dark, woven cloak lined with fire-resistant ash. Worn by court magi"
+      },
+      {
+        "id": "runout_leather",
+        "name": "Runout Leather",
+        "category": "armor",
+        "value": 20,
+        "weight": 1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "runout",
+        "description": "Leather tanned with quick-burning herbs. Offers speed and light defen"
+      },
+      {
+        "id": "marketkeen_map",
+        "name": "Marketkeen Map",
+        "category": "tool",
+        "value": 12,
+        "weight": 0.1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "marketkeen",
+        "description": "A hand-drawn map showing trade routes and prices. Used by traders to"
+      },
+      {
+        "id": "taleweave_silk",
+        "name": "Taleweave Silk",
+        "category": "clothing",
+        "value": 45,
+        "weight": 0.6,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "taleweave",
+        "description": "A silk woven with embroidered stories. Can reveal truths when sti"
+      },
+      {
+        "id": "forgefear_anvil",
+        "name": "Forgefear Anvil",
+        "category": "tool",
+        "value": 35,
+        "weight": 5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "forgefear",
+        "description": "A heavy anvil shaped with runes. Used to create items that frighten"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "Firewatch Bell",
+        "skill": "firewatch",
+        "inputs": [
+          {
+            "item": "black_iron_ore",
+            "qty": 1
+          },
+          {
+            "item": "wheatsurv_seed",
+            "qty": 2
+          }
+        ],
+        "outputs": [
+          {
+            "item": "firewatch_bell",
+            "qty": 1
+          }
+        ],
+        "minutes": 15
+      },
+      {
+        "name": "Tincture Vial",
+        "skill": "hedgeheal",
+        "inputs": [
+          {
+            "item": "whispertruth_leaf",
+            "qty": 1
+          },
+          {
+            "item": "wheat_bread",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "tincture_vial",
+            "qty": 1
+          }
+        ],
+        "minutes": 15
+      },
+      {
+        "name": "Stealthstep Cloth",
+        "skill": "stealthstep",
+        "inputs": [
+          {
+            "item": "silk_steal_silk",
+            "qty": 1
+          },
+          {
+            "item": "runout_leather",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "stealthstep_cloth",
+            "qty": 1
+          }
+        ],
+        "minutes": 15
+      },
+      {
+        "name": "Whispertruth Leaf",
+        "skill": "whispertruth",
+        "inputs": [
+          {
+            "item": "black_iron_ore",
+            "qty": 1
+          },
+          {
+            "item": "taleweave_silk",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "whispertruth_leaf",
+            "qty": 1
+          }
+        ],
+        "minutes": 18
+      },
+      {
+        "name": "Firebend Cloak",
+        "skill": "firebending",
+        "inputs": [
+          {
+            "item": "fireball_token",
+            "qty": 1
+          },
+          {
+            "item": "wheat_bread",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "firebend_cloak",
+            "qty": 1
+          }
+        ],
+        "minutes": 20
+      },
+      {
+        "name": "Silk-Steal Silk",
+        "skill": "silksteal",
+        "inputs": [
+          {
+            "item": "whispertruth_leaf",
+            "qty": 1
+          },
+          {
+            "item": "black_iron_ore",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "silk_steal_silk",
+            "qty": 1
+          }
+        ],
+        "minutes": 15
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Hearth Guard",
+        "description": "A militia of commoners and market-watchers sworn to maintain order in Furnace Square, where fire and conflict are most r",
+        "governs": "Furnace Square"
+      },
+      {
+        "name": "The Gutter Accord",
+        "description": "A loose network of survivors and scavengers who work the Burned Thicket, trading in scavenged goods and rumors. They do\n",
+        "governs": "Blackthorn Hollow"
+      },
+      {
+        "name": "Haven’s Guild of Whisper-Touch",
+        "description": "A secretive order of hedge-witches who claim to heal with 'whispered truths' — the belief that pain and illness can be\n",
+        "governs": "Haven’s Edge"
+      },
+      {
+        "name": "The Fire-Bend Brotherhood",
+        "description": "Court mages from the royal line who manipulate fire through precise, painful gestures. They are feared, respected, and\n",
+        "governs": "Furnace Square"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Mara Duskhand",
+        "role": "merchant",
+        "location": "Blackthorn Hollow",
+        "faction": "none",
+        "traits": [
+          "sharp-eyed",
+          "wears a runout-leath",
+          "sells tincture vials"
+        ],
+        "persona": "A woman with a weathered face and a crooked smile, Mara is known for her ability to read people’s tension. She",
+        "goal": "To secure a steady supply of whispertruth leaves to sell to the hedge-witches, even if it\\",
+        "skills": [
+          {
+            "skill": "tincturecraft",
+            "rank": 3
+          },
+          {
+            "skill": "marketkeen",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "tincture_vial",
+          "whispertruth_leaf"
+        ],
+        "buys": [
+          "wheat_bread",
+          "black_iron_ore"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Talric Stonefist",
+        "role": "farmer",
+        "location": "Ashen Ridge",
+        "faction": "none",
+        "traits": [
+          "strong",
+          "tall",
+          "barefoot"
+        ],
+        "persona": "Talric tills the soil with a chisel of his own making, whispering to the earth as he works. He believes the\n",
+        "goal": "To grow a crop of wheatsurv seeds that can thrive in the ash-fields, so that his family’s\ud83d",
+        "skills": [
+          {
+            "skill": "forgefear",
+            "rank": 1
+          },
+          {
+            "skill": "forgefear",
+            "rank": 1
+          }
+        ],
+        "sells": [
+          "wheatsurv_seed"
+        ],
+        "buys": [
+          "firebend_cloak"
+        ],
+        "produces": [
+          "wheatsurv_seed"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Elara Burntongue",
+        "role": "healer",
+        "location": "Haven’s Edge",
+        "faction": "Haven’s Guild of Whisper-Touch",
+        "traits": [
+          "soft-spoken",
+          "holds a cracked vial",
+          "carries a whisper-wo"
+        ],
+        "persona": "She claims to 'hear the truth in silence,' and her healing is said to bring back lost memories. She\n",
+        "goal": "To prove that her methods work — not just for pain, but for forgotten love — and to gain a",
+        "skills": [
+          {
+            "skill": "hedgeheal",
+            "rank": 4
+          },
+          {
+            "skill": "tincturecraft",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "tincture_vial"
+        ],
+        "buys": [
+          "whispertruth_leaf",
+          "firewatch_bell"
+        ],
+        "produces": [
+          "tincture_vial"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Kael of the Ashen Bell",
+        "role": "guard",
+        "location": "Furnace Square",
+        "faction": "The Hearth Guard",
+        "traits": [
+          "quiet",
+          "wears a firewatch_b",
+          "carries a chisel"
+        ],
+        "persona": "Kael doesn’t speak much. He rings the firewatch bell at dawn, and when a fire breaks out in the square, he\n",
+        "goal": "To ensure no fire is unattended — and to protect the market from the Fire-Bend Brotherhood",
+        "skills": [
+          {
+            "skill": "firewatch",
+            "rank": 5
+          },
+          {
+            "skill": "stonecraft",
+            "rank": 3
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "fireball_token",
+          "runout_leather"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Rowan Flicker",
+        "role": "craftsman",
+        "location": "The Gutter",
+        "faction": "The Gutter Accord",
+        "traits": [
+          "nimble",
+          "wears a stealthstep",
+          "uses an edgebargain_"
+        ],
+        "persona": "Rowan moves through the gutters like a shadow. He trades in stolen silk and hand-forged tools. He says he\n",
+        "goal": "To find a way to craft a tincture without using fire — so he won’t burn himself or the few",
+        "skills": [
+          {
+            "skill": "stealthstep",
+            "rank": 4
+          },
+          {
+            "skill": "edgebargain",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "silk_steal_silk",
+          "stealthstep_cloth"
+        ],
+        "buys": [
+          "fireball_token",
+          "taleweave_silk"
+        ],
+        "produces": [
+          "stealthstep_cloth",
+          "silk_steal_silk"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Grista the Seer",
+        "role": "teacher",
+        "location": "The Ash Library",
+        "faction": "none",
+        "traits": [
+          "old",
+          "wears a stonecraft",
+          "reads maps"
+        ],
+        "persona": "Grista teaches children how to read hand-drawn maps. She says the world is full of hidden paths — and that\n",
+        "goal": "To train young minds to find the truth in maps, even when the lines don’t match",
+        "skills": [
+          {
+            "skill": "marketkeen",
+            "rank": 4
+          },
+          {
+            "skill": "taleweave",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "marketkeen_map"
+        ],
+        "buys": [
+          "taleweave_silk"
+        ],
+        "produces": [
+          "marketkeen_map"
+        ],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Fenric the Burned",
+        "role": "miner",
+        "location": "Blackthorn Hollow",
+        "faction": "none",
+        "traits": [
+          "frequent pain",
+          "wears a firebend_clo",
+          "rarely speaks"
+        ],
+        "persona": "Fenric digs black iron ore from the cliffs beneath the hollow. Every time he works, he feels the\n",
+        "goal": "To mine enough black iron to build a new forge for the Gutter Accord — a place where no\n",
+        "skills": [
+          {
+            "skill": "forgefear",
+            "rank": 2
+          },
+          {
+            "skill": "stonecraft",
+            "rank": 1
+          }
+        ],
+        "sells": [
+          "black_iron_ore"
+        ],
+        "buys": [
+          "wheat_bread",
+          "runout_leather"
+        ],
+        "produces": [
+          "black_iron_ore"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Veyla of the Gutter",
+        "role": "host",
+        "location": "The Gutter",
+        "faction": "The Gutter Accord",
+        "traits": [
+          "warm",
+          "always has a full c",
+          "serves simple meals"
+        ],
+        "persona": "Veyla runs a small shelter for those who have lost homes to fires or hunger. She serves food with a\n",
+        "goal": "To keep the Gutter safe — not just as a place of work, but as a refuge",
+        "skills": [
+          {
+            "skill": "hedgeheal",
+            "rank": 2
+          },
+          {
+            "skill": "runout",
+            "rank": 1
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "wheat_bread",
+          "fireball_token"
+        ],
+        "produces": [
+          "black_iron_ore"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": true
+      },
+      {
+        "name": "Cassian the Watcher",
+        "role": "merchant",
+        "location": "Haven’s Edge",
+        "faction": "Haven’s Guild of Whisper-Touch",
+        "traits": [
+          "calm",
+          "wears a firebend_clo",
+          "sells tincture"
+        ],
+        "persona": "Cassian is a quiet man who only speaks when he’s selling tinctures. He says fire and healing are\n",
+        "goal": "To supply the Council Hall with tinctures so the nobles can heal after their feuds",
+        "skills": [
+          {
+            "skill": "tincturecraft",
+            "rank": 4
+          },
+          {
+            "skill": "marketkeen",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "tincture_vial"
+        ],
+        "buys": [
+          "whispertruth_leaf",
+          "firebend_cloak"
+        ],
+        "produces": [
+          "tincture_vial"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Lorien of the Ashen Ridge",
+        "role": "farmer",
+        "location": "Ashen Ridge",
+        "faction": "none",
+        "traits": [
+          "patient",
+          "tends to old fields"
+        ],
+        "persona": "Lorien grows wheat in the ash-fields, using wind from the ridge to power a small windmill. She says the\n",
+        "goal": "To grow enough wheat to feed the Ash Library, so the children can learn",
+        "skills": [
+          {
+            "skill": "forgefear",
+            "rank": 1
+          },
+          {
+            "skill": "forgefear",
+            "rank": 1
+          }
+        ],
+        "sells": [
+          "wheat_bread"
+        ],
+        "buys": [
+          "wheatsurv_seed"
+        ],
+        "produces": [
+          "wheat_bread"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The fire in the market square burns year-round, no",
+        "content": "The fire in the market square burns year-round, no matter the season. Some say it's a cursed relic from the old king's last ritual. Others swear it's simply the result of",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Mara Duskhand",
+          "Veyla of the Gutter",
+          "Kael of the Ashen Bell"
+        ],
+        "keepers": [
+          "Kael of the Ashen Bell"
+        ],
+        "tags": [
+          "rumor",
+          "fire",
+          "public"
+        ]
+      },
+      {
+        "subject": "A fireball was seen in the market yesterday, but",
+        "content": "A fireball was seen in the market yesterday, but no one saw the caster. The fire didn’t burn down the shop — it fizzled out mid-air. People still don’t know who did it.",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Elara Burntongue",
+          "Rowan Flicker",
+          "Grista the Seer"
+        ],
+        "keepers": [
+          "Elara Burntongue"
+        ],
+        "tags": [
+          "magic",
+          "suspense",
+          "unconfirmed"
+        ]
+      },
+      {
+        "subject": "The whispertruth leaf is said to show the truth of",
+        "content": "The whispertruth leaf is said to show the truth of a person’s deepest secret — but only when spoken to in the dark, with a fire nearby.",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Grista the Seer",
+          "Fenric the Burned",
+          "Talric Stonefist"
+        ],
+        "keepers": [
+          "Grista the Seer"
+        ],
+        "tags": [
+          "mystery",
+          "magic",
+          "folktale"
+        ]
+      },
+      {
+        "subject": "No one in Blackthorn Hollow has seen a firebend-c布",
+        "content": "No one in Blackthorn Hollow has seen a firebend-cloak in use — but the one that was sold last week at the market was marked 'no return'.",
+        "secret_level": 1,
+        "true_fact": false,
+        "known_by": [
+          "Mara Duskhand",
+          "Fenric the Burned"
+        ],
+        "keepers": [
+          "Mara Duskhand"
+        ],
+        "tags": [
+          "hoard",
+          "trade",
+          "discrepancy"
+        ]
+      },
+      {
+        "subject": "The ash from the fire is used to make the tincture",
+        "content": "The ash from the market fire is used to make the tincture used by healers — but only if it’s collected at night, when the fire is calm.",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Elara Burntongue",
+          "Kael of the Ashen Bell",
+          "Rowan Flicker"
+        ],
+        "keepers": [
+          "Elara Burntongue"
+        ],
+        "tags": [
+          "healing",
+          "real_magic",
+          "resource"
+        ]
+      },
+      {
+        "subject": "The forgefear anvil in Furnace Square is said to",
+        "content": "The forgefear anvil in Furnace Square is said to vibrate when magic is used nearby — but only if it's been used for more than five years.",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Kael of the Ashen Bell",
+          "Rowan Flicker",
+          "Cassian the Watcher"
+        ],
+        "keepers": [
+          "Kael of the Ashen Bell"
+        ],
+        "tags": [
+          "magic_sense",
+          "rumor",
+          "anomaly"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Mara Duskhand",
+        "kind": "stockpile",
+        "partner_or_rival": "Fenric the Burned",
+        "items": [
+          "black_iron_ore"
+        ],
+        "motive": "She bought 25 tons of black iron ore from Fenric last week. She claims it’s for her new forge — but she hasn’t sold it. "
+      },
+      {
+        "who": "Rowan Flicker",
+        "kind": "undercut",
+        "partner_or_rival": "Veyla of the Gutter",
+        "items": [
+          "whispertruth_leaf"
+        ],
+        "motive": "He’s undercut Veyla’s prices by 30% for whispertruth leaves. Veyla says this is a deliberate attack on her reputation — "
+      },
+      {
+        "who": "Cassian the Watcher",
+        "kind": "debt",
+        "partner_or_rival": "Elara Burntongue",
+        "items": [
+          "tincture_vial"
+        ],
+        "motive": "Cassian owes Elara 3 tincture vials — he can’t pay. He’s been borrowing from her for months. She doesn’t know he’s using"
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Kael of the Ashen Bell",
+        "title": "Deliver 3 whispertruth leaves to the Ash Library",
+        "text": "I need them delivered to Grista the Seer by nightfall. The fire must be lit near the gate. If the leaves are delivered without the",
+        "item": "whispertruth_leaf",
+        "qty": 3,
+        "deliver_to": "Grista the Seer",
+        "reward": 2,
+        "days": 2
+      },
+      {
+        "giver": "Elara Burntongue",
+        "title": "Bring 5 tincture vials to the Gutter",
+        "text": "I need tincture vials for a sick child. The delivery must be made before dawn.",
+        "item": "tincture_vial",
+        "qty": 5,
+        "deliver_to": "Veyla of the Gutter",
+        "reward": 1,
+        "days": 2
+      },
+      {
+        "giver": "Talric Stonefist",
+        "title": "Fetch a wheatsurv seed from the Gutter",
+        "text": "I need a wheatsurv seed for planting. It must be delivered by midday.",
+        "item": "wheatsurv_seed",
+        "qty": 1,
+        "deliver_to": "Rowan Flicker",
+        "reward": 1,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Magic Cost Rule",
+        "kind": "ability",
+        "summary": "Every time magic is used — even minor — the caster must suffer a physical cost. Fireballs cost 1 point of health. Healing with tincture causes 10% of ",
+        "skill": "hedgeheal",
+        "difficulty": "moderate",
+        "minutes": 30,
+        "must_be_learned": true,
+        "min_skill": 3,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "heal",
+            "item": "tincture_vial",
+            "amount": 1,
+            "text": "You use a vial — you feel a sharp pain in your chest."
+          },
+          {
+            "type": "heal",
+            "item": "wheat_bread",
+            "amount": 1,
+            "text": "You feel dizzy. A crumb falls from your mouth."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_target",
+            "item": "wheat_bread",
+            "amount": 1,
+            "text": "The fire flares up — you burn your hand. You now have 1 wound."
+          },
+          {
+            "type": "harm_self",
+            "item": "runout_leather",
+            "amount": 1,
+            "text": "You collapse. You lose 1 point of stamina."
+          }
+        ],
+        "known_by": [
+          "Grista the Seer",
+          "Elara Burntongue",
+          "Rowan Flicker"
+        ]
+      },
+      {
+        "name": "Fire Exposure Rule",
+        "kind": "ability",
+        "summary": "If you stand within 5 feet of the market fire for more than 5 minutes, you must roll a die. On a 1–3, you catch a small burn (1 wound). On a 4–6, you‘",
+        "skill": "firewatch",
+        "difficulty": "easy",
+        "minutes": 5,
+        "must_be_learned": false,
+        "min_skill": 0,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "heal",
+            "item": "wheat_bread",
+            "amount": 1,
+            "text": "You feel warmth. A small piece of bread warms in your hands."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_self",
+            "item": "runout_leather",
+            "amount": 1,
+            "text": "You feel a burn. You now have 1 wound."
+          }
+        ],
+        "known_by": [
+          "Kael of the Ashen Bell",
+          "Mara Duskhand",
+          "Fenric the Burned"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Squire with no lord",
+        "description": "You are a squire with no lord. You have no armor, no coin, and no name. You are standing in Blackthorn Hollow,",
+        "attribute_bonus": [
+          "loyalty",
+          "craft"
+        ],
+        "skills": [
+          {
+            "skill": "firewatch",
+            "rank": 1
+          },
+          {
+            "skill": "hedgeheal",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "wheat_bread",
+          "runout_leather"
+        ],
+        "money": 0
+      },
+      {
+        "name": "Apprentice to a Hedge-Witch",
+        "description": "You are a young apprentice learning tincture-making. You have a small vial of healing broth and one whispertr",
+        "attribute_bonus": [
+          "craft",
+          "sight"
+        ],
+        "skills": [
+          {
+            "skill": "hedgeheal",
+            "rank": 2
+          },
+          {
+            "skill": "firewatch",
+            "rank": 2
+          }
+        ],
+        "items": [
+          "tincture_vial",
+          "whispertruth_leaf"
+        ],
+        "money": 1
+      },
+      {
+        "name": "Gutter Runner",
+        "description": "You are a boy from the gutter, used to running messages and collecting scraps. You know the market fire, the G",
+        "attribute_bonus": [
+          "endurance",
+          "sight"
+        ],
+        "skills": [
+          {
+            "skill": "firewatch",
+            "rank": 2
+          },
+          {
+            "skill": "stealthstep",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "stealthstep_cloth",
+          "wheat_bread"
+        ],
+        "money": 0
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 512766,
+      "tokens": 1264
+    },
+    "skills": {
+      "ms": 160276,
+      "tokens": 1194
+    },
+    "roles": {
+      "ms": 22433,
+      "tokens": 146
+    },
+    "places": {
+      "ms": 375459,
+      "tokens": 2400
+    },
+    "items": {
+      "ms": 263936,
+      "tokens": 1841
+    },
+    "people": {
+      "ms": 365175,
+      "tokens": 2344
+    },
+    "story": {
+      "ms": 369266,
+      "tokens": 2259
+    }
+  }
+}

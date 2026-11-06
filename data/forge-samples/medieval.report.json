@@ -1,0 +1,42 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 2069,
+  "timings": {
+    "core": {
+      "ms": 512766,
+      "tokens": 1264
+    },
+    "skills": {
+      "ms": 160276,
+      "tokens": 1194
+    },
+    "roles": {
+      "ms": 22433,
+      "tokens": 146
+    },
+    "places": {
+      "ms": 375459,
+      "tokens": 2400
+    },
+    "items": {
+      "ms": 263936,
+      "tokens": 1841
+    },
+    "people": {
+      "ms": 365175,
+      "tokens": 2344
+    },
+    "story": {
+      "ms": 369266,
+      "tokens": 2259
+    }
+  },
+  "report": {
+    "repairs": [
+      "fireball token had no source; Mara Duskhand now receives a steady supply",
+      "fireball token had no seller; Mara Duskhand now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}
