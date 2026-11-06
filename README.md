@@ -1,6 +1,14 @@
 # SATURN — The Living World
 
-An offline, AI-powered, open-ended text RPG. You describe what you want to do in your own
+**SATURN is a world engine you play with.** Describe any world in a paragraph — floating
+continents powered by gravity crystals, a realistic modern city, a post-collapse wasteland, a
+universe of your own invention — and the **World Forge** builds it into a playable simulation
+with its own skills, laws of nature, special abilities, places, goods, economy, institutions
+and people. Then you live in it.
+
+![World Forge preview](docs/screenshots/forge-preview.png)
+
+Inside any world it is an offline, AI-powered, open-ended text RPG. You describe what you want to do in your own
 words; a **local** language model interprets your intent into structured proposals; an
 **authoritative simulation engine** decides what is possible, rolls the dice, commits the
 consequences, and keeps the world moving; the model then narrates what actually happened.
@@ -13,9 +21,27 @@ runtime, the database — runs on your machine.
 
 ![SATURN screenshot](docs/screenshots/game.png)
 
-## What you can do today (verified)
+## World Forge (verified with the real local model)
 
-The first release ships one cohesive setting, **the Saltwind Reach**: the river-market town
+* **Create World** → describe it → the local model designs it in seven grammar-constrained
+  stages (identity & laws, skills, role mapping, places, goods & production, people, secrets &
+  special rules) → a deterministic compiler completes, connects, balances and validates it,
+  listing every repair → preview, rename, regenerate any part with feedback → save to the
+  **World Library** → enter, with character creation using *that world's* attributes and skills.
+* Each world has its **own skills** (generic actions such as stealing, haggling or researching
+  map onto them), **currency**, **laws** the Game Master enforces ("impossible" means
+  impossible *here*), and **special rules** — declarative, validated abilities and technologies
+  that run through the same dice as everything else.
+* **Inventions change the world**: complete a research project and the AI designs what it is
+  (device, recipe from the world's real materials, usage rule); the engine validates and
+  installs it as a versioned world capability; NPCs hear of it and skilled ones adopt it.
+* Worlds are independent saves; many lives can be started in each library world.
+
+See `docs/WORLD_FORGE.md` for the design and `docs/STATUS.md` for exactly what is verified.
+
+## The sample world
+
+SATURN also ships one hand-written world in the same format, **the Saltwind Reach**: the river-market town
 of Brindlemarch, the fishing harbour of Kestrel Point, farmland, a whispering forest and a
 lost observatory, under a sky crossed by the Great Ring.
 
@@ -85,5 +111,6 @@ node scripts/package.mjs --platform win32 --arch x64 --target dir    # Windows b
 - `docs/MEMORY.md` — the memory architecture
 - `docs/PACKAGING.md` — building the offline Windows installer
 - `docs/STATUS.md` — verified / partial / not implemented, test results, known limitations
+- `docs/WORLD_FORGE.md` — World Forge: universal world spec, adaptive rule engine, migration
 - `docs/ROADMAP.md` — next milestones
 - `THIRD_PARTY_NOTICES.md` — bundled components and licences
