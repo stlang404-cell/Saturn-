@@ -25,10 +25,11 @@ conservation checked every 500 turns: **0 problems**; RSS flat at ~105 MB; save 
 | Compiler: completion, connectivity, economy wiring, repair report | **Verified** | `test/forge.test.js` (deliberately broken draft); the six real worlds compile with 2–34 recorded repairs each (every repair listed in the preview) |
 | Contradictory descriptions | **Verified (1 case)** | Medieval prompt saying magic both exists and doesn't: the model resolved it explicitly ("real but rare and controversial") and the resolution is shown in the preview |
 | Adaptive rule engine (declarative, validated, bounded) | **Verified** | Unsafe/invalid proposals rejected, value-conservation clamps, learning from NPCs, use through skill checks (`test/forge.test.js`) |
-| Inventions → persistent world capabilities, NPC adoption | **Verified (engine)**; **AI design: see acceptance** | Device item + recipe + versioned rule with causing event; NPC adopts after hearing of it; survives reload |
+| Inventions → persistent world capabilities, NPC adoption | **Verified** (AI design in real offline runs; adoption in engine test) | Device item + recipe + versioned rule with causing event; survives reload. In the real runs NPCs heard of it but none adopted within 30 days |
+| §16 acceptance: forge → enter → play → invent → save → reload, real model, no network | **Passed** (with disclosed shortcuts) | `docs/WORLD_FORGE.md` §7; `docs/benchmarks/acceptance-forge-run1.log`. Shortcuts: 300 minted currency and 300 recorded mentor XP stand in for months of play |
 | Cross-world play checklist | **Verified for each recorded world** | `test/crossworld.test.js` |
 | Forge UI (menu, forge, progress, preview, revise, library, creation) | **Verified in browser** | Screenshots `docs/screenshots/menu.png`, `forge*.png`, `library.png` |
-| Selective regeneration with feedback | **Implemented**; real-model run recorded in report `regenerated` field when done |
+| Selective regeneration with feedback | **Verified (real model)** | Floating world's story stage regenerated in 405 s (recorded in its report `regenerated` field) |
 | Passive world laws as mechanics (hazards, ambient effects) | **Not implemented** | Only deliberate actions are rules; passive laws are told to the GM as physics (prompt) |
 | Procedural expansion of new regions during play | **Not implemented** | |
 
@@ -65,7 +66,8 @@ conservation checked every 500 turns: **0 problems**; RSS flat at ~105 MB; save 
 | Operation | Time |
 |---|---|
 | Model load (Qwen3-4B, warm disk) | 4–16 s |
-| LLM interpretation of a free-form sentence | median ~30 s (11–67 s) |
+| LLM interpretation of a free-form sentence | median ~30 s (11–67 s) on the bundled world; 46–118 s per turn (incl. narration) in forged worlds |
+| Forging a world (7 stages) | 1296–2069 s |
 | LLM narration | ~20 s |
 | Fast-path command ("buy 2 bread") | < 50 ms |
 | Simulating one game week | ~80 ms |

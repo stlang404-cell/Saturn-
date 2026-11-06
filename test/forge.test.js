@@ -197,6 +197,9 @@ test('a forged world is created, played with world-specific skills and rules, ad
   assert.ok(rev[0].cause_event_id, 'rule change linked to its causing event');
   const ride = act(g, { type: 'use_ability', target: 'Ride the sand sled', detail: 'Shard Market' });
   assert.notEqual(ride.outcomes[0].status, 'blocked', ride.outcomes[0].error?.message);
+  // the interpreter may say "use" for a device; the engine routes it to the ability, destination from free text
+  const ride2 = act(g, { type: 'use', target: 'Ride the sand sled', detail: 'ride it back to the Well Bazaar' });
+  assert.notEqual(ride2.outcomes[0].status, 'blocked', ride2.outcomes[0].error?.message);
   // a skilled NPC who hears of it may adopt it
   g.learnFact && g.transact(() => g.learnFact('npc_ilka', res.rule.fact, { belief: 'known', confidence: 0.9, source: 'gossip' }));
   for (let i = 0; i < 40 && !g.db.prepare("SELECT 1 FROM capabilities WHERE holder_id='npc_ilka' AND rule_id=?").get(res.rule.id); i++) act(g, { type: 'wait', hours: 24 });

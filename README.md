@@ -97,7 +97,8 @@ Without a model, SATURN still plays with its deterministic parser and template n
 ## Develop
 
 ```bash
-npm test                                  # 48 tests: rules, economy, memory, NPCs, persistence, AI reliability, acceptance
+npm test                                  # 60 tests: rules, economy, memory, NPCs, persistence, AI reliability, forge, 7 AI-forged worlds
+unshare -n node scripts/acceptance-forge.mjs --forge "<description>"   # World Forge acceptance, real model, no network
 npm run soak -- 5000                      # long-campaign soak with continuous integrity checks
 npm run bench                             # benchmark local models on SATURN's real tasks
 node scripts/package.mjs --platform win32 --arch x64 --target dir    # Windows build

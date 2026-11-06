@@ -117,10 +117,46 @@ exist — so "impossible" is judged against *this* world, and narration may not 
 magic or technology the world does not allow. The interpreter's grammar restricts skills to
 the world's skills. Prompts are cached per world and per rule version.
 
-## 7. Known limitations (World Forge)
+## 7. Acceptance (directive §16) — real model, offline
 
-* Generation on a 4-core CPU takes many minutes per world (measured in `STATUS.md`); a GPU
-  is strongly recommended for comfortable forging.
+`scripts/acceptance-forge.mjs --forge "<description>"` runs inside a network namespace with
+no network (it checks this first). It forges a world from the description with the bundled
+Qwen3-4B on CPU, saves it to the library, creates a poor apprentice engineer, and plays through
+`GameService` exactly as the UI does. Two runs are recorded. Run 1
+(`docs/benchmarks/acceptance-forge-run1.log`) forged the world, which is kept as
+`data/forge-samples/acceptance.*`. Run 2 (`acceptance-forge-run2.log`) replays play on that
+world after the fixes listed below. Both passed:
+
+* Forged "Aethelis" (floating continents, gravity crystals) in 1335 s: 16 world skills,
+  5 factions, 9 NPCs, 20 compiler repairs listed in the report.
+* Conversation, NPC memory and a purchase attempt in the world currency.
+* A flying-machine invention attempt while unqualified is refused by the engine (rank 0 < 3).
+* After qualification, research leads to a design by the local AI. The engine validates it and
+  installs it as a device item, recipe and versioned rule (run 1: "Gravity-Responsive Sky
+  Lift Pod"; run 2: "Gravity-Resonance Sky-Frame"; both with a travel effect), with its causing event recorded.
+* NPCs hear of it; 30 days pass; ledger and inventory reconcile; the save closes and reloads
+  identically.
+
+**Disclosed shortcuts in the script:** it mints 300 currency (standing in for months of wages)
+and grants 300 XP of recorded mentoring in the invention skill (standing in for months of
+apprenticeship). Without them the same path takes many in-game months of play. The script also
+seeds the rumour to one innovation-minded NPC. In the recorded runs no NPC adopted the device
+within 30 days; adoption requires skill rank ≥ 3 and is probabilistic. The adoption mechanism
+itself is verified in `test/forge.test.js`.
+
+The runs found and fixed real bugs:
+* The compact JSON grammar never stopped, so every LLM call padded to its token limit
+  (interpretation 140 s → 35 s).
+* `wait` ignored `days`.
+* "Use <device>" wasn't routed to the device's ability.
+* Studying with an absent named teacher silently became self-study.
+
+## 8. Known limitations (World Forge)
+
+* Generation on a 4-core CPU takes 22–35 minutes per world. The stages are genuinely
+  token-bound (~7–8 tokens/s, 8–10k tokens per world). GPU speed has not been measured.
+* The 4B model sometimes picks the research skill where the invention skill applies, or
+  proposes `craft` for a new design; the engine refuses or reroutes, and a retry usually works.
 * The rule vocabulary is finite: concepts like mind control, time travel or reshaping terrain
   are approximated (reported) rather than simulated.
 * Settlement-scale institutions don't yet *create* new institutions or laws in response to

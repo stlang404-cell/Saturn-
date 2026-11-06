@@ -1622,6 +1622,10 @@ function equipA(game, p) {
 }
 
 function use(game, p) {
+  // "use <ability or invented device>" arrives as use; route it to the world rule when no held item matches
+  const name = p.item || p.target;
+  const heldMatch = name && game.held(game.playerId).some((i) => norm(i.name) === norm(name) || norm(i.name).includes(norm(name)));
+  if (!heldMatch) { const rule = findRule(game, name || p.detail); if (rule) return useAbility(game, { ...p, target: rule.name, item: null }); }
   const typeId = needHeldItem(game, p.item);
   const t = game.itemType(typeId);
   if (t.data.heal) {
