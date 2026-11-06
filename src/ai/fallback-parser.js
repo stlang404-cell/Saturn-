@@ -172,7 +172,7 @@ export function parseSingle(raw) {
   return null;
 }
 
-export const HELP_TEXT = 'Describe what you want to do in your own words — SATURN understands far more than commands. For example: "ask the innkeeper what she has heard lately", "ask the merchant for work", "buy two loaves of bread", "go to the market", "study medicine with the healer for a week", "investigate the warehouse at night", "borrow 50 from the moneylender and open a workshop", "invent a better pump", "use <one of this world's abilities>". People and exits on the left are clickable. The World and Journal tabs list opportunities; click any roll to see exactly how it was decided.';
+export const HELP_TEXT = 'Describe what you want to do in your own words — SATURN understands far more than commands. For example: "ask the innkeeper what she has heard lately", "ask the merchant for work", "buy two loaves of bread", "go to the market", "study medicine with the healer for a week", "investigate the warehouse at night", "borrow 50 from the moneylender and open a workshop", "invent a better pump", "use <one of this world\'s abilities>". People and exits on the left are clickable. The World and Journal tabs list opportunities; click any roll to see exactly how it was decided.';
 
 const SPLIT_RX = /\s*(?:,?\s+and then\s+|,?\s+then\s+|;\s*|\.\s+(?=[A-Za-z]))\s*/i;
 
