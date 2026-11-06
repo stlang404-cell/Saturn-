@@ -7,6 +7,40 @@ import { compileWorld, summarizeSpec } from './compile.js';
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 
+/**
+ * The inference grammar enforces structure, enums and string lengths, but not regex patterns
+ * or numeric bounds. Coerce what the model produced to the schema (slugify pattern-bound ids,
+ * clamp numbers, trim arrays) rather than discarding an otherwise good stage.
+ */
+export function coerceToSchema(schema, v) {
+  if (v == null || !schema) return v;
+  const t = Array.isArray(schema.type) ? schema.type.find((x) => x !== 'null') : schema.type;
+  if (t === 'object' && typeof v === 'object' && !Array.isArray(v)) {
+    for (const [k, sub] of Object.entries(schema.properties || {})) if (k in v) v[k] = coerceToSchema(sub, v[k]);
+    return v;
+  }
+  if (t === 'array' && Array.isArray(v)) {
+    let out = v.map((x) => coerceToSchema(schema.items, x));
+    if (schema.maxItems != null) out = out.slice(0, schema.maxItems);
+    return out;
+  }
+  if ((t === 'integer' || t === 'number') && typeof v === 'number') {
+    let n = t === 'integer' ? Math.round(v) : v;
+    if (schema.minimum != null) n = Math.max(schema.minimum, n);
+    if (schema.maximum != null) n = Math.min(schema.maximum, n);
+    return n;
+  }
+  if (t === 'string' && typeof v === 'string' && schema.pattern) {
+    let s = v.toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^[^a-z]+/, '').replace(/_+$/, '');
+    if (/\[a-z\]\{/.test(schema.pattern)) s = s.replace(/[^a-z]/g, ''); // letters-only ids
+    const max = Number((schema.pattern.match(/,(\d+)\}\$$/) || [])[1]) || 30;
+    s = s.slice(0, max + 1);
+    if (s.length < 3) s = (s + 'xyz').slice(0, 3);
+    return s;
+  }
+  return v;
+}
+
 export class WorldForge {
   constructor({ llm, log = () => {} }) {
     this.llm = llm;
@@ -41,6 +75,7 @@ export class WorldForge {
             schema, maxTokens: STAGE_TOKENS[stage.id] || 1200, temperature: 0.8, timeoutMs: 1800000, signal,
             onToken: (n) => onProgress?.({ stage: stage.id, index: i, total: STAGES.length, label: stage.label, tokens: n }),
           });
+          coerceToSchema(schema, r.parsed);
           if (!validate(r.parsed)) throw new Error(validate.errors.slice(0, 3).map((e) => `${e.instancePath} ${e.message}`).join('; '));
           draft[stage.id] = r.parsed;
           timings[stage.id] = { ms: r.ms, tokens: r.tokens };

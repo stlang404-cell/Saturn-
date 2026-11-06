@@ -49,7 +49,10 @@ export function compileWorld(draft, { description = '' } = {}) {
   const worldId = uniqueId(`w_${slug(core.name, 24)}`, new Set());
 
   // ------------------------------------------------------------ attributes & skills
-  const attributes = core.attributes.map((a) => ({ id: a.id, label: a.label, info: a.info }));
+  const attrUsed = new Set();
+  const attrRename = {};
+  const attributes = core.attributes.map((a) => { const id = uniqueId(slug(a.id, 12).replace(/_/g, ''), attrUsed); if (id !== a.id) attrRename[a.id] = id; return { id, label: a.label, info: a.info }; });
+  if (Object.keys(attrRename).length) fix(`attribute ids normalised: ${Object.entries(attrRename).map(([a, b]) => `${a}→${b}`).join(', ')}`);
   const attrIds = new Set(attributes.map((a) => a.id));
   const skillUsed = new Set();
   const skills = [];
