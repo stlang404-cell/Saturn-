@@ -32,9 +32,10 @@ export function coerceToSchema(schema, v) {
   }
   if (t === 'string' && typeof v === 'string' && schema.pattern) {
     let s = v.toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^[^a-z]+/, '').replace(/_+$/, '');
-    if (/\[a-z\]\{/.test(schema.pattern)) s = s.replace(/[^a-z]/g, ''); // letters-only ids
+    const lettersOnly = /^\^\[a-z\]\{/.test(schema.pattern);
+    if (lettersOnly) s = s.replace(/[^a-z]/g, '');
     const max = Number((schema.pattern.match(/,(\d+)\}\$$/) || [])[1]) || 30;
-    s = s.slice(0, max + 1);
+    s = s.slice(0, lettersOnly ? max : max + 1);
     if (s.length < 3) s = (s + 'xyz').slice(0, 3);
     return s;
   }

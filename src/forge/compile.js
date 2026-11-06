@@ -108,8 +108,15 @@ export function compileWorld(draft, { description = '' } = {}) {
     const key = [a, b].sort().join('|');
     if (!routeSet.has(key)) routeSet.set(key, [a, b, Math.max(2, Math.round(minutes)), mode === 'walk' ? {} : { mode: slug(mode, 16) }]);
   };
+  // models often refer to places by a shortened name ("Kelpar Drift" for "Kelpar Drift - Exchange Quay")
+  const findPlace = (name) => {
+    const q = String(name).toLowerCase().trim();
+    if (nameToLoc[q]) return nameToLoc[q];
+    const hits = Object.keys(nameToLoc).filter((n) => n.startsWith(q) || q.startsWith(n) || n.includes(q));
+    return hits.length ? nameToLoc[hits.sort((a, b) => a.length - b.length)[0]] : null;
+  };
   for (const l of locations) for (const c of l._conn || []) {
-    const to = nameToLoc[String(c.to).toLowerCase()];
+    const to = findPlace(c.to);
     if (to) addRoute(l.id, to, c.minutes, c.mode || 'walk'); else fix(`dropped connection from ${l.name} to unknown place "${c.to}"`);
   }
   // guarantee connectivity: within a settlement link to its hub; then join components
@@ -138,8 +145,8 @@ export function compileWorld(draft, { description = '' } = {}) {
     fix(`linked unreachable ${out.name} to ${near.name} (${minutes} min)`);
   }
   const routes = [...routeSet.values()];
-  const startLoc = nameToLoc[String(places.start || '').toLowerCase()] || locations.find((l) => l.tags.includes('lodging'))?.id || locations[0].id;
-  if (!nameToLoc[String(places.start || '').toLowerCase()]) fix(`start place "${places.start}" not found; starting at ${locations.find((l) => l.id === startLoc).name}`);
+  const startLoc = findPlace(places.start || '') || locations.find((l) => l.tags.includes('lodging'))?.id || locations[0].id;
+  if (!findPlace(places.start || '')) fix(`start place "${places.start}" not found; starting at ${locations.find((l) => l.id === startLoc).name}`);
   for (const l of locations) delete l._conn;
 
   // ------------------------------------------------------------ items & recipes
@@ -201,7 +208,7 @@ export function compileWorld(draft, { description = '' } = {}) {
   for (const n of people.npcs) {
     const id = uniqueId(`npc_${slug(n.name.split(' ')[0], 16)}`, npcUsed);
     npcByName[n.name] = id;
-    const loc = nameToLoc[n.location.toLowerCase()] || startLoc;
+    const loc = findPlace(n.location) || startLoc;
     const settlement = locations.find((l) => l.id === loc).settlement;
     const inn = locations.find((l) => l.settlement === settlement && l.tags.includes('lodging'));
     const schedule = Object.fromEntries(blocks.map((b) => [b, loc]));

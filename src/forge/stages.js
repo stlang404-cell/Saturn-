@@ -129,4 +129,4 @@ export function stagePrompt(stage, draft, feedback) {
   return { system: SYSTEM, user: stage.prompt(draft) + (feedback ? `\n\nREVISION REQUEST FROM THE PLAYER: ${feedback}` : '') };
 }
 
-export const STAGE_TOKENS = { core: 1800, skills: 1800, roles: 320, places: 2400, items: 2400, people: 3400, story: 3600 };
+export const STAGE_TOKENS = { core: 1800, skills: 1800, roles: 320, places: 3000, items: 2400, people: 3400, story: 3600 };

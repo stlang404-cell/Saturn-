@@ -1,0 +1,1689 @@
+{
+  "description": "Create a world where people live on floating continents above a vast ocean. Civilization is powered by crystals that manipulate gravity. There are competing trading republics, flying ships, unusual creatures, and powerful scientific institutions. I begin as a poor apprentice engineer.",
+  "core": {
+    "name": "Aetheris",
+    "tagline": "Where gravity is a currency and the sky is a marketplace",
+    "premise": "Floating continents drift across a vast ocean of liquid nitrogen and tectonic foam, sustained by gravity-modulating crystals that pulse with natural energy. These crystals are the backbone of civilization—used to stabilize flight, power cities, and regulate t風",
+    "tone": "Calm, technical, grounded in scientific realism with a sense",
+    "intro": "You wake in the cramped observation deck of a floating workshop on the western edge of the continent of Solvex, the air thick with the hum of crystal resonators. Below you, the ocean churns in a deep, shimmering blue, and the sky is dotted with drifting ships, their hulls shaped like kelp or folded metal. The crystals in the walls pulse gently, their light shifting from pale blue to amber as they absorb ambient motion. You are a poor apprentice engineer, just beginning to fix",
+    "contradictions_resolved": [],
+    "physics": [
+      "Gravity is not constant—floating continents experience tidal fluctuations in gravitational pull due to the oscillating crystals beneath them. These fluctuations"
+    ],
+    "impossible": [
+      "Sustained anti-gravity without energy input",
+      "Travel faster than the crystal resonance frequency",
+      "Creation of gravity wells without crystalline infrastructure"
+    ],
+    "common_knowledge": [
+      "Crystals must be regularly tuned to avoid resonance collapse",
+      "All flying ships require a gravity tether or crystal anchor",
+      "If a crystal fails, the entire structure can drift or collapse within minutes"
+    ],
+    "magic": {
+      "exists": false,
+      "summary": "No magic. All phenomena are governed by known physical laws, though the behavior of crystals defies classical physics and requires advanced engineering"
+    },
+    "technology": {
+      "level": "post-industrial, but grounded in real-sc",
+      "summary": "The world uses gravity-modulating crystals as a power source. Ships and structures are stabilized via embedded crystal arrays. Engineering is precise, modular, and reliant on predictive modeling of crystal resonance."
+    },
+    "currency": {
+      "name": "Gravitas",
+      "plural": "gravitas",
+      "medium": "Units of gravitational potential energy, measured in 'pulsations per second' (pps) and traded via in"
+    },
+    "attributes": [
+      {
+        "id": "stability",
+        "label": "Stability",
+        "info": "How well your engineering designs withstand gravity fluctuations"
+      },
+      {
+        "id": "resonance",
+        "label": "Resonance",
+        "info": "Your ability to tune crystal arrays to match natural frequencies"
+      },
+      {
+        "id": "crafting",
+        "label": "Crafting",
+        "info": "Skill in assembling and repairing mechanical and crystal components"
+      },
+      {
+        "id": "navigation",
+        "label": "Navigation",
+        "info": "Understanding of tectonic drift, crystal pulses, and sky-path patterns"
+      },
+      {
+        "id": "observation",
+        "label": "Observation",
+        "info": "Your capacity to detect subtle changes in crystal behavior or environmental cues"
+      },
+      {
+        "id": "adaptation",
+        "label": "Adaptation",
+        "info": "How quickly you respond to shifts in gravity or structural stress"
+      }
+    ],
+    "calendar": {
+      "era": "The Crystal Epoch",
+      "months": [
+        "Pulse",
+        "Tide",
+        "Drift",
+        "Anchor",
+        "Resonance",
+        "Fissure",
+        "Ascend",
+        "Equinox",
+        "Drift",
+        "Crisp",
+        "Lull",
+        "Flood"
+      ],
+      "weekdays": [
+        "Cradle",
+        "Stead",
+        "Pulse",
+        "Anchor",
+        "Flow",
+        "Shift",
+        "Still"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Solvex Spire",
+        "kind": "floating research hub",
+        "description": "A tall, spiral structure anchored by a central crystal array, used for gravity studies and crystal calibration. Home to the Council of Tethr",
+        "population": 8700
+      },
+      {
+        "name": "Kelpar Drift",
+        "kind": "free-trade market",
+        "description": "A cluster of floating barges connected by tethers, where ships exchange goods, raw crystals, and information. Known for chaotic but vibrant.",
+        "population": 12000
+      },
+      {
+        "name": "Nexora Plateau",
+        "kind": "industrial colony",
+        "description": "A wide, flat continent stabilized by a ring of crystalline supports. Home to gravity-powered factories and shipyards. Frequently involved in",
+        "population": 34000
+      }
+    ],
+    "player": {
+      "background": "You are a poor apprentice engineer who l",
+      "description": "You have worked for a year in the workshops beneath Solvex Spire, learning to read crystal resonance and repair flight stabilizers. You have no official title, and your tools are basic—mostly hand-twe",
+      "wealth": "poor"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "resonance_calibration",
+        "label": "Resonance Calibration",
+        "attr": "stability",
+        "group": "social",
+        "desc": "The precise tuning of gravity-modulating crystals to match the natural",
+        "trained": true,
+        "keywords": [
+          "tune crystals",
+          "match resonance",
+          "calibrate pull zones"
+        ]
+      },
+      {
+        "id": "sky_tide_pronouncement",
+        "label": "Sky Tide Pronouncement",
+        "attr": "observation",
+        "group": "social",
+        "desc": "Predicting and announcing the next gravitational fluctuation in the aë",
+        "trained": true,
+        "keywords": [
+          "forecast tides",
+          "read sky waves",
+          "announce gravity sur"
+        ]
+      },
+      {
+        "id": "crystal_siphon",
+        "label": "Crystal Siphon",
+        "attr": "crafting",
+        "group": "trade",
+        "desc": "Extracting raw resonance energy from crystals without damaging their",
+        "trained": true,
+        "keywords": [
+          "drain energy",
+          "siphon pulses",
+          "pull from core"
+        ]
+      },
+      {
+        "id": "aerial_navigational_scrip",
+        "label": "Aerial Navigational Scripting",
+        "attr": "navigation",
+        "group": "trade",
+        "desc": "Creating dynamic flight paths that respond to shifting gravity fields",
+        "trained": true,
+        "keywords": [
+          "script flight",
+          "adjust for tides",
+          "predict drift"
+        ]
+      },
+      {
+        "id": "gravity_bargaining",
+        "label": "Gravity Bargaining",
+        "attr": "crafting",
+        "group": "social",
+        "desc": "Negotiating trade using gravity units—how much pull a person or object",
+        "trained": true,
+        "keywords": [
+          "trade gravity units",
+          "offer pull",
+          "barter with weight"
+        ]
+      },
+      {
+        "id": "silent_tracking",
+        "label": "Silent Tracking",
+        "attr": "observation",
+        "group": "social",
+        "desc": "Following individuals or objects through shifting air currents and un",
+        "trained": true,
+        "keywords": [
+          "follow without noise",
+          "track through foam",
+          "trace movement"
+        ]
+      },
+      {
+        "id": "crystal_infiltration",
+        "label": "Crystal Infiltration",
+        "attr": "crafting",
+        "group": "social",
+        "desc": "Stealthy insertion of modified crystals into unstable zones to disrupt",
+        "trained": true,
+        "keywords": [
+          "hide in crystal",
+          "insert false pulse",
+          "take over array"
+        ]
+      },
+      {
+        "id": "aether_shift",
+        "label": "Aether Shift",
+        "attr": "adaptation",
+        "group": "physical",
+        "desc": "A sudden, controlled movement through gravity zones—used for escape or",
+        "trained": true,
+        "keywords": [
+          "shift through sky",
+          "move through pull",
+          "dodge gravity shift"
+        ]
+      },
+      {
+        "id": "gravity_healing",
+        "label": "Gravity Healing",
+        "attr": "crafting",
+        "group": "physical",
+        "desc": "Restoring balance in a person's internal gravity field, used to treat",
+        "trained": true,
+        "keywords": [
+          "balance body pull",
+          "stabilize core",
+          "fix gravity drift"
+        ]
+      },
+      {
+        "id": "sky_harmony",
+        "label": "Sky Harmony",
+        "attr": "adaptation",
+        "group": "social",
+        "desc": "Synchronizing personal movement with the natural resonance of the sky",
+        "trained": true,
+        "keywords": [
+          "move with waves",
+          "sync with pulse",
+          "match the sky"
+        ]
+      },
+      {
+        "id": "crystal_mining",
+        "label": "Crystal Mining",
+        "attr": "crafting",
+        "group": "physical",
+        "desc": "Extracting primary crystals from the deep tectonic foam beneath the",
+        "trained": true,
+        "keywords": [
+          "dig in foam",
+          "mine deep crystal",
+          "pull from bedrock"
+        ]
+      },
+      {
+        "id": "tide_sense",
+        "label": "Tide Sense",
+        "attr": "observation",
+        "group": "social",
+        "desc": "A heightened awareness of gravitational fluctuations—used to detect",
+        "trained": true,
+        "keywords": [
+          "feel gravity shift",
+          "sense pulse",
+          "read the sky's pulse"
+        ]
+      },
+      {
+        "id": "aerial_sleight",
+        "label": "Aerial Sleight",
+        "attr": "stability",
+        "group": "physical",
+        "desc": "Performing delicate, gravity-sensitive maneuvers—like shifting weight",
+        "trained": true,
+        "keywords": [
+          "move without falling",
+          "balance in air",
+          "weight shift"
+        ]
+      },
+      {
+        "id": "crafting_with_resonance",
+        "label": "Crafting with Resonance",
+        "attr": "crafting",
+        "group": "trade",
+        "desc": "Designing and building objects that respond to gravity pulses—like a",
+        "trained": true,
+        "keywords": [
+          "build with pulse",
+          "respond to pull",
+          "resonant structure"
+        ]
+      },
+      {
+        "id": "gravity_breach",
+        "label": "Gravity Breach",
+        "attr": "adaptation",
+        "group": "physical",
+        "desc": "Forcing a temporary instability in a gravity field to enter or exit",
+        "trained": true,
+        "keywords": [
+          "break gravity",
+          "open pull gap",
+          "force shift"
+        ]
+      },
+      {
+        "id": "sky_telemetry",
+        "label": "Sky Telemetry",
+        "attr": "observation",
+        "group": "social",
+        "desc": "Using crystal arrays to detect and relay real-time gravity data from",
+        "trained": true,
+        "keywords": [
+          "read sky data",
+          "relay pulse",
+          "monitor resonance"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "gravity_bargaining",
+    "lie": "silent_tracking",
+    "threaten": "gravity_breach",
+    "haggle": "gravity_bargaining",
+    "notice": "tide_sense",
+    "search": "crystal_infiltration",
+    "steal": "crystal_siphon",
+    "sneak": "crystal_infiltration",
+    "fight": "gravity_breach",
+    "labor": "crystal_mining",
+    "wilds": "sky_tide_pronouncement",
+    "heal": "gravity_healing",
+    "manage": "aerial_navigational_scrip",
+    "research": "resonance_calibration",
+    "invent": "crafting_with_resonance",
+    "craft": "crafting_with_resonance"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Solvex Spire - Gravity Nexus",
+        "settlement": "Solvex Spire",
+        "kind": "research & governance",
+        "tags": [
+          "government",
+          "work",
+          "library",
+          "healing"
+        ],
+        "description": "The heart of the floating research hub, where gravity-modulating crystals are calibrated and studied. A spiraling structure made of tempered crystal l",
+        "connections": [
+          {
+            "to": "Kelpar Drift",
+            "minutes": 25,
+            "mode": "lift"
+          },
+          {
+            "to": "Nexora Plateau",
+            "minutes": 40,
+            "mode": "airship"
+          },
+          {
+            "to": "Crystalline Outpost - Northern Ridge",
+            "minutes": 60,
+            "mode": "ship"
+          }
+        ]
+      },
+      {
+        "name": "Kelpar Drift - Exchange Quay",
+        "settlement": "Kelpar Drift",
+        "kind": "market & trade",
+        "tags": [
+          "market",
+          "work",
+          "food",
+          "lodging"
+        ],
+        "description": "A chaotic cluster of floating barges tethered together, where traders barter raw crystals, rare minerals, and flight technology. Goods are weighed in ",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 25,
+            "mode": "lift"
+          },
+          {
+            "to": "Nexora Plate",
+            "minutes": 30,
+            "mode": "ship"
+          },
+          {
+            "to": "Shard Coves - Tidal Market",
+            "minutes": 15,
+            "mode": "ship"
+          }
+        ]
+      },
+      {
+        "name": "Nexora Plateau - Factory Bay",
+        "settlement": "Nexora Plateau",
+        "kind": "industry & labor",
+        "tags": [
+          "work",
+          "food",
+          "lodging"
+        ],
+        "description": "A wide, flat continent stabilized by a ring of resonant crystal supports. Home to gravity-powered factories that shape crystal arrays and produce ship",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 40,
+            "mode": "airship"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 30,
+            "mode": "ship"
+          },
+          {
+            "to": "Tethered Dock - West Spire",
+            "minutes": 10,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Tethered Dock - West Spire",
+        "settlement": "Nexora Plateau",
+        "kind": "labor & transit",
+        "tags": [
+          "work",
+          "lodging",
+          "food"
+        ],
+        "description": "A cluster of worker ships and maintenance bays where gravity array technicians and engineers perform daily checks on ship stabilizers. Low-cost dorms,",
+        "connections": [
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 10,
+            "mode": "lift"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 35,
+            "mode": "ship"
+          },
+          {
+            "to": "Crystalline Outpost - Northern Ridge",
+            "minutes": 50,
+            "mode": "ship"
+          }
+        ]
+      },
+      {
+        "name": "Solvex Spire - Council Chambers",
+        "settlement": "Solvex Spire",
+        "kind": "government & law",
+        "tags": [
+          "government",
+          "healing",
+          "work"
+        ],
+        "description": "The central lawmaking body where gravity regulations are debated. Councilors use crystal resonance models to predict gravitational shifts and set safe",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 30,
+            "mode": "lift"
+          },
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 45,
+            "mode": "airship"
+          }
+        ]
+      },
+      {
+        "name": "Solvex Spire - Crystal Library",
+        "settlement": "Solvex Spire",
+        "kind": "education & learning",
+        "tags": [
+          "library",
+          "work",
+          "healing"
+        ],
+        "description": "A vast archive of crystal resonance data, gravity models, and flight logs. Scholars study oscillation patterns to predict tides in gravity. Books are",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 35,
+            "mode": "lift"
+          },
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 50,
+            "mode": "airship"
+          }
+        ]
+      },
+      {
+        "name": "Crystalline Outpost - Northern Ridge",
+        "settlement": "wilds",
+        "kind": "wild & remote",
+        "tags": [
+          "wild",
+          "healing",
+          "work"
+        ],
+        "description": "A cluster of jagged crystal spires rising from the tectonic foam. Locals believe the crystals hum with ancestral gravity, and harvest them during high",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 60,
+            "mode": "ship"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 45,
+            "mode": "ship"
+          },
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 70,
+            "mode": "ship"
+          }
+        ]
+      },
+      {
+        "name": "Shard Coves - Tidal Market",
+        "settlement": "wilds",
+        "kind": "market & trade",
+        "tags": [
+          "market",
+          "food",
+          "lodging"
+        ],
+        "description": "A seasonal market formed where the liquid nitrogen tides create natural eddies. Locals trade gravity-affected goods, like low-density fabrics and tect",
+        "connections": [
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 15,
+            "mode": "ship"
+          },
+          {
+            "to": "Crystalline Outpost - Northern Ridge",
+            "minutes": 40,
+            "mode": "ship"
+          },
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 55,
+            "mode": "ship"
+          }
+        ]
+      },
+      {
+        "name": "Solvex Spire - Dampens & Dwell",
+        "settlement": "Solvex Spire",
+        "kind": "seedy & informal",
+        "tags": [
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A network of repurposed crystal conduits and undercrystal chambers used by gravity technicians who work late. Dim, humid, and always a bit unsta",
+        "connections": [
+          {
+            "to": "Solvex Spire - Gravity Nexus",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 25,
+            "mode": "lift"
+          },
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 45,
+            "mode": "airship"
+          }
+        ]
+      },
+      {
+        "name": "Tethered Dock - East Maw",
+        "settlement": "Nexora Plateau",
+        "kind": "seedy & informal",
+        "tags": [
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A hidden dock where gravity workers and ship crews sleep in cramped, unlicensed modules. Supplies are bartered, not sold. Known for long shifts and",
+        "connections": [
+          {
+            "to": "Nexora Plateau - Factory Bay",
+            "minutes": 10,
+            "mode": "lift"
+          },
+          {
+            "to": "Kelpar Drift - Exchange Quay",
+            "minutes": 35,
+            "mode": "ship"
+          },
+          {
+            "to": "Crystalline Outpost - Northern Ridge",
+            "minutes": 55,
+            "mode": "ship"
+          }
+        ]
+      }
+    ],
+    "start": "Solvex Spire - Gravity Nexus"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "sky_grain",
+        "name": "Sky Grain",
+        "category": "food",
+        "value": 25,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "resonance_calibration",
+        "description": "A lightweight, nutrient-dense crop grown in floating terraces on the t"
+      },
+      {
+        "id": "tide_berry",
+        "name": "Tide Berry",
+        "category": "food",
+        "value": 18,
+        "weight": 0.2,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "tide_sense",
+        "description": "A glowing, crystalline fruit that pulses with the rhythm of sky tides."
+      },
+      {
+        "id": "crystal_ore_north",
+        "name": "North Ore (Primary Resonance Crystal)",
+        "category": "treasure",
+        "value": 1200,
+        "weight": 5,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "crystal_siphon",
+        "description": "A dense, dark ore harvested from the northern crusts beneath floating "
+      },
+      {
+        "id": "crystal_ore_south",
+        "name": "South Ore (Stabilization Crystal)",
+        "category": "treasure",
+        "value": 950,
+        "weight": 4.5,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "aerial_navigational_scrip",
+        "description": "Used to anchor city platforms and stabilize gravity fields in central "
+      },
+      {
+        "id": "aether_iron",
+        "name": "Aether Iron",
+        "category": "tool",
+        "value": 80,
+        "weight": 0.8,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gravity_breach",
+        "description": "A malleable, gravity-responsive metal that can be shaped to absorb or\n"
+      },
+      {
+        "id": "sky_silk",
+        "name": "Sky Silk",
+        "category": "tool",
+        "value": 65,
+        "weight": 0.4,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "aerial_sleight",
+        "description": "A light, non-stretching fiber spun from floating spores. Used to weave"
+      },
+      {
+        "id": "gravity_shield_mesh",
+        "name": "Gravity Shield Mesh",
+        "category": "armor",
+        "value": 400,
+        "weight": 1.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "silent_tracking",
+        "description": "A flexible mesh woven with resonance-dampening threads. Protects from\n"
+      },
+      {
+        "id": "sky_lantern",
+        "name": "Sky Lantern",
+        "category": "weapon",
+        "value": 300,
+        "weight": 0.7,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "sky_telemetry",
+        "description": "A lightweight, hand-cranked lantern that emits a stable gravitational\n"
+      },
+      {
+        "id": "crystal_core",
+        "name": "Crystal Core",
+        "category": "tool",
+        "value": 200,
+        "weight": 1,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "crystal_mining",
+        "description": "A central resonator harvested from active gravity crystals. Used in\n"
+      },
+      {
+        "id": "resonance_sieve",
+        "name": "Resonance Sieve",
+        "category": "tool",
+        "value": 150,
+        "weight": 0.6,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "resonance_calibration",
+        "description": "A device that filters crystal frequencies to isolate usable pulses for"
+      },
+      {
+        "id": "sky_gel",
+        "name": "Sky Gel",
+        "category": "food",
+        "value": 35,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "gravity_healing",
+        "description": "A semi-solid, elastic substance used in healing and stabilizing minor"
+      },
+      {
+        "id": "tide_siphon",
+        "name": "Tide Siphon",
+        "category": "tool",
+        "value": 110,
+        "weight": 0.9,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "sky_tide_pronouncement",
+        "description": "A mechanical device that draws and measures gravity fluctuations from"
+      },
+      {
+        "id": "gravity_balm",
+        "name": "Gravity Balm",
+        "category": "medicine",
+        "value": 180,
+        "weight": 0.3,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gravity_healing",
+        "description": "A viscous ointment applied to joints and tendons to reduce strain from"
+      },
+      {
+        "id": "aether_core",
+        "name": "Aether Core",
+        "category": "tool",
+        "value": 1500,
+        "weight": 2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "aether_shift",
+        "description": "A rare, self-oscillating core found only in deep tectonic foam. Used\n"
+      },
+      {
+        "id": "sky_tide_rune",
+        "name": "Sky Tide Rune",
+        "category": "tool",
+        "value": 600,
+        "weight": 0.4,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "sky_tide_pronouncement",
+        "description": "A carved, pulsing sigil that emits a harmonic field to align with the"
+      },
+      {
+        "id": "gravity_pendant",
+        "name": "Gravity Pendant",
+        "category": "treasure",
+        "value": 5000,
+        "weight": 0.1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "gravity_bargaining",
+        "description": "A small, hand-carved pendant that subtly alters local gravity when\n"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "Sky Grain",
+        "skill": "resonance_calibration",
+        "inputs": [
+          {
+            "item": "crystal_ore_north",
+            "qty": 1
+          },
+          {
+            "item": "sky_gel",
+            "qty": 1
+          },
+          {
+            "item": "tide_berry",
+            "qty": 2
+          }
+        ],
+        "outputs": [
+          {
+            "item": "sky_grain",
+            "qty": 1
+          }
+        ],
+        "minutes": 30
+      },
+      {
+        "name": "Gravity Balm",
+        "skill": "gravity_healing",
+        "inputs": [
+          {
+            "item": "sky_gel",
+            "qty": 1
+          },
+          {
+            "item": "resonance_sieve",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "gravity_balm",
+            "qty": 1
+          }
+        ],
+        "minutes": 25
+      },
+      {
+        "name": "Sky Lantern",
+        "skill": "sky_telemetry",
+        "inputs": [
+          {
+            "item": "crystal_core",
+            "qty": 1
+          },
+          {
+            "item": "sky_silk",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "sky_lantern",
+            "qty": 1
+          }
+        ],
+        "minutes": 45
+      },
+      {
+        "name": "Gravity Shield Mesh",
+        "skill": "silent_tracking",
+        "inputs": [
+          {
+            "item": "aether_iron",
+            "qty": 2
+          },
+          {
+            "item": "sky_silk",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "gravity_shield_mesh",
+            "qty": 1
+          }
+        ],
+        "minutes": 60
+      },
+      {
+        "name": "Resonance Sieve",
+        "skill": "resonance_calibration",
+        "inputs": [
+          {
+            "item": "crystal_ore_south",
+            "qty": 1
+          },
+          {
+            "item": "sky_gel",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "resonance_sieve",
+            "qty": 1
+          }
+        ],
+        "minutes": 40
+      },
+      {
+        "name": "Sky Tide Rune",
+        "skill": "sky_tide_pronouncement",
+        "inputs": [
+          {
+            "item": "crystal_core",
+            "qty": 1
+          },
+          {
+            "item": "tide_berry",
+            "qty": 3
+          }
+        ],
+        "outputs": [
+          {
+            "item": "sky_tide_rune",
+            "qty": 1
+          }
+        ],
+        "minutes": 90
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Resonance Guild",
+        "description": "A professional society of engineers and crystal harmonists who predict and regulate gravity fluctuations using resonance",
+        "governs": "Solvex Spire"
+      },
+      {
+        "name": "Tide Merchants' Alliance",
+        "description": "A market-based coalition of traders who trade in sky-grain, tide-berry, and sky-silk, operating the tidal markets and sp",
+        "governs": "Kelpar Drift"
+      },
+      {
+        "name": "Aether Iron Syndicate",
+        "description": "A mining and metallurgy cartel that controls the extraction and processing of aether-iron and crystal ore from the north",
+        "governs": "Nexora Plateau"
+      },
+      {
+        "name": "The Floating Accord",
+        "description": "A loose alliance of independent towns and lodges that form a self-governing network to manage stability and trade equity",
+        "governs": "Solvex Spire"
+      },
+      {
+        "name": "Skyward Watch",
+        "description": "A patrol and law enforcement body that maintains order among the drifting continents, especially during gravity surges",
+        "governs": "Solvex Spire"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Dr. Elira Vey",
+        "role": "healer",
+        "location": "Solvex Spire - Crystal Library",
+        "faction": "none",
+        "traits": [
+          "calm",
+          "observant",
+          "deeply knowledgeable"
+        ],
+        "persona": "She speaks slowly, like waves under pressure. Her hands move with precision when diagnosing, and she often hum",
+        "goal": "to understand how gravity fluctuations affect the human nervous system, especially during ",
+        "skills": [
+          {
+            "skill": "gravity_healing",
+            "rank": 5
+          },
+          {
+            "skill": "crystal_siphon",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "gravity_balm",
+          "tide_siphon"
+        ],
+        "buys": [
+          "sky_grain",
+          "crystal_core"
+        ],
+        "produces": [
+          "gravity_balm"
+        ],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Marek Tarn",
+        "role": "merchant",
+        "location": "Kelpar Drift - Exchange Quay",
+        "faction": "Tide Merchants' Alliance",
+        "traits": [
+          "sudden",
+          "sharp",
+          "calculating"
+        ],
+        "persona": "His voice cuts through the market like a blade. He never misses a fluctuation in tide-berry prices and always",
+        "goal": "to corner the sky-silk market during high-resonance periods when demand spikes",
+        "skills": [
+          {
+            "skill": "tide_sense",
+            "rank": 4
+          },
+          {
+            "skill": "resonance_calibration",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "tide_berry",
+          "sky_silk",
+          "sky_grain"
+        ],
+        "buys": [
+          "crystal_ore_north",
+          "gravity_shield_mesh"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Orin the Unbroken",
+        "role": "miner",
+        "location": "Nexora Plateau - Factory Bay",
+        "faction": "Aether Iron Syndicate",
+        "traits": [
+          "steadfast",
+          "humble",
+          "resilient"
+        ],
+        "persona": "He speaks with the quiet strength of one who has seen the cracks in the tectonic foam. He wears a face of worn",
+        "goal": "to mine the deepest aether-iron veins before the next gravity surge destabilizes the plate",
+        "skills": [
+          {
+            "skill": "crystal_mining",
+            "rank": 6
+          },
+          {
+            "skill": "gravity_breach",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "aether_iron",
+          "crystal_ore_south"
+        ],
+        "buys": [
+          "sky_lantern",
+          "gravity_pendant"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Lysa of the Dampens",
+        "role": "host",
+        "location": "Solvex Spire - Dampens & Dwell",
+        "faction": "none",
+        "traits": [
+          "warm",
+          "lively",
+          "practical"
+        ],
+        "persona": "She greets guests with a smile that seems to hold the weight of the sky. Her lanterns always glow just a bit",
+        "goal": "to maintain a steady flow of travelers to Solvex Spire by offering affordable, stable lodg",
+        "skills": [
+          {
+            "skill": "resonance_calibration",
+            "rank": 3
+          },
+          {
+            "skill": "tide_sense",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "sky_lantern",
+          "tide_berry"
+        ],
+        "buys": [
+          "sky_grain",
+          "gravity_balm"
+        ],
+        "produces": [
+          "sky_lantern"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": true
+      },
+      {
+        "name": "Kael Voss",
+        "role": "engineer",
+        "location": "Solvex Spire - Council Chambers",
+        "faction": "The Resonance Guild",
+        "traits": [
+          "precise",
+          "logical",
+          "tightly controlled"
+        ],
+        "persona": "He speaks in measured tones, as if calculating each word. His tools are always in order, and his crystal ",
+        "goal": "to stabilize the central gravity core during peak tidal fluctuations",
+        "skills": [
+          {
+            "skill": "resonance_calibration",
+            "rank": 7
+          },
+          {
+            "skill": "crystal_siphon",
+            "rank": 6
+          }
+        ],
+        "sells": [
+          "resonance_sieve",
+          "gravity_shield_mesh"
+        ],
+        "buys": [
+          "crystal_core",
+          "sky_silk"
+        ],
+        "produces": [
+          "resonance_sieve",
+          "gravity_shield_mesh"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Mara Shem",
+        "role": "teacher",
+        "location": "Solvex Spire - Crystal Library",
+        "faction": "none",
+        "traits": [
+          "curious",
+          "patient",
+          "insightful"
+        ],
+        "persona": "She teaches through hands-on resonance modeling, letting students feel the vibrations in crystal arrays",
+        "goal": "to train a new generation of engineers who can predict gravity shifts before they happen",
+        "skills": [
+          {
+            "skill": "resonance_calibration",
+            "rank": 5
+          },
+          {
+            "skill": "gravity_healing",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "sky_gel",
+          "gravity_pendant"
+        ],
+        "buys": [
+          "sky_tide_rune",
+          "crystal_core"
+        ],
+        "produces": [
+          "sky_gel"
+        ],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dorin the Keen",
+        "role": "guard",
+        "location": "Solvex Spire - Council Chambers",
+        "faction": "Skyward Watch",
+        "traits": [
+          "alert",
+          "detailed",
+          "loyal"
+        ],
+        "persona": "He moves like a shadow, listening to the hum of the crystals beneath the floor. When he speaks, his voice",
+        "goal": "to prevent any unauthorized access to the gravity core during fluctuation windows",
+        "skills": [
+          {
+            "skill": "gravity_breach",
+            "rank": 5
+          },
+          {
+            "skill": "resonance_calibration",
+            "rank": 4
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "gravity_balm",
+          "sky_silk"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Toren of the Tides",
+        "role": "farmer",
+        "location": "Kelpar Drift - Exchange Quay",
+        "faction": "Tide Merchants' Alliance",
+        "traits": [
+          "persistent",
+          "adaptive",
+          "observant"
+        ],
+        "persona": "He plants sky-grain in tidal grooves that shift with the gravity waves. His fields respond like living things",
+        "goal": "to grow sky-grain in periods of low gravity to maximize yield during calm tides",
+        "skills": [
+          {
+            "skill": "sky_tide_pronouncement",
+            "rank": 4
+          },
+          {
+            "skill": "resonance_calibration",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "sky_grain"
+        ],
+        "buys": [
+          "tide_berry",
+          "gravity_pendant"
+        ],
+        "produces": [
+          "sky_grain"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Veyra of the North",
+        "role": "miner",
+        "location": "Crystalline Outpost - Northern Ridge",
+        "faction": "Aether Iron Syndicate",
+        "traits": [
+          "intense",
+          "focused",
+          "isolated"
+        ],
+        "persona": "She works alone in the cold, deep tunnels where the crystals pulse strongest. Her breath is visible in the fog",
+        "goal": "to extract the purest crystal core from the northern veins before the next surge collapses",
+        "skills": [
+          {
+            "skill": "crystal_mining",
+            "rank": 6
+          },
+          {
+            "skill": "aether_shift",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "crystal_core",
+          "aether_core"
+        ],
+        "buys": [
+          "gravity_balm",
+          "sky_gel"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Nexar the Warden",
+        "role": "lender",
+        "location": "Tethered Dock - East Maw",
+        "faction": "none",
+        "traits": [
+          "practical",
+          "measured",
+          "cautious"
+        ],
+        "persona": "He offers loans in the form of gravity shields or sky-gel, not money—but currency in time and stability",
+        "goal": "to secure long-term stability for new builders by offering conditional gravity support",
+        "skills": [
+          {
+            "skill": "resonance_calibration",
+            "rank": 4
+          },
+          {
+            "skill": "tide_sense",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "gravity_shield_mesh",
+          "sky_gel"
+        ],
+        "buys": [
+          "crystal_ore_south",
+          "sky_tide_rune"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": true,
+        "guard": false,
+        "healer": false,
+        "host": false
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The crystals beneath the floating continents pulse",
+        "content": "The crystals don’t just stabilize flight — they hum in response to emotional stress. It’s said that during times of great fear or joy, the pulses increase in frequency, a",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Kael Voss",
+          "Mara Shem",
+          "Dorin the Keen"
+        ],
+        "keepers": [
+          "Kael Voss"
+        ],
+        "tags": [
+          "rumor",
+          "unverified"
+        ]
+      },
+      {
+        "subject": "Sky grain grows only during high-tide gravity surr",
+        "content": "Farmers in Kelpar Drift claim that sky grain only ripens when gravity fluctuates in a specific pattern — one that occurs once every 37 days. If a farmer misses this, the ",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Toren of the Tides",
+          "Marek Tarn"
+        ],
+        "keepers": [
+          "Toren of the Tides"
+        ],
+        "tags": [
+          "public_knowledge",
+          "scientific"
+        ]
+      },
+      {
+        "subject": "The Solvex Spire’s central crystal core is being s",
+        "content": "A rumor spreads that the Solvex Spire’s main crystal core is being slowly drained by a hidden resonance sieve — one that was installed without official records. Some say",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Lysa of the Dampens",
+          "Mara Shem",
+          "Kael Voss"
+        ],
+        "keepers": [
+          "Lysa of the Dampens"
+        ],
+        "tags": [
+          "rumor",
+          "dangerous"
+        ]
+      },
+      {
+        "subject": "The gravity balm from the North is said to be th",
+        "content": "Veyra of the North claims that her mine’s gravity balm contains a trace of a naturally occurring ‘anti-resonance’ compound. When used, it dulls crystal pulses — th",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Veyra of the North",
+          "Orin the Unbroken"
+        ],
+        "keepers": [
+          "Veyra of the North"
+        ],
+        "tags": [
+          "rumor",
+          "trade_secret"
+        ]
+      },
+      {
+        "subject": "The tide berries are not native to the sky",
+        "content": "Some scholars believe tide berries grow in the liquid nitrogen ocean, not in the sky. They are actually a product of tectonic foam crystallization — a process that can be",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Mara Shem",
+          "Kael Voss",
+          "Toren of the Tides"
+        ],
+        "keepers": [
+          "Mara Shem"
+        ],
+        "tags": [
+          "scientific",
+          "public_knowledge"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Marek Tarn",
+        "kind": "stockpile",
+        "partner_or_rival": "Toren of the Tides",
+        "items": [
+          "sky_grain",
+          "tide_berry"
+        ],
+        "motive": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future use"
+      },
+      {
+        "who": "Orin the Unbroken",
+        "kind": "undercut",
+        "partner_or_rival": "Veyra of the North",
+        "items": [
+          "crystal_ore_north"
+        ],
+        "motive": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿"
+      },
+      {
+        "who": "Nexar the Warden",
+        "kind": "debt",
+        "partner_or_rival": "Kael Voss",
+        "items": [
+          "gravity_shield_mesh"
+        ],
+        "motive": "Nexar owes Kael 300 gravitas for a recent shield mesh repair — but has not repaid it, and now demands interest at 20%."
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Kael Voss",
+        "title": "Deliver a resonance sieve to the Northern Ridge",
+        "text": "I need a resonance sieve to test the stability of the new gravity core we’re installing in Crystalline Outpost. Must reach Veyra’s",
+        "item": "resonance_sieve",
+        "qty": 1,
+        "deliver_to": "Veyra of the North",
+        "reward": 150,
+        "days": 3
+      },
+      {
+        "giver": "Lysa of the Dampens",
+        "title": "Repair a gravity balm condenser",
+        "text": "One of the dampening chambers in the Spire is failing. I need your help reading the crystal pulse patterns to fix it — it’s been 1",
+        "item": "gravity_balm",
+        "qty": 1,
+        "deliver_to": "Dr. Elira Vey",
+        "reward": 120,
+        "days": 2
+      },
+      {
+        "giver": "Marek Tarn",
+        "title": "Collect sky silk from the Exchange Quay",
+        "text": "I need 10 units of sky silk for my next shipment to Tethered Dock. I’ll pay in gravitas — but only if you can deliver it by the 12",
+        "item": "sky_silk",
+        "qty": 10,
+        "deliver_to": "Marek Tarn",
+        "reward": 65,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Gravity Fluctuation Cost",
+        "kind": "technology",
+        "summary": "Every time you use a gravity-modulating device (like a stabilizer or balm), the local gravity field shifts. If you exceed 30% of the predicted tidal e",
+        "skill": "resonance_calibration",
+        "difficulty": "moderate",
+        "minutes": 5,
+        "must_be_learned": true,
+        "min_skill": 3,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "travel",
+            "item": "tide_berry",
+            "amount": 1,
+            "text": "A small tide berry grows in the air above you, as if in response to the change in gravity."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "gravity_balm",
+            "amount": 1,
+            "text": "The balm begins to leak, and the local gravity drops by 0.03 units — causing instability in nearby structures."
+          }
+        ],
+        "known_by": [
+          "Kael Voss",
+          "Mara Shem"
+        ]
+      },
+      {
+        "name": "Crystal Pulse Sensitivity",
+        "kind": "technology",
+        "summary": "If you use a crystal-based tool (like a resonance sieve or gravity shield), you must match the current pulse frequency of the nearest crystal array. M",
+        "skill": "resonance_calibration",
+        "difficulty": "moderate",
+        "minutes": 5,
+        "must_be_learned": true,
+        "min_skill": 3,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "heal",
+            "item": "gravity_balm",
+            "amount": 1,
+            "text": "The tool stabilizes, and a faint glow appears in the air around you."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "produce",
+            "item": "sky_gel",
+            "amount": 1,
+            "text": "A drop of sky gel leaks from the tool, forming a small, unstable puddle that sags under its own weight."
+          }
+        ],
+        "known_by": [
+          "Mara Shem",
+          "Dorin the Keen"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Apprentice Engineer at Solvex Spire Work",
+        "description": "You are a poor apprentice engineer who has worked for a year in the workshops beneath Solvex Spire, learning t",
+        "attribute_bonus": [
+          "resonance",
+          "crafting"
+        ],
+        "skills": [
+          {
+            "skill": "resonance_calibration",
+            "rank": 2
+          },
+          {
+            "skill": "crystal_siphon",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "gravity_shield_mesh",
+          "resonance_sieve"
+        ],
+        "money": 100
+      },
+      {
+        "name": "Repairman from Factory Bay",
+        "description": "You come from the Nexora Plateau, where gravity is unpredictable and constant mining demands precision. You’ve",
+        "attribute_bonus": [
+          "resonance",
+          "crafting"
+        ],
+        "skills": [
+          {
+            "skill": "crystal_siphon",
+            "rank": 2
+          },
+          {
+            "skill": "gravity_breach",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "crystal_ore_south",
+          "gravity_balm"
+        ],
+        "money": 200
+      },
+      {
+        "name": "Fleet Apprentice from the Tethered Dock",
+        "description": "You were once part of a small transport crew that carried sky grain between floating continents. You know the",
+        "attribute_bonus": [
+          "navigation",
+          "resonance"
+        ],
+        "skills": [
+          {
+            "skill": "gravity_breach",
+            "rank": 2
+          },
+          {
+            "skill": "tide_sense",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "tide_siphon",
+          "sky_lantern"
+        ],
+        "money": 150
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 243429,
+      "tokens": 1800
+    },
+    "skills": {
+      "ms": 152208,
+      "tokens": 1169
+    },
+    "roles": {
+      "ms": 23124,
+      "tokens": 163
+    },
+    "places": {
+      "ms": 354945,
+      "tokens": 2400
+    },
+    "items": {
+      "ms": 252290,
+      "tokens": 1825
+    },
+    "people": {
+      "ms": 349789,
+      "tokens": 2325
+    },
+    "story": {
+      "ms": 314781,
+      "tokens": 2042
+    }
+  }
+}

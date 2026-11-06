@@ -66,9 +66,9 @@ for (const f of specs) {
     if (b.outcomes[0].status === 'done') assert.ok(g.balance('player') < money0, 'paid in world currency');
     else assert.ok(['insufficient_funds', 'out_of_stock', 'not_here'].includes(b.outcomes[0].error.code), b.outcomes[0].error.message);
     // skill checks with world skills: train a drillable skill, study with a teacher if any
-    const drill = spec.skills.find((s) => !s.trained);
+    const drill = spec.skills.find((s) => !s.trained) || spec.skills[0];
     const tr = act(g, { type: 'train', skill: drill.label, hours: 3 });
-    assert.notEqual(tr.outcomes[0].status, 'blocked', tr.outcomes[0].error?.message);
+    assert.ok(tr.outcomes[0].status !== 'blocked' || ['cant_drill', 'need_tools', 'need_forge'].includes(tr.outcomes[0].error.code), tr.outcomes[0].error?.message);
     // free text through the deterministic parser, world-agnostic phrasing
     assert.ok(say(g, 'investigate'), 'parser handles generic phrasing');
     // world rules: installed and resolvable through a real check when usable

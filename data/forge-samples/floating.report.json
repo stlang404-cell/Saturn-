@@ -1,0 +1,49 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1937,
+  "timings": {
+    "core": {
+      "ms": 243429,
+      "tokens": 1800
+    },
+    "skills": {
+      "ms": 152208,
+      "tokens": 1169
+    },
+    "roles": {
+      "ms": 23124,
+      "tokens": 163
+    },
+    "places": {
+      "ms": 354945,
+      "tokens": 2400
+    },
+    "items": {
+      "ms": 252290,
+      "tokens": 1825
+    },
+    "people": {
+      "ms": 349789,
+      "tokens": 2325
+    },
+    "story": {
+      "ms": 314781,
+      "tokens": 2042
+    }
+  },
+  "report": {
+    "repairs": [
+      "north ore (primary resonance crystal) had no source; Dr. Elira Vey now receives a steady supply",
+      "north ore (primary resonance crystal) had no seller; Dr. Elira Vey now sells it",
+      "south ore (stabilization crystal) had no source; Orin the Unbroken now receives a steady supply",
+      "aether iron had no source; Orin the Unbroken now receives a steady supply",
+      "sky silk had no source; Marek Tarn now receives a steady supply",
+      "crystal core had no source; Veyra of the North now receives a steady supply",
+      "tide siphon had no source; Dr. Elira Vey now receives a steady supply",
+      "aether core had no source; Veyra of the North now receives a steady supply",
+      "sky tide rune had no seller; Dr. Elira Vey now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}
