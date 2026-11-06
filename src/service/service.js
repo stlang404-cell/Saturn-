@@ -185,6 +185,17 @@ export class GameService {
     return { state: j.state, stage: j.stage, index: j.index, total: j.total, label: j.label, tokens: j.tokens, error: j.error, seconds: Math.round((Date.now() - j.startedAt) / 1000), description: j.description, summary: j.state === 'done' ? j.summary : null, stages: STAGES.map((s) => ({ id: s.id, label: s.label })) };
   }
 
+  /** Reopen a library world's draft in the Forge for further revision. */
+  forgeOpenDraft(ref) {
+    const [kind, id] = String(ref).split(':');
+    const f = path.join(this.worldsDir, `${path.basename(id)}.draft`);
+    if (kind !== 'library' || !fs.existsSync(f)) throw new Error('This world has no editable draft');
+    const draft = JSON.parse(fs.readFileSync(f, 'utf8'));
+    const { spec, report, summary } = WorldForge.compile(draft);
+    this.forgeJob = { state: 'done', draft, spec, report, summary, description: draft.description, startedAt: Date.now(), index: STAGES.length, total: STAGES.length };
+    return this.forgeStatus();
+  }
+
   forgeCancel() {
     this.forgeJob?.abort?.abort(new Error('cancelled'));
   }

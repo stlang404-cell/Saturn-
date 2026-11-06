@@ -2,31 +2,31 @@
   "spec_version": 2,
   "id": "w_aetheris",
   "name": "Aetheris",
-  "tagline": "Where gravity is a currency and the sky is a marketplace",
-  "premise": "Floating continents drift across a vast ocean of liquid nitrogen and tectonic foam, sustained by gravity-modulating crystals that pulse with natural energy. These crystals are the backbone of civilization—used to stabilize flight, power cities, and regulate t風",
-  "tone": "Calm, technical, grounded in scientific realism with a sense",
+  "tagline": "Where gravity is a currency and the sky is a marketplace…",
+  "premise": "Floating continents drift across a vast ocean of liquid nitrogen and tectonic foam, sustained by gravity-modulating crystals that pulse with natural energy.",
+  "tone": "Calm, technical, grounded in scientific realism with a sense…",
   "origin": {
     "kind": "forge",
     "description": "Create a world where people live on floating continents above a vast ocean. Civilization is powered by crystals that manipulate gravity. There are competing trading republics, flying ships, unusual creatures, and powerful scientific institutions. I begin as a poor apprentice engineer.",
-    "created": "2026-11-06T00:39:46.757Z"
+    "created": "2026-11-06T00:42:30.065Z"
   },
-  "intro": "You wake in the cramped observation deck of a floating workshop on the western edge of the continent of Solvex, the air thick with the hum of crystal resonators. Below you, the ocean churns in a deep, shimmering blue, and the sky is dotted with drifting ships, their hulls shaped like kelp or folded metal. The crystals in the walls pulse gently, their light shifting from pale blue to amber as they absorb ambient motion. You are a poor apprentice engineer, just beginning to fix",
+  "intro": "You wake in the cramped observation deck of a floating workshop on the western edge of the continent of Solvex, the air thick with the hum of crystal resonators. Below you, the ocean churns in a deep, shimmering blue, and the sky is dotted with drifting ships, their hulls shaped like kelp or folded metal. The crystals in the walls pulse gently, their light shifting from pale blue to amber as they absorb ambient motion.",
   "physics": [
-    "Gravity is not constant—floating continents experience tidal fluctuations in gravitational pull due to the oscillating crystals beneath them. These fluctuations"
+    "Gravity is not constant—floating continents experience tidal fluctuations in gravitational pull due to the oscillating crystals beneath them."
   ],
   "impossible": [
-    "Sustained anti-gravity without energy input",
-    "Travel faster than the crystal resonance frequency",
-    "Creation of gravity wells without crystalline infrastructure"
+    "Sustained anti-gravity without energy input…",
+    "Travel faster than the crystal resonance frequency…",
+    "Creation of gravity wells without crystalline infrastructure…"
   ],
   "common_knowledge": [
-    "Crystals must be regularly tuned to avoid resonance collapse",
-    "All flying ships require a gravity tether or crystal anchor",
-    "If a crystal fails, the entire structure can drift or collapse within minutes"
+    "Crystals must be regularly tuned to avoid resonance collapse…",
+    "All flying ships require a gravity tether or crystal anchor…",
+    "If a crystal fails, the entire structure can drift or collapse within minutes…"
   ],
   "magic": {
     "exists": false,
-    "summary": "No magic. All phenomena are governed by known physical laws, though the behavior of crystals defies classical physics and requires advanced engineering"
+    "summary": "No magic. All phenomena are governed by known physical laws, though the behavior of crystals defies classical physics and requires advanced engineering…"
   },
   "technology": {
     "level": "post-industrial, but grounded in real-sc",
@@ -36,7 +36,7 @@
     "name": "gravitas",
     "plural": "gravitas",
     "symbol": "g",
-    "medium": "Units of gravitational potential energy, measured in 'pulsations per second' (pps) and traded via in"
+    "medium": "Units of gravitational potential energy, measured in 'pulsations per second' (pps) and traded via…"
   },
   "calendar": {
     "era": "The Crystal Epoch",
@@ -75,32 +75,32 @@
     {
       "id": "stability",
       "label": "Stability",
-      "info": "How well your engineering designs withstand gravity fluctuations"
+      "info": "How well your engineering designs withstand gravity fluctuations…"
     },
     {
       "id": "resonance",
       "label": "Resonance",
-      "info": "Your ability to tune crystal arrays to match natural frequencies"
+      "info": "Your ability to tune crystal arrays to match natural frequencies…"
     },
     {
       "id": "crafting",
       "label": "Crafting",
-      "info": "Skill in assembling and repairing mechanical and crystal components"
+      "info": "Skill in assembling and repairing mechanical and crystal components…"
     },
     {
       "id": "navigation",
       "label": "Navigation",
-      "info": "Understanding of tectonic drift, crystal pulses, and sky-path patterns"
+      "info": "Understanding of tectonic drift, crystal pulses, and sky-path patterns…"
     },
     {
       "id": "observation",
       "label": "Observation",
-      "info": "Your capacity to detect subtle changes in crystal behavior or environmental cues"
+      "info": "Your capacity to detect subtle changes in crystal behavior or environmental cues…"
     },
     {
       "id": "adaptation",
       "label": "Adaptation",
-      "info": "How quickly you respond to shifts in gravity or structural stress"
+      "info": "How quickly you respond to shifts in gravity or structural stress…"
     }
   ],
   "skills": [
@@ -109,7 +109,7 @@
       "label": "Resonance Calibration",
       "attr": "stability",
       "group": "social",
-      "desc": "The precise tuning of gravity-modulating crystals to match the natural",
+      "desc": "The precise tuning of gravity-modulating crystals to match the natural…",
       "trained": true,
       "keywords": [
         "tune crystals",
@@ -122,7 +122,7 @@
       "label": "Sky Tide Pronouncement",
       "attr": "observation",
       "group": "social",
-      "desc": "Predicting and announcing the next gravitational fluctuation in the aë",
+      "desc": "Predicting and announcing the next gravitational fluctuation in the…",
       "trained": true,
       "keywords": [
         "forecast tides",
@@ -135,7 +135,7 @@
       "label": "Crystal Siphon",
       "attr": "crafting",
       "group": "trade",
-      "desc": "Extracting raw resonance energy from crystals without damaging their",
+      "desc": "Extracting raw resonance energy from crystals without damaging their…",
       "trained": true,
       "keywords": [
         "drain energy",
@@ -148,7 +148,7 @@
       "label": "Aerial Navigational Scripting",
       "attr": "navigation",
       "group": "trade",
-      "desc": "Creating dynamic flight paths that respond to shifting gravity fields",
+      "desc": "Creating dynamic flight paths that respond to shifting gravity fields…",
       "trained": true,
       "keywords": [
         "script flight",
@@ -161,7 +161,7 @@
       "label": "Gravity Bargaining",
       "attr": "crafting",
       "group": "social",
-      "desc": "Negotiating trade using gravity units—how much pull a person or object",
+      "desc": "Negotiating trade using gravity units—how much pull a person or object…",
       "trained": true,
       "keywords": [
         "trade gravity units",
@@ -174,7 +174,7 @@
       "label": "Silent Tracking",
       "attr": "observation",
       "group": "social",
-      "desc": "Following individuals or objects through shifting air currents and un",
+      "desc": "Following individuals or objects through shifting air currents and…",
       "trained": true,
       "keywords": [
         "follow without noise",
@@ -187,7 +187,7 @@
       "label": "Crystal Infiltration",
       "attr": "crafting",
       "group": "social",
-      "desc": "Stealthy insertion of modified crystals into unstable zones to disrupt",
+      "desc": "Stealthy insertion of modified crystals into unstable zones to disrupt…",
       "trained": true,
       "keywords": [
         "hide in crystal",
@@ -200,7 +200,7 @@
       "label": "Aether Shift",
       "attr": "adaptation",
       "group": "physical",
-      "desc": "A sudden, controlled movement through gravity zones—used for escape or",
+      "desc": "A sudden, controlled movement through gravity zones—used for escape…",
       "trained": true,
       "keywords": [
         "shift through sky",
@@ -213,7 +213,7 @@
       "label": "Gravity Healing",
       "attr": "crafting",
       "group": "physical",
-      "desc": "Restoring balance in a person's internal gravity field, used to treat",
+      "desc": "Restoring balance in a person's internal gravity field, used to treat…",
       "trained": true,
       "keywords": [
         "balance body pull",
@@ -226,7 +226,7 @@
       "label": "Sky Harmony",
       "attr": "adaptation",
       "group": "social",
-      "desc": "Synchronizing personal movement with the natural resonance of the sky",
+      "desc": "Synchronizing personal movement with the natural resonance of the…",
       "trained": true,
       "keywords": [
         "move with waves",
@@ -239,7 +239,7 @@
       "label": "Crystal Mining",
       "attr": "crafting",
       "group": "physical",
-      "desc": "Extracting primary crystals from the deep tectonic foam beneath the",
+      "desc": "Extracting primary crystals from the deep tectonic foam beneath…",
       "trained": true,
       "keywords": [
         "dig in foam",
@@ -252,7 +252,7 @@
       "label": "Tide Sense",
       "attr": "observation",
       "group": "social",
-      "desc": "A heightened awareness of gravitational fluctuations—used to detect",
+      "desc": "A heightened awareness of gravitational fluctuations—used to detect…",
       "trained": true,
       "keywords": [
         "feel gravity shift",
@@ -265,7 +265,7 @@
       "label": "Aerial Sleight",
       "attr": "stability",
       "group": "physical",
-      "desc": "Performing delicate, gravity-sensitive maneuvers—like shifting weight",
+      "desc": "Performing delicate, gravity-sensitive maneuvers—like shifting weight…",
       "trained": true,
       "keywords": [
         "move without falling",
@@ -278,7 +278,7 @@
       "label": "Crafting with Resonance",
       "attr": "crafting",
       "group": "trade",
-      "desc": "Designing and building objects that respond to gravity pulses—like a",
+      "desc": "Designing and building objects that respond to gravity pulses—like…",
       "trained": true,
       "keywords": [
         "build with pulse",
@@ -291,7 +291,7 @@
       "label": "Gravity Breach",
       "attr": "adaptation",
       "group": "physical",
-      "desc": "Forcing a temporary instability in a gravity field to enter or exit",
+      "desc": "Forcing a temporary instability in a gravity field to enter or exit…",
       "trained": true,
       "keywords": [
         "break gravity",
@@ -304,7 +304,7 @@
       "label": "Sky Telemetry",
       "attr": "observation",
       "group": "social",
-      "desc": "Using crystal arrays to detect and relay real-time gravity data from",
+      "desc": "Using crystal arrays to detect and relay real-time gravity data from…",
       "trained": true,
       "keywords": [
         "read sky data",
@@ -335,7 +335,7 @@
     {
       "id": "s_solvex_spire",
       "name": "Solvex Spire",
-      "description": "A tall, spiral structure anchored by a central crystal array, used for gravity studies and crystal calibration. Home to the Council of Tethr",
+      "description": "A tall, spiral structure anchored by a central crystal array, used for gravity studies and crystal calibration.",
       "population": 5000,
       "wage": 3,
       "government": "fac_the_resonance_guild"
@@ -351,7 +351,7 @@
     {
       "id": "s_nexora_plateau",
       "name": "Nexora Plateau",
-      "description": "A wide, flat continent stabilized by a ring of crystalline supports. Home to gravity-powered factories and shipyards. Frequently involved in",
+      "description": "A wide, flat continent stabilized by a ring of crystalline supports. Home to gravity-powered factories and shipyards.",
       "population": 5000,
       "wage": 3,
       "government": "fac_aether_iron_syndicat"
@@ -373,7 +373,7 @@
         "charity",
         "study"
       ],
-      "description": "The heart of the floating research hub, where gravity-modulating crystals are calibrated and studied. A spiraling structure made of tempered crystal l",
+      "description": "The heart of the floating research hub, where gravity-modulating crystals are calibrated and studied.",
       "x": 79,
       "y": 59
     },
@@ -390,7 +390,7 @@
         "food",
         "lodging"
       ],
-      "description": "A chaotic cluster of floating barges tethered together, where traders barter raw crystals, rare minerals, and flight technology. Goods are weighed in ",
+      "description": "A chaotic cluster of floating barges tethered together, where traders barter raw crystals, rare minerals, and flight technology.",
       "x": 31,
       "y": 84
     },
@@ -406,7 +406,7 @@
         "food",
         "lodging"
       ],
-      "description": "A wide, flat continent stabilized by a ring of resonant crystal supports. Home to gravity-powered factories that shape crystal arrays and produce ship",
+      "description": "A wide, flat continent stabilized by a ring of resonant crystal supports.",
       "x": 31,
       "y": 33
     },
@@ -422,7 +422,7 @@
         "lodging",
         "food"
       ],
-      "description": "A cluster of worker ships and maintenance bays where gravity array technicians and engineers perform daily checks on ship stabilizers. Low-cost dorms,",
+      "description": "A cluster of worker ships and maintenance bays where gravity array technicians and engineers perform daily checks on ship stabilizers.",
       "x": 27,
       "y": 19
     },
@@ -439,7 +439,7 @@
         "work",
         "charity"
       ],
-      "description": "The central lawmaking body where gravity regulations are debated. Councilors use crystal resonance models to predict gravitational shifts and set safe",
+      "description": "The central lawmaking body where gravity regulations are debated.",
       "x": 75,
       "y": 44
     },
@@ -457,7 +457,7 @@
         "charity",
         "study"
       ],
-      "description": "A vast archive of crystal resonance data, gravity models, and flight logs. Scholars study oscillation patterns to predict tides in gravity. Books are",
+      "description": "A vast archive of crystal resonance data, gravity models, and flight logs. Scholars study oscillation patterns to predict tides in gravity.",
       "x": 90,
       "y": 45
     },
@@ -474,7 +474,7 @@
         "work",
         "charity"
       ],
-      "description": "A cluster of jagged crystal spires rising from the tectonic foam. Locals believe the crystals hum with ancestral gravity, and harvest them during high",
+      "description": "A cluster of jagged crystal spires rising from the tectonic foam.",
       "x": 41,
       "y": 58
     },
@@ -491,7 +491,7 @@
         "lodging",
         "wild"
       ],
-      "description": "A seasonal market formed where the liquid nitrogen tides create natural eddies. Locals trade gravity-affected goods, like low-density fabrics and tect",
+      "description": "A seasonal market formed where the liquid nitrogen tides create natural eddies.",
       "x": 51,
       "y": 38
     },
@@ -507,7 +507,7 @@
         "food",
         "work"
       ],
-      "description": "A network of repurposed crystal conduits and undercrystal chambers used by gravity technicians who work late. Dim, humid, and always a bit unsta",
+      "description": "A network of repurposed crystal conduits and undercrystal chambers used by gravity technicians who work late.",
       "x": 84,
       "y": 59
     },
@@ -523,7 +523,7 @@
         "food",
         "work"
       ],
-      "description": "A hidden dock where gravity workers and ship crews sleep in cramped, unlicensed modules. Supplies are bartered, not sold. Known for long shifts and",
+      "description": "A hidden dock where gravity workers and ship crews sleep in cramped, unlicensed modules. Supplies are bartered, not sold.",
       "x": 42,
       "y": 19
     }
@@ -721,14 +721,14 @@
       "id": "sky_grain",
       "name": "sky grain",
       "category": "food",
-      "base_value": 25,
+      "base_value": 3,
       "weight": 0.3,
       "commodity": false,
       "tags": [
         "food",
         "tool:resonance_calibration"
       ],
-      "description": "A lightweight, nutrient-dense crop grown in floating terraces on the t",
+      "description": "A lightweight, nutrient-dense crop grown in floating terraces on the…",
       "data": {
         "nourish": 10,
         "tool_bonus": 1
@@ -738,7 +738,7 @@
       "id": "tide_berry",
       "name": "tide berry",
       "category": "food",
-      "base_value": 18,
+      "base_value": 2,
       "weight": 0.2,
       "commodity": false,
       "tags": [
@@ -755,13 +755,13 @@
       "id": "crystal_ore_north",
       "name": "north ore (primary resonance crystal)",
       "category": "treasure",
-      "base_value": 1200,
+      "base_value": 133,
       "weight": 5,
       "commodity": true,
       "tags": [
         "tool:crystal_siphon"
       ],
-      "description": "A dense, dark ore harvested from the northern crusts beneath floating ",
+      "description": "A dense, dark ore harvested from the northern crusts beneath floating…",
       "data": {
         "tool_bonus": 2
       },
@@ -771,11 +771,11 @@
       "id": "crystal_ore_south",
       "name": "south ore (stabilization crystal)",
       "category": "treasure",
-      "base_value": 950,
+      "base_value": 106,
       "weight": 4.5,
       "commodity": true,
       "tags": [],
-      "description": "Used to anchor city platforms and stabilize gravity fields in central ",
+      "description": "Used to anchor city platforms and stabilize gravity fields in central…",
       "data": {
         "tool_bonus": 2
       },
@@ -785,15 +785,15 @@
       "id": "aether_iron",
       "name": "aether iron",
       "category": "tool",
-      "base_value": 80,
+      "base_value": 9,
       "weight": 0.8,
       "commodity": true,
       "tags": [
         "tool:gravity_breach"
       ],
-      "description": "A malleable, gravity-responsive metal that can be shaped to absorb or\n",
+      "description": "A malleable, gravity-responsive metal that can be shaped to absorb…",
       "data": {
-        "tool_bonus": 2
+        "tool_bonus": 1
       },
       "stackable": false
     },
@@ -801,15 +801,15 @@
       "id": "sky_silk",
       "name": "sky silk",
       "category": "tool",
-      "base_value": 65,
+      "base_value": 7,
       "weight": 0.4,
       "commodity": true,
       "tags": [
         "tool:aerial_sleight"
       ],
-      "description": "A light, non-stretching fiber spun from floating spores. Used to weave",
+      "description": "A light, non-stretching fiber spun from floating spores.",
       "data": {
-        "tool_bonus": 2
+        "tool_bonus": 1
       },
       "stackable": false
     },
@@ -817,13 +817,13 @@
       "id": "gravity_shield_mesh",
       "name": "gravity shield mesh",
       "category": "armor",
-      "base_value": 400,
+      "base_value": 44,
       "weight": 1.2,
       "commodity": true,
       "tags": [
         "tool:silent_tracking"
       ],
-      "description": "A flexible mesh woven with resonance-dampening threads. Protects from\n",
+      "description": "A flexible mesh woven with resonance-dampening threads.",
       "data": {
         "tool_bonus": 2,
         "defense": 1
@@ -835,16 +835,16 @@
       "id": "sky_lantern",
       "name": "sky lantern",
       "category": "weapon",
-      "base_value": 300,
+      "base_value": 33,
       "weight": 0.7,
       "commodity": true,
       "tags": [
         "tool:sky_telemetry"
       ],
-      "description": "A lightweight, hand-cranked lantern that emits a stable gravitational\n",
+      "description": "A lightweight, hand-cranked lantern that emits a stable gravitational…",
       "data": {
         "tool_bonus": 2,
-        "melee": 2
+        "melee": 1
       },
       "slot": "weapon",
       "stackable": false
@@ -853,15 +853,15 @@
       "id": "crystal_core",
       "name": "crystal core",
       "category": "tool",
-      "base_value": 200,
+      "base_value": 22,
       "weight": 1,
       "commodity": true,
       "tags": [
         "tool:crystal_mining"
       ],
-      "description": "A central resonator harvested from active gravity crystals. Used in\n",
+      "description": "A central resonator harvested from active gravity crystals.",
       "data": {
-        "tool_bonus": 2
+        "tool_bonus": 1
       },
       "stackable": false
     },
@@ -869,15 +869,15 @@
       "id": "resonance_sieve",
       "name": "resonance sieve",
       "category": "tool",
-      "base_value": 150,
+      "base_value": 17,
       "weight": 0.6,
       "commodity": true,
       "tags": [
         "tool:resonance_calibration"
       ],
-      "description": "A device that filters crystal frequencies to isolate usable pulses for",
+      "description": "A device that filters crystal frequencies to isolate usable pulses…",
       "data": {
-        "tool_bonus": 2
+        "tool_bonus": 1
       },
       "stackable": false
     },
@@ -885,32 +885,32 @@
       "id": "sky_gel",
       "name": "sky gel",
       "category": "food",
-      "base_value": 35,
+      "base_value": 4,
       "weight": 0.5,
       "commodity": false,
       "tags": [
         "food",
         "tool:gravity_healing"
       ],
-      "description": "A semi-solid, elastic substance used in healing and stabilizing minor",
+      "description": "A semi-solid, elastic substance used in healing and stabilizing minor…",
       "data": {
         "nourish": 10,
-        "tool_bonus": 2
+        "tool_bonus": 1
       }
     },
     {
       "id": "tide_siphon",
       "name": "tide siphon",
       "category": "tool",
-      "base_value": 110,
+      "base_value": 12,
       "weight": 0.9,
       "commodity": true,
       "tags": [
         "tool:sky_tide_pronouncement"
       ],
-      "description": "A mechanical device that draws and measures gravity fluctuations from",
+      "description": "A mechanical device that draws and measures gravity fluctuations from…",
       "data": {
-        "tool_bonus": 2
+        "tool_bonus": 1
       },
       "stackable": false
     },
@@ -918,16 +918,16 @@
       "id": "gravity_balm",
       "name": "gravity balm",
       "category": "medicine",
-      "base_value": 180,
+      "base_value": 20,
       "weight": 0.3,
       "commodity": true,
       "tags": [
         "tool:gravity_healing",
         "medicine"
       ],
-      "description": "A viscous ointment applied to joints and tendons to reduce strain from",
+      "description": "A viscous ointment applied to joints and tendons to reduce strain from…",
       "data": {
-        "tool_bonus": 2,
+        "tool_bonus": 1,
         "heal": 20
       }
     },
@@ -935,13 +935,13 @@
       "id": "aether_core",
       "name": "aether core",
       "category": "tool",
-      "base_value": 1500,
+      "base_value": 167,
       "weight": 2,
       "commodity": true,
       "tags": [
         "tool:aether_shift"
       ],
-      "description": "A rare, self-oscillating core found only in deep tectonic foam. Used\n",
+      "description": "A rare, self-oscillating core found only in deep tectonic foam.",
       "data": {
         "tool_bonus": 2
       },
@@ -951,13 +951,13 @@
       "id": "sky_tide_rune",
       "name": "sky tide rune",
       "category": "tool",
-      "base_value": 600,
+      "base_value": 67,
       "weight": 0.4,
       "commodity": true,
       "tags": [
         "tool:sky_tide_pronouncement"
       ],
-      "description": "A carved, pulsing sigil that emits a harmonic field to align with the",
+      "description": "A carved, pulsing sigil that emits a harmonic field to align with…",
       "data": {
         "tool_bonus": 2
       },
@@ -967,13 +967,13 @@
       "id": "gravity_pendant",
       "name": "gravity pendant",
       "category": "treasure",
-      "base_value": 5000,
+      "base_value": 556,
       "weight": 0.1,
       "commodity": false,
       "tags": [
         "tool:gravity_bargaining"
       ],
-      "description": "A small, hand-carved pendant that subtly alters local gravity when\n",
+      "description": "A small, hand-carved pendant that subtly alters local gravity when…",
       "data": {
         "tool_bonus": 2
       },
@@ -1257,85 +1257,85 @@
   },
   "market_base": {
     "s_solvex_spire": {
-      "crystal_ore_north": 1200,
-      "crystal_ore_south": 1520,
-      "aether_iron": 128,
-      "sky_silk": 104,
-      "gravity_shield_mesh": 400,
-      "sky_lantern": 300,
-      "crystal_core": 200,
-      "resonance_sieve": 150,
-      "tide_siphon": 110,
-      "gravity_balm": 180,
-      "aether_core": 1500,
-      "sky_tide_rune": 600
+      "crystal_ore_north": 133,
+      "crystal_ore_south": 170,
+      "aether_iron": 14,
+      "sky_silk": 11,
+      "gravity_shield_mesh": 44,
+      "sky_lantern": 33,
+      "crystal_core": 22,
+      "resonance_sieve": 17,
+      "tide_siphon": 12,
+      "gravity_balm": 20,
+      "aether_core": 167,
+      "sky_tide_rune": 67
     },
     "s_kelpar_drift": {
-      "crystal_ore_north": 1920,
-      "crystal_ore_south": 1520,
-      "aether_iron": 128,
-      "sky_silk": 65,
-      "gravity_shield_mesh": 640,
-      "sky_lantern": 480,
-      "crystal_core": 200,
-      "resonance_sieve": 240,
-      "tide_siphon": 176,
-      "gravity_balm": 288,
-      "aether_core": 1500,
-      "sky_tide_rune": 600
+      "crystal_ore_north": 213,
+      "crystal_ore_south": 170,
+      "aether_iron": 14,
+      "sky_silk": 7,
+      "gravity_shield_mesh": 70,
+      "sky_lantern": 53,
+      "crystal_core": 22,
+      "resonance_sieve": 27,
+      "tide_siphon": 19,
+      "gravity_balm": 32,
+      "aether_core": 167,
+      "sky_tide_rune": 67
     },
     "s_nexora_plateau": {
-      "crystal_ore_north": 1920,
-      "crystal_ore_south": 950,
-      "aether_iron": 80,
-      "sky_silk": 104,
-      "gravity_shield_mesh": 640,
-      "sky_lantern": 480,
-      "crystal_core": 200,
-      "resonance_sieve": 240,
-      "tide_siphon": 176,
-      "gravity_balm": 288,
-      "aether_core": 1500,
-      "sky_tide_rune": 600
+      "crystal_ore_north": 213,
+      "crystal_ore_south": 106,
+      "aether_iron": 9,
+      "sky_silk": 11,
+      "gravity_shield_mesh": 70,
+      "sky_lantern": 53,
+      "crystal_core": 22,
+      "resonance_sieve": 27,
+      "tide_siphon": 19,
+      "gravity_balm": 32,
+      "aether_core": 167,
+      "sky_tide_rune": 67
     }
   },
   "factions": [
     {
       "id": "fac_the_resonance_guild",
       "name": "The Resonance Guild",
-      "description": "A professional society of engineers and crystal harmonists who predict and regulate gravity fluctuations using resonance",
+      "description": "A professional society of engineers and crystal harmonists who predict and regulate gravity fluctuations using resonance…",
       "treasury": 200
     },
     {
       "id": "fac_tide_merchants_allia",
       "name": "Tide Merchants' Alliance",
-      "description": "A market-based coalition of traders who trade in sky-grain, tide-berry, and sky-silk, operating the tidal markets and sp",
+      "description": "A market-based coalition of traders who trade in sky-grain, tide-berry, and sky-silk, operating the tidal markets and…",
       "treasury": 200
     },
     {
       "id": "fac_aether_iron_syndicat",
       "name": "Aether Iron Syndicate",
-      "description": "A mining and metallurgy cartel that controls the extraction and processing of aether-iron and crystal ore from the north",
+      "description": "A mining and metallurgy cartel that controls the extraction and processing of aether-iron and crystal ore from the north…",
       "treasury": 200
     },
     {
       "id": "fac_the_floating_accord",
       "name": "The Floating Accord",
-      "description": "A loose alliance of independent towns and lodges that form a self-governing network to manage stability and trade equity",
+      "description": "A loose alliance of independent towns and lodges that form a self-governing network to manage stability and trade equity…",
       "treasury": 200
     },
     {
       "id": "fac_skyward_watch",
       "name": "Skyward Watch",
-      "description": "A patrol and law enforcement body that maintains order among the drifting continents, especially during gravity surges",
+      "description": "A patrol and law enforcement body that maintains order among the drifting continents, especially during gravity surges…",
       "treasury": 200
     }
   ],
   "facts": [
     {
       "id": "f_the_crystals_beneath_the",
-      "subject": "The crystals beneath the floating continents pulse",
-      "content": "The crystals don’t just stabilize flight — they hum in response to emotional stress. It’s said that during times of great fear or joy, the pulses increase in frequency, a",
+      "subject": "The crystals beneath the floating continents pulse…",
+      "content": "The crystals don’t just stabilize flight — they hum in response to emotional stress.",
       "truth": 0,
       "secrecy": 2,
       "tags": [
@@ -1350,8 +1350,8 @@
     },
     {
       "id": "f_sky_grain_grows_only_dur",
-      "subject": "Sky grain grows only during high-tide gravity surr",
-      "content": "Farmers in Kelpar Drift claim that sky grain only ripens when gravity fluctuates in a specific pattern — one that occurs once every 37 days. If a farmer misses this, the ",
+      "subject": "Sky grain grows only during high-tide gravity surr…",
+      "content": "Farmers in Kelpar Drift claim that sky grain only ripens when gravity fluctuates in a specific pattern — one that occurs once every 37 days.",
       "truth": 1,
       "secrecy": 2,
       "tags": [
@@ -1366,8 +1366,8 @@
     },
     {
       "id": "f_the_solvex_spire_s_centr",
-      "subject": "The Solvex Spire’s central crystal core is being s",
-      "content": "A rumor spreads that the Solvex Spire’s main crystal core is being slowly drained by a hidden resonance sieve — one that was installed without official records. Some say",
+      "subject": "The Solvex Spire’s central crystal core is being…",
+      "content": "A rumor spreads that the Solvex Spire’s main crystal core is being slowly drained by a hidden resonance sieve — one that was installed without official records.",
       "truth": 0,
       "secrecy": 2,
       "tags": [
@@ -1382,8 +1382,8 @@
     },
     {
       "id": "f_the_gravity_balm_from_th",
-      "subject": "The gravity balm from the North is said to be th",
-      "content": "Veyra of the North claims that her mine’s gravity balm contains a trace of a naturally occurring ‘anti-resonance’ compound. When used, it dulls crystal pulses — th",
+      "subject": "The gravity balm from the North is said to be…",
+      "content": "Veyra of the North claims that her mine’s gravity balm contains a trace of a naturally occurring ‘anti-resonance’ compound.",
       "truth": 0,
       "secrecy": 2,
       "tags": [
@@ -1398,8 +1398,8 @@
     },
     {
       "id": "f_the_tide_berries_are_not",
-      "subject": "The tide berries are not native to the sky",
-      "content": "Some scholars believe tide berries grow in the liquid nitrogen ocean, not in the sky. They are actually a product of tectonic foam crystallization — a process that can be",
+      "subject": "The tide berries are not native to the…",
+      "content": "Some scholars believe tide berries grow in the liquid nitrogen ocean, not in the sky.",
       "truth": 1,
       "secrecy": 2,
       "tags": [
@@ -1584,10 +1584,10 @@
         "observant",
         "deeply knowledgeable"
       ],
-      "persona": "She speaks slowly, like waves under pressure. Her hands move with precision when diagnosing, and she often hum",
+      "persona": "She speaks slowly, like waves under pressure. Her hands move with precision when diagnosing, and she often…",
       "money": 180,
       "inventory": {
-        "gravity_balm": 9,
+        "gravity_balm": 12,
         "tide_siphon": 2,
         "crystal_ore_north": 8,
         "sky_tide_rune": 8
@@ -1595,7 +1595,7 @@
       "goals": [
         {
           "id": "goal",
-          "text": "to understand how gravity fluctuations affect the human nervous system, especially during "
+          "text": "to understand how gravity fluctuations affect the human nervous system, especially during…"
         }
       ],
       "shop": {
@@ -1618,7 +1618,7 @@
       "production": [
         {
           "type": "gravity_balm",
-          "qty": 2,
+          "qty": 3,
           "source": "Dr. Elira Vey's work"
         },
         {
@@ -1628,7 +1628,7 @@
         },
         {
           "type": "tide_siphon",
-          "qty": 1,
+          "qty": 3,
           "source": "supplies from beyond the region"
         }
       ],
@@ -1693,21 +1693,21 @@
         "sharp",
         "calculating"
       ],
-      "persona": "His voice cuts through the market like a blade. He never misses a fluctuation in tide-berry prices and always",
+      "persona": "His voice cuts through the market like a blade.",
       "money": 180,
       "inventory": {
-        "tide_berry": 7,
+        "tide_berry": 30,
         "sky_silk": 2,
-        "sky_grain": 5
+        "sky_grain": 30
       },
       "goals": [
         {
           "id": "goal",
-          "text": "to corner the sky-silk market during high-resonance periods when demand spikes"
+          "text": "to corner the sky-silk market during high-resonance periods when demand spikes…"
         },
         {
           "id": "agenda",
-          "text": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future use",
+          "text": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future…",
           "secret": true
         }
       ],
@@ -1735,7 +1735,7 @@
       "production": [
         {
           "type": "sky_silk",
-          "qty": 1,
+          "qty": 6,
           "source": "supplies from beyond the region"
         }
       ],
@@ -1763,7 +1763,7 @@
           "per_day": 2,
           "store": "store_npc_marek",
           "until_month": 11,
-          "motive": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future use"
+          "motive": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future…"
         },
         {
           "type": "adopt_innovations",
@@ -1774,14 +1774,14 @@
         {
           "id": "req_collect_sky_silk_fro",
           "title": "Collect sky silk from the Exchange Quay",
-          "text": "I need 10 units of sky silk for my next shipment to Tethered Dock. I’ll pay in gravitas — but only if you can deliver it by the 12",
+          "text": "I need 10 units of sky silk for my next shipment to Tethered Dock.",
           "objective": {
             "type": "deliver",
             "item": "sky_silk",
             "qty": 10,
             "to": "npc_marek"
           },
-          "reward": 65,
+          "reward": 7,
           "days": 2,
           "rel": 12
         }
@@ -1816,7 +1816,7 @@
         "humble",
         "resilient"
       ],
-      "persona": "He speaks with the quiet strength of one who has seen the cracks in the tectonic foam. He wears a face of worn",
+      "persona": "He speaks with the quiet strength of one who has seen the cracks in the tectonic foam.",
       "money": 180,
       "inventory": {
         "aether_iron": 2,
@@ -1825,11 +1825,11 @@
       "goals": [
         {
           "id": "goal",
-          "text": "to mine the deepest aether-iron veins before the next gravity surge destabilizes the plate"
+          "text": "to mine the deepest aether-iron veins before the next gravity surge destabilizes the plate…"
         },
         {
           "id": "agenda",
-          "text": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿",
+          "text": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿…",
           "secret": true
         }
       ],
@@ -1860,7 +1860,7 @@
         },
         {
           "type": "aether_iron",
-          "qty": 1,
+          "qty": 4,
           "source": "supplies from beyond the region"
         }
       ],
@@ -1875,7 +1875,7 @@
         {
           "type": "undercut",
           "rival": "npc_veyra",
-          "motive": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿"
+          "motive": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿…"
         },
         {
           "type": "adopt_innovations",
@@ -1912,17 +1912,17 @@
         "lively",
         "practical"
       ],
-      "persona": "She greets guests with a smile that seems to hold the weight of the sky. Her lanterns always glow just a bit",
+      "persona": "She greets guests with a smile that seems to hold the weight of the sky.",
       "money": 180,
       "inventory": {
         "sky_lantern": 8,
-        "tide_berry": 27,
+        "tide_berry": 50,
         "sky_grain": 20
       },
       "goals": [
         {
           "id": "goal",
-          "text": "to maintain a steady flow of travelers to Solvex Spire by offering affordable, stable lodg"
+          "text": "to maintain a steady flow of travelers to Solvex Spire by offering affordable, stable lodg…"
         }
       ],
       "shop": {
@@ -1973,14 +1973,14 @@
         {
           "id": "req_repair_a_gravity_bal",
           "title": "Repair a gravity balm condenser",
-          "text": "One of the dampening chambers in the Spire is failing. I need your help reading the crystal pulse patterns to fix it — it’s been 1",
+          "text": "One of the dampening chambers in the Spire is failing.",
           "objective": {
             "type": "deliver",
             "item": "gravity_balm",
             "qty": 1,
             "to": "npc_dr"
           },
-          "reward": 120,
+          "reward": 13,
           "days": 2,
           "rel": 12
         }
@@ -2015,7 +2015,7 @@
         "logical",
         "tightly controlled"
       ],
-      "persona": "He speaks in measured tones, as if calculating each word. His tools are always in order, and his crystal ",
+      "persona": "He speaks in measured tones, as if calculating each word.",
       "money": 180,
       "inventory": {
         "resonance_sieve": 8,
@@ -2024,7 +2024,7 @@
       "goals": [
         {
           "id": "goal",
-          "text": "to stabilize the central gravity core during peak tidal fluctuations"
+          "text": "to stabilize the central gravity core during peak tidal fluctuations…"
         }
       ],
       "factions": [
@@ -2049,7 +2049,7 @@
       "production": [
         {
           "type": "resonance_sieve",
-          "qty": 2,
+          "qty": 4,
           "source": "Kael Voss's work"
         },
         {
@@ -2101,15 +2101,15 @@
       "requests": [
         {
           "id": "req_deliver_a_resonance_",
-          "title": "Deliver a resonance sieve to the Northern Ridge",
-          "text": "I need a resonance sieve to test the stability of the new gravity core we’re installing in Crystalline Outpost. Must reach Veyra’s",
+          "title": "Deliver a resonance sieve to the Northern Ridge…",
+          "text": "I need a resonance sieve to test the stability of the new gravity core we’re installing in Crystalline Outpost.",
           "objective": {
             "type": "deliver",
             "item": "resonance_sieve",
             "qty": 1,
             "to": "npc_veyra"
           },
-          "reward": 150,
+          "reward": 17,
           "days": 3,
           "rel": 12
         }
@@ -2147,16 +2147,16 @@
         "patient",
         "insightful"
       ],
-      "persona": "She teaches through hands-on resonance modeling, letting students feel the vibrations in crystal arrays",
+      "persona": "She teaches through hands-on resonance modeling, letting students feel the vibrations in crystal arrays…",
       "money": 180,
       "inventory": {
-        "sky_gel": 9,
+        "sky_gel": 36,
         "gravity_pendant": 2
       },
       "goals": [
         {
           "id": "goal",
-          "text": "to train a new generation of engineers who can predict gravity shifts before they happen"
+          "text": "to train a new generation of engineers who can predict gravity shifts before they happen…"
         }
       ],
       "shop": {
@@ -2175,7 +2175,7 @@
       "production": [
         {
           "type": "sky_gel",
-          "qty": 2,
+          "qty": 12,
           "source": "Mara Shem's work"
         }
       ],
@@ -2248,13 +2248,13 @@
         "detailed",
         "loyal"
       ],
-      "persona": "He moves like a shadow, listening to the hum of the crystals beneath the floor. When he speaks, his voice",
+      "persona": "He moves like a shadow, listening to the hum of the crystals beneath the floor.",
       "money": 70,
       "inventory": {},
       "goals": [
         {
           "id": "goal",
-          "text": "to prevent any unauthorized access to the gravity core during fluctuation windows"
+          "text": "to prevent any unauthorized access to the gravity core during fluctuation windows…"
         }
       ],
       "factions": [
@@ -2318,15 +2318,15 @@
         "adaptive",
         "observant"
       ],
-      "persona": "He plants sky-grain in tidal grooves that shift with the gravity waves. His fields respond like living things",
+      "persona": "He plants sky-grain in tidal grooves that shift with the gravity waves.",
       "money": 180,
       "inventory": {
-        "sky_grain": 11
+        "sky_grain": 36
       },
       "goals": [
         {
           "id": "goal",
-          "text": "to grow sky-grain in periods of low gravity to maximize yield during calm tides"
+          "text": "to grow sky-grain in periods of low gravity to maximize yield during calm tides…"
         }
       ],
       "factions": [
@@ -2350,7 +2350,7 @@
       "production": [
         {
           "type": "sky_grain",
-          "qty": 2,
+          "qty": 12,
           "source": "Toren of the Tides's work"
         },
         {
@@ -2412,7 +2412,7 @@
         "focused",
         "isolated"
       ],
-      "persona": "She works alone in the cold, deep tunnels where the crystals pulse strongest. Her breath is visible in the fog",
+      "persona": "She works alone in the cold, deep tunnels where the crystals pulse strongest.",
       "money": 180,
       "inventory": {
         "crystal_core": 2,
@@ -2421,7 +2421,7 @@
       "goals": [
         {
           "id": "goal",
-          "text": "to extract the purest crystal core from the northern veins before the next surge collapses"
+          "text": "to extract the purest crystal core from the northern veins before the next surge collapses…"
         }
       ],
       "factions": [
@@ -2446,7 +2446,7 @@
       "production": [
         {
           "type": "crystal_core",
-          "qty": 1,
+          "qty": 2,
           "source": "supplies from beyond the region"
         },
         {
@@ -2498,16 +2498,16 @@
         "measured",
         "cautious"
       ],
-      "persona": "He offers loans in the form of gravity shields or sky-gel, not money—but currency in time and stability",
+      "persona": "He offers loans in the form of gravity shields or sky-gel, not money—but currency in time and stability…",
       "money": 180,
       "inventory": {
         "gravity_shield_mesh": 2,
-        "sky_gel": 3
+        "sky_gel": 30
       },
       "goals": [
         {
           "id": "goal",
-          "text": "to secure long-term stability for new builders by offering conditional gravity support"
+          "text": "to secure long-term stability for new builders by offering conditional gravity support…"
         },
         {
           "id": "agenda",
@@ -2571,7 +2571,7 @@
     {
       "id": "bg_apprentice_engineer_",
       "name": "Apprentice Engineer at Solvex Spire Work",
-      "description": "You are a poor apprentice engineer who has worked for a year in the workshops beneath Solvex Spire, learning t",
+      "description": "You are a poor apprentice engineer who has worked for a year in the workshops beneath Solvex Spire, learning…",
       "attributes": {
         "resonance": 1,
         "crafting": 1
@@ -2585,12 +2585,12 @@
         "resonance_sieve": 1,
         "sky_grain": 2
       },
-      "money": 36
+      "money": 11
     },
     {
       "id": "bg_repairman_from_facto",
       "name": "Repairman from Factory Bay",
-      "description": "You come from the Nexora Plateau, where gravity is unpredictable and constant mining demands precision. You’ve",
+      "description": "You come from the Nexora Plateau, where gravity is unpredictable and constant mining demands precision.",
       "attributes": {
         "resonance": 1,
         "crafting": 1
@@ -2604,12 +2604,12 @@
         "gravity_balm": 1,
         "sky_grain": 2
       },
-      "money": 200
+      "money": 22
     },
     {
       "id": "bg_fleet_apprentice_fro",
       "name": "Fleet Apprentice from the Tethered Dock",
-      "description": "You were once part of a small transport crew that carried sky grain between floating continents. You know the",
+      "description": "You were once part of a small transport crew that carried sky grain between floating continents.",
       "attributes": {
         "navigation": 1,
         "resonance": 1
@@ -2623,7 +2623,7 @@
         "sky_lantern": 1,
         "sky_grain": 2
       },
-      "money": 150
+      "money": 17
     }
   ],
   "start": {
@@ -2635,7 +2635,7 @@
       "id": "gravity_fluctuation_cost",
       "name": "Gravity Fluctuation Cost",
       "kind": "technology",
-      "summary": "Every time you use a gravity-modulating device (like a stabilizer or balm), the local gravity field shifts. If you exceed 30% of the predicted tidal e",
+      "summary": "Every time you use a gravity-modulating device (like a stabilizer or balm), the local gravity field shifts.",
       "skill": "resonance_calibration",
       "difficulty": "moderate",
       "minutes": 5,
@@ -2678,7 +2678,7 @@
       "id": "crystal_pulse_sensitivity",
       "name": "Crystal Pulse Sensitivity",
       "kind": "technology",
-      "summary": "If you use a crystal-based tool (like a resonance sieve or gravity shield), you must match the current pulse frequency of the nearest crystal array. M",
+      "summary": "If you use a crystal-based tool (like a resonance sieve or gravity shield), you must match the current pulse frequency of the nearest crystal array.",
       "skill": "resonance_calibration",
       "difficulty": "moderate",
       "minutes": 5,

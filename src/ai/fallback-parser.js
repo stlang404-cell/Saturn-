@@ -42,7 +42,7 @@ export function parseSingle(raw) {
   const dur = parseDuration(l);
   let m;
 
-  if (/^(look|look around|l|where am i|survey|observe)( the (room|area|place))?$/.test(l)) return act('look');
+  if (/^(look|look around|l|where am i|survey|observe)( the (room|area|place))?$/.test(l) || /^(look|glance|gaze|peer) (around|about)\b/.test(l) || /^(take in|get my bearings|survey) /.test(l)) return act('look');
   if ((m = l.match(/^(?:look at|examine|inspect|study the face of|x)\s+(.+)$/)) && !/\b(granary|mill|ruin|records|market|prices)\b/.test(m[1])) return act('look', { target: m[1] });
   if (/^(inventory|inv|i|status|stats|check (my )?(status|inventory|purse|money)|how much money( do i have)?)$/.test(l)) return act('status');
 
@@ -172,7 +172,7 @@ export function parseSingle(raw) {
   return null;
 }
 
-export const HELP_TEXT = 'Describe what you want to do in your own words — SATURN understands far more than commands. For example: "ask Mirela what she has heard about the bread prices", "ask Odile for work", "buy two loaves of bread", "go to the docks", "study medicine with Brother Aldous for a week", "investigate the granary at night", "borrow 50 marks from the guildmaster and open a bakery", "invent a better waterwheel". People and exits on the left are clickable. The World and Journal tabs list opportunities; click any roll to see exactly how it was decided.';
+export const HELP_TEXT = 'Describe what you want to do in your own words — SATURN understands far more than commands. For example: "ask the innkeeper what she has heard lately", "ask the merchant for work", "buy two loaves of bread", "go to the market", "study medicine with the healer for a week", "investigate the warehouse at night", "borrow 50 from the moneylender and open a workshop", "invent a better pump", "use <one of this world's abilities>". People and exits on the left are clickable. The World and Journal tabs list opportunities; click any roll to see exactly how it was decided.';
 
 const SPLIT_RX = /\s*(?:,?\s+and then\s+|,?\s+then\s+|;\s*|\.\s+(?=[A-Za-z]))\s*/i;
 
@@ -197,7 +197,7 @@ export function fallbackInterpret(text) {
   if (!actions.length) {
     return {
       mode: 'clarify', intent: t.slice(0, 200), actions: [], plan_title: null, risks: [],
-      question: `The offline parser couldn't map "${t.slice(0, 80)}" to an action. Try phrasing like: "talk to Odile about salt", "buy 2 bread", "go to the docks", "study medicine for 5 days", "investigate the mill".`,
+      question: `The offline parser couldn't map "${t.slice(0, 80)}" to an action. Try simple phrasing like: "talk to <person> about <topic>", "buy 2 <item>", "go to <place>", "study <skill> for 5 days", "investigate", or "help".`,
       reason: 'fallback parser: no pattern matched',
     };
   }

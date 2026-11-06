@@ -33,6 +33,7 @@
   },
   "report": {
     "repairs": [
+      "prices rescaled by 1/9 so everyday food costs about 2 gravitas",
       "north ore (primary resonance crystal) had no source; Dr. Elira Vey now receives a steady supply",
       "north ore (primary resonance crystal) had no seller; Dr. Elira Vey now sells it",
       "south ore (stabilization crystal) had no source; Orin the Unbroken now receives a steady supply",

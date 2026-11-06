@@ -39,11 +39,38 @@ function uniqueId(base, used) {
   return id;
 }
 
+/** Grammar-bounded strings can stop mid-word; end them at the last complete sentence. */
+export function tidy(text) {
+  let t = String(text || '').trim();
+  if (!t || /[.!?…"')\]]$/.test(t)) return t;
+  const cut = Math.max(t.lastIndexOf('. '), t.lastIndexOf('! '), t.lastIndexOf('? '), t.endsWith('.') ? t.length - 1 : -1);
+  if (cut > t.length * 0.4) return t.slice(0, cut + 1);
+  return `${t.replace(/[^\p{L}\p{N}]+[\p{L}\p{N}]{0,3}$/u, '').replace(/[\s,;:—-]+$/, '')}…`;
+}
+
+function tidyDeep(o) {
+  if (typeof o === 'string') return o.length > 40 ? tidy(o) : o;
+  if (Array.isArray(o)) return o.map(tidyDeep);
+  if (o && typeof o === 'object') { for (const k of Object.keys(o)) if (!/^(id|name|item|skill|to|who|giver|deliver_to|location|settlement|attr|start|partner_or_rival|faction)$/.test(k)) o[k] = tidyDeep(o[k]); return o; }
+  return o;
+}
+
 const WEALTH = { destitute: 3, poor: 12, modest: 35, comfortable: 90, rich: 300 };
 
-export function compileWorld(draft, { description = '' } = {}) {
+export function compileWorld(rawDraft, { description = '' } = {}) {
   const report = { repairs: [], warnings: [], approximations: [] };
   const fix = (m) => report.repairs.push(m);
+  const draft = tidyDeep(JSON.parse(JSON.stringify(rawDraft)));
+  // Price scale: the model picks arbitrary magnitudes. Normalise so the cheapest food costs
+  // about 2 units of currency, keeping all relative prices (items, rewards, starting money).
+  const foods = (draft.items?.items || []).filter((i) => i.food || i.category === 'food').map((i) => i.value);
+  const priceScale = foods.length && Math.min(...foods) > 4 ? Math.min(...foods) / 2 : 1;
+  if (priceScale > 1) {
+    for (const i of draft.items.items) i.value = Math.max(1, Math.round(i.value / priceScale));
+    for (const r of draft.story?.requests || []) r.reward = Math.max(1, Math.round(r.reward / priceScale));
+    for (const b of draft.story?.backgrounds || []) b.money = Math.round(b.money / priceScale);
+    fix(`prices rescaled by 1/${Math.round(priceScale * 10) / 10} so everyday food costs about 2 ${draft.core.currency.plural}`);
+  }
   const { core, skills: sk, roles, places, items: it, people, story } = draft;
   const used = new Set();
   const worldId = uniqueId(`w_${slug(core.name, 24)}`, new Set());

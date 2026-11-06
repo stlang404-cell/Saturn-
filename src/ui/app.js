@@ -60,7 +60,7 @@ function renderTitle() {
         <div class="row"><button class="btn small" data-load="${esc(s.id)}" ${s.error ? 'disabled' : ''}>Load</button><button class="btn small ghost" data-del="${esc(s.id)}" title="Delete">✕</button></div></div>`).join('') : '<p class="faint">No saved games yet.</p>'}</div>`;
   } else if (tab === 'library') {
     body = `<div class="card saves"><h3>World Library</h3><p class="faint" style="font-size:.85em">Every world you forge is kept here. Start as many lives in each as you like — every game has its own independent history.</p>${(S.worlds || []).map((w) => `<div class="save"><div><div>${esc(w.name)}</div><div class="faint" style="font-size:.8em">${esc(w.tagline || '')} · ${esc(w.origin)}</div></div>
-        <div class="row"><button class="btn small" data-newin="${esc(w.ref)}">New life here</button>${w.ref.startsWith('library:') ? `<button class="btn small ghost" data-delworld="${esc(w.ref)}" title="Delete world">✕</button>` : ''}</div></div>`).join('')}</div>`;
+        <div class="row"><button class="btn small" data-newin="${esc(w.ref)}">New life here</button>${w.ref.startsWith('library:') ? `<button class="btn small ghost" data-editworld="${esc(w.ref)}">Revise</button><button class="btn small ghost" data-delworld="${esc(w.ref)}" title="Delete world">✕</button>` : ''}</div></div>`).join('')}</div>`;
   } else {
     body = `<div class="card"><h3>Settings</h3><p class="muted">Local AI: ${esc(ai.state || 'unknown')} — ${esc(ai.message || '')}</p><p class="faint" style="font-size:.85em">Installed models: ${esc((ai.models || []).map((m) => m.file).join(', ') || 'none')}. More settings are available in-game (Settings tab).</p></div>`;
   }
@@ -143,7 +143,7 @@ function renderForgePreview(w) {
     <details style="margin-top:10px"><summary class="faint">Engine validation: ${r.repairs.length} repairs, ${r.approximations.length} approximations, ${r.warnings.length} warnings</summary>${list([...r.repairs, ...r.approximations.map((x) => `≈ ${x}`), ...r.warnings.map((x) => `⚠ ${x}`)])}</details>
     <h3>Revise</h3><div class="row"><select id="regenstage">${(S.forge.stages || []).map((st) => `<option value="${st.id}">${esc(st.label)}</option>`).join('')}</select>
       <input id="regenfb" type="text" class="grow" placeholder="What should change? (optional)"><button class="btn small" data-act="forgeregen">Regenerate</button></div>
-    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" data-act="forgediscard">Start over</button><button class="btn" data-act="forgesave">Save to library</button><button class="btn primary" data-act="forgeenter">Save &amp; enter</button></div>
+    <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" data-act="title">Menu</button><button class="btn ghost" data-act="forgediscard">Start over</button><button class="btn" data-act="forgesave">Save to library</button><button class="btn primary" data-act="forgeenter">Save &amp; enter</button></div>
   </div></div>`;
 }
 
@@ -573,6 +573,7 @@ document.addEventListener('click', async (ev) => {
   if (d.newin) return startCreation(d.newin);
   if (d.delworld) { if (confirm('Delete this world from the library? Saved games in it are kept.')) { await bridge('deleteWorld', d.delworld); return showTitle(); } return; }
   if (d.act === 'forge') return openForge();
+  if (d.editworld) { try { S.forge = await bridge('forgeOpenDraft', d.editworld); S.screen = 'forge'; return render(); } catch (e) { return toast(e.message); } }
   if (d.example) { S.forgeDraftText = FORGE_EXAMPLES[Number(d.example)]; const t = $('#forgedesc'); if (t) t.value = S.forgeDraftText; return; }
   if (d.act === 'forgestart') { const v = ($('#forgedesc')?.value || '').trim(); if (!v) return toast('Describe your world first.'); S.forgeDraftText = v; try { S.forge = await bridge('forgeStart', { description: v }); pollForge(); render(); } catch (e) { toast(e.message); } return; }
   if (d.act === 'forgecancel') { await bridge('forgeCancel'); return; }
