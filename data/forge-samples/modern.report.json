@@ -1,0 +1,74 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1296,
+  "timings": {
+    "core": {
+      "ms": 135547,
+      "tokens": 1033
+    },
+    "skills": {
+      "ms": 145381,
+      "tokens": 1133
+    },
+    "roles": {
+      "ms": 21283,
+      "tokens": 149
+    },
+    "places": {
+      "ms": 158391,
+      "tokens": 1214
+    },
+    "items": {
+      "ms": 244836,
+      "tokens": 1799
+    },
+    "people": {
+      "ms": 265079,
+      "tokens": 1858
+    },
+    "story": {
+      "ms": 325739,
+      "tokens": 2110
+    }
+  },
+  "report": {
+    "repairs": [
+      "prices rescaled by 1/4 so everyday food costs about 2 MSUs",
+      "recipe \"ocean_salmon_fry\" needed \"fresh ocean salmon\", which did not exist; created it as a traded material",
+      "recipe \"deep_sea_metal_bars\" needed \"deep sea extract\", which did not exist; created it as a traded material",
+      "recipe \"deep_sea_metal_bars\" needed \"corrosion resistant coating\", which did not exist; created it as a traded material",
+      "recipe \"tide_sensors\" needed \"raw tide data\", which did not exist; created it as a traded material",
+      "recipe \"tide_sensors\" needed \"signal filter module\", which did not exist; created it as a traded material",
+      "recipe \"credit_pulse_beacon\" needed \"local credit flow data\", which did not exist; created it as a traded material",
+      "recipe \"credit_pulse_beacon\" needed \"battery power cell\", which did not exist; created it as a traded material",
+      "recipe \"market_scouting_lens\" needed \"market forecast data\", which did not exist; created it as a traded material",
+      "recipe \"market_scouting_lens\" needed \"lens calibration unit\", which did not exist; created it as a traded material",
+      "recipe \"supply_chain_tracer\" needed \"product origin log\", which did not exist; created it as a traded material",
+      "recipe \"supply_chain_tracer\" needed \"trace node module\", which did not exist; created it as a traded material",
+      "fresh ocean salmon had no source; Kael Ryn now receives a steady supply",
+      "fresh ocean salmon had no seller; Kael Ryn now sells it",
+      "deep sea extract had no source; Kael Ryn now receives a steady supply",
+      "deep sea extract had no seller; Kael Ryn now sells it",
+      "corrosion resistant coating had no source; Kael Ryn now receives a steady supply",
+      "corrosion resistant coating had no seller; Kael Ryn now sells it",
+      "raw tide data had no source; Kael Ryn now receives a steady supply",
+      "raw tide data had no seller; Kael Ryn now sells it",
+      "signal filter module had no source; Kael Ryn now receives a steady supply",
+      "signal filter module had no seller; Kael Ryn now sells it",
+      "local credit flow data had no source; Kael Ryn now receives a steady supply",
+      "local credit flow data had no seller; Kael Ryn now sells it",
+      "battery power cell had no source; Kael Ryn now receives a steady supply",
+      "battery power cell had no seller; Kael Ryn now sells it",
+      "market forecast data had no source; Kael Ryn now receives a steady supply",
+      "market forecast data had no seller; Kael Ryn now sells it",
+      "lens calibration unit had no source; Kael Ryn now receives a steady supply",
+      "lens calibration unit had no seller; Kael Ryn now sells it",
+      "product origin log had no source; Kael Ryn now receives a steady supply",
+      "product origin log had no seller; Kael Ryn now sells it",
+      "trace node module had no source; Kael Ryn now receives a steady supply",
+      "trace node module had no seller; Kael Ryn now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}

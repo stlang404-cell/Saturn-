@@ -206,10 +206,25 @@ export function compileWorld(rawDraft, { description = '' } = {}) {
   }
   const recipes = [];
   const recUsed = new Set();
+  // Recipes often name materials the item stage never defined. Preserve the design: create the
+  // missing material as a traded good (valued from what it makes) — recorded as a repair.
+  const addMaterial = (ref, valueHint, recipeName) => {
+    const id = uniqueId(slug(ref, 30), itemUsed);
+    const name = String(ref).replace(/_/g, ' ').toLowerCase();
+    item_types.push({ id, name, category: 'material', base_value: Math.max(1, Math.round(valueHint)), weight: 1, commodity: true, tags: [], description: `A material used to make ${recipeName}.`, data: {} });
+    itemMap[ref] = id; itemIds.add(id);
+    fix(`recipe "${recipeName}" needed "${name}", which did not exist; created it as a traded material`);
+    return id;
+  };
   for (const r of it.recipes || []) {
     const inputs = {}, outputs = {};
-    for (const x of r.inputs) { const id = resolveItem(x.item); if (id) inputs[id] = (inputs[id] || 0) + x.qty; else fix(`recipe "${r.name}": unknown input ${x.item}`); }
     for (const x of r.outputs) { const id = resolveItem(x.item); if (id) outputs[id] = (outputs[id] || 0) + x.qty; else fix(`recipe "${r.name}": unknown output ${x.item}`); }
+    const outValue = Object.entries(outputs).reduce((sum, [t, q]) => sum + item_types.find((x) => x.id === t).base_value * q, 0);
+    for (const x of r.inputs) {
+      let id = resolveItem(x.item);
+      if (!id && Object.keys(outputs).length) id = addMaterial(x.item, outValue / (2 * r.inputs.length * Math.max(1, x.qty)), r.name);
+      if (id) inputs[id] = (inputs[id] || 0) + x.qty; else fix(`recipe "${r.name}": unknown input ${x.item}`);
+    }
     if (!Object.keys(inputs).length || !Object.keys(outputs).length) { fix(`dropped recipe "${r.name}" (no valid inputs/outputs)`); continue; }
     // value sanity: outputs worth at most 3× inputs (labour adds value; alchemy of wealth does not)
     const inV = Object.entries(inputs).reduce((s, [t, q]) => s + item_types.find((x) => x.id === t).base_value * q, 0);

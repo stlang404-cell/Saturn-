@@ -1,0 +1,1577 @@
+{
+  "description": "Create a realistic modern world where I can build businesses, invest, pursue careers, develop relationships, and become wealthy or powerful. I start as a broke graduate in a mid-sized coastal city.",
+  "core": {
+    "name": "Marinea",
+    "tagline": "Where ambition flows with the tide and opportunity rises with the market.",
+    "premise": "Marinea is a modern, hyper-connected coastal economy where innovation, resilience, and human capital drive growth—everyone is a node in a vast, dynamic network of trade, labor, and influence.",
+    "tone": "Realistic, grounded, emotionally rich, with a steady pulse—c",
+    "intro": "You wake in a small apartment above a fish market in Port Haven, where the morning fog clings to the docks like wet silk. The city hums with the rhythm of delivery trucks, startup offices, and the low murmur of people debating stock prices over coffee. Your phone buzzes: a job offer from a boutique consulting firm, but you’ve already spent three months unemployed, sleeping on a bench at the train station, and your savings are gone. The rent is due tomorrow. You’re not rich. A",
+    "contradictions_resolved": [],
+    "physics": [
+      "Standard classical physics",
+      "Gravity operates as in real life",
+      "No anti-gravity or levitation",
+      "No time dilation or exotic forces",
+      "No magic or supernatural phenomena"
+    ],
+    "impossible": [
+      "Faster-than-light travel",
+      "Time travel",
+      "Telepathy",
+      "Free energy devices",
+      "Healing without medical intervention"
+    ],
+    "common_knowledge": [
+      "The economy is driven by data, labor, and capital",
+      "People earn money through work, investment, or entrepreneurship",
+      "Success is a combination of strategy, persistence, and luck"
+    ],
+    "magic": {
+      "exists": false,
+      "summary": "Magic does not exist. All phenomena are grounded in science, economics, and human behavior."
+    },
+    "technology": {
+      "level": "Post-industrial, high connectivity, mid-",
+      "summary": "Smart infrastructure, AI tools for finance and logistics, cloud-based business platforms, high-speed internet, mobile banking, ride-sharing, e-commerce, and data analytics are standard. But no artificial general intelligence, no quantum or "
+    },
+    "currency": {
+      "name": "Marinean Stable Unit (MS",
+      "plural": "MSUs",
+      "medium": "Digital and physical tokens (bank cards, cash, and mobile wallets), backed by national credit and FD"
+    },
+    "attributes": [
+      {
+        "id": "wealth",
+        "label": "Wealth",
+        "info": "Your net financial value—what you can spend, invest, or borrow. Starts at $0"
+      },
+      {
+        "id": "knowledge",
+        "label": "Knowledge",
+        "info": "The depth and breadth of your expertise—skills, education, certifications that让你"
+      },
+      {
+        "id": "network",
+        "label": "Network",
+        "info": "The number of people you know who can help you—contacts in business, labor, or a"
+      },
+      {
+        "id": "drive",
+        "label": "Drive",
+        "info": "Your motivation and persistence—how long you’ll work, how much risk you take, or"
+      },
+      {
+        "id": "credit",
+        "label": "Credit",
+        "info": "Your trust score with lenders and institutions—how much you can borrow without a"
+      },
+      {
+        "id": "resilience",
+        "label": "Resilience",
+        "info": "Your ability to recover from failure—how many setbacks you can take before you g"
+      }
+    ],
+    "calendar": {
+      "era": "Common Era (CE)",
+      "months": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      "weekdays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Port Haven",
+        "kind": "primary urban hub",
+        "description": "A mid-sized coastal city with a thriving port, tech startups, and a diverse workforce. Home to the main market, housing, and financial nodes",
+        "population": 120000
+      },
+      {
+        "name": "Seabrook",
+        "kind": "residential and industrial out",
+        "description": "A growing industrial zone with warehouses, logistics centers, and a large workforce. Offers cheaper rent and access to supply chains",
+        "population": 65000
+      },
+      {
+        "name": "Harborview Heights",
+        "kind": "mixed-use innovation district",
+        "description": "A modern district with co-working spaces, venture capital offices, and incubators. Where early-stage companies launch and scale.",
+        "population": 38000
+      }
+    ],
+    "player": {
+      "background": "You are a 24-year-old graduate with a B.",
+      "description": "You graduated from a public university with a degree in business analytics, but your internship fell through due to a hiring freeze. You’ve been working odd jobs—data entry, temporary sales, and night",
+      "wealth": "destitute"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "tide_negotiation",
+        "label": "Tide Negotiation",
+        "attr": "network",
+        "group": "social",
+        "desc": "The art of aligning personal ambition with market fluctuations—using实时",
+        "trained": true,
+        "keywords": [
+          "negotiate",
+          "pitch",
+          "align with the tide,"
+        ]
+      },
+      {
+        "id": "current_sensing",
+        "label": "Current Sensing",
+        "attr": "knowledge",
+        "group": "social",
+        "desc": "Detecting shifts in market sentiment, labor demand, and supply chain t",
+        "trained": true,
+        "keywords": [
+          "observe",
+          "track trends",
+          "feel the current"
+        ]
+      },
+      {
+        "id": "data_scrubbing",
+        "label": "Data Scrubbing",
+        "attr": "knowledge",
+        "group": "trade",
+        "desc": "Extracting actionable insights from public and private data feeds—like",
+        "trained": true,
+        "keywords": [
+          "analyze",
+          "filter noise",
+          "extract signals"
+        ]
+      },
+      {
+        "id": "node_linking",
+        "label": "Node Linking",
+        "attr": "network",
+        "group": "social",
+        "desc": "Mapping personal or business relationships to identify hidden pathways",
+        "trained": true,
+        "keywords": [
+          "connect nodes",
+          "find weak links",
+          "trace influence"
+        ]
+      },
+      {
+        "id": "credit_pulse",
+        "label": "Credit Pulse",
+        "attr": "credit",
+        "group": "trade",
+        "desc": "Reading financial signals—delayed payments, sudden withdrawals, small",
+        "trained": true,
+        "keywords": [
+          "read credit flow",
+          "spot default risk",
+          "track liquidity"
+        ]
+      },
+      {
+        "id": "market_scouting",
+        "label": "Market Scouting",
+        "attr": "drive",
+        "group": "trade",
+        "desc": "Proactively identifying emerging opportunities in underserved or low",
+        "trained": true,
+        "keywords": [
+          "scan for gaps",
+          "find untapped demand",
+          "spot a blind spot"
+        ]
+      },
+      {
+        "id": "physical_calibration",
+        "label": "Physical Calibration",
+        "attr": "resilience",
+        "group": "physical",
+        "desc": "Adapting body posture, rhythm, and movement to withstand the physical",
+        "trained": true,
+        "keywords": [
+          "move with rhythm",
+          "match tide and wind",
+          "stay balanced on wet"
+        ]
+      },
+      {
+        "id": "shoreline_survival",
+        "label": "Shoreline Survival",
+        "attr": "resilience",
+        "group": "physical",
+        "desc": "Navigating coastal environments—wet docks, shifting sand, tidal pools,",
+        "trained": true,
+        "keywords": [
+          "read tides",
+          "stay dry",
+          "use natural barriers"
+        ]
+      },
+      {
+        "id": "supply_chain_tracing",
+        "label": "Supply Chain Tracing",
+        "attr": "knowledge",
+        "group": "trade",
+        "desc": "Tracking goods from origin to delivery, identifying bottlenecks and",
+        "trained": true,
+        "keywords": [
+          "follow the path",
+          "trace origin",
+          "find delays"
+        ]
+      },
+      {
+        "id": "risk_weighting",
+        "label": "Risk Weighting",
+        "attr": "resilience",
+        "group": "trade",
+        "desc": "Assessing volatility in markets, labor, and infrastructure to adjust",
+        "trained": true,
+        "keywords": [
+          "evaluate risk",
+          "assign weight",
+          "prioritize stability"
+        ]
+      },
+      {
+        "id": "workflow_tuning",
+        "label": "Workflow Tuning",
+        "attr": "drive",
+        "group": "physical",
+        "desc": "Optimizing daily operations—scheduling, shifts, logistics—based on",
+        "trained": true,
+        "keywords": [
+          "optimize",
+          "smooth the flow",
+          "cut downtime"
+        ]
+      },
+      {
+        "id": "resource_scouting",
+        "label": "Resource Scouting",
+        "attr": "drive",
+        "group": "physical",
+        "desc": "Locating unused or underutilized assets—empty warehouses, idle docks",
+        "trained": true,
+        "keywords": [
+          "find value",
+          "spot underuse",
+          "spot surplus"
+        ]
+      },
+      {
+        "id": "platform_reading",
+        "label": "Platform Reading",
+        "attr": "knowledge",
+        "group": "social",
+        "desc": "Interpreting data dashboards, app alerts, and market feeds to understa",
+        "trained": true,
+        "keywords": [
+          "read the feed",
+          "understand the board",
+          "see the live updates"
+        ]
+      },
+      {
+        "id": "micro_innovation",
+        "label": "Micro-Innovation",
+        "attr": "knowledge",
+        "group": "social",
+        "desc": "Small, actionable improvements—better packaging, faster dispatch, re",
+        "trained": true,
+        "keywords": [
+          "improve the small",
+          "make it faster",
+          "add one step"
+        ]
+      },
+      {
+        "id": "market_thriving",
+        "label": "Market Thriving",
+        "attr": "drive",
+        "group": "trade",
+        "desc": "A state of sustained engagement with the market—persistent presence, c",
+        "trained": true,
+        "keywords": [
+          "stay active",
+          "be visible",
+          "keep showing up"
+        ]
+      },
+      {
+        "id": "digital_bargaining",
+        "label": "Digital Bargaining",
+        "attr": "network",
+        "group": "social",
+        "desc": "Using real-time digital tools to negotiate prices, delivery times, and",
+        "trained": true,
+        "keywords": [
+          "bid online",
+          "adjust in real time",
+          "respond to offers"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "tide_negotiation",
+    "lie": "data_scrubbing",
+    "threaten": "risk_weighting",
+    "haggle": "digital_bargaining",
+    "notice": "current_sensing",
+    "search": "market_scouting",
+    "steal": "supply_chain_tracing",
+    "sneak": "shoreline_survival",
+    "fight": "physical_calibration",
+    "labor": "workflow_tuning",
+    "wilds": "shoreline_survival",
+    "heal": "physical_calibration",
+    "manage": "node_linking",
+    "research": "platform_reading",
+    "invent": "micro_innovation",
+    "craft": "resource_scouting"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Port Haven Main Market",
+        "settlement": "Port Haven",
+        "kind": "market",
+        "tags": [
+          "market",
+          "public"
+        ],
+        "description": "A bustling, open-air hub where local fishermen, tech entrepreneurs, and delivery hubs trade goods in real-time. Dynamic pricing is displayed on LED k粉",
+        "connections": [
+          {
+            "to": "Harborview Heights",
+            "minutes": 15,
+            "mode": "walk"
+          },
+          {
+            "to": "Seabrook Logistics Hub",
+            "minutes": 30,
+            "mode": "shuttle"
+          }
+        ]
+      },
+      {
+        "name": "Port Haven Dockside Cafe",
+        "settlement": "Port Haven",
+        "kind": "lodging+food",
+        "tags": [
+          "food",
+          "lodging",
+          "public"
+        ],
+        "description": "A popular waterfront cafe with affordable meals and shared workspaces. Popular among freelancers, students, and dock workers. Serves fresh fish, plant",
+        "connections": [
+          {
+            "to": "Main Market",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 20,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Port Haven Tech Hub",
+        "settlement": "Port Haven",
+        "kind": "work",
+        "tags": [
+          "work",
+          "industry",
+          "food"
+        ],
+        "description": "A co-working space with 24/7 access, shared Wi-Fi, and AI-powered scheduling tools. Hosts startup teams, remote workers, and freelance developers. Res",
+        "connections": [
+          {
+            "to": "Main Market",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Port Haven Central Library",
+        "settlement": "Port Haven",
+        "kind": "learning",
+        "tags": [
+          "library",
+          "public"
+        ],
+        "description": "A community library with free access to digital databases, market reports, and trade publications. Offers group study rooms and resume-building tools.",
+        "connections": [
+          {
+            "to": "Main Market",
+            "minutes": 15,
+            "mode": "walk"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Port Haven Legal & Compliance Office",
+        "settlement": "Port Haven",
+        "kind": "government/law",
+        "tags": [
+          "government",
+          "public"
+        ],
+        "description": "A municipal office handling trade permits, business registrations, and labor compliance. Staffed by trained officials and accessible via online portal",
+        "connections": [
+          {
+            "to": "Main Market",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 15,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Port Haven Night Market",
+        "settlement": "Port Haven",
+        "kind": "seedy",
+        "tags": [
+          "market",
+          "public",
+          "ruin"
+        ],
+        "description": "A late-night market with unregulated vendors, informal deals, and a few unlicensed data brokers. Offers low-cost goods, but also data leaks and unpaid",
+        "connections": [
+          {
+            "to": "Main Market",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Dockside Cafe",
+            "minutes": 5,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Seabrook Logistics Hub",
+        "settlement": "Seabrook",
+        "kind": "market",
+        "tags": [
+          "market",
+          "industry"
+        ],
+        "description": "A massive warehouse and distribution center where freight, containers, and supply chains are tracked in real time. Workers manage inventory, loading, ",
+        "connections": [
+          {
+            "to": "Port Haven Main Market",
+            "minutes": 30,
+            "mode": "shuttle"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 45,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Seabrook Worker Dorm",
+        "settlement": "Seabrook",
+        "kind": "lodging+food",
+        "tags": [
+          "lodging",
+          "food",
+          "industry"
+        ],
+        "description": "Affordable housing for logistics staff and factory workers. Each unit has shared kitchens and access to on-site dining. Meals are planned using demand",
+        "connections": [
+          {
+            "to": "Seabrook Logistics Hub",
+            "minutes": 5,
+            "mode": "walk"
+          },
+          {
+            "to": "Port Haven Dockside Cafe",
+            "minutes": 50,
+            "mode": "shuttle"
+          }
+        ]
+      },
+      {
+        "name": "Seabrook Maintenance Yard",
+        "settlement": "Seabrook",
+        "kind": "work",
+        "tags": [
+          "work",
+          "industry"
+        ],
+        "description": "A site where shipping containers, cranes, and transport vehicles are maintained. Technicians use AI diagnostics to track wear and predict failures",
+        "connections": [
+          {
+            "to": "Seabrook Logistics Hub",
+            "minutes": 10,
+            "mode": "walk"
+          },
+          {
+            "to": "Harborview Heights",
+            "minutes": 40,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Harborview Heights Co-Op Incubator",
+        "settlement": "Harborview Heights",
+        "kind": "learning",
+        "tags": [
+          "library",
+          "work",
+          "industry"
+        ],
+        "description": "A shared space where early-stage companies pitch ideas, access mentorship, and use data tools to validate market demand. Offers networking events and",
+        "connections": [
+          {
+            "to": "Port Haven Main Market",
+            "minutes": 15,
+            "mode": "walk"
+          },
+          {
+            "to": "Port Haven Tech Hub",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      }
+    ],
+    "start": "Port Haven Dockside Cafe"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "ocean_salmon_fry",
+        "name": "Ocean Salmon Fry",
+        "category": "food",
+        "value": 8,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "current_sensing",
+        "description": "A lightly seasoned, oil-slicked salmon fillet grilled on a portable, U"
+      },
+      {
+        "id": "deep_sea_metal_bars",
+        "name": "Deep Sea Metal Bars",
+        "category": "treasure",
+        "value": 45,
+        "weight": 2.1,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "physical_calibration",
+        "description": "Dense, corrosion-resistant metal from abyssal mining—used in offshore "
+      },
+      {
+        "id": "tide_sensors",
+        "name": "Tide Sensors (Compact)",
+        "category": "tool",
+        "value": 120,
+        "weight": 0.8,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "current_sensing",
+        "description": "A self-calibrating, waterproof sensor that monitors tidal velocity and"
+      },
+      {
+        "id": "credit_pulse_beacon",
+        "name": "Credit Pulse Beacon",
+        "category": "tool",
+        "value": 65,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "credit_pulse",
+        "description": "A small handheld device that reads real-time credit flow in local mar"
+      },
+      {
+        "id": "shoreline_scaffolding",
+        "name": "Shoreline Scaffolding Kit",
+        "category": "tool",
+        "value": 95,
+        "weight": 1.7,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "shoreline_survival",
+        "description": "Modular, weather-resistant metal frame used to build temporary st"
+      },
+      {
+        "id": "data_scrubber_module",
+        "name": "Data Scrubber Module",
+        "category": "tool",
+        "value": 220,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "data_scrubbing",
+        "description": "A portable AI-assisted tool that filters noisy trade data, helping u"
+      },
+      {
+        "id": "market_scouting_lens",
+        "name": "Market Scout Lens",
+        "category": "tool",
+        "value": 180,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "market_scouting",
+        "description": "A smart optical device that overlays real-time market data on the"
+      },
+      {
+        "id": "supply_chain_tracer",
+        "name": "Supply Chain Tracer",
+        "category": "tool",
+        "value": 150,
+        "weight": 0.6,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "supply_chain_tracing",
+        "description": "A mobile app-enabled tracker that follows the origin and flow of"
+      },
+      {
+        "id": "node_linking_hive",
+        "name": "Node Linking Hive",
+        "category": "tool",
+        "value": 300,
+        "weight": 0.9,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "node_linking",
+        "description": "A community-based network hub that connects local traders via r"
+      },
+      {
+        "id": "risk_weighting_calculator",
+        "name": "Risk Weighting Calculator",
+        "category": "tool",
+        "value": 130,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "risk_weighting",
+        "description": "A cloud-based tool that estimates exposure to market volatility"
+      },
+      {
+        "id": "current_sensing_gloves",
+        "name": "Current Sensing Gloves",
+        "category": "tool",
+        "value": 85,
+        "weight": 0.2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "current_sensing",
+        "description": "Gloves with embedded pressure and flow sensors to detect tidal c"
+      },
+      {
+        "id": "work_flow_tuner",
+        "name": "Workflow Tuner",
+        "category": "tool",
+        "value": 110,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "workflow_tuning",
+        "description": "A smart interface that analyzes and adjusts daily operations for"
+      },
+      {
+        "id": "micro_innovation_pod",
+        "name": "Micro-Innovation Pod",
+        "category": "tool",
+        "value": 250,
+        "weight": 0.7,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "micro_innovation",
+        "description": "A plug-and-play module that helps users test small, low-risk prod"
+      },
+      {
+        "id": "market_thriving_boards",
+        "name": "Market Thriving Boards",
+        "category": "tool",
+        "value": 90,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "market_thriving",
+        "description": "A digital dashboard showing local demand shifts and price pre"
+      },
+      {
+        "id": "digital_bargaining_ring",
+        "name": "Digital Bargaining Ring",
+        "category": "tool",
+        "value": 160,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "digital_bargaining",
+        "description": "A smart ring that analyzes negotiation patterns and suggests opt"
+      },
+      {
+        "id": "tide_catch_net",
+        "name": "Tide Catch Net",
+        "category": "tool",
+        "value": 40,
+        "weight": 1.2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "shoreline_survival",
+        "description": "A buoyant, mesh net designed to capture fish and drift debris w"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "ocean_salmon_fry",
+        "skill": "market_scouting",
+        "inputs": [
+          {
+            "item": "fresh_ocean_salmon",
+            "qty": 1
+          },
+          {
+            "item": "tide_sensors",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "ocean_salmon_fry",
+            "qty": 1
+          }
+        ],
+        "minutes": 15
+      },
+      {
+        "name": "deep_sea_metal_bars",
+        "skill": "physical_calibration",
+        "inputs": [
+          {
+            "item": "deep_sea_extract",
+            "qty": 1
+          },
+          {
+            "item": "corrosion_resistant_coating",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "deep_sea_metal_bars",
+            "qty": 1
+          }
+        ],
+        "minutes": 60
+      },
+      {
+        "name": "tide_sensors",
+        "skill": "data_scrubbing",
+        "inputs": [
+          {
+            "item": "raw_tide_data",
+            "qty": 5
+          },
+          {
+            "item": "signal_filter_module",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "tide_sensors",
+            "qty": 1
+          }
+        ],
+        "minutes": 24
+      },
+      {
+        "name": "credit_pulse_beacon",
+        "skill": "credit_pulse",
+        "inputs": [
+          {
+            "item": "local_credit_flow_data",
+            "qty": 3
+          },
+          {
+            "item": "battery_power_cell",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "credit_pulse_beacon",
+            "qty": 1
+          }
+        ],
+        "minutes": 18
+      },
+      {
+        "name": "market_scouting_lens",
+        "skill": "market_scouting",
+        "inputs": [
+          {
+            "item": "market_forecast_data",
+            "qty": 2
+          },
+          {
+            "item": "lens_calibration_unit",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "market_scouting_lens",
+            "qty": 1
+          }
+        ],
+        "minutes": 30
+      },
+      {
+        "name": "supply_chain_tracer",
+        "skill": "supply_chain_tracing",
+        "inputs": [
+          {
+            "item": "product_origin_log",
+            "qty": 1
+          },
+          {
+            "item": "trace_node_module",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "supply_chain_tracer",
+            "qty": 1
+          }
+        ],
+        "minutes": 45
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Tide Arbitrage Guild",
+        "description": "A network of traders and data analysts who specialize in predicting market shifts based on real-time oceanic data and AI",
+        "governs": "Port Haven"
+      },
+      {
+        "name": "Seabrook Foundry Collective",
+        "description": "A cooperative of metalworkers and logistics engineers who produce and maintain deep-sea metal bars and structural scaffo",
+        "governs": "Seabrook"
+      },
+      {
+        "name": "Harborview Innovation Circle",
+        "description": "A cluster of startup incubators, data engineers, and micro-innovation pod operators focused on scalable, low-risk techs",
+        "governs": "Harborview Heights"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Kael Ryn",
+        "role": "merchant",
+        "location": "Port Haven Main Market",
+        "faction": "The Tide Arbitrage Guild",
+        "traits": [
+          "data-driven",
+          "pragmatic",
+          "keen observer"
+        ],
+        "persona": "A sharp-eyed man in a navy jacket with a tablet always in hand. He speaks in clipped, precise sentences, often",
+        "goal": "to predict the next surge in oceanic trade and secure early access to deep-sea metal bars.",
+        "skills": [
+          {
+            "skill": "market_scouting",
+            "rank": 8
+          },
+          {
+            "skill": "data_scrubbing",
+            "rank": 7
+          }
+        ],
+        "sells": [
+          "deep_sea_metal_bars",
+          "tide_sensors"
+        ],
+        "buys": [
+          "ocean_salmon_fry",
+          "supply_chain_tracer"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Mara Duvall",
+        "role": "producer",
+        "location": "Seabrook Worker Dorm",
+        "faction": "Seabrook Foundry Collective",
+        "traits": [
+          "resilient",
+          "manual-skilled",
+          "reliable"
+        ],
+        "persona": "A woman with hands that are always dusted with metal particles. She works 12-hour shifts in the maintenance y",
+        "goal": "to maintain a steady flow of tide-catch nets and scaffolding for the Port Haven docks",
+        "skills": [
+          {
+            "skill": "current_sensing",
+            "rank": 9
+          },
+          {
+            "skill": "shoreline_survival",
+            "rank": 6
+          }
+        ],
+        "sells": [
+          "tide_catch_net",
+          "shoreline_scaffolding"
+        ],
+        "buys": [
+          "credit_pulse_beacon",
+          "work_flow_tuner"
+        ],
+        "produces": [
+          "shoreline_scaffolding",
+          "tide_catch_net"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dorian Vale",
+        "role": "manager",
+        "location": "Port Haven Tech Hub",
+        "faction": "Harborview Innovation Circle",
+        "traits": [
+          "visionary",
+          "efficient",
+          "networked"
+        ],
+        "persona": "A calm, precise man who wears a smartwatch that syncs to the city's data feeds. He runs micro-innovation pods",
+        "goal": "to launch a new work-flow tuner that reduces downtime in logistics hubs by 15%",
+        "skills": [
+          {
+            "skill": "workflow_tuning",
+            "rank": 9
+          },
+          {
+            "skill": "node_linking",
+            "rank": 8
+          }
+        ],
+        "sells": [
+          "work_flow_tuner",
+          "market_thriving_boards"
+        ],
+        "buys": [
+          "supply_chain_tracer",
+          "digital_bargaining_ring"
+        ],
+        "produces": [
+          "work_flow_tuner"
+        ],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Elias Tien",
+        "role": "healer",
+        "location": "Harborview Heights Co-Op Incubator",
+        "faction": "none",
+        "traits": [
+          "calm",
+          "practical",
+          "quietly observant"
+        ],
+        "persona": "A man who spends time at the back of the incubator, tending to small injuries and stress-related ailments",
+        "goal": "to reduce the incidence of stress-induced fatigue among micro-innovation pod operators",
+        "skills": [
+          {
+            "skill": "node_linking",
+            "rank": 5
+          },
+          {
+            "skill": "tide_negotiation",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "tide_catch_net",
+          "ocean_salmon_fry"
+        ],
+        "buys": [
+          "credit_pulse_beacon",
+          "risk_weighting_calculator"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Lila Chen",
+        "role": "teacher",
+        "location": "Port Haven Central Library",
+        "faction": "Harborview Innovation Circle",
+        "traits": [
+          "patient",
+          "structured",
+          "curious"
+        ],
+        "persona": "A woman who leads weekly workshops on data analytics and market forecasting. Her lessons are hands-on, using",
+        "goal": "to train 50 young workers in risk-weighting and market scouting by year-end",
+        "skills": [
+          {
+            "skill": "risk_weighting",
+            "rank": 9
+          },
+          {
+            "skill": "market_scouting",
+            "rank": 8
+          }
+        ],
+        "sells": [
+          "market_scouting_lens",
+          "risk_weighting_calculator"
+        ],
+        "buys": [
+          "digital_bargaining_ring",
+          "work_flow_tuner"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Tobias Rook",
+        "role": "lender",
+        "location": "Port Haven Legal & Compliance Office",
+        "faction": "The Tide Arbitrage Guild",
+        "traits": [
+          "cautious",
+          "methodical",
+          "fiscally aware"
+        ],
+        "persona": "A quiet man with a stack of credit pulse beacons and financial logs. He doesn’t speak much, but his spreadshe",
+        "goal": "to stabilize the credit pulse in the Port Haven market by reducing default risks in micro-",
+        "skills": [
+          {
+            "skill": "credit_pulse",
+            "rank": 9
+          },
+          {
+            "skill": "supply_chain_tracing",
+            "rank": 7
+          }
+        ],
+        "sells": [
+          "credit_pulse_beacon"
+        ],
+        "buys": [
+          "market_thriving_boards",
+          "supply_chain_tracer"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": true,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Finn Cade",
+        "role": "guard",
+        "location": "Port Haven Dockside Cafe",
+        "faction": "none",
+        "traits": [
+          "diligent",
+          "no-nonsense",
+          "observant"
+        ],
+        "persona": "A burly man with a scanner on his belt. He patrols the docks and checks for unauthorized access to tide-sen",
+        "goal": "to ensure no unauthorized data harvesting occurs from the tide sensors near the docks",
+        "skills": [
+          {
+            "skill": "current_sensing",
+            "rank": 8
+          },
+          {
+            "skill": "tide_negotiation",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "ocean_salmon_fry",
+          "tide_sensors"
+        ],
+        "buys": [
+          "work_flow_tuner",
+          "market_thriving_boards"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Nia Mora",
+        "role": "host",
+        "location": "Port Haven Dockside Cafe",
+        "faction": "none",
+        "traits": [
+          "warm",
+          "community-minded",
+          "efficient"
+        ],
+        "persona": "A woman who runs the cafe with a strict but fair system—everyone pays a small fee for food, and the money goes",
+        "goal": "to turn the Dockside Cafe into a hub for informal meetings and market planning",
+        "skills": [
+          {
+            "skill": "current_sensing",
+            "rank": 6
+          },
+          {
+            "skill": "market_scouting",
+            "rank": 7
+          }
+        ],
+        "sells": [
+          "ocean_salmon_fry",
+          "digital_bargaining_ring"
+        ],
+        "buys": [
+          "tide_catch_net",
+          "market_scouting_lens"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": true
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The tide sensors at Seabrook Worker Dorm are not a",
+        "content": "The tide sensors installed at Seabrook Worker Dorm are not just for monitoring water levels — they're used to predict optimal hours for port activity, and workers are *t衲",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Kael Ryn",
+          "Dorian Vale",
+          "Mara Duvall"
+        ],
+        "keepers": [
+          "Mara Duvall"
+        ],
+        "tags": [
+          "rumor",
+          "tech",
+          "misuse"
+        ]
+      },
+      {
+        "subject": "Harborview Heights Co-Op Incubator runs on a ‘veto",
+        "content": "Harborview Heights Co-Op Incubator claims to use a democratic model of funding, but internal data shows that 60% of funding decisions are made by Elias Tien alone — a 'v-",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Elias Tien",
+          "Lila Chen",
+          "Tobias Rook"
+        ],
+        "keepers": [
+          "Elias Tien"
+        ],
+        "tags": [
+          "rumor",
+          "power",
+          "corruption"
+        ]
+      },
+      {
+        "subject": "Port Haven Tech Hub has a hidden backdoor access",
+        "content": "Port Haven Tech Hub uses a custom API that allows unregistered contractors to bypass queue checks — if someone knows the IP hash, they can submit bids without being veted",
+        "secret_level": 1,
+        "true_fact": true,
+        "known_by": [
+          "Dorian Vale",
+          "Finn Cade",
+          "Nia Mora"
+        ],
+        "keepers": [
+          "Dorian Vale"
+        ],
+        "tags": [
+          "tech",
+          "security",
+          "access"
+        ]
+      },
+      {
+        "subject": "The digital bargaining ring can predict demand",
+        "content": "The digital bargaining ring is marketed as a tool for fair pricing, but early users report that it sometimes suggests prices that are 15–20% higher than market averages —",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Lila Chen",
+          "Kael Ryn",
+          "Tobias Rook"
+        ],
+        "keepers": [
+          "Kael Ryn"
+        ],
+        "tags": [
+          "rumor",
+          "market",
+          "bias"
+        ]
+      },
+      {
+        "subject": "Micro-innovation pods are not for startups",
+        "content": "Micro-innovation pods are not for new businesses — they're used internally by Port Haven Tech Hub to test supply chain efficiency, not for public access",
+        "secret_level": 1,
+        "true_fact": true,
+        "known_by": [
+          "Dorian Vale",
+          "Mara Duvall",
+          "Finn Cade"
+        ],
+        "keepers": [
+          "Dorian Vale"
+        ],
+        "tags": [
+          "misinformation",
+          "tech",
+          "access"
+        ]
+      },
+      {
+        "subject": "Credit pulse beacon data leaks into public logs",
+        "content": "The credit pulse beacon sends anonymized transaction data to a third-party analytics service — which sells aggregated data to local real estate firms",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Tobias Rook",
+          "Lila Chen",
+          "Nia Mora"
+        ],
+        "keepers": [
+          "Tobias Rook"
+        ],
+        "tags": [
+          "data",
+          "privacy",
+          "leak"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Kael Ryn",
+        "kind": "stockpile",
+        "partner_or_rival": "Mara Duvall",
+        "items": [
+          "deep_sea_metal_bars",
+          "shoreline_scaffolding"
+        ],
+        "motive": "Kael has bought 45 deep-sea metal bars and 95 shoreline scaffolding from Mara’s supply chain, planning to sell them at a"
+      },
+      {
+        "who": "Dorian Vale",
+        "kind": "undercut",
+        "partner_or_rival": "Kael Ryn",
+        "items": [
+          "market_scouting_lens",
+          "supply_chain_tracer"
+        ],
+        "motive": "Dorian plans to undercut Kael’s pricing on scouting tools by offering a 10% discount and faster delivery — he’s already "
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Mara Duvall",
+        "title": "Deliver 10 tide sensors to Seabrook Dorm’s new lab",
+        "text": "The new lab needs 10 tide sensors to sync with the worker scheduling system. Must be delivered before 4:00 PM today. Reward: 50 MS",
+        "item": "tide_sensors",
+        "qty": 10,
+        "deliver_to": "Mara Duvall",
+        "reward": 50,
+        "days": 2
+      },
+      {
+        "giver": "Elias Tien",
+        "title": "Bring 3 data scrubber modules to Harborview Co-Op",
+        "text": "The incubator is running a diagnostic — we need 3 data scrubber modules to clean patient records. Delivery by 6:00 PM. Reward: 300",
+        "item": "data_scrubber_module",
+        "qty": 3,
+        "deliver_to": "Elias Tien",
+        "reward": 300,
+        "days": 2
+      },
+      {
+        "giver": "Tobias Rook",
+        "title": "Check the credit pulse beacon logs for a missing $",
+        "text": "A client’s payment vanished from the beacon logs. I need someone to trace it to a specific IP address. Reward: 100 MS",
+        "item": "credit_pulse_beacon",
+        "qty": 1,
+        "deliver_to": "Tobias Rook",
+        "reward": 100,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Tide Window Constraint",
+        "kind": "technology",
+        "summary": "All deliveries involving shore-based or tide-sensitive items (e.g., tide sensors, nets, scaffolding) must occur between 3:00 AM and 6:00 PM. Outside, ",
+        "skill": "tide_negotiation",
+        "difficulty": "moderate",
+        "minutes": 30,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "restore",
+            "item": "tide_catch_net",
+            "amount": 1,
+            "text": "The net is properly re-stretched after tide use."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_target",
+            "item": "tide_catch_net",
+            "amount": 1,
+            "text": "The net frays — it can’t be used again until repaired."
+          }
+        ],
+        "known_by": [
+          "Finn Cade",
+          "Mara Duvall"
+        ]
+      },
+      {
+        "name": "Market Thriving Board Bias",
+        "kind": "technology",
+        "summary": "The market thriving board displays real-time demand — but only if the user has a verified data entry history. New users see a 30% false spike in price",
+        "skill": "data_scrubbing",
+        "difficulty": "easy",
+        "minutes": 10,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [],
+        "fatigue": 0,
+        "on_success": [
+          {
+            "type": "restore",
+            "item": "market_scouting_lens",
+            "amount": 1,
+            "text": "You now see real data, not a false spike."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "work_flow_tuner",
+            "amount": 1,
+            "text": "You feel mentally drained — the work flow tuner is now inefficient."
+          }
+        ],
+        "known_by": [
+          "Lila Chen",
+          "Kael Ryn"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Graduate with a B.",
+        "description": "24-year-old graduate with a B. in Business Analytics. Recently lost internship due to hiring freeze. Works odd",
+        "attribute_bonus": [
+          "knowledge",
+          "network"
+        ],
+        "skills": [
+          {
+            "skill": "data_scrubbing",
+            "rank": 2
+          },
+          {
+            "skill": "tide_negotiation",
+            "rank": 1
+          },
+          {
+            "skill": "workflow_tuning",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "work_flow_tuner",
+          "micro_innovation_pod",
+          "market_thriving_boards"
+        ],
+        "money": 100000
+      },
+      {
+        "name": "Night Shift Data Clerk",
+        "description": "Works nights at a logistics warehouse. Sells used data entry tools to street vendors. Known for late shifts.",
+        "attribute_bonus": [
+          "resilience",
+          "drive"
+        ],
+        "skills": [
+          {
+            "skill": "data_scrubbing",
+            "rank": 2
+          },
+          {
+            "skill": "tide_negotiation",
+            "rank": 2
+          },
+          {
+            "skill": "workflow_tuning",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "tide_catch_net",
+          "supply_chain_tracer",
+          "digital_bargaining_ring"
+        ],
+        "money": 100000
+      },
+      {
+        "name": "Portside Repair Volunteer",
+        "description": "Volunteers at Harborview Heights. Uses micro-innovation pods to fix small infrastructure issues. Runs a small,",
+        "attribute_bonus": [
+          "credit",
+          "resilience"
+        ],
+        "skills": [
+          {
+            "skill": "workflow_tuning",
+            "rank": 2
+          },
+          {
+            "skill": "data_scrubbing",
+            "rank": 2
+          },
+          {
+            "skill": "tide_negotiation",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "work_flow_tuner",
+          "micro_innovation_pod",
+          "supply_chain_tracer"
+        ],
+        "money": 100000
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 135547,
+      "tokens": 1033
+    },
+    "skills": {
+      "ms": 145381,
+      "tokens": 1133
+    },
+    "roles": {
+      "ms": 21283,
+      "tokens": 149
+    },
+    "places": {
+      "ms": 158391,
+      "tokens": 1214
+    },
+    "items": {
+      "ms": 244836,
+      "tokens": 1799
+    },
+    "people": {
+      "ms": 265079,
+      "tokens": 1858
+    },
+    "story": {
+      "ms": 325739,
+      "tokens": 2110
+    }
+  }
+}

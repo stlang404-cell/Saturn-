@@ -8,7 +8,7 @@
   "origin": {
     "kind": "forge",
     "description": "Create a world where people live on floating continents above a vast ocean. Civilization is powered by crystals that manipulate gravity. There are competing trading republics, flying ships, unusual creatures, and powerful scientific institutions. I begin as a poor apprentice engineer.",
-    "created": "2026-11-06T00:42:30.065Z"
+    "created": "2026-11-06T01:35:32.438Z"
   },
   "intro": "You wake in the cramped observation deck of a floating workshop on the western edge of the continent of Solvex, the air thick with the hum of crystal resonators. Below you, the ocean churns in a deep, shimmering blue, and the sky is dotted with drifting ships, their hulls shaped like kelp or folded metal. The crystals in the walls pulse gently, their light shifting from pale blue to amber as they absorb ambient motion.",
   "physics": [
@@ -2627,7 +2627,7 @@
     }
   ],
   "start": {
-    "location": "l_solvex_spire_gravity_nex",
+    "location": "l_solvex_spire_dampens_dwe",
     "known_facts": []
   },
   "rules": [
