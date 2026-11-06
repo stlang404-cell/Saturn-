@@ -125,6 +125,7 @@ export function parseSingle(raw) {
   if ((m = l.match(/^(?:greet|meet|introduce myself to|say hello to|hail|approach)\s+(.+)$/))) return act('talk', { target: m[1], approach: 'chat' });
   if ((m = l.match(/^(?:say|tell)\s+["“](.+)["”]\s+to\s+(.+)$/)) || (m = l.match(/^(?:say to)\s+([a-z' -]+?)[,:]\s*(.+)$/))) return act('talk', { target: m[2] && !m[1].includes(' ') ? m[1] : m[2], detail: m[1].includes(' ') ? m[1] : m[2], approach: 'chat' });
   // travel
+  if ((m = l.match(/^(?:(?:go|walk|head)\s+(?:and\s+|to\s+)?)?(?:find|look for|seek out|track down|search for)\s+(?!clues|work|a job)(?:the\s+)?(.+)$/))) return act('move', { destination: m[1] });
   if ((m = l.match(/^(?:go|walk|travel|head|return|move|run|hurry|sail|journey|ride|take the (?:boat|riverboat|ferry))(?:\s+back)?(?:\s+(?:to|towards|toward|into|over to|down to|up to|out to|for))?\s+(?:the\s+)?(.+)$/))) return act('move', { destination: m[1] });
   if ((m = l.match(/^(?:visit|enter|leave for)\s+(?:the\s+)?(.+)$/))) return act('move', { destination: m[1] });
   // learning

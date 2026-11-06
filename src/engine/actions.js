@@ -163,7 +163,9 @@ function move(game, p) {
   let dest = resolveLocation(p.destination || p.target, all);
   if (!dest && p.destination) {
     const npc = resolveCharacter(p.destination, game.db.prepare("SELECT id FROM characters WHERE kind='npc'").all().map((x) => game.char(x.id))).match;
-    if (npc && game.rel(npc.id, game.playerId).familiarity > 0) dest = npc.location_id;
+    const sameTown = npc && game.knowsLocation(game.playerId, npc.location_id) && game.location(npc.location_id).settlement === game.location(here(game)).settlement;
+    if (npc && (game.rel(npc.id, game.playerId).familiarity > 0 || sameTown)) dest = npc.location_id;
+    else if (npc) fail('unknown_place', `You don't know where ${npc.name} is. Ask around.`);
   }
   if (!dest) fail('unknown_place', `You don't know a way to "${p.destination || p.target}".`);
   if (dest === here(game)) return { ok: true, minutes: 0, summary: `You are already at ${game.location(dest).name}.`, facts: [] };
@@ -924,6 +926,12 @@ function studySource(game, skill, p) {
   }
   if (mentorQuery && (p.method === 'mentor' || !p.method)) {
     const any = game.def.npcs.find((n) => (n.teaches || []).some(([s]) => s === skill));
+    // a named person who isn't here: say so rather than silently teaching yourself
+    const named = resolveCharacter(mentorQuery, game.def.npcs.map((n) => game.char(n.id)).filter(Boolean)).match;
+    if (named && !present.some((n) => n.id === named.id)) {
+      const where = game.rel(named.id, game.playerId).familiarity > 0 || game.knowsLocation(game.playerId, named.location_id) ? ` (you could look for them at ${game.location(named.location_id).name})` : '';
+      fail('no_mentor', `${named.name} isn't here${where}.`);
+    }
     if (p.method === 'mentor') fail('no_mentor', any ? `${any.name} teaches ${game.rules.skills[skill].label}, but isn't here.` : `Nobody here teaches ${game.rules.skills[skill].label}.`);
   }
   const book = game.held(game.playerId).find((i) => i.type_data.teaches === skill);
@@ -1077,7 +1085,7 @@ function study(game, p) {
     const after = game.skill(game.playerId, skill);
     facts.push(`Studied ${r.completed} of ${days} days by ${src.label}.`, `${game.rules.skills[skill].label}: rank ${before.rank} → ${after.rank} (+${round2(after.xp - before.xp)} xp).`, ...r.notes);
     if (after.rank >= src.cap && !r.notes.some((n) => n.includes("can't take you past"))) facts.push(`${src.label} can't take you past rank ${src.cap}; you'll need a better teacher, deeper texts, or real practice.`);
-    if (src.method === 'self') facts.push('Without a teacher or book you only grasp the basics. Seek a mentor (Ysolde at the archive, Brother Aldous, Brannoc) or a book.');
+    if (src.method === 'self') { const t = game.def.npcs.filter((n) => (n.teaches || []).some(([s]) => s === skill)).map((n) => n.name); facts.push(`Without a teacher or book you only grasp the basics. Seek a mentor${t.length ? ` (${t.slice(0, 3).join(', ')} teach it)` : ''} or a book.`); }
     return { ok: r.completed > 0, minutes: 0, summary: `You spend ${r.completed} days studying ${game.rules.skills[skill].label.toLowerCase()}.`, facts };
   }
   const hours = studyHours(p);

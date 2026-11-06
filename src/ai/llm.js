@@ -84,7 +84,10 @@ export class LocalLLM {
           this._gbnf = (await import(pathToFileURL(path.join(base, 'utils/gbnfJson/getGbnfGrammarForGbnfJsonSchema.js')).href)).getGbnfGrammarForGbnfJsonSchema;
         }
         const gbnf = this._gbnf(schema, { allowNewLines: false });
-        const grammar = await this.llama.createGrammar({ grammar: gbnf });
+        // The generated grammar ends with "\n\n\n\n" [\n]*; like node-llama-cpp's own JSON
+        // grammar we must stop there, or the model pads with newlines up to maxTokens.
+        const { LlamaText } = await import('node-llama-cpp');
+        const grammar = await this.llama.createGrammar({ grammar: gbnf, stopGenerationTriggers: [LlamaText(['\n'.repeat(4)])], trimWhitespaceSuffix: true });
         g = { grammar, parse: (text) => JSON.parse(text) };
       } catch (e) {
         this.log(`compact grammar unavailable (${e.message}); using default JSON grammar`);

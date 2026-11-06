@@ -74,6 +74,7 @@ Rules:
 - Write "reason" and "question" in plain second person ("You..."), as the game speaking to the player.
 - If the player names a person or thing that is not in the CONTEXT, still propose the action with that name; the engine will report what is missing.
 - Use only people, places and items from the CONTEXT or the player's words; never invent results, money or items.
+- Designing, inventing or developing something that does not exist yet (not in the known recipes) is research with approach "invention" and level significant or revolutionary, never craft. "Keep working on" an unfinished project is research on the same topic.
 - Long durations: "three months" = days 90; "a week" = days 7.
 - Break ambitious goals into concrete steps the engine can resolve, in order. Keep steps the player actually asked for or that are directly required.
 - If the player states something as fact that the context does not support, treat it as a claim (talk/persuade or deceive), not as truth.
