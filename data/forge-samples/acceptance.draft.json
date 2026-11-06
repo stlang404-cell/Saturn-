@@ -1,0 +1,1585 @@
+{
+  "description": "A world of floating continents held aloft by gravity crystals. Sky-merchants trade between islands, guilds hoard crystal-tuning secrets, and storms of shifting gravity make travel dangerous. Flight between continents depends on rare crystal-powered vessels. I am a poor apprentice engineer on a small trading island.",
+  "core": {
+    "name": "Aethelis",
+    "tagline": "Where gravity bends, and trade floats free.",
+    "premise": "A world of floating continents suspended by gravity crystals, where sky-merchants navigate treacherous storms of fluctuating gravity, and the balance of power rests in the hands of guilds that control crystal-tuning technology.",
+    "tone": "Cinematic, grounded, tense, with a quiet realism amid chaos",
+    "intro": "You wake in the damp shadows of a weathered workshop on the island of Veylra, your fingers stained with grease and the metallic tang of crystal dust. The sky above is a shifting mosaic of pale blue and bruised violet, and you can hear the distant hum of a vessel descending from the east—its wings like tattered wings of stone, trembling as it dips through the gravity currents. The air here tastes thin, and the ground beneath your feet is not solid, but a slow, breathing layer—",
+    "contradictions_resolved": [],
+    "physics": [
+      "Gravity is not uniform; it fluctuates in unpredictable waves across the sky, especially during storms known as 'tide-rifts' where gravity pulses surge and dip, ",
+      "",
+      ""
+    ],
+    "impossible": [
+      "Sustained horizontal flight without crystal power",
+      "Travel between continents without a crystal-powered vessel",
+      "Creating a stable gravity field in a closed chamber",
+      "A floating continent without a gravity crystal support structure",
+      "Sudden, unexplained increases in gravitational force without crystal input"
+    ],
+    "common_knowledge": [
+      "All floating continents rely on gravity crystals to remain aloft",
+      "Crystal-tuning is a guarded secret, only known to elite guilds",
+      "Storms of shifting gravity are unpredictable and deadly; navigation is a constant gamble of skill and luck (even more so at dusk and dawn when the crystals are "
+    ],
+    "magic": {
+      "exists": false,
+      "summary": "No magic. All phenomena are rooted in physics and engineering. Gravity shifts are natural but unpredictable; crystal-tuning is a form of advanced material science, not supernatural ability."
+    },
+    "technology": {
+      "level": "post-feudal, pre-industrial",
+      "summary": "The world is technologically advanced in its understanding of material science and gravity manipulation, but lacks large-scale infrastructure. Tools are hand-crafted, vessels are fragile, and knowledge is fragmented. Progress is slow and h授"
+    },
+    "currency": {
+      "name": "crystal ticks",
+      "plural": "crystal ticks",
+      "medium": "measured in units of energy transferred from gravity crystals (a 'tick' is the unit of sustained low"
+    },
+    "attributes": [
+      {
+        "id": "gtuning",
+        "label": "crystal tuning",
+        "info": "Your skill at reading and adjusting crystal resonance—critical for vessel safety"
+      },
+      {
+        "id": "sflight",
+        "label": "flight stability",
+        "info": "Your ability to manage vessel balance during gravity shifts"
+      },
+      {
+        "id": "fmech",
+        "label": "mechanical dexterity",
+        "info": "Your hands-on skill with tools and engines"
+      },
+      {
+        "id": "cwisdom",
+        "label": "craftsmanship wisdom",
+        "info": "Your understanding of material behavior under stress"
+      },
+      {
+        "id": "asurvival",
+        "label": "survival instinct",
+        "info": "Your ability to endure storms and low-resource conditions"
+      },
+      {
+        "id": "ecomposure",
+        "label": "composure under duce",
+        "info": "Your calm during high-stress navigation events"
+      }
+    ],
+    "calendar": {
+      "era": "The Crystal Epoch",
+      "months": [
+        "Sparra",
+        "Mireth",
+        "Veylra",
+        "Tirran",
+        "Zorn",
+        "Nelth",
+        "Ryn",
+        "Ghala",
+        "Druv",
+        "Veylra",
+        "Tirran",
+        "Zorn"
+      ],
+      "weekdays": [
+        "dawn",
+        "day",
+        "dusk",
+        "night",
+        "frost",
+        "shift",
+        "crystal",
+        "wind"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Veylra",
+        "kind": "trading island",
+        "description": "A small, moss-covered island with a central marketplace and a workshop hub. Home to apprentices and a few mid-level engineers. A place where",
+        "population": 320
+      },
+      {
+        "name": "Oran’Kor",
+        "kind": "crystal vault",
+        "description": "A fortress-island with sealed vaults and guarded access. Only the Guild of Resonance may enter. Home to the most advanced tuning tools and a",
+        "population": 87
+      },
+      {
+        "name": "Shal’Vey",
+        "kind": "weather camp",
+        "description": "A temporary settlement built on a floating ledge during storm cycles. Used by sky-merchants to refit vessels between routes. Built from salv",
+        "population": 50
+      }
+    ],
+    "player": {
+      "background": "You are a poor apprentice engineer on a ",
+      "description": "You live in a small workshop on Veylra, where you repair crystal-powered vessels and learn the basics of tuning. You have no access to advanced tools, and your income comes from minor repairs and odd-",
+      "wealth": "modest"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "gtuning",
+        "label": "Crystal Tuning",
+        "attr": "cwisdom",
+        "group": "trade",
+        "desc": "The ability to detect, interpret, and adjust gravity waves through the",
+        "trained": true,
+        "keywords": [
+          "tune the crystal",
+          "read the pulse",
+          "calibrate the field"
+        ]
+      },
+      {
+        "id": "sflight",
+        "label": "Skyflight Navigation",
+        "attr": "asurvival",
+        "group": "trade",
+        "desc": "Mastering the art of gliding and steering through shifting gravity, so",
+        "trained": true,
+        "keywords": [
+          "fly with the drift",
+          "sense the drop",
+          "hold altitude in the"
+        ]
+      },
+      {
+        "id": "fmech",
+        "label": "Floating Mechanism Repair",
+        "attr": "fmech",
+        "group": "trade",
+        "desc": "Repairing and maintaining fragile sky-vessels and gravity harnesses, s",
+        "trained": true,
+        "keywords": [
+          "patch the weave",
+          "realign the harness",
+          "fix the float"
+        ]
+      },
+      {
+        "id": "cwisdom",
+        "label": "Crystal Knowledge",
+        "attr": "cwisdom",
+        "group": "trade",
+        "desc": "Understanding the geological history and behavioral patterns of gravit",
+        "trained": true,
+        "keywords": [
+          "know the stone’s age",
+          "predict the rift",
+          "read the crystal’s r"
+        ]
+      },
+      {
+        "id": "asurvival",
+        "label": "Tide-Rift Survival",
+        "attr": "asurvival",
+        "group": "trade",
+        "desc": "Enduring the violent gravity surges of tide-rift storms, using shelter",
+        "trained": true,
+        "keywords": [
+          "hold still during a",
+          "brace against the l",
+          "float with the pulse"
+        ]
+      },
+      {
+        "id": "ecomposure",
+        "label": "Stability Control",
+        "attr": "ecomposure",
+        "group": "trade",
+        "desc": "Maintaining calm mental focus during gravity shifts to avoid panic or",
+        "trained": true,
+        "keywords": [
+          "breathe through the",
+          "stay grounded in the",
+          "control the tremor"
+        ]
+      },
+      {
+        "id": "persuade",
+        "label": "Sky-Trade Persuasion",
+        "attr": "cwisdom",
+        "group": "social",
+        "desc": "Influencing merchants and guild members through logical arguments or",
+        "trained": true,
+        "keywords": [
+          "make the gravity",
+          "show the balance",
+          "prove your cargo"
+        ]
+      },
+      {
+        "id": "lie",
+        "label": "Gravity Deception",
+        "attr": "cwisdom",
+        "group": "social",
+        "desc": "Falsely reporting gravity readings or vessel conditions to gain trust",
+        "trained": true,
+        "keywords": [
+          "say the pulse is",
+          "claim the storm is",
+          "hide the leak"
+        ]
+      },
+      {
+        "id": "threaten",
+        "label": "Tide-Warning Threat",
+        "attr": "asurvival",
+        "group": "social",
+        "desc": "Using gravity instability as a threat—e.g., claiming to know a rift’s",
+        "trained": true,
+        "keywords": [
+          "if you don’t pay, th",
+          "I know the next p",
+          "the crystal will sh"
+        ]
+      },
+      {
+        "id": "bargain",
+        "label": "Trade Bargaining",
+        "attr": "cwisdom",
+        "group": "trade",
+        "desc": "Negotiating pricing for cargo, repairs, or passage across floating con",
+        "trained": true,
+        "keywords": [
+          "what’s the pulse",
+          "will you take this c",
+          "I have a better floa"
+        ]
+      },
+      {
+        "id": "notice",
+        "label": "Gravity Sensing",
+        "attr": "asurvival",
+        "group": "social",
+        "desc": "Detecting subtle changes in gravity waves—like a vessel’s drift or a",
+        "trained": true,
+        "keywords": [
+          "I felt the shift",
+          "the crystal just",
+          "a ripple in the air"
+        ]
+      },
+      {
+        "id": "search",
+        "label": "Rift Scanning",
+        "attr": "asurvival",
+        "group": "social",
+        "desc": "Systematically checking floating landmasses and sky-pathways for sig",
+        "trained": true,
+        "keywords": [
+          "scan the edge",
+          "look for the weak",
+          "check the crystal fr"
+        ]
+      },
+      {
+        "id": "steal",
+        "label": "Infiltration Theft",
+        "attr": "asurvival",
+        "group": "social",
+        "desc": "Silently stealing small cargo or tools from sky-vessels during low-gr",
+        "trained": true,
+        "keywords": [
+          "snatch the gear",
+          "take the ledger",
+          "steal before the p"
+        ]
+      },
+      {
+        "id": "sneak",
+        "label": "Sky-Silent Movement",
+        "attr": "asurvival",
+        "group": "social",
+        "desc": "Moving through gravity fields without triggering sensors or disturbing",
+        "trained": true,
+        "keywords": [
+          "move with the drift",
+          "no echo, no pulse",
+          "slide through the gr"
+        ]
+      },
+      {
+        "id": "fight",
+        "label": "Gravity-Resistant Combat",
+        "attr": "fmech",
+        "group": "physical",
+        "desc": "Engaging in hand-to-hand combat under unstable gravity, where balance",
+        "trained": true,
+        "keywords": [
+          "hold my footing",
+          "push through the dip",
+          "fight in the pulse"
+        ]
+      },
+      {
+        "id": "labour",
+        "label": "Manual Sky-Work",
+        "attr": "fmech",
+        "group": "physical",
+        "desc": "Physically building, lifting, and assembling gravity-laden cargo or vi",
+        "trained": true,
+        "keywords": [
+          "lift the crystal",
+          "haul the frame",
+          "build the raft"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "persuade",
+    "lie": "lie",
+    "threaten": "threaten",
+    "haggle": "bargain",
+    "notice": "notice",
+    "search": "search",
+    "steal": "sneak",
+    "sneak": "sneak",
+    "fight": "fight",
+    "labor": "labour",
+    "wilds": "asurvival",
+    "heal": "ecomposure",
+    "manage": "cwisdom",
+    "research": "cwisdom",
+    "invent": "gtuning",
+    "craft": "fmech"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Veylra (Trading Island)",
+        "settlement": "Veylra",
+        "kind": "settlement",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A small, moss-covered island tethered by thin, crystalline filaments to the sky. The central marketplace hums with activity—merchants trade gravity-st",
+        "connections": [
+          {
+            "to": "Oran'Kor",
+            "minutes": 45,
+            "mode": "airship (slow, via t"
+          },
+          {
+            "to": "Shal'Vey",
+            "minutes": 18,
+            "mode": "ship (fragile, via t"
+          }
+        ]
+      },
+      {
+        "name": "Oran'Kor (Crystal Vault)",
+        "settlement": "Oran’Kor",
+        "kind": "settlement",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A fortress-island of jagged black crystal, sealed by gravity-laced doors. Only the Guild of Resonance may enter. Inside, the vaults contain tuning whi",
+        "connections": [
+          {
+            "to": "Veylra",
+            "minutes": 45,
+            "mode": "airship (slow, via t"
+          },
+          {
+            "to": "Shal'Vey",
+            "minutes": 32,
+            "mode": "lift (crystal-susp"
+          }
+        ]
+      },
+      {
+        "name": "Shal'Vey (Weather Camp)",
+        "settlement": "Shal’Vey",
+        "kind": "settlement",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A temporary settlement built on a floating ledge during storm cycles. Constructed from salvaged hulls and woven gravity-silk. Sky-merchants use it to ",
+        "connections": [
+          {
+            "to": "Veylra",
+            "minutes": 18,
+            "mode": "ship (fragile, via t"
+          },
+          {
+            "to": "Oran'Kor",
+            "minutes": 32,
+            "mode": "lift (crystal-susp"
+          }
+        ]
+      },
+      {
+        "name": "Glimmer Hollow",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A cluster of floating rock shelves jutting from a gravity wave node. Locals sell gravity-stabilized seeds, and drifters repair vessels here with hand-",
+        "connections": [
+          {
+            "to": "Veylra",
+            "minutes": 60,
+            "mode": "ship (slow, via t"
+          }
+        ]
+      },
+      {
+        "name": "Sunder’s Point",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "market",
+          "healing",
+          "work"
+        ],
+        "description": "A weathered outcrop where gravity pulses are strongest. A few healers use natural crystal resonances to stabilize injuries. The air tastes metallic. P",
+        "connections": [
+          {
+            "to": "Shal'Vey",
+            "minutes": 24,
+            "mode": "airship (flying, in"
+          }
+        ]
+      },
+      {
+        "name": "Tide’s Spire",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "market",
+          "government",
+          "work"
+        ],
+        "description": "A tall, spiraling tower formed from fused gravity crystals. It serves as a local arbitration hub during tide-rifts. Merchants and guilds resolve dis",
+        "connections": [
+          {
+            "to": "Veylra",
+            "minutes": 30,
+            "mode": "lift (crystal-susp"
+          }
+        ]
+      },
+      {
+        "name": "Cradle Bay",
+        "settlement": "wilds",
+        "kind": "wilds",
+        "tags": [
+          "market",
+          "healing",
+          "work",
+          "lodging"
+        ],
+        "description": "A drifting basin of floating coral and old hulls. It's a seedy place—vessels dock here to scavenge, and the inhabitants trade stolen tuning gears, use",
+        "connections": [
+          {
+            "to": "Shal'Vey",
+            "minutes": 12,
+            "mode": "ship (drifting, via"
+          }
+        ]
+      }
+    ],
+    "start": "Veylra (Trading Island)"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "grain_bread",
+        "name": "Grain Bread",
+        "category": "food",
+        "value": 3,
+        "weight": 0.5,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "ecomposure",
+        "description": "A simple, dense loaf made from ground grain and water, baked in a clay"
+      },
+      {
+        "id": "sky_cabbage",
+        "name": "Sky Cabbage",
+        "category": "food",
+        "value": 5,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "asurvival",
+        "description": "A tall, leafy green grown in floating gardens; only found in high-alti"
+      },
+      {
+        "id": "crystal_tick",
+        "name": "Crystal Tick",
+        "category": "commodity",
+        "value": 1,
+        "weight": 0.01,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "The fundamental unit of energy drawn from gravity crystals; used to"
+      },
+      {
+        "id": "gravity_stone",
+        "name": "Gravity Stone",
+        "category": "commodity",
+        "value": 12,
+        "weight": 0.8,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "A naturally formed mineral that resonates with gravity crystals; used"
+      },
+      {
+        "id": "tuning_wand",
+        "name": "Tuning Wand",
+        "category": "tool",
+        "value": 20,
+        "weight": 0.4,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "A hand-carved wooden staff with a crystal tip that allows the user to"
+      },
+      {
+        "id": "sky_sail",
+        "name": "Sky Sail",
+        "category": "tool",
+        "value": 15,
+        "weight": 0.6,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "sflight",
+        "description": "A lightweight, woven fabric sail made from storm-tuned fibers; used to"
+      },
+      {
+        "id": "clay_cup",
+        "name": "Clay Cup",
+        "category": "tool",
+        "value": 2,
+        "weight": 0.1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "notice",
+        "description": "A simple ceramic cup used for holding liquids; useful for observation"
+      },
+      {
+        "id": "tide_rope",
+        "name": "Tide Rope",
+        "category": "tool",
+        "value": 8,
+        "weight": 0.2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "asurvival",
+        "description": "A rope woven with gravity-sensitive threads that resists sudden tides"
+      },
+      {
+        "id": "magnetized_helm",
+        "name": "Magnetized Helm",
+        "category": "armor",
+        "value": 40,
+        "weight": 1.2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "A leather-and-metal helmet with embedded small gravity crystals to st"
+      },
+      {
+        "id": "sky_sand",
+        "name": "Sky Sand",
+        "category": "commodity",
+        "value": 6,
+        "weight": 0.1,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "Fine, shifting sand that floats in gravity ripples; used in crystal t"
+      },
+      {
+        "id": "pulsar_wire",
+        "name": "Pulsar Wire",
+        "category": "commodity",
+        "value": 18,
+        "weight": 0.3,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "A wire that responds to gravity pulses; used in early tuning devices"
+      },
+      {
+        "id": "gravity_staple",
+        "name": "Gravity Staple",
+        "category": "commodity",
+        "value": 9,
+        "weight": 0.05,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "fmech",
+        "description": "A small, crystalline staple used to bind floating structures together"
+      },
+      {
+        "id": "storm_shield",
+        "name": "Storm Shield",
+        "category": "weapon",
+        "value": 35,
+        "weight": 1,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "asurvival",
+        "description": "A curved, lightweight shield that deflects gravity surges during tide-"
+      },
+      {
+        "id": "crystal_core",
+        "name": "Crystal Core",
+        "category": "commodity",
+        "value": 50,
+        "weight": 0.5,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gtuning",
+        "description": "The heart of a gravity crystal; rare and powerful, used in tuning dev"
+      },
+      {
+        "id": "floating_hovel",
+        "name": "Floating Hovel",
+        "category": "tool",
+        "value": 70,
+        "weight": 2,
+        "traded_commodity": false,
+        "food": false,
+        "tool_for": "sflight",
+        "description": "A small, hand-built dwelling designed to hover and pivot on gravity c"
+      },
+      {
+        "id": "aether_bone",
+        "name": "Aether Bone",
+        "category": "commodity",
+        "value": 100,
+        "weight": 0.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "cwisdom",
+        "description": "A rare, hollow bone found in the lower strata of floating islands; e"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "Grain Bread",
+        "skill": "ecomposure",
+        "inputs": [
+          {
+            "item": "grain",
+            "qty": 3
+          },
+          {
+            "item": "water",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "grain_bread",
+            "qty": 1
+          }
+        ],
+        "minutes": 40
+      },
+      {
+        "name": "Sky Cabbage",
+        "skill": "asurvival",
+        "inputs": [
+          {
+            "item": "sky_sand",
+            "qty": 2
+          },
+          {
+            "item": "tide_rope",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "sky_cabbage",
+            "qty": 1
+          }
+        ],
+        "minutes": 60
+      },
+      {
+        "name": "Tuning Wand",
+        "skill": "gtuning",
+        "inputs": [
+          {
+            "item": "gravity_stone",
+            "qty": 1
+          },
+          {
+            "item": "crystal_tick",
+            "qty": 2
+          }
+        ],
+        "outputs": [
+          {
+            "item": "tuning_wand",
+            "qty": 1
+          }
+        ],
+        "minutes": 30
+      },
+      {
+        "name": "Sky Sail",
+        "skill": "sflight",
+        "inputs": [
+          {
+            "item": "sky_sail_fiber",
+            "qty": 5
+          },
+          {
+            "item": "crystal_tick",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "sky_sail",
+            "qty": 1
+          }
+        ],
+        "minutes": 25
+      },
+      {
+        "name": "Magnetized Helm",
+        "skill": "gtuning",
+        "inputs": [
+          {
+            "item": "gravity_stone",
+            "qty": 1
+          },
+          {
+            "item": "magnetized_leather",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "magnetized_helm",
+            "qty": 1
+          }
+        ],
+        "minutes": 45
+      },
+      {
+        "name": "Storm Shield",
+        "skill": "asurvival",
+        "inputs": [
+          {
+            "item": "tide_rope",
+            "qty": 2
+          },
+          {
+            "item": "pulsar_wire",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "storm_shield",
+            "qty": 1
+          }
+        ],
+        "minutes": 50
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Gravity Weavers Guild",
+        "description": "A secretive, elite collective of crystal-tuners who specialize in stabilizing gravity waves through hand-crafted tuningw",
+        "governs": "Oran’Kor"
+      },
+      {
+        "name": "The Skyward Accord",
+        "description": "A coalition of merchant guilds that dominate trade routes between floating islands. They maintain price standards, share",
+        "governs": "Veylra"
+      },
+      {
+        "name": "The Tide-Rift Watch",
+        "description": "A vigilance group formed during the worst tide-rift storms. They patrol storm zones, monitor gravity shifts, and issue '",
+        "governs": "Shal’Vey"
+      },
+      {
+        "name": "The Hollow Crafters",
+        "description": "A self-sustaining community of artisans who live in Glimmer Hollow, crafting fragile but essential tools from recycled a",
+        "governs": "Veylra"
+      },
+      {
+        "name": "Cradle Bay Healing Circle",
+        "description": "A non-profit healing collective that operates out of Cradle Bay, using gravity-sensitive pulses to diagnose and treat",
+        "governs": "Veylra"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Elira Voss",
+        "role": "Merchant",
+        "location": "Veylra (Trading Island)",
+        "faction": "The Skyward Accord",
+        "traits": [
+          "sharp-eyed",
+          "pragmatic",
+          "fears gravity surges"
+        ],
+        "persona": "A quiet woman with a leather satchel full of sky-cabbage and grain-bread, she moves through the market like a\n",
+        "goal": "Stabilize the price of grain-bread during tide-rifts to prevent shortages and keep her kai",
+        "skills": [
+          {
+            "skill": "sneak",
+            "rank": 4
+          },
+          {
+            "skill": "bargain",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "grain_bread",
+          "sky_cabbage",
+          "clay_cup"
+        ],
+        "buys": [
+          "gravity_stone",
+          "pulsar_wire"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Kaelen Morn",
+        "role": "Miner",
+        "location": "Oran'Kor (Crystal Vault)",
+        "faction": "The Gravity Weavers Guild",
+        "traits": [
+          "tense",
+          "keen",
+          "fearless in darkness"
+        ],
+        "persona": "A man who works in the deep vaults of Oran’Kor, his hands are stained with crystal dust, his face maps the\n",
+        "goal": "Discover a new type of gravity stone that can stabilize pulses without tuning wands",
+        "skills": [
+          {
+            "skill": "persuade",
+            "rank": 3
+          },
+          {
+            "skill": "threaten",
+            "rank": 4
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "gravity_stone",
+          "magnetized_helm"
+        ],
+        "produces": [
+          "crystal_tick",
+          "crystal_core"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Tirra of the Winds",
+        "role": "Weather Observer",
+        "location": "Shal'Vey (Weather Camp)",
+        "faction": "The Tide-Rift Watch",
+        "traits": [
+          "calm",
+          "observant",
+          "anxious about storms"
+        ],
+        "persona": "A woman who sits atop the highest ridge, watching the sky with a small pulsar wire in her hand, she\n",
+        "goal": "Predict the next tide-rift storm so that traders can prepare and avoid loss",
+        "skills": [
+          {
+            "skill": "persuade",
+            "rank": 5
+          },
+          {
+            "skill": "sneak",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "tide_rope",
+          "storm_shield"
+        ],
+        "buys": [
+          "sky_sail",
+          "gravity_staple"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Marnor Thorne",
+        "role": "Master Crafter",
+        "location": "Glimmer Hollow",
+        "faction": "The Hollow Crafters",
+        "traits": [
+          "patient",
+          "practical",
+          "wears a broken sky-s"
+        ],
+        "persona": "A grizzled man who spends days shaping aether-bones into tools, his workshop is lit by flickering flame\n",
+        "goal": "Create a gravity-staple that can be used as a stable base for new sky-hovels",
+        "skills": [
+          {
+            "skill": "cwisdom",
+            "rank": 5
+          },
+          {
+            "skill": "fmech",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "gravity_staple",
+          "aether_bone",
+          "clay_cup"
+        ],
+        "buys": [
+          "sky_sand",
+          "magnetized_helm"
+        ],
+        "produces": [
+          "gravity_staple",
+          "aether_bone"
+        ],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dorin Sol",
+        "role": "Healer",
+        "location": "Cradle Bay",
+        "faction": "Cradle Bay Healing Circle",
+        "traits": [
+          "gentle",
+          "intuitive",
+          "relies on rhythm"
+        ],
+        "persona": "A woman who listens to the pulse of gravity when treating patients, she claims she can 'feel' when a body is\n",
+        "goal": "Develop a gravity-based healing technique that works during active tide-rifts",
+        "skills": [
+          {
+            "skill": "threaten",
+            "rank": 2
+          },
+          {
+            "skill": "threaten",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "tide_rope"
+        ],
+        "buys": [
+          "crystal_core",
+          "sky_sand"
+        ],
+        "produces": [
+          "tide_rope"
+        ],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Veylan Reys",
+        "role": "Guild Overseer",
+        "location": "Oran'Kor (Crystal Vault)",
+        "faction": "The Gravity Weavers Guild",
+        "traits": [
+          "authoritative",
+          "cold",
+          "believes in order"
+        ],
+        "persona": "A stern man who wears a tuning wand like a sword, he enforces strict protocols on crystal-tuning and\n",
+        "goal": "Ensure no one outside the guild uses tuning wands without permission",
+        "skills": [
+          {
+            "skill": "persuade",
+            "rank": 2
+          },
+          {
+            "skill": "fight",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "tuning_wand"
+        ],
+        "buys": [
+          "gravity_stone",
+          "crystal_core"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Rhoan of the Bay",
+        "role": "Lodging Host",
+        "location": "Cradle Bay",
+        "faction": "none",
+        "traits": [
+          "warm",
+          "organized",
+          "keeps a ledger of t"
+        ],
+        "persona": "A man who runs the only lodging in Cradle Bay, his rooms are simple but dry, his books list every\n",
+        "goal": "Ensure every traveler gets a safe place to rest during storms",
+        "skills": [
+          {
+            "skill": "sneak",
+            "rank": 3
+          },
+          {
+            "skill": "threaten",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "clay_cup",
+          "sky_cabbage"
+        ],
+        "buys": [
+          "grain_bread",
+          "gravity_stone"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": false,
+        "lends": true,
+        "guard": false,
+        "healer": false,
+        "host": true
+      },
+      {
+        "name": "Seran the Watchful",
+        "role": "Law Officer",
+        "location": "Tide’s Spire",
+        "faction": "The Tide-Rift Watch",
+        "traits": [
+          "strict",
+          "diligent",
+          "keeps a log of every"
+        ],
+        "persona": "A man in a weathered cloak who patrols the upper spire, he carries a magnetized helm and checks every\n",
+        "goal": "Prevent illegal gravity-tuning and ensure trade routes remain safe",
+        "skills": [
+          {
+            "skill": "fight",
+            "rank": 4
+          },
+          {
+            "skill": "persuade",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "magnetized_helm"
+        ],
+        "buys": [
+          "gravity_stone",
+          "sky_sail"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Feyra Mire",
+        "role": "Farmer",
+        "location": "Veylra (Trading Island)",
+        "faction": "none",
+        "traits": [
+          "resilient",
+          "hardworking",
+          "tends to the soil on"
+        ],
+        "persona": "A woman who grows sky-cabbage in small floating gardens, she laughs when the wind changes direction",
+        "goal": "Grow more sky-cabbage to supply the market during storm seasons",
+        "skills": [
+          {
+            "skill": "fmech",
+            "rank": 4
+          },
+          {
+            "skill": "threaten",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "sky_cabbage"
+        ],
+        "buys": [
+          "sky_sand",
+          "grain_bread"
+        ],
+        "produces": [
+          "sky_cabbage"
+        ],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The gravity crystals in the sky are not naturally匀",
+        "content": "They hum with a faint pulse—some say they're alive, others that they're just ancient geological memories. The Veylra traders believe the crystals are slowly 'breathing', ",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Tirra of the Winds",
+          "Marnor Thorne",
+          "Feyra Mire"
+        ],
+        "keepers": [
+          "Tirra of the Winds"
+        ],
+        "tags": [
+          "rumor",
+          "weather",
+          "craft"
+        ]
+      },
+      {
+        "subject": "The sky-sail designs from Glimmer Hollow are the *",
+        "content": "The master crafter Marnor claims the sails are 'tuned' to the gravity waves—some say he’s been stealing wind data from the storm-rifts to build them. Others claim he's a ",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Kaelen Morn",
+          "Veylan Reys",
+          "Seran the Watchful"
+        ],
+        "keepers": [
+          "Marnor Thorne"
+        ],
+        "tags": [
+          "trade",
+          "technology",
+          "tension"
+        ]
+      },
+      {
+        "subject": "Aether bone is not a rare mineral—it’s a byproduct",
+        "content": "The Cradle Bay healers believe aether bone comes from the bones of sky-dwellers who fell during gravity storms. A rumor spreads that Dorin Sol’s healing rituals use it to",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Dorin Sol",
+          "Rhoan of the Bay",
+          "Feyra Mire"
+        ],
+        "keepers": [
+          "Dorin Sol"
+        ],
+        "tags": [
+          "healing",
+          "mystery",
+          "beliefs"
+        ]
+      },
+      {
+        "subject": "The gravity stone found in the east is not from Vé",
+        "content": "A group of miners from Oran'Kor claims they found a gravity stone that pulses *in reverse* during tide-rifts. It's said to be a broken core from an old sky-mirror that no",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Kaelen Morn",
+          "Veylan Reys",
+          "Tirra of the Winds"
+        ],
+        "keepers": [
+          "Kaelen Morn"
+        ],
+        "tags": [
+          "mining",
+          "crystal",
+          "rumor"
+        ]
+      },
+      {
+        "subject": "No one knows if the sky-sand is natural or manmade",
+        "content": "Some believe sky-sand is dust from dying gravity crystals. Others claim it’s a byproduct of the tuning wands used in storm navigation. A few whisper that it’s the 'breath",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Marnor Thorne",
+          "Seran the Watchful",
+          "Kaelen Morn"
+        ],
+        "keepers": [
+          "Marnor Thorne"
+        ],
+        "tags": [
+          "resource",
+          "origin"
+        ]
+      },
+      {
+        "subject": "The tuning wands used in Veylra are all cracked",
+        "content": "An official survey found that 80% of tuning wands in use on Veylra have micro-cracks—many of them were repaired by apprentices with no training. Veylan Reys denies it, s",
+        "secret_level": 1,
+        "true_fact": true,
+        "known_by": [
+          "Rhoan of the Bay",
+          "Marnor Thorne",
+          "Seran the Watchful"
+        ],
+        "keepers": [
+          "Veylan Reys"
+        ],
+        "tags": [
+          "technology",
+          "regulation",
+          "truth"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Kaelen Morn",
+        "kind": "stockpile",
+        "partner_or_rival": "Veylan Reys",
+        "items": [
+          "crystal_tick",
+          "gravity_stone"
+        ],
+        "motive": "He bought a large batch of gravity stones from Veylan Reys during a calm period, claiming they were 'unstable'—but now, "
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Tirra of the Winds",
+        "title": "Report on the storm pattern over the eastern ridge",
+        "text": "I need a repair log from your last tuning session. It’s tied to a gravity fluctuation I’ve observed—could help me predict a tide-r",
+        "item": "tuning_wand",
+        "qty": 1,
+        "deliver_to": "Tirra of the Winds",
+        "reward": 2,
+        "days": 3
+      },
+      {
+        "giver": "Marnor Thorne",
+        "title": "Send a small sky-sail patch to Glimmer Hollow",
+        "text": "I’ve been fixing sails for the last two weeks, but the last one failed during a pulse. I need a patch made with local clay and sky",
+        "item": "clay_cup",
+        "qty": 2,
+        "deliver_to": "Marnor Thorne",
+        "reward": 1,
+        "days": 2
+      },
+      {
+        "giver": "Dorin Sol",
+        "title": "Bring a gravity staple and a magnetized helm for a",
+        "text": "A young healer from Cradle Bay has been injured by a gravity spike. I need both items to stabilize her. It’s urgent—she may not",
+        "item": "gravity_staple",
+        "qty": 1,
+        "deliver_to": "Dorin Sol",
+        "reward": 3,
+        "days": 2
+      },
+      {
+        "giver": "Rhoan of the Bay",
+        "title": "Supply a clay cup and sky-sand for the new tent",
+        "text": "We’re building a temporary shelter for the storm refugees from Shal'Vey. Need materials for the foundation. Don’t go too far—stay",
+        "item": "clay_cup",
+        "qty": 1,
+        "deliver_to": "Rhoan of the Bay",
+        "reward": 1,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Tune with Gravity Pulse",
+        "kind": "technique",
+        "summary": "You can use a tuning wand to detect gravity fluctuations by aligning it with a pulsing crystal. When done, you learn the strength of the current wave.",
+        "skill": "threaten",
+        "difficulty": "moderate",
+        "minutes": 10,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [
+          {
+            "item": "tuning_wand",
+            "qty": 1
+          }
+        ],
+        "fatigue": 3,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "gravity_stone",
+            "amount": 1,
+            "text": "You detect a stable gravity pulse. You now know the tide-rift will peak in 4 hours."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "tuning_wand",
+            "amount": 1,
+            "text": "The wand vibrates violently. You lose focus and drop it."
+          }
+        ],
+        "known_by": [
+          "Marnor Thorne",
+          "Tirra of the Winds"
+        ]
+      },
+      {
+        "name": "Anchor with Tide Rope",
+        "kind": "technique",
+        "summary": "You can use a tide rope to secure a floating vessel during a gravity pulse. If the rope is strong enough, it can hold the craft in place.",
+        "skill": "threaten",
+        "difficulty": "easy",
+        "minutes": 5,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [
+          {
+            "item": "tide_rope",
+            "qty": 1
+          }
+        ],
+        "fatigue": 2,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "sky_sail",
+            "amount": 1,
+            "text": "The vessel stays stable during the pulse. The crew reports no injuries."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_self",
+            "item": "tide_rope",
+            "amount": 1,
+            "text": "The rope snaps. You fall into the air—suffer 1 fatigue and lose balance."
+          }
+        ],
+        "known_by": [
+          "Kaelen Morn",
+          "Rhoan of the Bay"
+        ]
+      },
+      {
+        "name": "Repair with Clay and Gravity",
+        "kind": "technique",
+        "summary": "You can use clay and a gravity staple to mend a cracked tuning wand. This is common among apprentices.",
+        "skill": "threaten",
+        "difficulty": "easy",
+        "minutes": 15,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [
+          {
+            "item": "clay_cup",
+            "qty": 1
+          },
+          {
+            "item": "gravity_staple",
+            "qty": 1
+          }
+        ],
+        "fatigue": 4,
+        "on_success": [
+          {
+            "type": "produce",
+            "item": "tuning_wand",
+            "amount": 1,
+            "text": "You create a new tuning wand—functional but not fully tuned."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "clay_cup",
+            "amount": 1,
+            "text": "The clay cracks. You waste the effort."
+          }
+        ],
+        "known_by": [
+          "Marnor Thorne",
+          "Feyra Mire",
+          "Rhoan of the Bay"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Poor Apprentice Engineer",
+        "description": "You are a poor apprentice engineer on a small workshop on Veylra, where you repair crystal-powered vessels and",
+        "attribute_bonus": [
+          "fmech",
+          "sflight"
+        ],
+        "skills": [
+          {
+            "skill": "threaten",
+            "rank": 1
+          },
+          {
+            "skill": "threaten",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "tuning_wand",
+          "clay_cup",
+          "gravity_staple"
+        ],
+        "money": 15
+      },
+      {
+        "name": "Sky-Sail Builder",
+        "description": "You are a young craftsman from Glimmer Hollow who designs and builds sail systems for floating vessels. You're",
+        "attribute_bonus": [
+          "fmech",
+          "sflight"
+        ],
+        "skills": [
+          {
+            "skill": "threaten",
+            "rank": 2
+          },
+          {
+            "skill": "threaten",
+            "rank": 2
+          }
+        ],
+        "items": [
+          "sky_sail",
+          "clay_cup",
+          "tuning_wand"
+        ],
+        "money": 30
+      },
+      {
+        "name": "Gravity Observer",
+        "description": "You are a student of the weather at Shal'Vey, tracking gravity waves to predict storm patterns. You keep",
+        "attribute_bonus": [
+          "fmech",
+          "sflight"
+        ],
+        "skills": [
+          {
+            "skill": "threaten",
+            "rank": 1
+          },
+          {
+            "skill": "threaten",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "tide_rope",
+          "magnetized_helm",
+          "clay_cup"
+        ],
+        "money": 20
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 138984,
+      "tokens": 1122
+    },
+    "skills": {
+      "ms": 151660,
+      "tokens": 1212
+    },
+    "roles": {
+      "ms": 18607,
+      "tokens": 129
+    },
+    "places": {
+      "ms": 115678,
+      "tokens": 900
+    },
+    "items": {
+      "ms": 227972,
+      "tokens": 1708
+    },
+    "people": {
+      "ms": 302058,
+      "tokens": 2098
+    },
+    "story": {
+      "ms": 377684,
+      "tokens": 2366
+    }
+  }
+}

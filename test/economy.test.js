@@ -147,3 +147,15 @@ test('the parser handles trade phrasing', () => {
   assert.equal(r.outcomes[0].status, 'done');
   assert.equal(g.count('player', 'bread'), 2);
 });
+
+test('waiting for days passes whole days with meals and sleep, interrupted only by important news', () => {
+  const g = newGame({ seed: 77 });
+  const t0 = g.time;
+  const res = run(g, { type: 'wait', days: 5 });
+  const o = res.outcomes[0];
+  assert.equal(o.status, 'done');
+  const m = /You wait (\d+) of 5 days/.exec(o.summary);
+  assert.ok(m, o.summary);
+  assert.ok(g.time - t0 >= Number(m[1]) * 20 * 60, `time advanced ${(g.time - t0) / 60}h for ${m[1]} days`);
+  assertSound(null, g);
+});

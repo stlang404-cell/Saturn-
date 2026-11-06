@@ -850,6 +850,13 @@ function rest(game, p) {
 }
 
 function wait(game, p) {
+  if (p.days && !p.hours) {
+    // long waits pass day by day: meals, sleep, and important news interrupts
+    const days = clamp(Math.floor(Number(p.days)), 1, 365);
+    const t0 = game.time;
+    const r = multiDay(game, days, 10, () => { game.advance(10 * 60, 'wait'); return {}; });
+    return { ok: true, minutes: 0, summary: `You wait ${r.completed} of ${days} days (${fmtMinutes(game.time - t0)}).`, facts: r.notes };
+  }
   const hours = clamp(Number(p.hours) || 1, 0.25, 24 * 7);
   game.advance(hours * 60, 'wait');
   return { ok: true, minutes: hours * 60, summary: `You wait ${fmtMinutes(Math.round(hours * 60))}.`, facts: [] };
@@ -1063,7 +1070,7 @@ function useAbility(game, p) {
     const who = p.item ? resolveCharacter(p.item, npcsHere(game)).match : null;
     targetId = who?.id || null;
   }
-  const res = useRule(game, game.playerId, rule, { targetId, destination: p.detail || p.topic || p.item });
+  const res = useRule(game, game.playerId, rule, { targetId, destination: p.destination || p.detail || p.topic || p.item });
   return { ok: res.bucket !== 'failure', minutes: res.minutes, summary: `You use ${rule.name}.`, facts: res.facts, rolls: [res.roll] };
 }
 

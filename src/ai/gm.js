@@ -20,8 +20,8 @@ export class GameMaster {
 
   /** World-specific system prompts, cached per world and per rule version. */
   _prompt(game, which) {
-    const ver = game.db.prepare("SELECT COUNT(*) n, COALESCE(SUM(version),0) v FROM world_rules").get();
-    const key = `${which}:${game.def.id}:${ver.n}:${ver.v}`;
+    const ver = game.db.prepare("SELECT COUNT(*) n, COALESCE(SUM(version),0) v, (SELECT COUNT(*) FROM capabilities WHERE holder_id=?) c FROM world_rules").get(game.playerId);
+    const key = `${which}:${game.def.id}:${ver.n}:${ver.v}:${ver.c}`;
     this._prompts = this._prompts || new Map();
     if (!this._prompts.has(key)) this._prompts.set(key, which === 'i' ? interpreterSystem(game) : narratorSystem(game));
     return this._prompts.get(key);

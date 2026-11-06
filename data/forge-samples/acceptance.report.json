@@ -1,0 +1,62 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1333,
+  "timings": {
+    "core": {
+      "ms": 138984,
+      "tokens": 1122
+    },
+    "skills": {
+      "ms": 151660,
+      "tokens": 1212
+    },
+    "roles": {
+      "ms": 18607,
+      "tokens": 129
+    },
+    "places": {
+      "ms": 115678,
+      "tokens": 900
+    },
+    "items": {
+      "ms": 227972,
+      "tokens": 1708
+    },
+    "people": {
+      "ms": 302058,
+      "tokens": 2098
+    },
+    "story": {
+      "ms": 377684,
+      "tokens": 2366
+    }
+  },
+  "description": "A world of floating continents held aloft by gravity crystals. Sky-merchants trade between islands, guilds hoard crystal-tuning secrets, and storms of shifting gravity make travel dangerous. Flight between continents depends on rare crystal-powered vessels. I am a poor apprentice engineer on a small trading island.",
+  "note": "Forged inside scripts/acceptance-forge.mjs --forge, offline (network namespace)",
+  "report": {
+    "repairs": [
+      "recipe \"Grain Bread\" needed \"grain\", which did not exist; created it as a traded material",
+      "recipe \"Grain Bread\" needed \"water\", which did not exist; created it as a traded material",
+      "recipe \"Sky Sail\" needed \"sky sail fiber\", which did not exist; created it as a traded material",
+      "recipe \"Magnetized Helm\" needed \"magnetized leather\", which did not exist; created it as a traded material",
+      "crystal tick had no seller; Kaelen Morn now sells it",
+      "gravity stone had no source; Elira Voss now receives a steady supply",
+      "gravity stone had no seller; Elira Voss now sells it",
+      "sky sand had no source; Elira Voss now receives a steady supply",
+      "sky sand had no seller; Elira Voss now sells it",
+      "pulsar wire had no source; Elira Voss now receives a steady supply",
+      "pulsar wire had no seller; Elira Voss now sells it",
+      "crystal core had no seller; Kaelen Morn now sells it",
+      "grain had no source; Elira Voss now receives a steady supply",
+      "grain had no seller; Elira Voss now sells it",
+      "water had no source; Elira Voss now receives a steady supply",
+      "water had no seller; Elira Voss now sells it",
+      "sky sail fiber had no source; Elira Voss now receives a steady supply",
+      "sky sail fiber had no seller; Elira Voss now sells it",
+      "magnetized leather had no source; Elira Voss now receives a steady supply",
+      "magnetized leather had no seller; Elira Voss now sells it"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}

@@ -17,7 +17,7 @@ export function worldBrief(game) {
   if (d.common_knowledge?.length) lines.push(`EVERYONE KNOWS: ${d.common_knowledge.join(' ')}`);
   lines.push(`CURRENCY: the ${r.currency.name} (plural ${r.currency.plural}).`);
   const abilities = game.db ? game.db.prepare("SELECT name, spec FROM world_rules WHERE status='active'").all() : [];
-  if (abilities.length) lines.push(`SPECIAL ABILITIES & TECHNIQUES: ${abilities.map((a) => { const sp = JSON.parse(a.spec); return `${a.name} (${sp.summary || sp.description || ''})`; }).join('; ')}.`);
+  if (abilities.length) lines.push(`SPECIAL ABILITIES & TECHNIQUES: ${abilities.map((a) => { const sp = JSON.parse(a.spec); const fx = (sp.effects?.success || []).map((e) => e.type); const tags = [fx.includes('travel') && 'lets the user travel/fly to other places', fx.includes('produce') && 'produces goods', fx.includes('heal') && 'heals'].filter(Boolean); const mine = game.db.prepare("SELECT 1 FROM capabilities WHERE holder_id=? AND rule_id=(SELECT id FROM world_rules WHERE name=?)").get(game.playerId || 'player', a.name); return `${a.name} (${sp.summary || sp.description || ''}${tags.length ? ` [${tags.join('; ')}]` : ''}${mine ? ' [the player has this]' : ''})`; }).join('; ')}.`);
   return lines.join('\n');
 }
 
@@ -75,6 +75,7 @@ Rules:
 - If the player names a person or thing that is not in the CONTEXT, still propose the action with that name; the engine will report what is missing.
 - Use only people, places and items from the CONTEXT or the player's words; never invent results, money or items.
 - Designing, inventing or developing something that does not exist yet (not in the known recipes) is research with approach "invention" and level significant or revolutionary, never craft. "Keep working on" an unfinished project is research on the same topic.
+- Using one of this world's SPECIAL ABILITIES (or a device the player invented) is use_ability with that ability's name, even if it would be impossible in our world; put any destination in detail. Never answer "impossible" for something a listed ability allows.
 - Long durations: "three months" = days 90; "a week" = days 7.
 - Break ambitious goals into concrete steps the engine can resolve, in order. Keep steps the player actually asked for or that are directly required.
 - If the player states something as fact that the context does not support, treat it as a claim (talk/persuade or deceive), not as truth.

@@ -267,7 +267,7 @@ function applyEffect(game, actorId, rule, e, { targetId, destination }) {
     case 'travel': {
       if (!destination) throw new RuleError('need_destination', `Where do you want ${rule.name} to take you?`);
       const all = game.db.prepare('SELECT id, name, data FROM locations').all().map((l) => ({ ...l, aliases: J.parse(l.data, {}).aliases || [] }));
-      const dest = resolveLocation(destination, all);
+      const dest = resolveLocation(destination, all) || resolveLocation(String(destination).replace(/^.*?\b(?:to|towards|toward|for)\s+(?:the\s+)?/i, ''), all);
       if (!dest || !game.knowsLocation(actorId, dest)) throw new RuleError('unknown_place', `You know of no place called "${destination}".`);
       const from = game.char(actorId).location_id;
       // travel time: a fraction of the fastest known route, or of straight-line distance on the map

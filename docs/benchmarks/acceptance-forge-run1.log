@@ -1,0 +1,86 @@
+offline check: no network (expected)
+[node-llama-cpp] The prebuilt binary for platform "linux" "x64" with Vulkan support is not compatible with the current system, falling back to using no GPU
+AI: Qwen3-4B-Instruct-2507-Q4_K_M.gguf on cpu
+  forging: World identity, laws of nature and society (0s)
+  forging: Skills and progression (140s)
+  forging: Mapping universal actions to world skills (292s)
+  forging: Places and travel (310s)
+  forging: Items, resources and production (426s)
+  forging: Factions and people (654s)
+  forging: Secrets, tensions, special rules and starting options (956s)
+PASS  world forged from the description (1335s) 
+
+WORLD: Aethelis — Where gravity bends, and trade floats free.
+A world of floating continents suspended by gravity crystals, where sky-merchants navigate treacherous storms of fluctuating gravity, and the balance of power rests in the hands of guilds that control crystal-tuning technology.
+PASS  world-specific skills: Crystal Tuning, Skyflight Navigation, Floating Mechanism Repair, Crystal Knowledge, Tide-Rift Survival, Stability Control, Sky-Trade Persuasion, Gravity Deception, Tide-Warning Threat, Trade Bargaining, Gravity Sensing, Rift Scanning, Infiltration Theft, Sky-Silent Movement, Gravity-Resistant Combat, Manual Sky-Work
+PASS  resources & items: grain bread, sky cabbage, crystal tick, gravity stone, tuning wand, sky sail, clay cup, tide rope…
+PASS  institutions: The Gravity Weavers Guild, The Skyward Accord, The Tide-Rift Watch, The Hollow Crafters, Cradle Bay Healing Circle
+starting background: Poor Apprentice Engineer — You are a poor apprentice engineer on a small workshop on Veylra, where you repair crystal-powered vessels… (15 crystal ticks)
+PASS  entered the world at Veylra (Trading Island)
+
+> I look around and take in where I am.   (turn, llm, 54s)
+You take in Veylra (Trading Island). A small, moss-covered island tethered by thin, crystalline filaments to the sky. Present: Elira Voss (Merchant), Feyra Mire (Farmer). Ways on: Glimmer Hollow (1 h), Oran'Kor (Crystal Vault) (45 min), Shal'Vey (Weather Camp) (18 min), Tide’s Spire (30 min).
+
+> I introduce myself to Elira Voss and ask what work an apprentice engineer could find here.   (turn, llm, 55s)
+You stand at the edge of the market square on Veylra, dawn light filtering through the drifting haze. Elira Voss turns, her leather satchel resting lightly on her shoulder, and listens to your words without blinking. She does not know of any work for apprentice engineers, only that she might need a Merchant's assistant. She looks at you with quiet eyes, then says, 'A merchant’s assistant is open — four crystal ticks per shift. You may apply.' The wind hums faintly, the gravity crystals pulsing just beneath the surface of the floating island.
+PASS  free-text conversation resolved
+
+> I buy something cheap to eat and eat it.   (turn, llm, 50s)
+You don't see anyone called "market stall" here. Here: Elira Voss, Feyra Mire.
+  ✕ buy: You don't see anyone called "market stall" here. Here: Elira Voss, Feyra Mire.
+PASS  commerce attempted with world currency
+PASS  NPCs remember the interaction (1 NPC memories)
+
+> I go to find Marnor Thorne.   (turn, fast-path, 0s)
+You don't know where Marnor Thorne is. Ask around.
+  ✕ move: You don't know where Marnor Thorne is. Ask around.
+  [plan] Two weeks of Crystal Knowledge study with Marnor Thorne: move → study
+
+> I spend two weeks studying Crystal Knowledge with Marnor Thorne.   (turn, llm, 46s)
+You don't know where Marnor Thorne is. Ask around.
+  ✕ move: You don't know where Marnor Thorne is. Ask around.
+  [plan] Systematic research into gravity crystal mechanics: study
+
+> I research how the gravity crystals actually work, studying them methodically for many hours.   (turn, llm, 65s)
+You spend seven days studying the gravity crystals on Veylra, poring over fragments of knowledge without a mentor or written guide. The air hums faintly with the low pulse of the crystal lattice, and you feel the subtle shift in gravity beneath your feet, though you understand only its surface patterns. Your hands grow calloused from handling the cold, crystalline surfaces, and your mind grasps only the basics—how the crystals vibrate, how they pulse, how they lift. You lose 20 crystal ticks and 2 grain loaves, and the time passes like a slow tide. The sky above is still restless, the gravity waves shifting in silence, and you remain no closer to knowing how they truly work.
+  [plan] Invent a gravity-powered flying machine: research → research → craft
+
+> I attempt to invent a flying machine powered by gravity crystals.   (turn, llm, 100s)
+A significant project in Crystal Knowledge needs at least rank 3; you have 0. Study or practise first — or attempt something more modest.
+  ✕ research: A significant project in Crystal Knowledge needs at least rank 3; you have 0. Study or practise first — or attempt something more modest.
+PASS  an under-qualified attempt is not simply granted (A significant project in Crystal Knowledge needs at least rank 3; you have 0. Study or practise first — or attempt something more modest.)
+
+(Crystal Tuning is now rank 5 after recorded months of training)
+  [plan] Designing a flying machine powered by gravity crystals: research → study
+
+> I begin designing a flying machine powered by gravity crystals, working long hours in a workshop.   (turn, llm, 61s)
+A significant project in Crystal Knowledge needs at least rank 3; you have 0. Study or practise first — or attempt something more modest.
+  ✕ research: A significant project in Crystal Knowledge needs at least rank 3; you have 0. Study or practise first — or attempt something more modest.
+
+> I rest for eight hours.   (turn, fast-path, 0s)
+You rest for 8 hours. Fatigue now 0/100.
+
+> I keep working on the flying machine.   (turn, llm, 111s)
+You adjust the cracked tuning wands with clay and gravity staples, aligning them with the pulsing crystal beneath the floating platform. The machine hums faintly as gravity pulses ripple through the air, and for a moment, the floating hull stabilizes without shifting. A thin thread of light pulses from the core, confirming the mechanism responds to the tide-rift waves. The wind howls at 8 Sparra, but the flying machine holds steady, its structure trembling only once before settling. You mark the design in the ledger, the ink drying under the morning light.
+
+◆ gravity-powered flight mechanism: A gravity-powered flight mechanism designed for low-gravity zones near the floating island's edge, u
+  ⚄ Work on "gravity-powered flight mechanism": Critical success (9+6+6=21 vs 13)
+  ⚄ Work on "gravity-powered flight mechanism": Critical success (9+8+6=23 vs 13)
+PASS  the invention became a persistent world capability: Gravity-Responsive Sky Lift Pod — A hand-crafted, fragile pod that harnesses fluctuating gravity waves near the island's edge using a gravity staple and tuned pulsar wire, stabilized by a sky sail fiber and magnetized leather. It does
+PASS  designed by the local AI and validated by the engine (designer: ai)
+PASS  rule revision recorded with its causing event
+
+> I use Gravity-Responsive Sky Lift Pod to fly to Oran'Kor (Crystal Vault).   (impossible, llm, 64s)
+You cannot use the Gravity-Responsive Sky Lift Pod to fly to Oran'Kor. The pod is designed to operate only in low-gravity zones near the floating island's edge and is not a vehicle capable of travel between locations. Travel to Oran'Kor req
+  [plan] Monitor gravity and trade activity for thirty days: wait → look
+
+> I wait for thirty days and keep my ears open.   (turn, llm, 51s)
+You wait 1 h. You take in Veylra (Trading Island). A small, moss-covered island tethered by thin, crystalline filaments to the sky. Present: Elira Voss (Merchant), Feyra Mire (Farmer). Ways on: Glimmer Hollow (1 h), Oran'Kor (Crystal Vault) (45 min), Shal'Vey (Weather Camp) (18 min), Tide’s Spire (30 min).
+PASS  NPCs know of the invention (1 heard of it; 0 adopted it: none yet)
+PASS  ledger and inventory reconcile
+PASS  saved, closed and reloaded intact (Aethelis, money 291 vs start 15)
+
+> I look around.   (turn, fast-path, 0s)
+You take in Veylra (Trading Island). A small, moss-covered island tethered by thin, crystalline filaments to the sky. Present: Elira Voss (Merchant), Feyra Mire (Farmer). Ways on: Glimmer Hollow (1 h), Oran'Kor (Crystal Vault) (45 min), Shal'Vey (Weather Camp) (18 min), Tide’s Spire (30 min).
+
+ACCEPTANCE PASSED (home: /tmp/saturn-accept-MEHPcl)
