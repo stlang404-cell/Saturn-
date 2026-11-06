@@ -1,0 +1,1643 @@
+{
+  "description": "An interstellar society with competing planetary governments, advanced biotechnology, megacorporations, alien species and complex economic systems. I begin as an indebted freighter mechanic on an orbital station.",
+  "core": {
+    "name": "The Solvay Concord",
+    "tagline": "Where gravity bends, contracts shift, and trust is currency",
+    "premise": "A fractured interstellar federation of planetary governments, megacorporations, and alien species, bound by shared economic systems and political rivalries, where biological engineering shapes society and trade is governed by biological credit, not money.",
+    "tone": "Calmly dystopian, precise, grounded in bureaucratic realism,",
+    "intro": "You wake to the hum of coolant pipes and the smell of ozone—your fingers still calloused from welding the cargo bay’s failing reactor seal. The station’s central monitor flickers: 'Debt Balance: 7.3 biocredits. Next payment due in 3.4 hours. Status: Delinquent.' You’re on the lower deck of the orbital logistics hub Solvay-9, a rusted ring of steel and bio-mesh suspended in the void between Mars and Titan, where freighters like yours move like insects in a vast, silent economy",
+    "contradictions_resolved": [
+      "The description mentions 'advanced biotechnology' and 'alien species' but not magic or technology contradicting that—so no magic is introduced. 'Competing plans"
+    ],
+    "physics": [
+      "Standard relativity applies in deep space; gravity is local and measurable via quantum gravitometric sensors. All stations maintain microgravity via rotating bi"
+    ],
+    "impossible": [
+      "Teleportation; instantaneous communication across stellar distances; creating or"
+    ],
+    "common_knowledge": [
+      "Biological credits are more valuable than traditional currency because they represent living debt or biological yield (e.g. a lab-grown crop, a gene sequence, a"
+    ],
+    "magic": {
+      "exists": false,
+      "summary": "No magic. All advancements are rooted in biotech, material science, and economic modeling. Biological systems are engineered, not enchanted."
+    },
+    "technology": {
+      "level": "post-biotech, pre-singularity",
+      "summary": "The technology is advanced but grounded in biological and mechanical engineering. Planets are sustained by genetically optimized biospheres. Ships are modular, self-repairing, and powered by fusion-harvesting arrays. Alien species are not '"
+    },
+    "currency": {
+      "name": "biocredits",
+      "plural": "biocredits",
+      "medium": "biological yield, gene sequences, lab-grown food, medical tissue, or data from biotech sensors (e.g."
+    },
+    "attributes": [
+      {
+        "id": "health",
+        "label": "biological integrity",
+        "info": "Your body's ability to withstand stress, illness, or bio-corrosion. Biotech med-"
+      },
+      {
+        "id": "dexterity",
+        "label": "manual skill",
+        "info": "Your ability to handle tools, repair systems, and maintain machinery. Key for a"
+      },
+      {
+        "id": "cognition",
+        "label": "analytical reasoning",
+        "info": "Your capacity to interpret complex data streams, diagnose failures, and plan. A"
+      },
+      {
+        "id": "credibility",
+        "label": "trustworthiness",
+        "info": "How well others believe you can be counted on. Essential for loan approvals, job"
+      },
+      {
+        "id": "adaptability",
+        "label": "environmental accliv",
+        "info": "Your ability to adjust to new conditions—gravity, radiation, bio-toxins, or"
+      },
+      {
+        "id": "resourcefuln",
+        "label": "solving with what's",
+        "info": "You can improvise solutions with limited parts or supplies. Critical in deep"
+      }
+    ],
+    "calendar": {
+      "era": "The Chronos Cycle",
+      "months": [
+        "Solstice",
+        "Veridian",
+        "Haven",
+        "Gravitas",
+        "Vigil",
+        "Nexus"
+      ],
+      "weekdays": [
+        "Prime",
+        "Cycle",
+        "Stasis",
+        "Recover",
+        "Circuit",
+        "Bioflow"
+      ]
+    },
+    "settlements": [
+      {
+        "name": "Solvay-9 Orbital Hub",
+        "kind": "station",
+        "description": "A decommissioned military logistics ring repurposed as a freighter maintenance and repair hub. Runs on recycled bio-energy. Debt collectors,",
+        "population": 12000
+      },
+      {
+        "name": "Aethel Prime",
+        "kind": "planetary government",
+        "description": "A rigidly regulated planet where biotech is state-controlled. The government manages all gene-based agriculture, and citizens are assigned '",
+        "population": 2000000
+      },
+      {
+        "name": "Zorlax Sectors",
+        "kind": "megacorporation habitat",
+        "description": "A sprawling, self-sustaining arcology operated by the Zorlax Bio-Industrial Group. Houses both workers and bio-research labs. Offers biocred",
+        "population": 2000000
+      }
+    ],
+    "player": {
+      "background": "You are a freighter mechanic on Solvay-9",
+      "description": "An indebted freighter mechanic on an orbital station. You work in the cargo bay maintenance zone, fixing reactors, sealing hulls, and running diagnostics on cargo modules. You're owed wages, but the S",
+      "wealth": "comfortable"
+    }
+  },
+  "skills": {
+    "skills": [
+      {
+        "id": "gravity_alignment",
+        "label": "Gravity Alignment",
+        "attr": "dexterity",
+        "group": "trade",
+        "desc": "The ability to assess and adjust to local gravitational fields—crucial",
+        "trained": true,
+        "keywords": [
+          "calibrate",
+          "align",
+          "gravity readout\", "
+        ]
+      },
+      {
+        "id": "bio_credit_negotiation",
+        "label": "Bio-Credit Negotiation",
+        "attr": "credibility",
+        "group": "social",
+        "desc": "Skill in exchanging biological credits—tied to trust, health, and biop",
+        "trained": true,
+        "keywords": [
+          "credit transfer",
+          "biological score",
+          "trust value\", "
+        ]
+      },
+      {
+        "id": "tissue_sense",
+        "label": "Tissue Sense",
+        "attr": "cognition",
+        "group": "social",
+        "desc": "The ability to detect subtle biological changes in others—used to spot",
+        "trained": true,
+        "keywords": [
+          "pulse shift",
+          "metabolic change",
+          "biological tremor\", "
+        ]
+      },
+      {
+        "id": "symbiotic_field_managemen",
+        "label": "Symbiotic Field Management",
+        "attr": "adaptability",
+        "group": "trade",
+        "desc": "Control and maintenance of genetically optimized biospheres on",
+        "trained": true,
+        "keywords": [
+          "biosphere tuning",
+          "photosynthetic flow",
+          "microclimate balance"
+        ]
+      },
+      {
+        "id": "modular_repair",
+        "label": "Modular Repair",
+        "attr": "resourcefuln",
+        "group": "mental",
+        "desc": "Fixing self-repairing ships and modules using biological and mechani",
+        "trained": true,
+        "keywords": [
+          "fuse patch",
+          "module realignment",
+          "self-heal sequence"
+        ]
+      },
+      {
+        "id": "bioprocess_sleuthing",
+        "label": "Bioprocess Sleuthing",
+        "attr": "cognition",
+        "group": "social",
+        "desc": "Detecting anomalies in biological production lines—critical in trade",
+        "trained": true,
+        "keywords": [
+          "flow disruption",
+          "metabolic leak",
+          "biomarker spike"
+        ]
+      },
+      {
+        "id": "trust_calibration",
+        "label": "Trust Calibration",
+        "attr": "credibility",
+        "group": "social",
+        "desc": "Adjusting one's own biological signature to influence perceived trust",
+        "trained": true,
+        "keywords": [
+          "emotional bleed",
+          "stress signature",
+          "bio-feedback tune"
+        ]
+      },
+      {
+        "id": "field_infiltration",
+        "label": "Field Infiltration",
+        "attr": "dexterity",
+        "group": "social",
+        "desc": "Moving through restricted biomes or stations without triggering biolo",
+        "trained": true,
+        "keywords": [
+          "silent step",
+          "tissue dampen",
+          "biopod slip"
+        ]
+      },
+      {
+        "id": "fusion_harvesting",
+        "label": "Fusion Harvesting",
+        "attr": "cognition",
+        "group": "trade",
+        "desc": "Extracting and stabilizing energy from fusion arrays in space",
+        "trained": true,
+        "keywords": [
+          "harvest cycle",
+          "plasma pulse",
+          "fusion tap"
+        ]
+      },
+      {
+        "id": "outdoor_symbiosis",
+        "label": "Outdoor Symbiosis",
+        "attr": "adaptability",
+        "group": "physical",
+        "desc": "Living and surviving in unmodified, genetically wild biomes—using",
+        "trained": true,
+        "keywords": [
+          "wild root",
+          "plant symbiosis",
+          "surface breath"
+        ]
+      },
+      {
+        "id": "healing_by_adaptation",
+        "label": "Healing by Adaptation",
+        "attr": "cognition",
+        "group": "physical",
+        "desc": "Using biological compatibility to heal injuries—based on host-tissue",
+        "trained": true,
+        "keywords": [
+          "tissue match",
+          "organ sync",
+          "biopatch grow"
+        ]
+      },
+      {
+        "id": "business_genetic_feasibil",
+        "label": "Business Genetic Feasibility",
+        "attr": "cognition",
+        "group": "trade",
+        "desc": "Assessing whether a product or service can be genetically viable",
+        "trained": true,
+        "keywords": [
+          "genetic match",
+          "biosphere fit",
+          "market viability"
+        ]
+      },
+      {
+        "id": "biosphere_innovation",
+        "label": "Biosphere Innovation",
+        "attr": "credibility",
+        "group": "social",
+        "desc": "Designing new biospheres to meet ecological or economic needs",
+        "trained": true,
+        "keywords": [
+          "new ecosystem",
+          "photosynthetic bloom",
+          "climate shift"
+        ]
+      },
+      {
+        "id": "crafting_from_tissue",
+        "label": "Crafting from Tissue",
+        "attr": "resourcefuln",
+        "group": "physical",
+        "desc": "Using biological materials—flesh, root, mycelium—to create tools or",
+        "trained": true,
+        "keywords": [
+          "flesh tool",
+          "mycelium weave",
+          "living lattice"
+        ]
+      },
+      {
+        "id": "market_tension_analysis",
+        "label": "Market Tension Analysis",
+        "attr": "cognition",
+        "group": "social",
+        "desc": "Reading the balance of trust and scarcity in trade networks to predict",
+        "trained": true,
+        "keywords": [
+          "credit gap",
+          "trust drop",
+          "market pulse"
+        ]
+      },
+      {
+        "id": "survival_in_microgravity",
+        "label": "Survival in Microgravity",
+        "attr": "dexterity",
+        "group": "physical",
+        "desc": "Maintaining bodily function and movement in zero-gravity environments",
+        "trained": true,
+        "keywords": [
+          "float control",
+          "body alignment",
+          "zero-g posture"
+        ]
+      }
+    ]
+  },
+  "roles": {
+    "social": "trust_calibration",
+    "lie": "tissue_sense",
+    "threaten": "gravity_alignment",
+    "haggle": "bio_credit_negotiation",
+    "notice": "bioprocess_sleuthing",
+    "search": "field_infiltration",
+    "steal": "fusion_harvesting",
+    "sneak": "outdoor_symbiosis",
+    "fight": "modular_repair",
+    "labor": "crafting_from_tissue",
+    "wilds": "healing_by_adaptation",
+    "heal": "business_genetic_feasibil",
+    "manage": "symbiotic_field_managemen",
+    "research": "market_tension_analysis",
+    "invent": "biosphere_innovation",
+    "craft": "survival_in_microgravity"
+  },
+  "places": {
+    "locations": [
+      {
+        "name": "Solvay-9 Orbital Hub",
+        "settlement": "Solvay-9 Orbital Hub",
+        "kind": "station",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A decommissioned military logistics ring repurposed as a freighter maintenance and repair hub. The station rotates slowly to simulate microgravity, st",
+        "connections": [
+          {
+            "to": "Aethel Prime",
+            "minutes": 180,
+            "mode": "ship"
+          },
+          {
+            "to": "Zorlax Sectors",
+            "minutes": 210,
+            "mode": "lift"
+          },
+          {
+            "to": "Biotech Cred Exchange",
+            "minutes": 15,
+            "mode": "shuttle"
+          }
+        ]
+      },
+      {
+        "name": "Aethel Prime",
+        "settlement": "Aethel Prime",
+        "kind": "planetary government",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A rigidly regulated planet where biotech is state-controlled. Citizens are assigned gene-quotas for agriculture and health. The government manages all",
+        "connections": [
+          {
+            "to": "Solvay-9 Orbital Hub",
+            "minutes": 180,
+            "mode": "ship"
+          },
+          {
+            "to": "Zorlal Sectors",
+            "minutes": 320,
+            "mode": "airship"
+          },
+          {
+            "to": "Aethel Central Regime",
+            "minutes": 5,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Zorlax Sectors",
+        "settlement": "Zorlax Sectors",
+        "kind": "megacorporation habitat",
+        "tags": [
+          "market",
+          "lodging",
+          "food",
+          "work"
+        ],
+        "description": "A sprawling, self-sustaining arcology operated by the Zorlax Bio-Industrial Group. Houses both workers and bio-research labs. Offers biocred ital. The",
+        "connections": [
+          {
+            "to": "Solvay-9 Orbital Hub",
+            "minutes": 210,
+            "mode": "lift"
+          },
+          {
+            "to": "Aethel Prime",
+            "minutes": 320,
+            "mode": "airship"
+          },
+          {
+            "to": "Zorlax Bio-Research Hub",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Biotech Cred Exchange",
+        "settlement": "Solvay-9 Orbital Hub",
+        "kind": "market",
+        "tags": [
+          "market",
+          "healing"
+        ],
+        "description": "A central clearing where biological credit is traded, exchanged, and verified. Credit is measured in 'gene-weights' and 'metabolic units'. Debtors pay",
+        "connections": [
+          {
+            "to": "Solvay-9 Orbital Hub",
+            "minutes": 15,
+            "mode": "shuttle"
+          }
+        ]
+      },
+      {
+        "name": "Zorlax Bio-Research Hub",
+        "settlement": "Zorlax Sectors",
+        "kind": "work",
+        "tags": [
+          "work",
+          "library",
+          "healing"
+        ],
+        "description": "A massive lab complex where bio-engineered organisms are tested and optimized. Researchers work on gene-editing for agriculture, disease resistance, a",
+        "connections": [
+          {
+            "to": "Zorlax Sectors",
+            "minutes": 10,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Aethel Central Regime",
+        "settlement": "Aethel Prime",
+        "kind": "government",
+        "tags": [
+          "government",
+          "work"
+        ],
+        "description": "The central administrative tower where gene-quota allocations are approved, and biocredit is audited. Citizens must register with the Regime for all b",
+        "connections": [
+          {
+            "to": "Aethel Prime",
+            "minutes": 5,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Solvay Maintenance Yard",
+        "settlement": "Solvay-9 Orbital Hub",
+        "kind": "work",
+        "tags": [
+          "work",
+          "food"
+        ],
+        "description": "A massive open deck where freighters are disassembled, repaired, and refitted using bio-gel resins and self-repairing polymer scaffolds. Mechanics and",
+        "connections": [
+          {
+            "to": "Solvay-9 Orbital Hub",
+            "minutes": 2,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Green Throat Market",
+        "settlement": "Zorlax Sectors",
+        "kind": "market",
+        "tags": [
+          "market",
+          "food",
+          "lodging"
+        ],
+        "description": "A vibrant, open-air market where bio-farms sell genetically optimized crops, fermented protein pastes, and lab-grown meats. Sellers offer credit-til",
+        "connections": [
+          {
+            "to": "Zorlax Sectors",
+            "minutes": 15,
+            "mode": "walk"
+          }
+        ]
+      },
+      {
+        "name": "Aethel Gene Clinic",
+        "settlement": "Aethel Prime",
+        "kind": "healing",
+        "tags": [
+          "healing"
+        ],
+        "description": "A state-run clinic where citizens receive gene-based treatments for illness, aging, and metabolic imbalance. Access requires a valid biocredit token.",
+        "connections": [
+          {
+            "to": "Aethel Prime",
+            "minutes": 10,
+            "mode": "lift"
+          }
+        ]
+      },
+      {
+        "name": "Nexus of the Unverified",
+        "settlement": "Solvay-9 Orbital Hub",
+        "kind": "seedy",
+        "tags": [
+          "market",
+          "healing",
+          "work"
+        ],
+        "description": "A hidden underlevel where debtors trade stolen biocredits, black-market gene-tweaks, and illegal bio-solutions. Run by former Zorlax technicians and A",
+        "connections": [
+          {
+            "to": "Solvay-9 Orbital Hub",
+            "minutes": 20,
+            "mode": "walk"
+          }
+        ]
+      }
+    ],
+    "start": "Solvay-9 Orbital Hub"
+  },
+  "items": {
+    "items": [
+      {
+        "id": "nutrient_bloom",
+        "name": "Nutrient Bloom",
+        "category": "food",
+        "value": 45,
+        "weight": 0.3,
+        "traded_commodity": false,
+        "food": true,
+        "tool_for": "tissue_sense",
+        "description": "A lab-grown, nutrient-dense algae paste cultivated in rotating bioreg생"
+      },
+      {
+        "id": "gravity_stabilizer_fiber",
+        "name": "Gravity Stabilizer Fiber",
+        "category": "treasure",
+        "value": 1200,
+        "weight": 0.8,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gravity_alignment",
+        "description": "A biocomposite fiber grown in microgravity fields; used to fine-tune g"
+      },
+      {
+        "id": "fusion_tissue",
+        "name": "Fusion Tissue",
+        "category": "treasure",
+        "value": 850,
+        "weight": 0.4,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "fusion_harvesting",
+        "description": "A self-replicating tissue engineered from fusion reactor byproducts; s"
+      },
+      {
+        "id": "bio_shield_cloth",
+        "name": "Bio-Shield Cloth",
+        "category": "armor",
+        "value": 320,
+        "weight": 0.6,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "field_infiltration",
+        "description": "A flexible, living polymer that absorbs kinetic impact and self-replic"
+      },
+      {
+        "id": "gene_map_slice",
+        "name": "Gene Map Slice",
+        "category": "tool",
+        "value": 180,
+        "weight": 0.1,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "bio_credit_negotiation",
+        "description": "A micro-sliced DNA profile of a high-yield biosphere strain; used to b"
+      },
+      {
+        "id": "modular_repair_gel",
+        "name": "Modular Repair Gel",
+        "category": "tool",
+        "value": 150,
+        "weight": 0.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "modular_repair",
+        "description": "A bioluminescent gel that identifies structural weaknesses in modula"
+      },
+      {
+        "id": "tissue_sense_sensor",
+        "name": "Tissue Sense Sensor",
+        "category": "tool",
+        "value": 240,
+        "weight": 0.15,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "tissue_sense",
+        "description": "A wearable probe that reads cellular stress patterns in living materi"
+      },
+      {
+        "id": "healing_by_adaptation_vial",
+        "name": "Healing by Adaptation Vial",
+        "category": "medicine",
+        "value": 110,
+        "weight": 0.08,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "healing_by_adaptation",
+        "description": "A vial containing a dormant gene sequence that triggers tissue regen"
+      },
+      {
+        "id": "market_tension_analyzer",
+        "name": "Market Tension Analyzer",
+        "category": "tool",
+        "value": 300,
+        "weight": 0.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "market_tension_analysis",
+        "description": "A sensor that detects shifts in biocredit flow across trade lanes, ind"
+      },
+      {
+        "id": "symbiotic_field_manager",
+        "name": "Symbiotic Field Manager",
+        "category": "tool",
+        "value": 420,
+        "weight": 0.3,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "symbiotic_field_managemen",
+        "description": "A modular drone that maintains balance between engineered flora and"
+      },
+      {
+        "id": "fusion_harvesting_core",
+        "name": "Fusion Harvesting Core",
+        "category": "tool",
+        "value": 900,
+        "weight": 0.5,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "fusion_harvesting",
+        "description": "A compact, self-cleaning core that extracts energy and byproducts fr"
+      },
+      {
+        "id": "trust_calibration_cube",
+        "name": "Trust Calibration Cube",
+        "category": "tool",
+        "value": 550,
+        "weight": 0.2,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "trust_calibration",
+        "description": "A bio-encrypted crystal that measures mutual biocredit reliability b"
+      },
+      {
+        "id": "bioprocess_sleuthing_probe",
+        "name": "Bioprocess Sleuthing Probe",
+        "category": "tool",
+        "value": 360,
+        "weight": 0.12,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "bioprocess_sleuthing",
+        "description": "A micro-sensor that traces gene expressions in biosphere systems, dete"
+      },
+      {
+        "id": "living_fabric",
+        "name": "Living Fabric",
+        "category": "material",
+        "value": 60,
+        "weight": 0.4,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "outdoor_symbiosis",
+        "description": "A flexible, self-repairing material grown from symbiotic root cultu"
+      },
+      {
+        "id": "gravity_tuning_seed",
+        "name": "Gravity Tuning Seed",
+        "category": "tool",
+        "value": 1400,
+        "weight": 0.3,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "gravity_alignment",
+        "description": "A genetically modified seed that grows into a gravity-dampening pl"
+      },
+      {
+        "id": "biocredit_data_bond",
+        "name": "Biocredit Data Bond",
+        "category": "commodity",
+        "value": 200,
+        "weight": 0.05,
+        "traded_commodity": true,
+        "food": false,
+        "tool_for": "bio_credit_negotiation",
+        "description": "A digital token representing verified biocredit yield from a sp"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "Nutrient Bloom",
+        "skill": "tissue_sense",
+        "inputs": [
+          {
+            "item": "living_fabric",
+            "qty": 2
+          },
+          {
+            "item": "gene_map_slice",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "nutrient_bloom",
+            "qty": 1
+          }
+        ],
+        "minutes": 45
+      },
+      {
+        "name": "Bio-Shield Cloth",
+        "skill": "field_infiltration",
+        "inputs": [
+          {
+            "item": "living_fabric",
+            "qty": 3
+          },
+          {
+            "item": "fusion_tissue",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "bio_shield_cloth",
+            "qty": 1
+          }
+        ],
+        "minutes": 60
+      },
+      {
+        "name": "Modular Repair Gel",
+        "skill": "modular_repair",
+        "inputs": [
+          {
+            "item": "gravity_stabilizer_fiber",
+            "qty": 1
+          },
+          {
+            "item": "tissue_sense_sensor",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "modular_repair_gel",
+            "qty": 1
+          }
+        ],
+        "minutes": 30
+      },
+      {
+        "name": "Trust Calibration Cube",
+        "skill": "trust_calibration",
+        "inputs": [
+          {
+            "item": "gene_map_slice",
+            "qty": 2
+          },
+          {
+            "item": "market_tension_analyzer",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "trust_calibration_cube",
+            "qty": 1
+          }
+        ],
+        "minutes": 120
+      },
+      {
+        "name": "Fusion Harvesting Core",
+        "skill": "fusion_harvesting",
+        "inputs": [
+          {
+            "item": "fusion_tissue",
+            "qty": 1
+          },
+          {
+            "item": "living_fabric",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "fusion_harvesting_core",
+            "qty": 1
+          }
+        ],
+        "minutes": 90
+      },
+      {
+        "name": "Symbiotic Field Manager",
+        "skill": "symbiotic_field_managemen",
+        "inputs": [
+          {
+            "item": "living_fabric",
+            "qty": 4
+          },
+          {
+            "item": "gene_map_slice",
+            "qty": 1
+          }
+        ],
+        "outputs": [
+          {
+            "item": "symbiotic_field_manager",
+            "qty": 1
+          }
+        ],
+        "minutes": 180
+      }
+    ]
+  },
+  "people": {
+    "factions": [
+      {
+        "name": "The Guild of Gravity Weavers",
+        "description": "A guild of bio-mechanical engineers and stabilizers who specialize in maintaining microgravity fields on orbitals and in",
+        "governs": "Solvay-9 Orbital Hub"
+      },
+      {
+        "name": "The Aethel Accord",
+        "description": "A planetary governance coalition representing Aethel Prime's central regime, focused on gene-currency standardization, w",
+        "governs": "Aethel Prime"
+      },
+      {
+        "name": "The Zorlax Syndicate",
+        "description": "A shadow network of bio-producers and rogue gene traders operating in the Zorlax Sectors, unregulated and distrustful of",
+        "governs": "Zorlax Sectors"
+      },
+      {
+        "name": "The Biocredit Council",
+        "description": "A neutral arbiter body that manages the exchange of biological credit across sectors, ensuring trust calibration and med",
+        "governs": "Solvay-9 Orbital Hub"
+      },
+      {
+        "name": "The Living Tissues Collective",
+        "description": "A decentralized, cooperative network of self-repairing bio-farmers and modular fabricators who supply organic sust",
+        "governs": "Zorlax Sectors"
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Kaelen Vex",
+        "role": "merchant",
+        "location": "Solvay-9 Orbital Hub",
+        "faction": "The Guild of Gravity Weavers",
+        "traits": [
+          "pragmatic",
+          "detail-oriented",
+          "trust-averse"
+        ],
+        "persona": "A wiry man with silver-streaked hair, wearing a pressure-tight suit over a bio-etched tunic. Speaks slowly, as",
+        "goal": "to maintain a stable flow of gravity-stabilizer fiber without ever exceeding the trust cap",
+        "skills": [
+          {
+            "skill": "gravity_alignment",
+            "rank": 3
+          },
+          {
+            "skill": "market_tension_analysis",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "gravity_stabilizer_fiber",
+          "fusion_tissue",
+          "modular_repair_gel"
+        ],
+        "buys": [
+          "gene_map_slice",
+          "market_tension_analyzer",
+          "living_fabric"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dr. Elira Moss",
+        "role": "producer",
+        "location": "Zorlax Sectors",
+        "faction": "The Zorlax Syndicate",
+        "traits": [
+          "resourceful",
+          "cynical",
+          "adaptive"
+        ],
+        "persona": "A tall woman with skin that subtly shifts color with her mood. She works in a bio-gel lab beneath a crumbling",
+        "goal": "to create a self-sustaining biosphere that can generate biocredit without requiring trust,",
+        "skills": [
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 4
+          },
+          {
+            "skill": "fusion_harvesting",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "fusion_harvesting_core",
+          "tissue_sense_sensor"
+        ],
+        "buys": [
+          "gravity_tuning_seed",
+          "biocredit_data_bond"
+        ],
+        "produces": [
+          "fusion_harvesting_core",
+          "tissue_sense_sensor"
+        ],
+        "employs": true,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Marrin Rook",
+        "role": "healer",
+        "location": "Zorlax Bio-Research Hub",
+        "faction": "The Living Tissues Collective",
+        "traits": [
+          "compassionate",
+          "observant",
+          "quiet"
+        ],
+        "persona": "A soft-spoken figure who moves with fluid grace. She often wears a cloak woven from living fiber that pulses w",
+        "goal": "to heal individuals whose bodies have been corrupted by unregulated gene trade",
+        "skills": [
+          {
+            "skill": "healing_by_adaptation",
+            "rank": 5
+          },
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 3
+          }
+        ],
+        "sells": [
+          "healing_by_adaptation_vial"
+        ],
+        "buys": [
+          "gene_map_slice",
+          "modular_repair_gel"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": true,
+        "host": false
+      },
+      {
+        "name": "Orin Tae",
+        "role": "merchant",
+        "location": "Aethel Prime",
+        "faction": "The Aethel Accord",
+        "traits": [
+          "structured",
+          "efficient",
+          "calculating"
+        ],
+        "persona": "A tall, precise man who wears a uniform with gene-etched buttons. Speaks in measured tones, always keeping the",
+        "goal": "to standardize gene map slices across all sectors so the Aethel Accord can enforce biocred",
+        "skills": [
+          {
+            "skill": "trust_calibration",
+            "rank": 4
+          },
+          {
+            "skill": "market_tension_analysis",
+            "rank": 5
+          }
+        ],
+        "sells": [
+          "gene_map_slice",
+          "biocredit_data_bond"
+        ],
+        "buys": [
+          "gravity_tuning_seed",
+          "fusion_tissue"
+        ],
+        "produces": [],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Darien Vey",
+        "role": "guard",
+        "location": "Solvay-9 Orbital Hub",
+        "faction": "The Guild of Gravity Weavers",
+        "traits": [
+          "duty-bound",
+          "strict",
+          "loyal to the system"
+        ],
+        "persona": "A broad-shouldered man with a polished exoskeleton. Carries a gravity-locked baton that emits faint pulses",
+        "goal": "to prevent unauthorized access to fusion-harvesting cores and biocredit vaults",
+        "skills": [
+          {
+            "skill": "gravity_alignment",
+            "rank": 4
+          },
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 2
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "biocredit_data_bond",
+          "modular_repair_gel"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": true,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Lysa Neth",
+        "role": "host",
+        "location": "Green Throat Market",
+        "faction": "none",
+        "traits": [
+          "warm",
+          "practical",
+          "community-minded"
+        ],
+        "persona": "A cheerful woman with a vibrant, shifting dress made from symbiotic field manager fibers. She runs a small",
+        "goal": "to ensure every traveler finds safe, affordable lodging without compromising the market's ",
+        "skills": [
+          {
+            "skill": "market_tension_analysis",
+            "rank": 3
+          },
+          {
+            "skill": "tissue_sense",
+            "rank": 2
+          }
+        ],
+        "sells": [
+          "modular_repair_gel",
+          "living_fabric"
+        ],
+        "buys": [
+          "gravity_tuning_seed",
+          "gene_map_slice"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": true
+      },
+      {
+        "name": "Toren Kree",
+        "role": "lender",
+        "location": "Zorlax Bio-Research Hub",
+        "faction": "The Living Tissues Collective",
+        "traits": [
+          "patient",
+          "wise",
+          "cautious"
+        ],
+        "persona": "A quiet elder with a face that seems to shift slightly with emotion. His home is a bioluminescent chamber",
+        "goal": "to lend biocredit to young bio-engineers so they can build trust without risk",
+        "skills": [
+          {
+            "skill": "trust_calibration",
+            "rank": 4
+          },
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 3
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "fusion_tissue",
+          "gene_map_slice"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": false,
+        "lends": true,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Dr. Vaan Thorne",
+        "role": "teacher",
+        "location": "Zorlax Bio-Research Hub",
+        "faction": "The Living Tissues Collective",
+        "traits": [
+          "patient",
+          "diligent",
+          "observant"
+        ],
+        "persona": "A soft-spoken man with a steady voice and eyes that glow faintly with tissue-sense data. He teaches bio-fabric",
+        "goal": "to train the next generation in sustainable bioprocessing and self-repairing ecosystems",
+        "skills": [
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 5
+          },
+          {
+            "skill": "tissue_sense",
+            "rank": 5
+          }
+        ],
+        "sells": [],
+        "buys": [
+          "living_fabric",
+          "gravity_tuning_seed"
+        ],
+        "produces": [],
+        "employs": false,
+        "teaches": true,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      },
+      {
+        "name": "Sera Kael",
+        "role": "producer",
+        "location": "Aethel Central Regime",
+        "faction": "The Aethel Accord",
+        "traits": [
+          "authoritative",
+          "visionary",
+          "highly structured"
+        ],
+        "persona": "A woman who wears a gene-etched ceremonial robe. Her decisions are final, and she speaks in clear, unq",
+        "goal": "to expand the central regime's biocredit authority across all planetary sectors",
+        "skills": [
+          {
+            "skill": "trust_calibration",
+            "rank": 5
+          },
+          {
+            "skill": "market_tension_analysis",
+            "rank": 4
+          }
+        ],
+        "sells": [
+          "gene_map_slice"
+        ],
+        "buys": [
+          "fusion_harvesting_core",
+          "modular_repair_gel"
+        ],
+        "produces": [
+          "fusion_harvesting_core"
+        ],
+        "employs": true,
+        "teaches": false,
+        "lends": false,
+        "guard": false,
+        "healer": false,
+        "host": false
+      }
+    ]
+  },
+  "story": {
+    "facts": [
+      {
+        "subject": "The Gravity Stabilizer Fiber shortage is a rumor",
+        "content": "Residents of Solvay-9 whisper that the gravity stabilizer fiber supply is being rationed by the central biosphere council to favor Zorlax Sector producers who have deep, ",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Lysa Neth",
+          "Darien Vey",
+          "Kaelen Vex"
+        ],
+        "keepers": [
+          "Lysa Neth",
+          "Darien Vey"
+        ],
+        "tags": [
+          "rumor",
+          "false"
+        ]
+      },
+      {
+        "subject": "The 'living fabric' is actually a genetically quar",
+        "content": "An old document found in the Zorlax Bio-Research Hub archives claims that 'living fabric' is not just a construction material — it's a self-replicating tissue that can be",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Marrin Rook",
+          "Dr. Vaan Thorne",
+          "Toren Kree"
+        ],
+        "keepers": [
+          "Marrin Rook"
+        ],
+        "tags": [
+          "rumor",
+          "scientific"
+        ]
+      },
+      {
+        "subject": "Orin Tae’s cargo deliveries from Aethel Prime are ",
+        "content": "It's known that Orin Tae often delivers nutrient bloom in bulk — but only to stations with biocredit debtors. This suggests he's exploiting the financial vulnerability of",
+        "secret_level": 1,
+        "true_fact": true,
+        "known_by": [
+          "Kaelen Vex",
+          "Lysa Neth",
+          "Dr. Elira Moss"
+        ],
+        "keepers": [
+          "Kaelen Vex"
+        ],
+        "tags": [
+          "public",
+          "economic"
+        ]
+      },
+      {
+        "subject": "The trust calibration cubes are not standardized",
+        "content": "Some merchants claim that trust calibration cubes issued by Zorlax Bio-Research Hub are mislabeled — some have been tested and found to give false readings in high-gravit",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Toren Kree",
+          "Marrin Rook",
+          "Sera Kael"
+        ],
+        "keepers": [
+          "Toren Kree"
+        ],
+        "tags": [
+          "rumor",
+          "technical"
+        ]
+      },
+      {
+        "subject": "The fusion harvesting cores are being overused by ",
+        "content": "A leaked diagnostic from the Solvay-9 reactor array shows that several fusion harvesting cores are running at 112% capacity — beyond safe limits. This may be due to unreg",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Darien Vey",
+          "Kaelen Vex",
+          "Dr. Elira Moss"
+        ],
+        "keepers": [
+          "Darien Vey"
+        ],
+        "tags": [
+          "public",
+          "technical"
+        ]
+      },
+      {
+        "subject": "Green Throat Market has a hidden bioprocess sleuth",
+        "content": "Lysa Neth runs a secret bioprocess sleuthing probe in the market’s ventilation shafts — used to monitor trade patterns and detect fraud. This is not publicly known.",
+        "secret_level": 2,
+        "true_fact": true,
+        "known_by": [
+          "Marrin Rook",
+          "Dr. Vaan Thorne",
+          "Toren Kree"
+        ],
+        "keepers": [
+          "Marrin Rook"
+        ],
+        "tags": [
+          "secret",
+          "security"
+        ]
+      }
+    ],
+    "agendas": [
+      {
+        "who": "Kaelen Vex",
+        "kind": "stockpile",
+        "partner_or_rival": "Dr. Elira Moss",
+        "items": [
+          "gravity_stabilizer_fiber"
+        ],
+        "motive": "Kaelen has been buying fiber from Dr. Elira’s lab at premium rates, then reselling it to other stations at inflated cost"
+      },
+      {
+        "who": "Orin Tae",
+        "kind": "undercut",
+        "partner_or_rival": "Sera Kael",
+        "items": [
+          "nutrient_bloom"
+        ],
+        "motive": "Orin is flooding the Aethel markets with nutrient bloom at 30% below market price to drive Sera Kael’s exports out of v"
+      },
+      {
+        "who": "Marrin Rook",
+        "kind": "debt",
+        "partner_or_rival": "Toren Kree",
+        "items": [
+          "healing_by_adaptation_vial"
+        ],
+        "motive": "Marrin has been borrowing healing vials from Toren, who is reluctant to lend them — and hasn’t returned any in over a bi"
+      }
+    ],
+    "requests": [
+      {
+        "giver": "Lysa Neth",
+        "title": "Repair the gravity-tuning seed module in the cargo",
+        "text": "I need the gravity-tuning seed calibrated for the new shipment to Zorlax. It’s unstable and might collapse the cargo bay if not re",
+        "item": "gravity_tuning_seed",
+        "qty": 1,
+        "deliver_to": "Dr. Elira Moss",
+        "reward": 200,
+        "days": 3
+      },
+      {
+        "giver": "Darien Vey",
+        "title": "Retrieve a tissue-sense sensor from the lower bay",
+        "text": "I need a tissue-sense sensor to check for hull leaks in the reactor bay. It's been damaged — can you find a working one?",
+        "item": "tissue_sense_sensor",
+        "qty": 1,
+        "deliver_to": "Kaelen Vex",
+        "reward": 150,
+        "days": 2
+      },
+      {
+        "giver": "Toren Kree",
+        "title": "Deliver a biocredit data bond to Sera Kael",
+        "text": "Sera owes me 180 biocredits — she’s refusing to pay. I need you to deliver this bond directly to her, and she’ll confirm receipt",
+        "item": "biocredit_data_bond",
+        "qty": 1,
+        "deliver_to": "Sera Kael",
+        "reward": 100,
+        "days": 2
+      }
+    ],
+    "special_rules": [
+      {
+        "name": "Gravity Tuning",
+        "kind": "ability",
+        "summary": "You can tune gravity in a cargo module by inserting a gravity-tuning seed and running it through a tissue-sense sensor. This temporarily stabilizes a ",
+        "skill": "gravity_alignment",
+        "difficulty": "moderate",
+        "minutes": 10,
+        "must_be_learned": true,
+        "min_skill": 5,
+        "consumes": [
+          {
+            "item": "gravity_tuning_seed",
+            "qty": 1
+          },
+          {
+            "item": "tissue_sense_sensor",
+            "qty": 1
+          }
+        ],
+        "fatigue": 3,
+        "on_success": [
+          {
+            "type": "produce",
+            "item": "gravity_stabilizer_fiber",
+            "amount": 40,
+            "text": "The seed reacts to the local gravity field — a small batch of stabilizer fiber is formed."
+          },
+          {
+            "type": "note",
+            "item": "gravity_stabilizer_fiber",
+            "amount": 40,
+            "text": "The fiber is weak and must be used immediately or degrade."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_self",
+            "item": "healing_by_adaptation_vial",
+            "amount": 1,
+            "text": "You feel a sudden lurch — your hands tremble, and a vial of healing fluid leaks from your glove."
+          }
+        ],
+        "known_by": [
+          "Kaelen Vex",
+          "Darien Vey"
+        ]
+      },
+      {
+        "name": "Biocredit Resonance",
+        "kind": "ability",
+        "summary": "When you use a trust calibration cube near a biocredit exchange, you can briefly detect if someone is lying about their balance. It requires a live bi",
+        "skill": "trust_calibration",
+        "difficulty": "easy",
+        "minutes": 5,
+        "must_be_learned": false,
+        "min_skill": 1,
+        "consumes": [
+          {
+            "item": "trust_calibration_cube",
+            "qty": 1
+          }
+        ],
+        "fatigue": 2,
+        "on_success": [
+          {
+            "type": "note",
+            "item": "trust_calibration_cube",
+            "amount": 1,
+            "text": "The cube emits a soft hum — a nearby trader is over-declaring their biocredit balance by 40%."
+          },
+          {
+            "type": "relationship",
+            "item": "tissue_sense_sensor",
+            "amount": 1,
+            "text": "You gain 10% trust with Darien Vey, who now believes you’re honest."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "modular_repair_gel",
+            "amount": 1,
+            "text": "The cube flickers and shorts out — you’re left with a small puddle of gel on your workbench."
+          }
+        ],
+        "known_by": [
+          "Lysa Neth",
+          "Marrin Rook"
+        ]
+      },
+      {
+        "name": "Self-Healing Adaptation",
+        "kind": "ability",
+        "summary": "If you're injured, you can use a healing-by-adaptation vial to trigger a biological healing cascade in your tissues. This works best after minor burns",
+        "skill": "healing_by_adaptation",
+        "difficulty": "moderate",
+        "minutes": 8,
+        "must_be_learned": true,
+        "min_skill": 4,
+        "consumes": [
+          {
+            "item": "healing_by_adaptation_vial",
+            "qty": 1
+          }
+        ],
+        "fatigue": 4,
+        "on_success": [
+          {
+            "type": "heal",
+            "item": "healing_by_adaptation_vial",
+            "amount": 1,
+            "text": "Your arm regenerates tissue — you feel lighter, stronger."
+          },
+          {
+            "type": "note",
+            "item": "healing_by_adaptation_vial",
+            "amount": 1,
+            "text": "The vial was drawn from your own tissue — it now cannot be used again."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "harm_self",
+            "item": "bioprocess_sleuthing_probe",
+            "amount": 1,
+            "text": "The vial explodes in your hand — the probe is damaged and cannot be used for diagnostics."
+          }
+        ],
+        "known_by": [
+          "Marrin Rook",
+          "Sera Kael"
+        ]
+      }
+    ],
+    "backgrounds": [
+      {
+        "name": "Freighter Mechanic on Solvay-9",
+        "description": "You are a freighter mechanic on Solvay-9 Orbital Hub, working in the cargo bay maintenance zone. You fix hulls",
+        "attribute_bonus": [
+          "dexterity",
+          "resourcefuln"
+        ],
+        "skills": [
+          {
+            "skill": "gravity_alignment",
+            "rank": 2
+          },
+          {
+            "skill": "tissue_sense",
+            "rank": 2
+          }
+        ],
+        "items": [
+          "modular_repair_gel",
+          "tissue_sense_sensor",
+          "gravity_tuning_seed"
+        ],
+        "money": 450
+      },
+      {
+        "name": "Zorlax Bio-Research Technician",
+        "description": "You are a bio-engineer at the Zorlax Bio-Research Hub. You work with gene maps and tissue sensors to monitor k",
+        "attribute_bonus": [
+          "cognition",
+          "adaptability"
+        ],
+        "skills": [
+          {
+            "skill": "trust_calibration",
+            "rank": 2
+          },
+          {
+            "skill": "bioprocess_sleuthing",
+            "rank": 2
+          }
+        ],
+        "items": [
+          "gene_map_slice",
+          "biocredit_data_bond",
+          "healing_by_adaptation_vial"
+        ],
+        "money": 720
+      },
+      {
+        "name": "Aethel Prime Market Vendor",
+        "description": "You operate a stall at the Green Throat Market on Aethel Prime, selling nutrient bloom and live biospheres. Y",
+        "attribute_bonus": [
+          "resourcefuln",
+          "cognition"
+        ],
+        "skills": [
+          {
+            "skill": "market_tension_analysis",
+            "rank": 2
+          },
+          {
+            "skill": "gravity_alignment",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "nutrient_bloom",
+          "gravity_stabilizer_fiber"
+        ],
+        "money": 680
+      }
+    ]
+  },
+  "_timings": {
+    "core": {
+      "ms": 263574,
+      "tokens": 1800
+    },
+    "skills": {
+      "ms": 158292,
+      "tokens": 1212
+    },
+    "roles": {
+      "ms": 23199,
+      "tokens": 167
+    },
+    "places": {
+      "ms": 163136,
+      "tokens": 1235
+    },
+    "items": {
+      "ms": 263767,
+      "tokens": 1887
+    },
+    "people": {
+      "ms": 330502,
+      "tokens": 2202
+    },
+    "story": {
+      "ms": 424384,
+      "tokens": 2573
+    }
+  }
+}

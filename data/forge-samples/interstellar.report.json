@@ -1,0 +1,57 @@
+{
+  "model": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "generation_seconds": 1627,
+  "timings": {
+    "core": {
+      "ms": 263574,
+      "tokens": 1800
+    },
+    "skills": {
+      "ms": 158292,
+      "tokens": 1212
+    },
+    "roles": {
+      "ms": 23199,
+      "tokens": 167
+    },
+    "places": {
+      "ms": 163136,
+      "tokens": 1235
+    },
+    "items": {
+      "ms": 263767,
+      "tokens": 1887
+    },
+    "people": {
+      "ms": 330502,
+      "tokens": 2202
+    },
+    "story": {
+      "ms": 424384,
+      "tokens": 2573
+    }
+  },
+  "report": {
+    "repairs": [
+      "prices rescaled by 1/22.5 so everyday food costs about 2 biocredits",
+      "dropped connection from Aethel Prime to unknown place \"Zorlal Sectors\"",
+      "gravity stabilizer fiber had no source; Kaelen Vex now receives a steady supply",
+      "fusion tissue had no source; Kaelen Vex now receives a steady supply",
+      "bio-shield cloth had no seller; Kaelen Vex now sells it",
+      "gene map slice had no source; Orin Tae now receives a steady supply",
+      "healing by adaptation vial had no source; Marrin Rook now receives a steady supply",
+      "market tension analyzer had no source; Kaelen Vex now receives a steady supply",
+      "market tension analyzer had no seller; Kaelen Vex now sells it",
+      "symbiotic field manager had no seller; Kaelen Vex now sells it",
+      "trust calibration cube had no seller; Kaelen Vex now sells it",
+      "bioprocess sleuthing probe had no source; Kaelen Vex now receives a steady supply",
+      "bioprocess sleuthing probe had no seller; Kaelen Vex now sells it",
+      "living fabric had no source; Lysa Neth now receives a steady supply",
+      "gravity tuning seed had no source; Kaelen Vex now receives a steady supply",
+      "gravity tuning seed had no seller; Kaelen Vex now sells it",
+      "biocredit data bond had no source; Orin Tae now receives a steady supply"
+    ],
+    "warnings": [],
+    "approximations": []
+  }
+}
