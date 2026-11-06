@@ -138,7 +138,8 @@ export class Game {
     const month = Math.floor(dayOfYear / cal.daysPerMonth);
     const dom = (dayOfYear % cal.daysPerMonth) + 1;
     const hh = Math.floor(minute / 60), mm = minute % 60;
-    const season = ['Winter', 'Spring', 'Spring', 'Spring', 'Summer', 'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter', 'Winter'][month];
+    const seasons = cal.seasons || ['Winter', 'Spring', 'Spring', 'Spring', 'Summer', 'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter', 'Winter'];
+    const season = seasons[Math.floor((month / cal.months.length) * seasons.length)];
     return {
       day, minute, year, month, monthName: cal.months[month], dayOfMonth: dom, hour: hh, min: mm,
       weekday: cal.weekdays[day % cal.weekdays.length], block: timeBlock(minute), season,

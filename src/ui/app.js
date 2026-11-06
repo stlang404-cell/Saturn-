@@ -367,13 +367,24 @@ function describeAction(a) {
   return bits.join(' ');
 }
 
-const SUGGESTIONS = ['look around', 'ask about the bread prices', 'ask for work', 'study medicine for 3 days', 'investigate', 'rest 8 hours'];
+/** Suggestions built from the current world and scene, never from a particular setting. */
+function suggestions() {
+  const st = S.st;
+  const out = ['look around'];
+  const p = st.location.people[0];
+  if (p) out.push(`ask ${p.name.split(' ')[0]} what news there is`);
+  if (st.location.people.some((x) => x.offers.includes('work'))) out.push('ask for work');
+  const sk = st.skills.find((x) => x.rank > 0) || st.skills[0];
+  if (sk) out.push(`study ${sk.label.toLowerCase()} for 3 days`);
+  out.push('investigate', 'rest 8 hours');
+  return out;
+}
 
 function renderStory() {
   return `<div class="story"><div class="log" id="log">${S.entries.map(renderEntry).join('')}</div>
     <div class="composer"><div class="stage" id="stage"></div>
       <form id="composer"><textarea id="input" rows="1" placeholder="What do you do? Describe it in your own words…" aria-label="Your action"></textarea><button class="btn primary" id="send" type="submit">Act</button></form>
-      <div class="hint"><span>Enter to act · Shift+Enter newline · ↑ recall · Esc cancel</span>${SUGGESTIONS.map((s) => `<button data-fill="${esc(s)}">${esc(s)}</button>`).join('')}</div></div></div>`;
+      <div class="hint"><span>Enter to act · Shift+Enter newline · ↑ recall · Esc cancel</span>${suggestions().map((s) => `<button data-fill="${esc(s)}">${esc(s)}</button>`).join('')}</div></div></div>`;
 }
 
 // ---------------------------------------------------------------- tabs

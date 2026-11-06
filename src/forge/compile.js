@@ -172,7 +172,7 @@ export function compileWorld(rawDraft, { description = '' } = {}) {
     fix(`linked unreachable ${out.name} to ${near.name} (${minutes} min)`);
   }
   const routes = [...routeSet.values()];
-  const startLoc = findPlace(places.start || '') || locations.find((l) => l.tags.includes('lodging'))?.id || locations[0].id;
+  let startLoc = findPlace(places.start || '') || locations.find((l) => l.tags.includes('lodging'))?.id || locations[0].id;
   if (!findPlace(places.start || '')) fix(`start place "${places.start}" not found; starting at ${locations.find((l) => l.id === startLoc).name}`);
   for (const l of locations) delete l._conn;
 
@@ -273,6 +273,13 @@ export function compileWorld(rawDraft, { description = '' } = {}) {
       if (!loca.tags.includes('lodging')) loca.tags.push('lodging', 'food');
     }
     npcs.push(npc);
+  }
+  // the opening scene needs someone to talk to: start where the host (or anyone) is
+  if (!npcs.some((n) => n.location === startLoc)) {
+    const host = npcs.find((n) => n.lodging) || npcs.find((n) => locations.find((l) => l.id === n.location)?.settlement === locations.find((l) => l.id === startLoc)?.settlement) || npcs[0];
+    const was = locations.find((l) => l.id === startLoc).name;
+    startLoc = host.location;
+    fix(`nobody was at the starting place (${was}); the player now starts at ${locations.find((l) => l.id === startLoc).name} with ${host.name}`);
   }
   // economy wiring: every traded commodity needs a producer and a seller, every recipe a workshop
   const sellersOf = (t) => npcs.filter((n) => n.shop?.sells.includes(t));
