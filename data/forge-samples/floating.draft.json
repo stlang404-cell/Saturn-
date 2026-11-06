@@ -1368,27 +1368,82 @@
   "story": {
     "facts": [
       {
-        "subject": "The crystals beneath the floating continents pulse",
-        "content": "The crystals don’t just stabilize flight — they hum in response to emotional stress. It’s said that during times of great fear or joy, the pulses increase in frequency, a",
+        "subject": "The crystals pulse strongest at midnight, and the ",
+        "content": "It is whispered that the crystals pulse strongest at midnight, and the floating continents drift slightly during those hours—some say it's a natural rhythm, others claim ",
         "secret_level": 2,
         "true_fact": false,
         "known_by": [
-          "Kael Voss",
-          "Mara Shem",
-          "Dorin the Keen"
+          "Marek Tarn",
+          "Toren of the Tides",
+          "Kael Voss"
         ],
         "keepers": [
-          "Kael Voss"
+          "Kael Voss",
+          "Toren of the Tides"
         ],
         "tags": [
           "rumor",
-          "unverified"
+          "gravity_tide"
         ]
       },
       {
-        "subject": "Sky grain grows only during high-tide gravity surr",
-        "content": "Farmers in Kelpar Drift claim that sky grain only ripens when gravity fluctuates in a specific pattern — one that occurs once every 37 days. If a farmer misses this, the ",
+        "subject": "Sky grain can be used to stabilize weak crystal fl",
+        "content": "Sky grain is said to naturally harmonize with low-resonance crystal arrays, making it a rare but vital stabilizer for unstable flight platforms. Some merchants claim it's",
         "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Mara Shem",
+          "Orin the Unbroken",
+          "Lysa of the Dampens"
+        ],
+        "keepers": [
+          "Mara Shem"
+        ],
+        "tags": [
+          "rumor",
+          "false_science"
+        ]
+      },
+      {
+        "subject": "The Council Chambers have a hidden gravity well",
+        "content": "A rumor spreads that beneath the Council Chambers, engineers have discovered a gravity well—unstable, possibly man-made—that pulls on crystal cores and causes resonance '",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Dorin the Keen",
+          "Kael Voss",
+          "Marek Tarn"
+        ],
+        "keepers": [
+          "Dorin the Keen"
+        ],
+        "tags": [
+          "rumor",
+          "danger"
+        ]
+      },
+      {
+        "subject": "Resonance sieves can be used to harvest extra aeth",
+        "content": "There's a secret among the workshops: if you run a resonance sieve at the precise frequency of a crystal's natural decay, it can extract a small amount of aether core as",
+        "secret_level": 2,
+        "true_fact": false,
+        "known_by": [
+          "Mara Shem",
+          "Veyra of the North",
+          "Nexar the Warden"
+        ],
+        "keepers": [
+          "Mara Shem"
+        ],
+        "tags": [
+          "secret",
+          "technology"
+        ]
+      },
+      {
+        "subject": "Tide berries grow only in the northern drift",
+        "content": "Tide berries are said to only grow along the northern coast of Kelpar Drift, where the liquid nitrogen currents are strongest. Some believe they're a gift from the tides,",
+        "secret_level": 1,
         "true_fact": true,
         "known_by": [
           "Toren of the Tides",
@@ -1398,61 +1453,26 @@
           "Toren of the Tides"
         ],
         "tags": [
-          "public_knowledge",
-          "scientific"
+          "fact",
+          "geography"
         ]
       },
       {
-        "subject": "The Solvex Spire’s central crystal core is being s",
-        "content": "A rumor spreads that the Solvex Spire’s main crystal core is being slowly drained by a hidden resonance sieve — one that was installed without official records. Some say",
+        "subject": "The gravity balm is a byproduct of crystal decay",
+        "content": "Some in the Spire believe gravity balm is not a healing agent at all, but a byproduct of crystal decay—its production is actually a sign of structural fatigue. Used too m",
         "secret_level": 2,
         "true_fact": false,
         "known_by": [
-          "Lysa of the Dampens",
-          "Mara Shem",
-          "Kael Voss"
-        ],
-        "keepers": [
-          "Lysa of the Dampens"
-        ],
-        "tags": [
-          "rumor",
-          "dangerous"
-        ]
-      },
-      {
-        "subject": "The gravity balm from the North is said to be th",
-        "content": "Veyra of the North claims that her mine’s gravity balm contains a trace of a naturally occurring ‘anti-resonance’ compound. When used, it dulls crystal pulses — th",
-        "secret_level": 2,
-        "true_fact": false,
-        "known_by": [
-          "Veyra of the North",
-          "Orin the Unbroken"
-        ],
-        "keepers": [
-          "Veyra of the North"
-        ],
-        "tags": [
-          "rumor",
-          "trade_secret"
-        ]
-      },
-      {
-        "subject": "The tide berries are not native to the sky",
-        "content": "Some scholars believe tide berries grow in the liquid nitrogen ocean, not in the sky. They are actually a product of tectonic foam crystallization — a process that can be",
-        "secret_level": 2,
-        "true_fact": true,
-        "known_by": [
-          "Mara Shem",
+          "Dr. Elira Vey",
           "Kael Voss",
-          "Toren of the Tides"
+          "Dorin the Keen"
         ],
         "keepers": [
-          "Mara Shem"
+          "Dr. Elira Vey"
         ],
         "tags": [
-          "scientific",
-          "public_knowledge"
+          "rumor",
+          "debate"
         ]
       }
     ],
@@ -1462,131 +1482,165 @@
         "kind": "stockpile",
         "partner_or_rival": "Toren of the Tides",
         "items": [
-          "sky_grain",
           "tide_berry"
         ],
-        "motive": "Marek has secretly stockpiled 40% more sky grain and tide berries from Toren’s harvests, claiming they’re for future use"
+        "motive": "Marek has secretly hoarded 18 tide berries from Toren's harvest, claiming they are 'for winter stability'—but he's not a"
       },
       {
         "who": "Orin the Unbroken",
         "kind": "undercut",
-        "partner_or_rival": "Veyra of the North",
-        "items": [
-          "crystal_ore_north"
-        ],
-        "motive": "Orin has started selling crystal ore from the North at 15% below market price, undercutting Veyra’s prices to drive her矿"
-      },
-      {
-        "who": "Nexar the Warden",
-        "kind": "debt",
-        "partner_or_rival": "Kael Voss",
+        "partner_or_rival": "Nexar the Warden",
         "items": [
           "gravity_shield_mesh"
         ],
-        "motive": "Nexar owes Kael 300 gravitas for a recent shield mesh repair — but has not repaid it, and now demands interest at 20%."
+        "motive": "Orin has started selling gravity shield mesh at 30% below market price, undercutting Nexar's claims and threatening to d"
+      },
+      {
+        "who": "Veyra of the North",
+        "kind": "debt",
+        "partner_or_rival": "Dr. Elira Vey",
+        "items": [
+          "crystal_ore_north"
+        ],
+        "motive": "Veyra owes Dr. Elira Vey 120 units of crystal ore north, but she refuses to pay, citing 'crystal fatigue' from the ridge"
       }
     ],
     "requests": [
       {
         "giver": "Kael Voss",
-        "title": "Deliver a resonance sieve to the Northern Ridge",
-        "text": "I need a resonance sieve to test the stability of the new gravity core we’re installing in Crystalline Outpost. Must reach Veyra’s",
-        "item": "resonance_sieve",
+        "title": "Repair a stabilizer in the west wing of the Spire",
+        "text": "I need a repair of a flight stabilizer in the west wing. It's resonating off-frequency and causing minor drift. I can offer 100 gr",
+        "item": "gravity_shield_mesh",
         "qty": 1,
-        "deliver_to": "Veyra of the North",
-        "reward": 150,
+        "deliver_to": "Marek Tarn",
+        "reward": 100,
         "days": 3
       },
       {
-        "giver": "Lysa of the Dampens",
-        "title": "Repair a gravity balm condenser",
-        "text": "One of the dampening chambers in the Spire is failing. I need your help reading the crystal pulse patterns to fix it — it’s been 1",
-        "item": "gravity_balm",
+        "giver": "Mara Shem",
+        "title": "Collect a resonance sieve sample from the southern",
+        "text": "I need a resonance sieve sample from the southern workshop to analyze how the crystals react to sky grain exposure. I can offer 50",
+        "item": "resonance_sieve",
         "qty": 1,
         "deliver_to": "Dr. Elira Vey",
-        "reward": 120,
+        "reward": 50,
         "days": 2
       },
       {
-        "giver": "Marek Tarn",
-        "title": "Collect sky silk from the Exchange Quay",
-        "text": "I need 10 units of sky silk for my next shipment to Tethered Dock. I’ll pay in gravitas — but only if you can deliver it by the 12",
-        "item": "sky_silk",
-        "qty": 10,
-        "deliver_to": "Marek Tarn",
-        "reward": 65,
-        "days": 2
+        "giver": "Toren of the Tides",
+        "title": "Deliver 3 sky grain sacks to the Crystalline Outp",
+        "text": "I need to deliver 3 sky grain sacks to the Crystalline Outpost. They’re needed to stabilize the new dock platform. I can offer 200",
+        "item": "sky_grain",
+        "qty": 3,
+        "deliver_to": "Veyra of the North",
+        "reward": 200,
+        "days": 4
       }
     ],
     "special_rules": [
       {
-        "name": "Gravity Fluctuation Cost",
-        "kind": "technology",
-        "summary": "Every time you use a gravity-modulating device (like a stabilizer or balm), the local gravity field shifts. If you exceed 30% of the predicted tidal e",
+        "name": "Resonance Tuning",
+        "kind": "technique",
+        "summary": "You can tune a crystal stabilizer by matching its frequency to a known resonance. This allows temporary stabilization.",
         "skill": "resonance_calibration",
         "difficulty": "moderate",
         "minutes": 5,
-        "must_be_learned": true,
-        "min_skill": 3,
+        "must_be_learned": false,
+        "min_skill": 1,
         "consumes": [],
-        "fatigue": 1,
+        "fatigue": 2,
         "on_success": [
           {
-            "type": "travel",
-            "item": "tide_berry",
+            "type": "produce",
+            "item": "gravity_shield_mesh",
             "amount": 1,
-            "text": "A small tide berry grows in the air above you, as if in response to the change in gravity."
+            "text": "The stabilizer hums into harmony. A small amount of gravity shield mesh is produced as a byproduct."
           }
         ],
         "on_failure": [
           {
             "type": "fatigue",
-            "item": "gravity_balm",
+            "item": "resonance_sieve",
             "amount": 1,
-            "text": "The balm begins to leak, and the local gravity drops by 0.03 units — causing instability in nearby structures."
+            "text": "The crystal vibrates violently and emits a warning pulse. You lose focus and the resonance sieve is damaged."
           }
         ],
         "known_by": [
           "Kael Voss",
-          "Mara Shem"
+          "Mara Shem",
+          "Dorin the Keen"
         ]
       },
       {
-        "name": "Crystal Pulse Sensitivity",
-        "kind": "technology",
-        "summary": "If you use a crystal-based tool (like a resonance sieve or gravity shield), you must match the current pulse frequency of the nearest crystal array. M",
-        "skill": "resonance_calibration",
-        "difficulty": "moderate",
-        "minutes": 5,
-        "must_be_learned": true,
+        "name": "Crystal Drift Sync",
+        "kind": "technique",
+        "summary": "If you move during a gravitational pulse, you can briefly align with the continent’s drift. This lets you travel faster, but only if you're within 100",
+        "skill": "gravity_healing",
+        "difficulty": "hard",
+        "minutes": 10,
+        "must_be_learned": false,
         "min_skill": 3,
         "consumes": [],
-        "fatigue": 1,
+        "fatigue": 5,
         "on_success": [
           {
-            "type": "heal",
-            "item": "gravity_balm",
+            "type": "travel",
+            "item": "gravity_pendant",
             "amount": 1,
-            "text": "The tool stabilizes, and a faint glow appears in the air around you."
+            "text": "You feel the continent shift beneath you. You are teleported 300 meters toward the next drift zone. You gain a gravity pendant as a reward."
           }
         ],
         "on_failure": [
           {
-            "type": "produce",
-            "item": "sky_gel",
+            "type": "harm_self",
+            "item": "gravity_shield_mesh",
             "amount": 1,
-            "text": "A drop of sky gel leaks from the tool, forming a small, unstable puddle that sags under its own weight."
+            "text": "You are pulled into a gravity wave. You feel disoriented and lose one gravity shield mesh. You are now fatigued."
+          }
+        ],
+        "known_by": [
+          "Kael Voss",
+          "Toren of the Tides",
+          "Marek Tarn"
+        ]
+      },
+      {
+        "name": "Sky Grain Harvest",
+        "kind": "technique",
+        "summary": "You can harvest sky grain from the floating fields if you stand in the resonance zone. Requires a resonance sieve to activate.",
+        "skill": "sky_harmony",
+        "difficulty": "easy",
+        "minutes": 5,
+        "must_be_learned": false,
+        "min_skill": 0,
+        "consumes": [],
+        "fatigue": 1,
+        "on_success": [
+          {
+            "type": "produce",
+            "item": "sky_grain",
+            "amount": 1,
+            "text": "You gently collect one sack of sky grain from the field. It glows faintly under your hand."
+          }
+        ],
+        "on_failure": [
+          {
+            "type": "fatigue",
+            "item": "resonance_sieve",
+            "amount": 1,
+            "text": "The field recoils. Your resonance sieve shudders and loses one unit of functionality."
           }
         ],
         "known_by": [
           "Mara Shem",
-          "Dorin the Keen"
+          "Toren of the Tides",
+          "Veyra of the North"
         ]
       }
     ],
     "backgrounds": [
       {
-        "name": "Apprentice Engineer at Solvex Spire Work",
+        "name": "Apprentice Engineer",
         "description": "You are a poor apprentice engineer who has worked for a year in the workshops beneath Solvex Spire, learning t",
         "attribute_bonus": [
           "resonance",
@@ -1595,64 +1649,79 @@
         "skills": [
           {
             "skill": "resonance_calibration",
-            "rank": 2
+            "rank": 1
           },
           {
-            "skill": "crystal_siphon",
+            "skill": "gravity_healing",
+            "rank": 1
+          },
+          {
+            "skill": "sky_harmony",
             "rank": 1
           }
         ],
         "items": [
-          "gravity_shield_mesh",
-          "resonance_sieve"
-        ],
-        "money": 100
-      },
-      {
-        "name": "Repairman from Factory Bay",
-        "description": "You come from the Nexora Plateau, where gravity is unpredictable and constant mining demands precision. You’ve",
-        "attribute_bonus": [
-          "resonance",
-          "crafting"
-        ],
-        "skills": [
-          {
-            "skill": "crystal_siphon",
-            "rank": 2
-          },
-          {
-            "skill": "gravity_breach",
-            "rank": 1
-          }
-        ],
-        "items": [
-          "crystal_ore_south",
+          "resonance_sieve",
+          "tide_siphon",
           "gravity_balm"
         ],
-        "money": 200
+        "money": 50
       },
       {
-        "name": "Fleet Apprentice from the Tethered Dock",
-        "description": "You were once part of a small transport crew that carried sky grain between floating continents. You know the",
+        "name": "Crystal Miner",
+        "description": "You are a miner who works deep in the northern ridges, extracting crystal ore from the tectonic foam beneath",
         "attribute_bonus": [
-          "navigation",
+          "stability",
           "resonance"
         ],
         "skills": [
           {
-            "skill": "gravity_breach",
+            "skill": "resonance_calibration",
             "rank": 2
           },
           {
-            "skill": "tide_sense",
+            "skill": "gravity_healing",
+            "rank": 1
+          },
+          {
+            "skill": "sky_harmony",
             "rank": 1
           }
         ],
         "items": [
-          "tide_siphon",
+          "crystal_ore_north",
+          "gravity_pendant",
+          "aether_iron"
+        ],
+        "money": 300
+      },
+      {
+        "name": "Sky Farmer",
+        "description": "You live in the Kelpar Drift and grow sky grain and tide berries in the floating tidal fields.",
+        "attribute_bonus": [
+          "stability",
+          "resonance"
+        ],
+        "skills": [
+          {
+            "skill": "sky_harmony",
+            "rank": 2
+          },
+          {
+            "skill": "resonance_calibration",
+            "rank": 1
+          },
+          {
+            "skill": "gravity_healing",
+            "rank": 1
+          }
+        ],
+        "items": [
+          "sky_grain",
+          "tide_berry",
           "sky_lantern"
         ],
-        "money": 150
+        "money": 100
       }
     ]
   },
@@ -1682,8 +1751,8 @@
       "tokens": 2325
     },
     "story": {
-      "ms": 314781,
-      "tokens": 2042
+      "ms": 404806,
+      "tokens": 2411
     }
   }
 }

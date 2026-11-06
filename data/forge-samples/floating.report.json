@@ -47,5 +47,12 @@
     ],
     "warnings": [],
     "approximations": []
-  }
+  },
+  "regenerated": [
+    {
+      "stage": "story",
+      "feedback": null,
+      "seconds": 405
+    }
+  ]
 }
